@@ -1,0 +1,22 @@
+<application>
+  <component name="StatisticsApplicationUsages">
+    <group name="module type">
+      <project id="first" values="PYTHON_MODULE" />
+    </group>
+    <group name="file-type">
+      <project id="first" values="Python,UNKNOWN,PLAIN_TEXT,XML" />
+    </group>
+    <group name="py-interpreter">
+      <project id="first" values="Python 2.7.8" />
+    </group>
+  </component>
+  <component name="UsageTrigger">
+    <counts>
+      <entry feature="CreateFile.CreateFileAction" count="1" />
+      <entry feature="NewDirectoryProjectAction.Pure Python" count="1" />
+      <entry feature="ide.settings.Appearance" count="1" />
+      <entry feature="ide.settings.Colors_&amp;_Fonts" count="1" />
+      <entry feature="ideaapp.started" count="18" />
+    </counts>
+  </component>
+</application>

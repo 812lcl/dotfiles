@@ -1,0 +1,37 @@
+<application>
+  <component name="ProjectManager">
+    <defaultProject>
+      <component name="ProjectInspectionProfilesVisibleTreeState">
+        <entry key="Project Default">
+          <profile-state>
+            <selected-state>
+              <State>
+                <id>Buildout</id>
+              </State>
+            </selected-state>
+          </profile-state>
+        </entry>
+      </component>
+      <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+        <OptionsSetting value="true" id="Add" />
+        <OptionsSetting value="true" id="Remove" />
+        <OptionsSetting value="true" id="Checkout" />
+        <OptionsSetting value="true" id="Update" />
+        <OptionsSetting value="true" id="Status" />
+        <OptionsSetting value="true" id="Edit" />
+        <ConfirmationsSetting value="0" id="Add" />
+        <ConfirmationsSetting value="0" id="Remove" />
+      </component>
+      <component name="PropertiesComponent">
+        <property name="options.lastSelected" value="preferences.lookFeel" />
+        <property name="options.splitter.main.proportions" value="0.3" />
+        <property name="options.splitter.details.proportions" value="0.2" />
+      </component>
+      <component name="PyConsoleOptionsProvider">
+        <option name="myPythonConsoleState">
+          <console-settings />
+        </option>
+      </component>
+    </defaultProject>
+  </component>
+</application>

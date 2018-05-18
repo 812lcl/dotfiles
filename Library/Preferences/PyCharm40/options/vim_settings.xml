@@ -1,0 +1,54 @@
+<application>
+  <component name="VimSettings">
+    <state version="4" enabled="true" />
+    <globalmarks />
+    <filemarks>
+      <file name="$USER_HOME$/PycharmProjects/first/a" timestamp="1427378384969">
+        <mark key="[" line="0" column="0" />
+      </file>
+    </filemarks>
+    <jumps>
+      <jump line="1" column="0" filename="$USER_HOME$/PycharmProjects/first/a.py" />
+      <jump line="0" column="0" filename="$USER_HOME$/PycharmProjects/first/a.py" />
+    </jumps>
+    <registers>
+      <register name="&quot;" type="4">
+        <text />
+      </register>
+      <register name="1" type="4">
+        <text />
+      </register>
+      <register name=":" type="4">
+        <text>wqa</text>
+      </register>
+      <register name="/" type="4">
+        <text encoding="base64">XDxfX2F1dGhvcl9fXD4=</text>
+      </register>
+      <register name="-" type="4">
+        <text />
+      </register>
+    </registers>
+    <search>
+      <last-search encoding="base64">XDxfX2F1dGhvcl9fXD4=</last-search>
+      <last-offset />
+      <last-pattern encoding="base64">XDxfX2F1dGhvcl9fXD4=</last-pattern>
+      <last-dir>1</last-dir>
+      <show-last>true</show-last>
+    </search>
+    <history>
+      <history-search>
+        <entry encoding="base64">XDxfX2F1dGhvcl9fXD4=</entry>
+      </history-search>
+      <history-cmd>
+        <entry encoding="base64">JzwsJz5tICc+KzE=</entry>
+        <entry>wqa</entry>
+      </history-cmd>
+      <history-expr />
+      <history-input />
+    </history>
+    <shortcut-conflicts />
+    <editor>
+      <key-repeat enabled="true" />
+    </editor>
+  </component>
+</application>

@@ -1,0 +1,32 @@
+<application>
+  <component name="StatisticsApplicationUsages">
+    <group name="Git">
+      <project id="untitled" values="config.warn.about.crlf.enabled,config.warn.about.detached.enabled,config.update.type.BRANCH_DEFAULT,config.cherry-pick.autocommit.disabled,config.save.policy.STASH,config.repo.sync.NOT_DECIDED,config.push.autoupdate.disabled,config.ssh.enabled,config.push.update.all.roots.enabled,config.force.push.enabled" collectionTime="1469332141787" />
+    </group>
+    <group name="images.ide.background">
+      <project id="untitled" values="frame=0,editor=0" collectionTime="1469332141783" />
+    </group>
+    <group name="py-interpreter">
+      <project id="untitled" values="Python 2.7.12" collectionTime="1469332141783" />
+      <project id="first" values="Python 2.7.8" collectionTime="0" />
+    </group>
+    <group name="file-type">
+      <project id="first" values="PLAIN_TEXT,XML,UNKNOWN,Python" collectionTime="0" />
+    </group>
+    <group name="module type">
+      <project id="untitled" values="PYTHON_MODULE" collectionTime="1469332141726" />
+      <project id="first" values="PYTHON_MODULE" collectionTime="0" />
+    </group>
+  </component>
+  <component name="UsageTrigger">
+    <counts>
+      <entry feature="AbstractNewProjectStep.Pure Python" count="1" />
+      <entry feature="CreateFile.CreateFileAction" count="1" />
+      <entry feature="NewDirectoryProjectAction.Pure Python" count="1" />
+      <entry feature="ide.settings.Appearance" count="1" />
+      <entry feature="ide.settings.Colors_&amp;_Fonts" count="1" />
+      <entry feature="ideaapp.started" count="20" />
+      <entry feature="welcome.screen.null" count="1" />
+    </counts>
+  </component>
+</application>
