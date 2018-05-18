@@ -1,0 +1,34 @@
+alias grep="grep --color=auto --exclude-dir=.cvs --exclude-dir=.git --exclude-dir=.hg --exclude-dir=.svn"
+alias ls='ls --color=auto'
+alias l='ls -CF'
+alias ll='ls -lF'
+alias la='ls -AF'
+alias lla='ls -alF'
+alias vi='vim'
+alias tmux='tmux -2'
+
+alias dl='cd ~/Downloads'
+alias week='date +%V'
+
+alias -s c=vim
+alias -s cpp=vim
+alias -s java=vim
+alias -s js=vim
+alias -s txt=vim
+alias -s html=google-chrome
+alias -s gz='tar -zxvf'
+alias -s tgz='tar -zxvf'
+alias -s zip='unzip'
+alias -s bz2='tar -jxvf'
+alias -s tar='tar -xvf'
+
+# virtualenv
+alias vte='virtualenv'
+alias mkvte='mkvirtualenv'
+alias deact='deactivate'
+alias rmvte='rmvirtualenv'
+
+alias plist='pip list --format=columns'
+
+alias redis-start="sudo launchctl start io.redis.redis-server"
+alias redis-stop="sudo launchctl stop io.redis.redis-server"

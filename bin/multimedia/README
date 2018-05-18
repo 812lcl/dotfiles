@@ -1,0 +1,1 @@
+These scripts were written by lian, and you need to set the MEDIA_KEYS_PATH and MUSIC_CONTROL_PATH variables in the ~/.bashrc file. MEDIA_KEYS_PATH is the path of ./media_keys and MUSIC_CONTROL_PATH is the path of ./music_control.

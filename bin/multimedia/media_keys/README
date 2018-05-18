@@ -1,0 +1,7 @@
+These scripts were written by Lian.
+
+1) get_window_id.sh: It will get the window id of the bash window playing music, and store it into the file_window_id file.
+2) play_pause.sh: Play and pause.
+3) prev_next_sh: Previous or next song.
+4) stop.sh: Stop playing.
+5) rm_file_window_id.sh: Remove the window id file file_window_id.

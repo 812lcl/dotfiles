@@ -1,0 +1,64 @@
+! $HOME/.Xdefaults
+URxvt.preeditType:Root
+URxvt.inputMethod:fcitx
+
+! 颜色设置
+URxvt.depth:32
+! 透明度
+URxvt.transparent:True
+URxvt.shading:35
+! 背景色
+URxvt.background:#000000
+URxvt.foreground:#FFFFFF
+URxvt.colorBD:#F2F2F2
+URxvt.colorUL:#00FF00
+
+URxvt.color1:#EE0000
+URxvt.color4:#4169E1
+URxvt.color5:#EE00EE
+URxvt.color8:#7f7f7f
+URxvt.color10:#00EE00
+URxvt.color12:#1E90FF
+URxvt.color14:#00EEEE
+URxvt.color15:#F2F2F2
+
+! URxvt.color0:#000000
+! URxvt.color1:#CD0000
+! URxvt.color2:#00CD00
+! URxvt.color3:#CDCD00
+! URxvt.color4:#1E90EF
+! URxvt.color5:#CD00CD
+! URxvt.color6:#00CDCD
+! URxvt.color7:#E5E5E5
+! URxvt.color8:#4C4C4C
+! URxvt.color9:#FF0000
+! URxvt.color10:#00FF00
+! URxvt.color11:#FFFF00
+! URxvt.color12:#4682B4
+! URxvt.color13:#FF00FF
+! URxvt.color14:#00FFFF
+! URxvt.color15:#FFFFFF
+
+! URL操作
+URxvt.urlLauncher:google-chrome
+URxvt.matcher.button:1
+Urxvt.perl-ext-common:matcher
+! 滚动条设置
+URxvt.scrollBar:False
+URxvt.scrollBar_right:True
+URxvt.scrollBar_floating:False
+URxvt.scrollstyle:plain
+! 滚屏设置
+URxvt.mouseWheelScrollPage:True
+URxvt.scrollTtyOutput: False
+URxvt.scrollWithBuffer: True
+URxvt.scrollTtyKeypress: True
+! 光标闪烁
+URxvt.cursorBlink:True
+URxvt.saveLines:3000
+! 边框
+URxvt.borderLess: True
+! 字体设置
+Xft.dpi:96
+URxvt.font:xft:文泉驿等宽微米黑:size=12:style=Regular:antialias=true
+URxvt.boldfont:文泉驿等宽微米黑:size=12:style=Bold Regular:antialias=true

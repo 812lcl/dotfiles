@@ -1,0 +1,28 @@
+These scripts were written by Lian. 
+
+You should configure the path_conf file and format_conf file. The path_conf file specifies your music dirs and the format_conf file specifies the formats of music you have.
+
+How to use these scripts?
+
+1) music_rename.sh: It will rename the names of music in the dir specifies by the path_conf file. This step is needed because mplayer does not allow file's name have space.
+2) music_find.sh: Find musices in the dirs specified by the path_conf file, and store them in the music_list file.
+3) music_list.sh: It will list the musices in the music_list.
+4) music_play.sh: If you don't give the song name, it will play the music in the music_list file, else it will play the song. Default it will play randomly.
+5) music_add_fav.sh: Specify the music name, and it will write it into the favourite list file named favourite.
+6) music_play_fav.sh: It will play your favourite songs in the favourite file orderly, and randomly if you specify the "r" parameter.
+7) music_rm: It will remove the song you give from the filesystem.
+
+NOTICE:
+
+Please don't rename the music_play.sh and music_play_fav.sh if you want to use my scripts in the media_keys dir.
+Better add some configuration into the .bashrc file like this:
+
+export MEDIA_KEYS_PATH="/home/lian/bin/multimedia/media_keys"
+export MUSIC_CONTROL_PATH="/home/lian/bin/multimedia/music_control"
+alias music_rm='$MUSIC_CONTROL_PATH/music_rm.sh'
+alias music_rename='$MUSIC_CONTROL_PATH/music_rename.sh'
+alias music_play='$MUSIC_CONTROL_PATH/music_play.sh'
+alias music_play_fav='$MUSIC_CONTROL_PATH/music_play_fav.sh'
+alias music_add_fav='$MUSIC_CONTROL_PATH/music_add_fav.sh'
+alias music_find='$MUSIC_CONTROL_PATH/music_find.sh'
+alias music_list='$MUSIC_CONTROL_PATH/music_list.sh'
