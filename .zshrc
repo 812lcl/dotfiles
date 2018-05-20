@@ -9,10 +9,16 @@ DISABLE_UPDATE_PROMPT=true
 # ZSH_THEME="robbyrussell"
 ZSH_THEME="powerlevel9k/powerlevel9k"
 
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs ssh history)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir dir_writable vcs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs ssh virtualenv go_version)
 POWERLEVEL9K_MODE='nerdfont-complete'
-# POWERLEVEL9K_VCS_HIDE_TAGS='true'
+POWERLEVEL9K_VCS_HIDE_TAGS='true'
+
+# dir
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
+POWERLEVEL9K_SHORTEN_DELIMITER=""
+POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
+
 # POWERLEVEL9K_COLOR_SCHEME='dark'
 # # Advanced `context` color customization
 # POWERLEVEL9K_CONTEXT_DEFAULT_FOREGROUND='233'
