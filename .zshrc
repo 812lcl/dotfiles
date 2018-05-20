@@ -10,7 +10,7 @@ DISABLE_UPDATE_PROMPT=true
 ZSH_THEME="powerlevel9k/powerlevel9k"
 
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir dir_writable vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs ssh virtualenv go_version)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs ssh virtualenv go_version history)
 POWERLEVEL9K_MODE='nerdfont-complete'
 POWERLEVEL9K_VCS_HIDE_TAGS='true'
 
