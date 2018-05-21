@@ -9,7 +9,7 @@ DISABLE_UPDATE_PROMPT=true
 # ZSH_THEME="robbyrussell"
 ZSH_THEME="powerlevel9k/powerlevel9k"
 
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir dir_writable vcs)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir dir_writable vcs vi_mode)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs ssh virtualenv go_version history)
 POWERLEVEL9K_MODE='nerdfont-complete'
 POWERLEVEL9K_VCS_HIDE_TAGS='true'
@@ -76,7 +76,15 @@ POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git autojump brew docker docker-compose docker-machine osx golang cp colored-man-pages  git-flow hub history-substring-search zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(git vi-mode autojump brew docker docker-compose docker-machine osx golang cp colored-man-pages  git-flow hub history-substring-search zsh-autosuggestions zsh-syntax-highlighting)
+
+bindkey -M viins '\e.' insert-last-word
+bindkey -M viins '\e^?' backward-kill-word
+bindkey -v '^?' backward-delete-char
+bindkey "^w" backward-kill-word
+bindkey "^h" backward-delete-char      # Control-h also deletes the previous char
+bindkey "^u" backward-kill-line
+bindkey "^k" kill-line
 
 source $ZSH/oh-my-zsh.sh
 
