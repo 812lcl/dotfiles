@@ -80,11 +80,13 @@ plugins=(git vi-mode autojump brew docker docker-compose docker-machine osx gola
 
 bindkey -M viins '\e.' insert-last-word
 bindkey -M viins '\e^?' backward-kill-word
+bindkey -M viins '\eb' backward-word
+bindkey -M viins '\ef' forward-word
+bindkey -M viins "^w" backward-kill-word
+bindkey -M viins "^h" backward-delete-char      # Control-h also deletes the previous char
+bindkey -M viins "^u" backward-kill-line
+bindkey -M viins "^k" kill-line
 bindkey -v '^?' backward-delete-char
-bindkey "^w" backward-kill-word
-bindkey "^h" backward-delete-char      # Control-h also deletes the previous char
-bindkey "^u" backward-kill-line
-bindkey "^k" kill-line
 
 source $ZSH/oh-my-zsh.sh
 
