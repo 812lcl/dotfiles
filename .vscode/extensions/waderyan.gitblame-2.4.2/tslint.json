@@ -1,0 +1,19 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:recommended"
+    ],
+    "options": {
+        "typeCheck": true
+    },
+    "jsRules": {},
+    "rules": {
+        "cyclomatic-complexity": [true, 10],
+        "max-line-length": {
+            "options": [80]
+        },
+        "no-require-imports": true,
+        "no-duplicate-imports": true
+    },
+    "rulesDirectory": []
+}

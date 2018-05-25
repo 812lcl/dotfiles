@@ -1,0 +1,73 @@
+{
+	"name": "go-outliner",
+	"displayName": "Go Outliner",
+	"description": "Go code outline explorer",
+	"version": "0.0.10",
+	"publisher": "766b",
+	"engines": {
+		"vscode": "^1.23.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onLanguage:go",
+		"workspaceContains:*.go"
+	],
+	"main": "./out/extension",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/766b/vscode-go-outliner.git"
+	},
+	"contributes": {
+		"configuration": {
+			"type": "object",
+			"title": "Go Outliner Configuration",
+			"properties": {
+				"goOutliner.excludeTestFiles": {
+					"type": "boolean",
+					"default": true,
+					"description": "Do not include *_test.go files into output results"
+				}
+			}
+		},
+		"views": {
+			"explorer": [
+				{
+					"id": "typeView",
+					"name": "Types",
+					"when": "showGoOutlinerTypes"
+				},
+				{
+					"id": "funcView",
+					"name": "Functions",
+					"when": "showGoOutlinerFuncs"
+				},
+				{
+					"id": "varView",
+					"name": "Variables",
+					"when": "showGoOutlinerVars"
+				}
+			]
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"postinstall": "node ./node_modules/vscode/bin/install",
+		"test": "npm run compile && node ./node_modules/vscode/bin/test"
+	},
+	"devDependencies": {
+		"typescript": "^2.6.1",
+		"vscode": "^1.1.6",
+		"tslint": "^5.8.0",
+		"@types/node": "^7.0.43",
+		"@types/mocha": "^2.2.42"
+	},
+	"__metadata": {
+		"id": "2a0c8638-adab-43b1-b168-974c9208f10d",
+		"publisherId": "7ff87e78-85b8-4dbf-9c76-c1608de5018d",
+		"publisherDisplayName": "766b"
+	}
+}
