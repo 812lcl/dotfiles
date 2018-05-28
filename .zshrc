@@ -139,5 +139,5 @@ export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=white'
 export ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 
 export WORKON_HOME=$HOME/.virtualenvs
-export VIRTUALENVWRAPPER_PYTHON=/usr/local/opt/python2/bin/python
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/opt/python@2/bin/python
 source /usr/local/bin/virtualenvwrapper.sh
