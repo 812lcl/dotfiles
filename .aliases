@@ -32,3 +32,5 @@ alias plist='pip list --format=columns'
 
 alias redis-start="sudo launchctl start io.redis.redis-server"
 alias redis-stop="sudo launchctl stop io.redis.redis-server"
+
+alias adiff="arc diff --reviewers \#food_dax_backend\!"
