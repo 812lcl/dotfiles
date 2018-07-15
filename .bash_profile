@@ -10,3 +10,7 @@ export PATH=/usr/local/sbin:$PATH
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 export PROTO_PATH=/usr/local/protoc
 export PATH=$PATH:$PROTO_PATH/bin
+export PROTO_PATH=/usr/local/protoc
+export PATH=$PATH:$PROTO_PATH/bin
+export PROTO_PATH=/usr/local/protoc
+export PATH=$PATH:$PROTO_PATH/bin
