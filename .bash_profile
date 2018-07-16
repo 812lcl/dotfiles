@@ -14,3 +14,5 @@ export PROTO_PATH=/usr/local/protoc
 export PATH=$PATH:$PROTO_PATH/bin
 export PROTO_PATH=/usr/local/protoc
 export PATH=$PATH:$PROTO_PATH/bin
+export PROTO_PATH=/usr/local/protoc
+export PATH=$PATH:$PROTO_PATH/bin
