@@ -5,6 +5,7 @@ alias ll='ls -lF'
 alias la='ls -AF'
 alias lla='ls -alF'
 alias vi='vim'
+alias nv='nvim'
 alias tmux='tmux -2'
 
 alias dl='cd ~/Downloads'
