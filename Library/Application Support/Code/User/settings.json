@@ -3,8 +3,10 @@
     "git.confirmSync": false,
     "workbench.iconTheme": "vscode-icons",
     "vim.disableAnnoyingNeovimMessage": true,
-    "workbench.colorTheme": "Monokai",
-    "window.zoomLevel": 0,
+    "workbench.colorTheme": "Solarized Dark",
+    "window.zoomLevel": 1,
+    // Enable the EasyMotion plugin for Vim.
+    "vim.easymotion": true,
     "gitlens.advanced.messages": {
         "suppressCommitHasNoPreviousCommitWarning": false,
         "suppressCommitNotFoundWarning": false,
