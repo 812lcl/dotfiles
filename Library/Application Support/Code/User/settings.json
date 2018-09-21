@@ -1,9 +1,9 @@
 // 将设置放入此文件中以覆盖默认设置
 {
     "git.confirmSync": false,
-    "workbench.iconTheme": "vscode-icons",
+    "workbench.iconTheme": "material-icon-theme",
     "vim.disableAnnoyingNeovimMessage": true,
-    "workbench.colorTheme": "Solarized Dark",
+    "workbench.colorTheme": "Monokai",
     "window.zoomLevel": 1,
     // Enable the EasyMotion plugin for Vim.
     "vim.easymotion": true,
@@ -16,5 +16,6 @@
         "suppressNoRepositoryWarning": false,
         "suppressResultsExplorerNotice": false,
         "suppressShowKeyBindingsNotice": true
-    }
+    },
+    "editor.fontFamily": "'Source Code Pro for Powerline',Consolas , Menlo, Monaco, 'Courier New', monospace"
 }
