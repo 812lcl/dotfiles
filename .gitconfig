@@ -17,3 +17,8 @@
 	excludesfile = /Users/812lcl/.gitignore_global
 [commit]
 	template = /Users/812lcl/.stCommitMsg
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
