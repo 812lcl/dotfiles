@@ -123,3 +123,4 @@ export ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 export WORKON_HOME=$HOME/.virtualenvs
 export VIRTUALENVWRAPPER_PYTHON=/usr/local/opt/python@2/bin/python
 source /usr/local/bin/virtualenvwrapper.sh
+stty -ixon
