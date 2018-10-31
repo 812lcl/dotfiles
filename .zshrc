@@ -13,7 +13,7 @@ POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir dir_writable vcs vi_mode)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs ssh virtualenv go_version history)
 POWERLEVEL9K_MODE='nerdfont-complete'
 POWERLEVEL9K_VCS_HIDE_TAGS='true'
-POWERLEVEL9K_VCS_GIT_HOOKS=(vcs-detect-changes git-untracked git-aheadbehind git-stash git-remotebranch git-tagname)
+POWERLEVEL9K_VCS_GIT_HOOKS=(vcs-detect-changes git-aheadbehind git-stash git-remotebranch)
 
 # dir
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
@@ -48,7 +48,7 @@ POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
 # Uncomment following line if you want to disable marking untracked files under
 # VCS as dirty. This makes repository status check for large repositories much,
 # much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
+DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Uncomment following line if you want to  shown in the command execution time stamp
 # in the history command output. The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|
@@ -58,7 +58,7 @@ POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git vi-mode autojump brew docker docker-compose docker-machine osx golang cp colored-man-pages  git-flow hub history-substring-search zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(git vi-mode autojump brew docker docker-compose docker-machine osx golang cp colored-man-pages git-flow hub history-substring-search zsh-autosuggestions zsh-syntax-highlighting)
 
 bindkey -M viins '\e.' insert-last-word
 bindkey -M viins '\e^?' backward-kill-word
