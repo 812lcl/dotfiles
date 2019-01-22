@@ -34,3 +34,7 @@ alias redis-start="sudo launchctl start io.redis.redis-server"
 alias redis-stop="sudo launchctl stop io.redis.redis-server"
 
 alias adiff="arc diff --reviewers \#food_dax_backend\!"
+
+if command -v icdiff >/dev/null 2>&1; then
+    alias gd="git icdiff"
+fi
