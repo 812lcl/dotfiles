@@ -18,6 +18,7 @@ antigen use oh-my-zsh
 antigen bundle git
 antigen bundle brew
 antigen bundle osx
+antigen bundle arcanist
 antigen bundle virtualenv
 antigen bundle virtualenvwrapper
 antigen bundle colored-man-pages
