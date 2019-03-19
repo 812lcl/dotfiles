@@ -89,7 +89,7 @@ export LANG=en_US.UTF-8
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=white'
 export ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 
-stty -ixon
+# stty -ixon
 
 source ~/.aliases
 source ~/.exports
