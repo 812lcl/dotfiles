@@ -110,6 +110,8 @@ else
     RPROMPT='${return_status}%{$reset_color%}'
 fi
 
+export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --preview '(highlight -O ansi {} || cat {}) 2> /dev/null | head -500'"
+
 # zsh profiling
 # unsetopt XTRACE
 # exec 2>&3 3>&-
