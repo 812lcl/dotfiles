@@ -5,7 +5,6 @@ antigen use oh-my-zsh
 
 # Bundles from the default repo (robbyrussell's oh-my-zsh).
 antigen bundle git
-antigen bundle autojump
 antigen bundle brew
 antigen bundle osx
 antigen bundle colored-man-pages
@@ -13,12 +12,15 @@ antigen bundle command-not-found
 
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle skywind3000/z.lua
 
 # Load the theme.
-antigen theme robbyrussell
+# antigen theme robbyrussell
 
 # Tell Antigen that you're done.
 antigen apply
+
+export _ZL_ROOT_MARKERS=".git,.svn,.hg,.root,package.json,.gitignore,ci.json,config-ci.json"
 
 # User configuration
 unset GREP_OPTIONS
@@ -46,6 +48,8 @@ bindkey -M viins '\e.' insert-last-word
 bindkey -M viins '\e^?' backward-kill-word
 bindkey -M viins '\eb' backward-word
 bindkey -M viins '\ef' forward-word
+bindkey -M viins "^e" end-of-line
+bindkey -M viins "^a" beginning-of-line
 bindkey -M viins "^w" backward-kill-word
 bindkey -M viins "^h" backward-delete-char      # Control-h also deletes the previous char
 bindkey -M viins "^u" backward-kill-line
@@ -68,3 +72,16 @@ stty -ixon
 
 source ~/.aliases
 source ~/.exports
+source ~/.function.sh
+
+if [ -n "$BASH_VERSION" ]; then
+    export PS1='\u@\h \[\e[32m\]$(_fish_collapsed_pwd)\[\e[0m\]> '
+else
+    # export PROMPT='%f%n@%m %F{2}$(_fish_collapsed_pwd)%f> '
+    local ret_status="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ )"
+    ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}git:(%{$fg[red]%}"
+    ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%} "
+    ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%}) %{$fg[yellow]%}✗"
+    ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
+    export PROMPT='%f%{$fg_bold[cyan]%}$(_fish_collapsed_pwd)%{$reset_color%}%f $(git_prompt_info)${ret_status}'
+fi
