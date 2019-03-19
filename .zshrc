@@ -1,3 +1,14 @@
+# zsh profiling
+# zmodload zsh/datetime
+# setopt PROMPT_SUBST
+# PS4='+$EPOCHREALTIME %N:%i> '
+#
+# logfile=$(mktemp zsh_profile.XXXXXXXX)
+# echo "Logging to $logfile"
+# exec 3>&2 2>$logfile
+#
+# setopt XTRACE
+
 source /usr/local/share/antigen/antigen.zsh
 
 # Load the oh-my-zsh's library.
@@ -7,8 +18,12 @@ antigen use oh-my-zsh
 antigen bundle git
 antigen bundle brew
 antigen bundle osx
+antigen bundle virtualenv
+antigen bundle virtualenvwrapper
 antigen bundle colored-man-pages
-antigen bundle command-not-found
+
+# antigen bundle command-not-found
+# if brew command command-not-found-init > /dev/null 2>&1; then eval "$(brew command-not-found-init)"; fi
 
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
@@ -28,20 +43,29 @@ export GOROOT=/usr/local/opt/go/libexec
 export GOPATH=/Users/812lcl/go
 export PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:$PATH:/usr/local/opt/go/libexec/bin:$GOPATH/bin:$GOPATH/src/gitlab.myteksi.net/gophers/go/scripts:$HOME/Code/arcanist/bin:$HOME/Code/FlameGraph
 source $HOME/Code/arcanist/resources/shell/bash-completion
-if brew list | grep -q coreutils > /dev/null ; then
-    PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
-    MANPATH="$(brew --prefix coreutils)/libexec/gnuman:${MANPATH-/usr/share/man}"
-    eval `gdircolors -b $HOME/.dir_colors`
-fi
-if brew list | grep -q gnu-getopt > /dev/null ; then
-    PATH="$(brew --prefix gnu-getopt)/bin:$PATH"
-    MANPATH="$(brew --prefix gnu-getopt)/share/man:$MANPATH"
-fi
-if brew list | grep -q findutils > /dev/null ; then
-    PATH="$(brew --prefix findutils)/bin:$PATH"
-    MANPATH="$(brew --prefix findutils)/share/man:$MANPATH"
-fi
+
+PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+MANPATH="/usr/local/opt/coreutils/libexec/gnuman:${MANPATH-/usr/share/man}"
+PATH="/usr/local/opt/gnu-getopt/bin:$PATH"
+MANPATH="/usr/local/opt/gnu-getopt/share/man:$MANPATH"
+PATH="/usr/local/opt/findutils/bin:$PATH"
+MANPATH="/usr/local/opt/findutils/share/man:$MANPATH"
+
+# if brew list | grep -q coreutils > /dev/null ; then
+#     PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+#     MANPATH="$(brew --prefix coreutils)/libexec/gnuman:${MANPATH-/usr/share/man}"
+#     eval `gdircolors -b $HOME/.dir_colors`
+# fi
+# if brew list | grep -q gnu-getopt > /dev/null ; then
+#     PATH="$(brew --prefix gnu-getopt)/bin:$PATH"
+#     MANPATH="$(brew --prefix gnu-getopt)/share/man:$MANPATH"
+# fi
+# if brew list | grep -q findutils > /dev/null ; then
+#     PATH="$(brew --prefix findutils)/bin:$PATH"
+#     MANPATH="$(brew --prefix findutils)/share/man:$MANPATH"
+# fi
 export MANPATH="/usr/local/share/man:/usr/local/man:$MANPATH"
+
 
 # bindkey -v
 bindkey -M viins '\e.' insert-last-word
@@ -65,9 +89,6 @@ export LANG=en_US.UTF-8
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=white'
 export ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 
-export WORKON_HOME=$HOME/.virtualenvs
-export VIRTUALENVWRAPPER_PYTHON=/usr/local/opt/python@2/bin/python
-source /usr/local/bin/virtualenvwrapper.sh
 stty -ixon
 
 source ~/.aliases
@@ -84,4 +105,10 @@ else
     ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%}) %{$fg[yellow]%}✗"
     ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
     export PROMPT='%f%{$fg_bold[cyan]%}$(_fish_collapsed_pwd)%{$reset_color%}%f $(git_prompt_info)${ret_status}'
+    local return_status="%{$fg[red]%}%(?..[%?])%{$reset_color%}"
+    RPROMPT='${return_status}%{$reset_color%}'
 fi
+
+# zsh profiling
+# unsetopt XTRACE
+# exec 2>&3 3>&-
