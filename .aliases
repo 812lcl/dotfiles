@@ -15,6 +15,7 @@ alias -s cpp=vim
 alias -s java=vim
 alias -s js=vim
 alias -s txt=vim
+alias -s vim=vim
 alias -s html=google-chrome
 alias -s gz='tar -zxvf'
 alias -s tgz='tar -zxvf'
