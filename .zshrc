@@ -51,20 +51,6 @@ PATH="/usr/local/opt/gnu-getopt/bin:$PATH"
 MANPATH="/usr/local/opt/gnu-getopt/share/man:$MANPATH"
 PATH="/usr/local/opt/findutils/bin:$PATH"
 MANPATH="/usr/local/opt/findutils/share/man:$MANPATH"
-
-# if brew list | grep -q coreutils > /dev/null ; then
-#     PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
-#     MANPATH="$(brew --prefix coreutils)/libexec/gnuman:${MANPATH-/usr/share/man}"
-#     eval `gdircolors -b $HOME/.dir_colors`
-# fi
-# if brew list | grep -q gnu-getopt > /dev/null ; then
-#     PATH="$(brew --prefix gnu-getopt)/bin:$PATH"
-#     MANPATH="$(brew --prefix gnu-getopt)/share/man:$MANPATH"
-# fi
-# if brew list | grep -q findutils > /dev/null ; then
-#     PATH="$(brew --prefix findutils)/bin:$PATH"
-#     MANPATH="$(brew --prefix findutils)/share/man:$MANPATH"
-# fi
 export MANPATH="/usr/local/share/man:/usr/local/man:$MANPATH"
 
 
@@ -90,7 +76,8 @@ export LANG=en_US.UTF-8
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=white'
 export ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 
-# stty -ixon
+# enable c-s in vim
+stty -ixon
 
 source ~/.aliases
 source ~/.exports
