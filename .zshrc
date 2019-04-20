@@ -51,6 +51,8 @@ PATH="/usr/local/opt/gnu-getopt/bin:$PATH"
 MANPATH="/usr/local/opt/gnu-getopt/share/man:$MANPATH"
 PATH="/usr/local/opt/findutils/bin:$PATH"
 MANPATH="/usr/local/opt/findutils/share/man:$MANPATH"
+PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+MANPATH="/usr/local/opt/gnu-sed/libexec/gnuman:${MANPATH-/usr/share/man}"
 export MANPATH="/usr/local/share/man:/usr/local/man:$MANPATH"
 
 
