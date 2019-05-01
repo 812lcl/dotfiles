@@ -86,17 +86,18 @@ source ~/.exports
 source ~/.function.sh
 
 if [ -n "$BASH_VERSION" ]; then
-    export PS1='\u@\h \[\e[32m\]$(_fish_collapsed_pwd)\[\e[0m\]> '
+    export PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\W\[$(tput setaf 1)\]]\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]" 
 else
-    # export PROMPT='%f%n@%m %F{2}$(_fish_collapsed_pwd)%f> '
     local ret_status="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ )"
     ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}git:(%{$fg[red]%}"
     ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%} "
     ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%}) %{$fg[yellow]%}✗"
     ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
-    export PROMPT='%f%{$fg_bold[cyan]%}$(_fish_collapsed_pwd)%{$reset_color%}%f $(git_prompt_info)${ret_status}'
+    #export PROMPT='%f%{$fg_bold[cyan]%}$(_fish_collapsed_pwd)%{$reset_color%}%f $(git_prompt_info)${ret_status}'
+    PROMPT='%{$fg_bold[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%m%{$reset_color%} %{$fg_bold[magenta]%}$(_fish_collapsed_pwd)%{$fg_bold[red]%}]%{$reset_color%} ${ret_status}'
     local return_status="%{$fg[red]%}%(?..[%?])%{$reset_color%}"
     RPROMPT='${return_status}%{$reset_color%}'
+
 fi
 
 export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --preview '(highlight -O ansi {} || cat {}) 2> /dev/null | head -500'"
@@ -106,3 +107,9 @@ export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --preview '(highlight -O 
 # zsh profiling
 # unsetopt XTRACE
 # exec 2>&3 3>&-
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/812lcl/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/812lcl/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/812lcl/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/812lcl/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
