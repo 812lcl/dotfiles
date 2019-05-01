@@ -29,6 +29,7 @@ antigen bundle colored-man-pages
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle skywind3000/z.lua
+# antigen bundle hchbaw/auto-fu.zsh
 
 # Load the theme.
 # antigen theme robbyrussell
