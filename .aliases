@@ -39,3 +39,5 @@ alias adiff="arc diff --reviewers \#food_dax_backend\!"
 if command -v icdiff >/dev/null 2>&1; then
     alias gd="git icdiff"
 fi
+
+alias ag='ag -p ~/Code/dotfiles/.ignore'
