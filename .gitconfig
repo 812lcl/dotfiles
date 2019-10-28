@@ -24,3 +24,7 @@
 	required = true
 [icdiff]
 	options = --highlight --line-numbers
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+[url "git@gitlab.myteksi.net:"]
+	insteadOf = https://gitlab.myteksi.net/
