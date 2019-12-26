@@ -56,7 +56,6 @@ MANPATH="/usr/local/opt/findutils/share/man:$MANPATH"
 PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
 MANPATH="/usr/local/opt/gnu-sed/libexec/gnuman:${MANPATH-/usr/share/man}"
 export MANPATH="/usr/local/share/man:/usr/local/man:$MANPATH"
-export PATH="/usr/local/opt/go@1.12/bin:$PATH"
 
 
 # bindkey -v
