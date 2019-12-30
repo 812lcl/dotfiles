@@ -1,0 +1,488 @@
+antigen
+
+autoconf
+
+automake
+└── autoconf
+
+awscli
+└── python
+    ├── gdbm
+    ├── openssl@1.1
+    ├── readline
+    ├── sqlite
+    │   └── readline
+    └── xz
+
+bash
+
+bat
+
+binutils
+
+cargo-completion
+
+ccls
+└── llvm
+    ├── libffi
+    └── swig
+        └── pcre
+
+cheat
+
+clang-format
+
+cloc
+
+cmake
+
+composer
+
+coreutils
+
+cscope
+
+ctags
+
+diffutils
+
+dos2unix
+
+ed
+
+elasticsearch
+
+etcd
+
+findutils
+
+fontconfig
+└── freetype
+    └── libpng
+
+fpp
+└── python
+    ├── gdbm
+    ├── openssl@1.1
+    ├── readline
+    ├── sqlite
+    │   └── readline
+    └── xz
+
+freetype
+└── libpng
+
+fzf
+
+fzy
+
+gawk
+├── gettext
+├── mpfr
+│   └── gmp
+└── readline
+
+gd
+├── fontconfig
+│   └── freetype
+│       └── libpng
+├── freetype
+│   └── libpng
+├── jpeg
+├── libpng
+├── libtiff
+│   └── jpeg
+└── webp
+    ├── jpeg
+    ├── libpng
+    └── libtiff
+        └── jpeg
+
+gdb
+
+gdbm
+
+gettext
+
+git
+├── gettext
+└── pcre2
+
+glib
+├── gettext
+├── libffi
+├── pcre
+└── python
+    ├── gdbm
+    ├── openssl@1.1
+    ├── readline
+    ├── sqlite
+    │   └── readline
+    └── xz
+
+global
+├── ctags
+└── python
+    ├── gdbm
+    ├── openssl@1.1
+    ├── readline
+    ├── sqlite
+    │   └── readline
+    └── xz
+
+gmp
+
+gnu-getopt
+
+gnu-indent
+└── gettext
+
+gnu-sed
+
+gnu-tar
+
+gnu-which
+
+gnutls
+├── gmp
+├── libidn2
+│   ├── gettext
+│   └── libunistring
+├── libtasn1
+├── libunistring
+├── nettle
+│   └── gmp
+├── p11-kit
+│   └── libffi
+└── unbound
+    ├── libevent
+    │   └── openssl@1.1
+    └── openssl@1.1
+
+go
+
+go@1.12
+
+gotags
+
+grep
+└── pcre
+
+gzip
+
+highlight
+└── lua
+
+htop
+└── ncurses
+
+hugo
+
+icdiff
+
+icu4c
+
+jasper
+└── jpeg
+
+jemalloc
+
+jpeg
+
+jq
+└── oniguruma
+
+kafka
+└── zookeeper
+
+kibana
+
+ldns
+└── openssl@1.1
+
+libevent
+└── openssl@1.1
+
+libffi
+
+libidn2
+├── gettext
+└── libunistring
+
+libmodplug
+
+libogg
+
+libpng
+
+libssh2
+└── openssl@1.1
+
+libtasn1
+
+libtermkey
+└── unibilium
+
+libtiff
+└── jpeg
+
+libtool
+
+libunistring
+
+libuv
+
+libvorbis
+└── libogg
+
+libvterm
+
+libyaml
+
+libzip
+
+llvm
+├── libffi
+└── swig
+    └── pcre
+
+logstash
+
+lua
+
+luajit
+
+lzip
+
+m4
+
+make
+
+mpfr
+└── gmp
+
+msgpack
+
+mycli
+├── openssl@1.1
+└── python
+    ├── gdbm
+    ├── openssl@1.1
+    ├── readline
+    ├── sqlite
+    │   └── readline
+    └── xz
+
+mysql
+├── openssl@1.1
+└── protobuf@3.7
+
+ncdu
+
+ncftp
+
+ncurses
+
+neovim
+├── gettext
+├── libtermkey
+│   └── unibilium
+├── libuv
+├── libvterm
+├── luajit
+├── msgpack
+└── unibilium
+
+nettle
+└── gmp
+
+node
+└── icu4c
+
+oniguruma
+
+openssh
+├── ldns
+│   └── openssl@1.1
+└── openssl@1.1
+
+openssl@1.1
+
+p11-kit
+└── libffi
+
+pandoc
+
+pcre
+
+pcre2
+
+perl
+
+pkg-config
+
+protobuf
+
+protobuf@3.6
+└── python
+    ├── gdbm
+    ├── openssl@1.1
+    ├── readline
+    ├── sqlite
+    │   └── readline
+    └── xz
+
+protobuf@3.7
+
+python
+├── gdbm
+├── openssl@1.1
+├── readline
+├── sqlite
+│   └── readline
+└── xz
+
+qt
+
+ranger
+
+readline
+
+redis
+
+rename
+
+ripgrep
+└── pcre2
+
+rsync
+
+rtmpdump
+└── openssl@1.1
+
+ruby
+├── libyaml
+├── openssl@1.1
+└── readline
+
+rust
+├── libssh2
+│   └── openssl@1.1
+├── openssl@1.1
+└── pkg-config
+
+sdl2
+
+sdl2_mixer
+├── libmodplug
+├── libvorbis
+│   └── libogg
+└── sdl2
+
+sphinx-doc
+└── python
+    ├── gdbm
+    ├── openssl@1.1
+    ├── readline
+    ├── sqlite
+    │   └── readline
+    └── xz
+
+sqlite
+└── readline
+
+swig
+└── pcre
+
+telnet
+
+terraform_landscape
+└── ruby
+    ├── libyaml
+    ├── openssl@1.1
+    └── readline
+
+the_silver_searcher
+├── pcre
+└── xz
+
+tig
+└── readline
+
+tldr
+└── libzip
+
+tmux
+├── libevent
+│   └── openssl@1.1
+└── ncurses
+
+tree
+
+unbound
+├── libevent
+│   └── openssl@1.1
+└── openssl@1.1
+
+unibilium
+
+universal-ctags/universal-ctags/universal-ctags
+
+unrar
+
+unzip
+
+vim
+├── gettext
+├── lua
+├── perl
+├── python
+│   ├── gdbm
+│   ├── openssl@1.1
+│   ├── readline
+│   ├── sqlite
+│   │   └── readline
+│   └── xz
+└── ruby
+    ├── libyaml
+    ├── openssl@1.1
+    └── readline
+
+watch
+└── gettext
+
+webp
+├── jpeg
+├── libpng
+└── libtiff
+    └── jpeg
+
+wget
+├── libidn2
+│   ├── gettext
+│   └── libunistring
+└── openssl@1.1
+
+xz
+
+yarn
+└── node
+    └── icu4c
+
+you-get
+├── python
+│   ├── gdbm
+│   ├── openssl@1.1
+│   ├── readline
+│   ├── sqlite
+│   │   └── readline
+│   └── xz
+└── rtmpdump
+    └── openssl@1.1
+
+zookeeper
+
+zsh
+├── ncurses
+└── pcre
+
