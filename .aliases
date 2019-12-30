@@ -6,6 +6,7 @@ alias la='ls -AF'
 alias lla='ls -alF'
 alias vi='vim'
 alias tmux='tmux -2'
+alias cat='bat'
 
 alias dl='cd ~/Downloads'
 alias week='date +%V'
