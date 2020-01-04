@@ -1,0 +1,12 @@
+"*":
+  "autocomplete-python":
+    useKite: false
+  core:
+    telemetryConsent: "no"
+  editor:
+    invisibles: {}
+  "exception-reporting":
+    userId: "cfea6b6e-7677-8eb0-9037-28e3cb3766e1"
+  "one-dark-ui": {}
+  welcome:
+    showOnStartup: false

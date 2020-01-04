@@ -1,0 +1,30 @@
+{
+ "autoExec" : false,
+ "autoExpand" : false,
+ "autocompletionMode" : 1,
+ "batchSize" : 50,
+ "connections" : [
+
+ ],
+ "disableConnectionShortcuts" : false,
+ "imported" : false,
+ "lineNumbers" : false,
+ "loadMongoRcJs" : false,
+ "minimizeToTray" : false,
+ "mongoTimeoutSec" : 10,
+ "shellTimeoutSec" : 15,
+ "style" : "Native",
+ "textFontFamily" : "",
+ "textFontPointSize" : -1,
+ "timeZone" : 0,
+ "toolbars" : {
+  "connect" : true,
+  "exec" : true,
+  "explorer" : true,
+  "logs" : false,
+  "open_save" : true
+ },
+ "uuidEncoding" : 0,
+ "version" : "2.0",
+ "viewMode" : 1
+}
