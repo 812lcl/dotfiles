@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>build-1003032</key>
+	<dict>
+		<key>decisions</key>
+		<dict>
+			<key>FN2V63AD2J.com.tencent.ScreenCapture2</key>
+			<array>
+				<string>probe 0 probe+require-beam [app:FN2V63AD2J.com.tencent.ScreenCapture2][trigger:single][cursors:arrow]</string>
+				<string>discover 1 fallback [app:FN2V63AD2J.com.tencent.ScreenCapture2][trigger:drag][cursors:arrow][role:AXWindow][subrole:AXSystemDialog][parents:AXWindow, AXApplication]</string>
+			</array>
+			<key>com.apple.AppStore</key>
+			<array>
+				<string>probe 0 probe+require-beam [app:com.apple.AppStore][trigger:single][cursors:arrow]</string>
+				<string>probe 0 probe+blocked-triggers [app:com.apple.AppStore][trigger:single][cursors:arrow, beam]</string>
+				<string>probe 0 probe+require-beam [app:com.apple.AppStore][trigger:multi][cursors:arrow]</string>
+				<string>discover 1 fallback [app:com.apple.AppStore][trigger:multi][cursors:beam][role:AXTextField][subrole:AXSearchField][parents:AXGroup, AXWindow, AXApplication, AXTextField, AXSplitGroup]</string>
+				<string>probe 0 probe+blocked-triggers [app:com.apple.AppStore][trigger:single][cursors:beam]</string>
+				<string>probe 0 probe+require-beam [app:com.apple.AppStore][trigger:drag][cursors:arrow]</string>
+			</array>
+			<key>com.apple.Music</key>
+			<array>
+				<string>probe 0 probe+require-beam [app:com.apple.Music][trigger:single][cursors:arrow]</string>
+				<string>probe 0 probe+require-beam [app:com.apple.Music][trigger:hold][cursors:arrow]</string>
+			</array>
+			<key>com.apple.NetAuthAgent</key>
+			<array>
+				<string>discover 1 fallback [app:com.apple.NetAuthAgent][trigger:hold][cursors:arrow, beam][role:AXStaticText][subrole:][parents:AXApplication, AXWindow, AXStaticText]</string>
+				<string>probe 0 probe+blocked-triggers [app:com.apple.NetAuthAgent][trigger:single][cursors:arrow, beam]</string>
+				<string>probe 0 probe+require-beam [app:com.apple.NetAuthAgent][trigger:single][cursors:arrow]</string>
+				<string>probe 0 probe+require-beam [app:com.apple.NetAuthAgent][trigger:hold][cursors:arrow]</string>
+			</array>
+			<key>com.apple.Notes</key>
+			<array>
+				<string>discover 1 fallback [app:com.apple.Notes][trigger:drag][cursors:beam][role:AXTextArea][subrole:][parents:AXWindow, AXApplication, AXScrollArea, AXGroup, AXTextArea, AXSplitGroup]</string>
+				<string>probe 0 probe+blocked-triggers [app:com.apple.Notes][trigger:single][cursors:beam]</string>
+				<string>probe 0 probe+require-beam [app:com.apple.Notes][trigger:single][cursors:arrow]</string>
+				<string>discover 1 fallback [app:com.apple.Notes][trigger:multi][cursors:beam][role:AXTextArea][subrole:][parents:AXWindow, AXApplication, AXScrollArea, AXGroup, AXTextArea, AXSplitGroup]</string>
+				<string>discover 0 discover+blocked-roles [app:com.apple.Notes][trigger:multi][cursors:arrow, beam][role:AXButton][subrole:][parents:AXToolbar, AXButton, AXWindow, AXApplication]</string>
+				<string>probe 0 probe+blocked-triggers [app:com.apple.Notes][trigger:single][cursors:arrow, beam]</string>
+				<string>probe 0 probe+require-beam [app:com.apple.Notes][trigger:hold][cursors:arrow]</string>
+			</array>
+			<key>com.apple.Photos</key>
+			<array>
+				<string>probe 0 probe+require-beam [app:com.apple.Photos][trigger:single][cursors:arrow]</string>
+				<string>probe 0 probe+require-beam [app:com.apple.Photos][trigger:multi][cursors:arrow]</string>
+				<string>probe 0 probe+require-beam [app:com.apple.Photos][trigger:drag][cursors:arrow]</string>
+			</array>
+			<key>com.apple.Safari</key>
+			<array>
+				<string>probe 0 probe+require-beam [app:com.apple.Safari][trigger:single][cursors:pointing-hand]</string>
+				<string>discover 1 fallback [app:com.apple.Safari][trigger:single][cursors:arrow][role:AXWebArea][subrole:][parents:AXSplitGroup, AXWindow, AXApplication, AXScrollArea, AXGroup, AXTabGroup, AXWebArea]</string>
+				<string>probe 1 probe+browser-click-arrow-exception [app:com.apple.Safari][trigger:single][cursors:arrow]</string>
+			</array>
+			<key>com.apple.SecurityAgent</key>
+			<array>
+				<string>probe 0 probe+blocked-triggers [app:com.apple.SecurityAgent][trigger:single][cursors:arrow, beam]</string>
+			</array>
+			<key>com.apple.SystemProfiler</key>
+			<array>
+				<string>probe 0 probe+require-beam [app:com.apple.SystemProfiler][trigger:single][cursors:arrow]</string>
+				<string>probe 0 probe+require-beam [app:com.apple.SystemProfiler][trigger:multi][cursors:arrow]</string>
+			</array>
+			<key>com.apple.coreservices.uiagent</key>
+			<array>
+				<string>probe 0 probe+require-beam [app:com.apple.coreservices.uiagent][trigger:single][cursors:arrow]</string>
+			</array>
+			<key>com.apple.dock</key>
+			<array>
+				<string>app 0 app+blocked-apps [app:com.apple.dock]</string>
+			</array>
+			<key>com.apple.finder</key>
+			<array>
+				<string>probe 0 probe+require-beam [app:com.apple.finder][trigger:single][cursors:arrow]</string>
+				<string>discover 0 discover+blocked-roles [app:com.apple.finder][trigger:hold][cursors:beam][role:AXButton][subrole:][parents:AXApplication, AXButton, AXSplitGroup, AXWindow]</string>
+				<string>probe 0 probe+require-beam [app:com.apple.finder][trigger:drag][cursors:arrow]</string>
+				<string>probe 0 probe+require-beam [app:com.apple.finder][trigger:hold][cursors:arrow]</string>
+				<string>probe 0 probe+require-beam [app:com.apple.finder][trigger:multi][cursors:arrow]</string>
+			</array>
+			<key>com.apple.iCal</key>
+			<array>
+				<string>probe 0 probe+require-beam [app:com.apple.iCal][trigger:single][cursors:arrow]</string>
+				<string>probe 0 probe+require-beam [app:com.apple.iCal][trigger:drag][cursors:arrow, resize]</string>
+			</array>
+			<key>com.apple.loginwindow</key>
+			<array>
+				<string>probe 0 probe+require-beam [app:com.apple.loginwindow][trigger:single][cursors:arrow]</string>
+			</array>
+			<key>com.apple.mail</key>
+			<array>
+				<string>probe 0 probe+require-beam [app:com.apple.mail][trigger:single][cursors:arrow]</string>
+				<string>discover 1 fallback [app:com.apple.mail][trigger:drag][cursors:arrow, beam][role:AXGroup][subrole:AXPreformattedStyleGroup][parents:AXSplitGroup, AXWebArea, AXScrollArea, AXGroup, AXWindow, AXApplication]</string>
+			</array>
+			<key>com.apple.podcasts</key>
+			<array>
+				<string>probe 0 probe+require-beam [app:com.apple.podcasts][trigger:single][cursors:arrow]</string>
+			</array>
+			<key>com.apple.systempreferences</key>
+			<array>
+				<string>probe 0 probe+require-beam [app:com.apple.systempreferences][trigger:multi][cursors:arrow]</string>
+				<string>probe 0 probe+require-beam [app:com.apple.systempreferences][trigger:single][cursors:arrow]</string>
+				<string>probe 0 probe+require-beam [app:com.apple.systempreferences][trigger:drag][cursors:arrow]</string>
+				<string>probe 0 probe+require-beam [app:com.apple.systempreferences][trigger:hold][cursors:arrow]</string>
+				<string>probe 0 probe+blocked-triggers [app:com.apple.systempreferences][trigger:single][cursors:beam]</string>
+			</array>
+			<key>com.baidu.netdiskmac</key>
+			<array>
+				<string>probe 0 probe+require-beam [app:com.baidu.netdiskmac][trigger:single][cursors:arrow]</string>
+				<string>probe 0 probe+require-beam [app:com.baidu.netdiskmac][trigger:drag][cursors:arrow]</string>
+			</array>
+			<key>com.dwarvesv.minimalbar</key>
+			<array>
+				<string>probe 0 probe+require-beam [app:com.dwarvesv.minimalbar][trigger:single][cursors:arrow]</string>
+			</array>
+			<key>com.google.Chrome</key>
+			<array>
+				<string>probe 0 probe+require-beam [app:com.google.Chrome][trigger:single][cursors:arrow]</string>
+				<string>discover 1 fallback [app:com.google.Chrome][trigger:single][cursors:beam][role:AXTextField][subrole:][parents:AXGroup, AXApplication, AXTextField, AXWindow]</string>
+				<string>probe 1 probe+browser-click-beam-exception [app:com.google.Chrome][trigger:single][cursors:beam]</string>
+				<string>probe 0 probe+require-beam [app:com.google.Chrome][trigger:single][cursors:arrow, pointing-hand]</string>
+				<string>discover 1 fallback [app:com.google.Chrome][trigger:single][cursors:beam][role:AXScrollArea][subrole:][parents:AXGroup, AXApplication, AXScrollArea, AXWindow]</string>
+				<string>probe 0 probe+require-beam [app:com.google.Chrome][trigger:single][cursors:pointing-hand]</string>
+				<string>probe 0 probe+require-beam [app:com.google.Chrome][trigger:multi][cursors:pointing-hand]</string>
+				<string>probe 0 probe+require-beam [app:com.google.Chrome][trigger:hold][cursors:pointing-hand]</string>
+				<string>discover 1 fallback [app:com.google.Chrome][trigger:drag][cursors:arrow, pointing-hand][role:AXScrollArea][subrole:][parents:AXGroup, AXApplication, AXScrollArea, AXWindow]</string>
+				<string>probe 1 probe+browser-drag-pointing-hand-exception [app:com.google.Chrome][trigger:drag][cursors:arrow, pointing-hand]</string>
+				<string>discover 1 fallback [app:com.google.Chrome][trigger:single][cursors:beam, arrow][role:AXTextField][subrole:][parents:AXGroup, AXApplication, AXTextField, AXWindow]</string>
+				<string>probe 1 probe+browser-click-beam-exception [app:com.google.Chrome][trigger:single][cursors:beam, arrow]</string>
+			</array>
+			<key>com.googlecode.iterm2</key>
+			<array>
+				<string>probe 0 probe+blocked-triggers [app:com.googlecode.iterm2][trigger:single][cursors:beam]</string>
+				<string>discover 1 fallback [app:com.googlecode.iterm2][trigger:multi][cursors:beam][role:AXTextArea][subrole:][parents:AXGroup, AXWindow, AXTextArea, AXApplication, AXScrollArea, AXSplitGroup]</string>
+				<string>probe 0 probe+blocked-triggers [app:com.googlecode.iterm2][trigger:single][cursors:arrow, beam]</string>
+				<string>probe 0 probe+require-beam [app:com.googlecode.iterm2][trigger:single][cursors:arrow]</string>
+				<string>probe 0 probe+blocked-triggers [app:com.googlecode.iterm2][trigger:single][cursors:arrow, beam][role:AXScrollArea][subrole:][parents:AXApplication, AXScrollArea, AXWindow]</string>
+				<string>discover 1 fallback [app:com.googlecode.iterm2][trigger:drag][cursors:beam][role:AXTextArea][subrole:][parents:AXGroup, AXWindow, AXTextArea, AXApplication, AXScrollArea, AXSplitGroup]</string>
+				<string>discover 1 fallback [app:com.googlecode.iterm2][trigger:hold][cursors:beam][role:AXTextArea][subrole:][parents:AXGroup, AXWindow, AXTextArea, AXApplication, AXScrollArea, AXSplitGroup]</string>
+				<string>probe 0 probe+require-beam [app:com.googlecode.iterm2][trigger:single][cursors::BxBjCgKBQFBUKhUFgUBQxg0:]</string>
+				<string>probe 0 probe+require-beam [app:com.googlecode.iterm2][trigger:drag][cursors::BxBjCgKBQFBUKhUFgUBQxg0:]</string>
+				<string>probe 0 probe+require-beam [app:com.googlecode.iterm2][trigger:single][cursors:arrow, :BxBjCgKBQFBUKhUFgUBQxg0:]</string>
+				<string>probe 0 probe+require-beam [app:com.googlecode.iterm2][trigger:multi][cursors:arrow]</string>
+			</array>
+			<key>com.imobie.PhoneClean</key>
+			<array>
+				<string>probe 0 probe+require-beam [app:com.imobie.PhoneClean][trigger:single][cursors:arrow]</string>
+				<string>probe 0 probe+require-beam [app:com.imobie.PhoneClean][trigger:multi][cursors:arrow]</string>
+				<string>probe 0 probe+require-beam [app:com.imobie.PhoneClean][trigger:drag][cursors:arrow]</string>
+			</array>
+			<key>com.jonny.perculia</key>
+			<array>
+				<string>probe 0 probe+require-beam [app:com.jonny.perculia][trigger:single][cursors:arrow]</string>
+			</array>
+			<key>com.lightpillar.Window-Tidy</key>
+			<array>
+				<string>probe 0 probe+require-beam [app:com.lightpillar.Window-Tidy][trigger:single][cursors:arrow]</string>
+			</array>
+			<key>com.microsoft.Excel</key>
+			<array>
+				<string>probe 0 probe+require-beam [app:com.microsoft.Excel][trigger:hold][cursors:arrow]</string>
+				<string>probe 0 probe+require-beam [app:com.microsoft.Excel][trigger:multi][cursors:arrow]</string>
+				<string>probe 0 probe+require-beam [app:com.microsoft.Excel][trigger:single][cursors:arrow]</string>
+				<string>probe 0 probe+require-beam [app:com.microsoft.Excel][trigger:single][cursors::EBDgByAEoAWgBaAFv/2Bgf2//b+Bgb/9oAWgBaAFIATgBw0:]</string>
+				<string>discover 1 fallback [app:com.microsoft.Excel][trigger:multi][cursors:beam, :EBDgByAEoAWgBaAFv/2Bgf2//b+Bgb/9oAWgBaAFIATgBw0:][role:AXUnknown][subrole:][parents:AXUnknown]</string>
+				<string>probe 0 probe+require-beam [app:com.microsoft.Excel][trigger:single][cursors::EhIAA8ByADQCzRY0W8FtwrYt+Lft/3T/pa8WvBrgvwB/APwFKBRALgBCAA0:]</string>
+				<string>probe 0 probe+blocked-triggers [app:com.microsoft.Excel][trigger:single][cursors:beam]</string>
+				<string>discover 1 fallback [app:com.microsoft.Excel][trigger:multi][cursors:beam][role:AXUnknown][subrole:][parents:AXUnknown]</string>
+				<string>probe 0 probe+require-beam [app:com.microsoft.Excel][trigger:drag][cursors::EBDgByAEoAWgBaAFv/2Bgf2//b+Bgb/9oAWgBaAFIATgBw0:]</string>
+			</array>
+			<key>com.omnigroup.OmniFocus3</key>
+			<array>
+				<string>probe 0 probe+require-beam [app:com.omnigroup.OmniFocus3][trigger:single][cursors:arrow]</string>
+				<string>probe 0 probe+blocked-triggers [app:com.omnigroup.OmniFocus3][trigger:single][cursors:beam]</string>
+				<string>discover 1 fallback [app:com.omnigroup.OmniFocus3][trigger:multi][cursors:arrow, beam][role:AXTextField][subrole:][parents:AXCell, AXWindow, AXRow, AXOutline, AXApplication, AXScrollArea, AXTextField, AXSplitGroup]</string>
+				<string>probe 0 probe+blocked-triggers [app:com.omnigroup.OmniFocus3][trigger:single][cursors:arrow, beam]</string>
+				<string>probe 0 probe+require-beam [app:com.omnigroup.OmniFocus3][trigger:multi][cursors:arrow]</string>
+				<string>probe 0 probe+require-beam [app:com.omnigroup.OmniFocus3][trigger:drag][cursors:arrow]</string>
+				<string>probe 0 probe+require-beam [app:com.omnigroup.OmniFocus3][trigger:hold][cursors:arrow]</string>
+			</array>
+			<key>com.runningwithcrayons.Alfred-2</key>
+			<array>
+				<string>discover 1 fallback [app:com.runningwithcrayons.Alfred-2][trigger:drag][cursors:arrow][role:AXTextField][subrole:][parents:AXApplication, AXWindow, AXTextField]</string>
+			</array>
+			<key>com.tencent.Lemon</key>
+			<array>
+				<string>probe 0 probe+require-beam [app:com.tencent.Lemon][trigger:single][cursors:arrow]</string>
+				<string>probe 0 probe+require-beam [app:com.tencent.Lemon][trigger:hold][cursors:arrow]</string>
+				<string>probe 0 probe+require-beam [app:com.tencent.Lemon][trigger:multi][cursors:arrow]</string>
+			</array>
+			<key>com.tencent.xinWeChat</key>
+			<array>
+				<string>probe 0 probe+require-beam [app:com.tencent.xinWeChat][trigger:single][cursors:arrow]</string>
+				<string>probe 0 probe+blocked-triggers [app:com.tencent.xinWeChat][trigger:single][cursors:beam]</string>
+				<string>discover 1 fallback [app:com.tencent.xinWeChat][trigger:multi][cursors:beam][role:AXUnknown][subrole:][parents:AXCell, AXTable, AXWindow, AXRow, AXApplication, AXScrollArea, AXUnknown, AXSplitGroup]</string>
+				<string>discover 1 fallback [app:com.tencent.xinWeChat][trigger:drag][cursors:beam, arrow][role:AXUnknown][subrole:][parents:AXCell, AXTable, AXWindow, AXRow, AXApplication, AXScrollArea, AXUnknown, AXSplitGroup]</string>
+				<string>probe 0 probe+require-beam [app:com.tencent.xinWeChat][trigger:hold][cursors:arrow]</string>
+				<string>probe 0 probe+require-beam [app:com.tencent.xinWeChat][trigger:drag][cursors:arrow]</string>
+				<string>probe 0 probe+require-beam [app:com.tencent.xinWeChat][trigger:single][cursors:arrow, pointing-hand]</string>
+				<string>discover 1 fallback [app:com.tencent.xinWeChat][trigger:drag][cursors:beam][role:AXStaticText][subrole:][parents:AXWindow, AXApplication, AXGroup, AXScrollArea, AXStaticText, AXWebArea]</string>
+			</array>
+			<key>com.yinxiang.Mac</key>
+			<array>
+				<string>probe 0 probe+require-beam [app:com.yinxiang.Mac][trigger:single][cursors:arrow]</string>
+				<string>probe 0 probe+require-beam [app:com.yinxiang.Mac][trigger:drag][cursors:arrow]</string>
+				<string>probe 0 probe+blocked-triggers [app:com.yinxiang.Mac][trigger:single][cursors:beam]</string>
+			</array>
+			<key>com.youdao.YoudaoDict</key>
+			<array>
+				<string>probe 0 probe+require-beam [app:com.youdao.YoudaoDict][trigger:single][cursors:arrow]</string>
+				<string>probe 0 probe+blocked-triggers [app:com.youdao.YoudaoDict][trigger:single][cursors:beam]</string>
+				<string>probe 0 probe+blocked-triggers [app:com.youdao.YoudaoDict][trigger:single][cursors:beam, pointing-hand]</string>
+				<string>discover 1 fallback [app:com.youdao.YoudaoDict][trigger:drag][cursors:beam][role:AXTextField][subrole:AXSearchField][parents:AXApplication, AXWindow, AXTextField]</string>
+				<string>probe 0 probe+require-beam [app:com.youdao.YoudaoDict][trigger:single][cursors:pointing-hand]</string>
+				<string>discover 1 fallback [app:com.youdao.YoudaoDict][trigger:multi][cursors:beam][role:AXTextField][subrole:AXSearchField][parents:AXApplication, AXWindow, AXTextField]</string>
+				<string>probe 0 probe+require-beam [app:com.youdao.YoudaoDict][trigger:single][cursors:arrow, pointing-hand]</string>
+				<string>probe 0 probe+require-beam [app:com.youdao.YoudaoDict][trigger:hold][cursors:arrow]</string>
+				<string>probe 0 probe+require-beam [app:com.youdao.YoudaoDict][trigger:hold][cursors:pointing-hand]</string>
+				<string>discover 1 fallback [app:com.youdao.YoudaoDict][trigger:multi][cursors:arrow, beam][role:AXTextField][subrole:AXSearchField][parents:AXApplication, AXWindow, AXTextField]</string>
+				<string>probe 0 probe+blocked-triggers [app:com.youdao.YoudaoDict][trigger:single][cursors:arrow, beam][role:AXTextField][subrole:AXSearchField][parents:AXApplication, AXWindow, AXTextField]</string>
+				<string>discover 1 fallback [app:com.youdao.YoudaoDict][trigger:hold][cursors:arrow, beam][role:AXTextField][subrole:AXSearchField][parents:AXApplication, AXWindow, AXTextField]</string>
+			</array>
+			<key>net.freemacsoft.AppCleaner</key>
+			<array>
+				<string>probe 0 probe+require-beam [app:net.freemacsoft.AppCleaner][trigger:single][cursors:arrow]</string>
+				<string>probe 0 probe+require-beam [app:net.freemacsoft.AppCleaner][trigger:hold][cursors:arrow]</string>
+				<string>probe 0 probe+require-beam [app:net.freemacsoft.AppCleaner][trigger:drag][cursors:arrow]</string>
+			</array>
+			<key>notion.id</key>
+			<array>
+				<string>probe 0 probe+blocked-triggers [app:notion.id][trigger:single][cursors:beam, pointing-hand]</string>
+				<string>probe 0 probe+require-beam [app:notion.id][trigger:single][cursors:pointing-hand]</string>
+				<string>probe 0 probe+require-beam [app:notion.id][trigger:single][cursors:arrow]</string>
+				<string>probe 0 probe+blocked-triggers [app:notion.id][trigger:single][cursors:beam]</string>
+				<string>probe 0 probe+require-beam [app:notion.id][trigger:multi][cursors:arrow]</string>
+				<string>discover 1 fallback [app:notion.id][trigger:drag][cursors:arrow, beam][role:AXScrollArea][subrole:][parents:AXApplication, AXScrollArea, AXWindow]</string>
+				<string>discover 1 fallback [app:notion.id][trigger:drag][cursors:beam][role:AXScrollArea][subrole:][parents:AXApplication, AXScrollArea, AXWindow]</string>
+				<string>probe 0 probe+require-beam [app:notion.id][trigger:hold][cursors:arrow, pointing-hand]</string>
+				<string>probe 0 probe+require-beam [app:notion.id][trigger:single][cursors:arrow, pointing-hand]</string>
+				<string>probe 0 probe+require-beam [app:notion.id][trigger:drag][cursors:arrow, pointing-hand]</string>
+				<string>probe 0 probe+blocked-triggers [app:notion.id][trigger:single][cursors:arrow, beam]</string>
+				<string>probe 0 probe+require-beam [app:notion.id][trigger:single][cursors:arrow, other]</string>
+			</array>
+			<key>org.pqrs.Karabiner-Elements.Preferences</key>
+			<array>
+				<string>probe 0 probe+require-beam [app:org.pqrs.Karabiner-Elements.Preferences][trigger:single][cursors:arrow]</string>
+			</array>
+			<key>org.pqrs.Karabiner-Elements.Updater</key>
+			<array>
+				<string>probe 0 probe+require-beam [app:org.pqrs.Karabiner-Elements.Updater][trigger:single][cursors:arrow]</string>
+			</array>
+		</dict>
+	</dict>
+	<key>unclassified-cursors</key>
+	<dict>
+		<key>:ABA0:</key>
+		<string>com.google.Chrome</string>
+		<key>:BxBjCgKBQFBUKhUFgUBQxg0:</key>
+		<string>com.googlecode.iterm2</string>
+		<key>:EBDgByAEoAWgBaAFv/2Bgf2//b+Bgb/9oAWgBaAFIATgBw0:</key>
+		<string>com.microsoft.Excel</string>
+		<key>:EhIAA8ByADQCzRY0W8FtwrYt+Lft/3T/pa8WvBrgvwB/APwFKBRALgBCAA0:</key>
+		<string>com.microsoft.Excel</string>
+		<key>:EhLwA3A4YJ6B/gU7N/S80MBCAws9L+zcoH+DeRgcxsA/BoAxAIwAYAMABw0:</key>
+		<string>com.google.Chrome</string>
+		<key>:EhLwA3A4YJ6B/gX7N/S/0MBCAwv9L+zfoH+DeRgcxsA/BoAxAIwAYAMABw0:</key>
+		<string>com.google.Chrome</string>
+		<key>:FigAABgAAA8A4AMAfACADwDwAQA+AMAHAPgAAB8A4AMAfACADwDwAQA+AMAPAPgBAD8A4AcA/AAAPwCAHwDADwDgBwDwAwD4AAB8AAA+AAAfAIAPAMAHAOADAPABAPgAAHwAAD4AAB8AgA8AwAMAYA0:</key>
+		<string>com.google.Chrome</string>
+		<key>:FioCAMADAPABAPwAAH4AAD8AgB8AwA8A4AcA8AMA+AEA/AAAfgAAPwCAHwDADwDgBwDwAwD4AQB8AAA+AIAPAPABAH4AwA8A+AEAPwDgBwD8AIAfAPADAH4AwA8A+AEAPwDgBwD8AIAfAPADAHwAAA8AgAAAAA0:</key>
+		<string>com.google.Chrome</string>
+	</dict>
+</dict>
+</plist>
