@@ -42,3 +42,5 @@ if command -v icdiff >/dev/null 2>&1; then
 fi
 
 alias ag='ag -p ~/Code/dotfiles/.ignore'
+
+alias sci='source /Users/812lcl/go/src/gitlab.myteksi.net/gophers/go/scripts/set-env.sh ci'
