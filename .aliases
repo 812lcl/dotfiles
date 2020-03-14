@@ -44,3 +44,5 @@ fi
 alias ag='ag -p ~/Code/dotfiles/.ignore'
 
 alias sci='source /Users/812lcl/go/src/gitlab.myteksi.net/gophers/go/scripts/set-env.sh ci'
+
+alias t='asynctask -f'
