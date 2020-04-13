@@ -299,6 +299,8 @@ unbind C-h
 #set -g status-position top
 
 set-option -g allow-rename off
+set -g base-index 0           # start windows numbering at 0
+setw -g pane-base-index 0     # make pane numbering consistent with windows
 
 ##### tpm
 # List of plugins
@@ -306,14 +308,18 @@ set-option -g allow-rename off
 set -g @tpm_plugins '               \
   tmux-plugins/tpm                  \
   tmux-plugins/tmux-sensible        \
+  tmux-plugins/tmux-urlview         \
   tmux-plugins/tmux-resurrect       \
   tmux-plugins/tmux-continuum       \
+  tmux-plugins/tmux-sidebar         \
+  tmux-plugins/tmux-open            \
+  tmux-plugins/tmux-copycat         \
 '
 
 set -g @resurrect-processes 'ssh psql mysql sqlite3'
 set -g @resurrect-strategy-vim 'session'
 set -g @resurrect-capture-pane-contents 'on'
-set -g @resurrect-save-shell-history 'on'
+set -g @resurrect-save-shell-history 'off'
 
 # Initializes TMUX plugin manager.
 # Keep this line at the very bottom of tmux.conf.
