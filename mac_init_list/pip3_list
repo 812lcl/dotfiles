@@ -2,6 +2,7 @@ Package                   Version    Location
 ------------------------- ---------- -----------------------------------
 alabaster                 0.7.12     
 appnope                   0.1.0      
+argopt                    0.6.1      
 atomicwrites              1.2.1      
 attrs                     18.2.0     
 Babel                     2.6.0      
@@ -17,10 +18,11 @@ docopt                    0.6.2
 docutils                  0.14       
 filelock                  3.0.9      
 Flask                     1.1.dev0   /Users/812lcl/Code/code_learn/flask
+git-fame                  1.11.0     
 greenlet                  0.4.13     
 idna                      2.7        
 imagesize                 1.1.0      
-ipython                   7.2.0      
+ipython                   7.14.0     
 ipython-genutils          0.2.0      
 ItsDangerous              1.0.0      
 jedi                      0.13.2     
@@ -36,10 +38,10 @@ Pallets-Sphinx-Themes     1.1.2
 parso                     0.3.1      
 pexpect                   4.6.0      
 pickleshare               0.7.5      
-pip                       19.3.1     
+pip                       20.0.2     
 pluggy                    0.8.0      
 prompt-toolkit            2.0.7      
-protobuf                  3.11.2     
+protobuf                  3.11.4     
 ptyprocess                0.6.0      
 py                        1.7.0      
 Pygments                  2.2.0      
@@ -53,13 +55,14 @@ pytz                      2018.6
 requests                  2.20.0     
 requests-futures          0.9.9      
 s3transfer                0.2.0      
-setuptools                42.0.2     
+setuptools                46.0.0     
 six                       1.11.0     
 snowballstemmer           1.2.1      
 Sphinx                    1.8.1      
 sphinxcontrib-log-cabinet 1.0.0      
 sphinxcontrib-websupport  1.1.0      
 stem                      1.7.1      
+tabulate                  0.8.7      
 toml                      0.10.0     
 torrequest                0.1.0      
 tox                       3.5.2      
@@ -68,4 +71,4 @@ urllib3                   1.24
 virtualenv                16.0.0     
 wcwidth                   0.1.7      
 Werkzeug                  0.14.1     
-wheel                     0.33.6     
+wheel                     0.34.2     

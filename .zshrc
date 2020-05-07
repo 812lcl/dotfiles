@@ -55,6 +55,7 @@ PATH="/usr/local/opt/findutils/bin:$PATH"
 MANPATH="/usr/local/opt/findutils/share/man:$MANPATH"
 PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
 MANPATH="/usr/local/opt/gnu-sed/libexec/gnuman:${MANPATH-/usr/share/man}"
+PATH="/usr/local/opt/python@3.8/libexec/bin:$PATH"
 export MANPATH="/usr/local/share/man:/usr/local/man:$MANPATH"
 
 
