@@ -44,7 +44,7 @@ unset GREP_OPTIONS
 export GOROOT=/usr/local/opt/go/libexec
 export GOPATH=/Users/812lcl/go
 export GOBIN=$GOPATH/bin
-export PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:$PATH:/usr/local/opt/go/libexec/bin:$GOBIN:$GOPATH/src/gitlab.myteksi.net/gophers/go/scripts:$HOME/Code/arcanist/bin:$HOME/Code/FlameGraph
+export PATH=/usr/local/opt/python/bin:/usr/local/opt/python/libexec/bin:/usr/local/bin:/usr/local/sbin:$HOME/bin:$PATH:/usr/local/opt/go/libexec/bin:$GOBIN:$GOPATH/src/gitlab.myteksi.net/gophers/go/scripts:$HOME/Code/arcanist/bin:$HOME/Code/FlameGraph
 source $HOME/Code/arcanist/resources/shell/bash-completion
 
 PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
