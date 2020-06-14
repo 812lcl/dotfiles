@@ -294,6 +294,10 @@ unbind C-a
 
 unbind C-l
 unbind C-h
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
 
 # move status line to top
 #set -g status-position top
