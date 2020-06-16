@@ -294,6 +294,7 @@ unbind C-a
 
 unbind C-l
 unbind C-h
+bind -n C-l send-keys C-l
 bind h select-pane -L
 bind j select-pane -D
 bind k select-pane -U
