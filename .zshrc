@@ -57,7 +57,6 @@ PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
 MANPATH="/usr/local/opt/gnu-sed/libexec/gnuman:${MANPATH-/usr/share/man}"
 export MANPATH="/usr/local/share/man:/usr/local/man:$MANPATH"
 PATH="/usr/local/opt/python/bin:/usr/local/opt/python/libexec/bin:$PATH"
-PATH="/usr/local/opt/python@3.8/bin:/usr/local/opt/python@3.8/libexec/bin:$PATH"
 
 
 # bindkey -v
