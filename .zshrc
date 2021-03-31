@@ -118,3 +118,6 @@ if [ -f '/Users/812lcl/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/User
 if [ -f '/Users/812lcl/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/812lcl/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
 
 go env -w GO111MODULE=off
+export PROTO_PATH=/usr/local/protoc
+export PATH=$PATH:$PROTO_PATH/bin
+source ~/.grabrc
