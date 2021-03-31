@@ -22,3 +22,5 @@
 	insteadOf = https://github.com/
 [url "git@gitlab.myteksi.net:"]
 	insteadOf = https://gitlab.myteksi.net/
+[pull]
+	rebase = false
