@@ -42,9 +42,9 @@ export _ZL_ROOT_MARKERS=".git,.svn,.hg,.root,package.json,.gitignore,ci.json,con
 # User configuration
 unset GREP_OPTIONS
 export GOROOT=/usr/local/opt/go/libexec
-export GOPATH=/Users/812lcl/go
+export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin
-export PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:$PATH:/usr/local/opt/go/libexec/bin:$GOBIN:$GOPATH/src/gitlab.myteksi.net/gophers/go/scripts:$HOME/Code/arcanist/bin:$HOME/Code/FlameGraph
+export PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:$PATH:/usr/local/opt/go/libexec/bin:$GOBIN:$HOME/Code/arcanist/bin:$HOME/Code/FlameGraph
 
 PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 MANPATH="/usr/local/opt/coreutils/libexec/gnuman:${MANPATH-/usr/share/man}"
@@ -111,10 +111,10 @@ export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --preview '(highlight -O 
 # exec 2>&3 3>&-
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/812lcl/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/812lcl/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '$HOME/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '$HOME/Downloads/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/812lcl/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/812lcl/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f '$HOME/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '$HOME/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
 
 go env -w GO111MODULE=off
 export PROTO_PATH=/usr/local/protoc
