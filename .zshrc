@@ -9,7 +9,8 @@
 #
 # setopt XTRACE
 
-source /usr/local/share/antigen/antigen.zsh
+# source /usr/local/share/antigen/antigen.zsh
+source /opt/homebrew/share/antigen/antigen.zsh
 
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
@@ -41,10 +42,10 @@ export _ZL_ROOT_MARKERS=".git,.svn,.hg,.root,package.json,.gitignore,ci.json,con
 
 # User configuration
 unset GREP_OPTIONS
-export GOROOT=/usr/local/opt/go/libexec
+export GOROOT=/opt/homebrew/opt/go/libexec
 export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin
-export PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:$PATH:/usr/local/opt/go/libexec/bin:$GOBIN:$HOME/Code/arcanist/bin:$HOME/Code/FlameGraph
+export PATH=/opt/homebrew/bin:/usr/local/bin:/usr/local/sbin:$HOME/bin:$PATH:/usr/local/opt/go/libexec/bin:$GOBIN
 
 PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 MANPATH="/usr/local/opt/coreutils/libexec/gnuman:${MANPATH-/usr/share/man}"
@@ -120,3 +121,4 @@ go env -w GO111MODULE=off
 export PROTO_PATH=/usr/local/protoc
 export PATH=$PATH:$PROTO_PATH/bin
 source ~/.grabrc
+export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
