@@ -9,6 +9,7 @@
     tool = vimdiff
 [core]
 	excludesfile = /Users/812lcl/.gitignore_global
+	fsmonitor = true
 [commit]
 	template = /Users/812lcl/.stCommitMsg
 [filter "lfs"]
@@ -24,3 +25,5 @@
 	insteadOf = https://gitlab.myteksi.net/
 [pull]
 	rebase = false
+[feature]
+	manyFile = true
