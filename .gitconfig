@@ -1,6 +1,3 @@
-[user]
-	name = Chunlei Liu
-	email = chunlei.liu@grabtaxi.com
 [github]
     user = 812lcl
 [push]
@@ -21,9 +18,10 @@
 	options = --highlight --line-numbers
 [url "git@github.com:"]
 	insteadOf = https://github.com/
-[url "git@gitlab.myteksi.net:"]
-	insteadOf = https://gitlab.myteksi.net/
 [pull]
 	rebase = false
 [feature]
 	manyFile = true
+[user]
+	email = 812liuchunlei@163.com
+	name = 812lcl
