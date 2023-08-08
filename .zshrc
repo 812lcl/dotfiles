@@ -19,7 +19,6 @@ antigen use oh-my-zsh
 antigen bundle git
 antigen bundle brew
 antigen bundle osx
-antigen bundle arcanist
 antigen bundle virtualenv
 antigen bundle virtualenvwrapper
 antigen bundle colored-man-pages
@@ -120,5 +119,4 @@ if [ -f '$HOME/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '$HOME/D
 go env -w GO111MODULE=off
 export PROTO_PATH=/usr/local/protoc
 export PATH=$PATH:$PROTO_PATH/bin
-source ~/.grabrc
-export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
+export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
