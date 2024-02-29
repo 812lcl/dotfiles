@@ -1,2 +1,8 @@
 // 将键绑定放在此文件中以覆盖默认值
-[]
+[
+    {
+        "key": "ctrl+t",
+        "command": "-editor.action.refactor",
+        "when": "editorHasCodeActionsProvider && editorTextFocus && !editorReadonly"
+    }
+]
