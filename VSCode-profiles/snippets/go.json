@@ -12,4 +12,11 @@
 	// 	],
 	// 	"description": "Log output to console"
 	// }
+	"LeetCode PKG": {
+		"prefix": "lc",
+		"body": [
+			"package leetcode",
+		],
+		"description": "LeetCode package"
+	}
 }

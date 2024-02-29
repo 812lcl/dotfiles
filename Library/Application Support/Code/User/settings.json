@@ -153,5 +153,7 @@
     "ui.semanticTokens": true
   },
   "git.confirmSync": false,
-  "editor.semanticTokenColorCustomizations": {}
+  "editor.semanticTokenColorCustomizations": {},
+  "security.workspace.trust.untrustedFiles": "open",
+  "projectManager.sortList": "Recent"
 }
