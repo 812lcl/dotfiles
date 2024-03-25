@@ -155,5 +155,9 @@
   "git.confirmSync": false,
   "editor.semanticTokenColorCustomizations": {},
   "security.workspace.trust.untrustedFiles": "open",
-  "projectManager.sortList": "Recent"
+  "projectManager.sortList": "Recent",
+  "terminal.external.osxExec": "iTerm.app",
+  "vim.commandLineModeKeyBindings": [
+
+  ]
 }
