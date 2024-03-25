@@ -96,6 +96,7 @@ else
     ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%}) %{$fg[yellow]%}✗"
     ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
     #export PROMPT='%f%{$fg_bold[cyan]%}$(_fish_collapsed_pwd)%{$reset_color%}%f $(git_prompt_info)${ret_status}'
+    # PROMPT='%{$fg_bold[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%m%{$reset_color%} %{$fg_bold[magenta]%}$(_fish_collapsed_pwd)%{$fg_bold[red]%}]%{$reset_color%} ${ret_status}'
     PROMPT='%{$fg_bold[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%m%{$reset_color%} %{$fg_bold[magenta]%}$(_fish_collapsed_pwd)%{$fg_bold[red]%}]%{$reset_color%} ${ret_status}'
     local return_status="%{$fg[red]%}%(?..[%?])%{$reset_color%}"
     RPROMPT='${return_status}%{$reset_color%}'
@@ -116,7 +117,8 @@ if [ -f '$HOME/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '$HOME/Downloa
 # The next line enables shell command completion for gcloud.
 if [ -f '$HOME/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '$HOME/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
 
-go env -w GO111MODULE=off
+go env -w GO111MODULE=on
 export PROTO_PATH=/usr/local/protoc
 export PATH=$PATH:$PROTO_PATH/bin
 export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"

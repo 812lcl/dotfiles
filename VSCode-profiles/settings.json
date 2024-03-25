@@ -142,6 +142,10 @@
     {
       "before": ["leader", "9"],
       "commands": ["workbench.action.openEditorAtIndex9"]
+    },
+    {
+        "before": ["g", "m"],
+        "commands": [":marks"]
     }
   ],
   "terminal.integrated.fontWeight": "normal",

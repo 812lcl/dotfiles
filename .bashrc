@@ -123,3 +123,4 @@ source /usr/local/bin//virtualenvwrapper.sh
 bind Space:magic-space
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+test -s ~/bin/bladefunctions && . ~/bin/bladefunctions || true
