@@ -159,5 +159,7 @@
   "terminal.external.osxExec": "iTerm.app",
   "vim.commandLineModeKeyBindings": [
 
-  ]
+  ],
+  "cmake.showOptionsMovedNotification": false,
+  "window.newWindowProfile": "812lcl"
 }
