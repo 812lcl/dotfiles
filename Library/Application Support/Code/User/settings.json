@@ -162,4 +162,5 @@
   ],
   "cmake.showOptionsMovedNotification": false,
   "window.newWindowProfile": "812lcl"
+  "go.toolsManagement.autoUpdate": true
 }
