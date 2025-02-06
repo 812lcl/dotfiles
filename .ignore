@@ -1,3 +1,5 @@
 z_*
 mock*
 *_test.go
+*word_2_idx.json
+*idx_2_word.json

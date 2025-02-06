@@ -159,7 +159,7 @@
   "git.confirmSync": false,
   "translation.baidu.appId": "20231025001858636",
   "github.copilot.enable": {
-    "*": false,
+    "*": true,
     "plaintext": false,
     "markdown": false,
     "scminput": false,
@@ -279,5 +279,11 @@
     "perl": true
   },
   "tabnine.experimentalAutoImports": true,
-  "Codegeex.Privacy": true
+  "Codegeex.Privacy": true,
+  "bitoAI.codeCompletion.enableAutoCompletion": true,
+  "bitoAI.codeCompletion.enableCommentToCode": true,
+  "cmake.pinnedCommands": [
+    "workbench.action.tasks.configureTaskRunner",
+    "workbench.action.tasks.runTask"
+  ]
 }

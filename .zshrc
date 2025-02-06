@@ -26,6 +26,7 @@ antigen bundle colored-man-pages
 # antigen bundle command-not-found
 # if brew command command-not-found-init > /dev/null 2>&1; then eval "$(brew command-not-found-init)"; fi
 
+antigen bundle darvid/zsh-poetry
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle skywind3000/z.lua
@@ -96,7 +97,7 @@ else
     ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%}) %{$fg[yellow]%}✗"
     ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
     #export PROMPT='%f%{$fg_bold[cyan]%}$(_fish_collapsed_pwd)%{$reset_color%}%f $(git_prompt_info)${ret_status}'
-    # PROMPT='%{$fg_bold[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%m%{$reset_color%} %{$fg_bold[magenta]%}$(_fish_collapsed_pwd)%{$fg_bold[red]%}]%{$reset_color%} ${ret_status}'
+    #PROMPT='%{$fg_bold[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%m%{$reset_color%} %{$fg_bold[magenta]%}$(_fish_collapsed_pwd)%{$fg_bold[red]%}]%{$reset_color%} ${ret_status}'
     PROMPT='%{$fg_bold[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%m%{$reset_color%} %{$fg_bold[magenta]%}$(_fish_collapsed_pwd)%{$fg_bold[red]%}]%{$reset_color%}%{$fg_bold[cyan]%}$(virtualenv_prompt_info) $(git_prompt_info)${ret_status}'
     local return_status="%{$fg[red]%}%(?..[%?])%{$reset_color%}"
     RPROMPT='${return_status}%{$reset_color%}'
@@ -119,5 +120,10 @@ if [ -f '$HOME/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '$HOME/D
 go env -w GO111MODULE=on
 export PROTO_PATH=/usr/local/protoc
 export PATH=$PATH:$PROTO_PATH/bin
-export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
-export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+export JAVA_HOME=/opt/homebrew/opt/openjdk
+export PATH="$JAVA_HOME/bin:$HOME/.local/bin:$PATH"
+export WORKON_HOME=~/.virtualenvs
+source /opt/homebrew/opt/virtualenvwrapper/bin/virtualenvwrapper.sh
+
+# Added by Windsurf
+export PATH="/Users/812lcl/.codeium/windsurf/bin:$PATH"
