@@ -19,9 +19,10 @@ antigen use oh-my-zsh
 antigen bundle git
 antigen bundle brew
 antigen bundle osx
-antigen bundle virtualenv
+#antigen bundle virtualenv
 antigen bundle virtualenvwrapper
 antigen bundle colored-man-pages
+antigen bundle darvid/zsh-poetry
 
 # antigen bundle command-not-found
 # if brew command command-not-found-init > /dev/null 2>&1; then eval "$(brew command-not-found-init)"; fi
@@ -97,7 +98,8 @@ else
     ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
     #export PROMPT='%f%{$fg_bold[cyan]%}$(_fish_collapsed_pwd)%{$reset_color%}%f $(git_prompt_info)${ret_status}'
     # PROMPT='%{$fg_bold[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%m%{$reset_color%} %{$fg_bold[magenta]%}$(_fish_collapsed_pwd)%{$fg_bold[red]%}]%{$reset_color%} ${ret_status}'
-    PROMPT='%{$fg_bold[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%m%{$reset_color%} %{$fg_bold[magenta]%}$(_fish_collapsed_pwd)%{$fg_bold[red]%}]%{$reset_color%}%{$fg_bold[cyan]%}$(virtualenv_prompt_info) $(git_prompt_info)${ret_status}'
+   # PROMPT='%{$fg_bold[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%m%{$reset_color%} %{$fg_bold[magenta]%}$(_fish_collapsed_pwd)%{$fg_bold[red]%}]%{$reset_color%}%{$fg_bold[cyan]%}$(virtualenv_prompt_info) $(git_prompt_info)${ret_status}'
+    PROMPT='%{$fg_bold[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%m%{$reset_color%} %{$fg_bold[magenta]%}$(_fish_collapsed_pwd)%{$fg_bold[red]%}]%{$reset_color%} $(git_prompt_info)${ret_status}'
     local return_status="%{$fg[red]%}%(?..[%?])%{$reset_color%}"
     RPROMPT='${return_status}%{$reset_color%}'
 fi
@@ -119,5 +121,26 @@ if [ -f '$HOME/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '$HOME/D
 go env -w GO111MODULE=on
 export PROTO_PATH=/usr/local/protoc
 export PATH=$PATH:$PROTO_PATH/bin
-export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+export JAVA_HOME=/opt/homebrew/opt/openjdk
+export PATH=$HOME/.local/bin:$JAVA_HOME/bin:$PATH
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# pnpm
+export PNPM_HOME="/Users/liuchunlei/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+export PATH="/opt/homebrew/opt/mysql@8.4/bin:$PATH"
+export GRADLE="/opt/homebrew/opt/gradle"
+
+export WORKON_HOME=$HOME/.virtualenvs
+source /opt/homebrew/opt/virtualenvwrapper/bin/virtualenvwrapper.sh
+
+# Added by Windsurf
+export PATH="/Users/liuchunlei/.codeium/windsurf/bin:$PATH"

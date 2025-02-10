@@ -119,7 +119,7 @@ source ~/.exports
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 export WORKON_HOME=$HOME/.virtualenvs
-source /usr/local/bin//virtualenvwrapper.sh
+source /opt/homebrew/opt/virtualenvwrapper/bin/virtualenvwrapper.sh
 bind Space:magic-space
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
