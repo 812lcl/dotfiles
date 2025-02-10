@@ -27,6 +27,7 @@ antigen bundle darvid/zsh-poetry
 # antigen bundle command-not-found
 # if brew command command-not-found-init > /dev/null 2>&1; then eval "$(brew command-not-found-init)"; fi
 
+antigen bundle darvid/zsh-poetry
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle skywind3000/z.lua
