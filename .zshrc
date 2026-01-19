@@ -163,3 +163,28 @@ test -f "/Users/liuchunlei/.xmake/profile" && source "/Users/liuchunlei/.xmake/p
 # unset __conda_setup
 # # <<< conda initialize <<<
 
+export GEMINI_API_KEY=
+
+export NODE_EXTRA_CA_CERTS=$HOME/.node-certs/ISRG\ Root\ X1.pem
+export NODE_OPTIONS="--dns-result-order=ipv4first"
+
+# Set these in your shell (e.g., ~/.bashrc, ~/.zshrc)
+#export ANTHROPIC_BASE_URL="https://openrouter.ai/api"
+#export ANTHROPIC_AUTH_TOKEN=""
+export ANTHROPIC_BASE_URL="http://127.0.0.1:3456"
+export ANTHROPIC_AUTH_TOKEN=""
+export ANTHROPIC_API_KEY="" # Important: Must be explicitly empty
+
+
+# Claude Code 安全设置
+export CLAUDE_PERMISSIONS_FILE="$HOME/.claude/permissions.json"
+export CLAUDE_SECURITY_LEVEL="balanced"
+export CLAUDE_LOG_LEVEL="info"
+export CLAUDE_CONFIG_DIR="$HOME/.claude"
+
+# Claude Code agents 路径
+export CLAUDE_AGENTS_PATH="$HOME/.claude/agents"
+
+
+# opencode
+export PATH=/Users/liuchunlei/.opencode/bin:$PATH
