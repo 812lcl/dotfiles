@@ -24,7 +24,7 @@
 	manyFile = true
 [user]
 	email = chunlei.liu@kunlun-inc.com
-	name = Chunlei.Liu
+	name = chunlei.liu
 [url "git@git.singularity-ai.com:"]
 	insteadOf = https://git.singularity-ai.com/
 [alias]

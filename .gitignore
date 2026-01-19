@@ -1,2 +1,4 @@
 Library/Application\ Support/Tunnelblick
 bin/bd
+*/.DS_Store
+.DS_Store
