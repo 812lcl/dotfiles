@@ -10,6 +10,36 @@
         "lastUpdated": "2026-01-17T06:06:03.916Z",
         "gitCommitSha": "4540df83fc68a68bef27e83ae79bc4f1b4d2ea7c"
       }
+    ],
+    "superpowers@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/812lcl/.claude/plugins/cache/claude-plugins-official/superpowers/4.0.3",
+        "version": "4.0.3",
+        "installedAt": "2026-01-19T22:47:58.152Z",
+        "lastUpdated": "2026-01-19T22:47:58.152Z",
+        "gitCommitSha": "a01a135fe185559ff9dc84dd70d6e9bb57d92bdf"
+      }
+    ],
+    "gopls-lsp@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/812lcl/.claude/plugins/cache/claude-plugins-official/gopls-lsp/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-01-19T22:49:03.518Z",
+        "lastUpdated": "2026-01-19T22:49:03.518Z",
+        "gitCommitSha": "96276205880a60fd66bbae981f5ab568e70c4cbf"
+      }
+    ],
+    "commit-commands@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/812lcl/.claude/plugins/cache/claude-plugins-official/commit-commands/96276205880a",
+        "version": "96276205880a",
+        "installedAt": "2026-01-19T22:49:25.792Z",
+        "lastUpdated": "2026-01-19T22:49:25.792Z",
+        "gitCommitSha": "96276205880a60fd66bbae981f5ab568e70c4cbf"
+      }
     ]
   }
 }
