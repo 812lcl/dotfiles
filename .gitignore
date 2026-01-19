@@ -4,3 +4,4 @@ bin/bd
 .DS_Store
 .claude/plugins/install-counts-cache.json
 .claude/plugins/known_marketplaces.json
+.claude/plugins/cache
