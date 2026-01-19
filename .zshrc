@@ -172,7 +172,7 @@ export NODE_OPTIONS="--dns-result-order=ipv4first"
 #export ANTHROPIC_BASE_URL="https://openrouter.ai/api"
 #export ANTHROPIC_AUTH_TOKEN=""
 export ANTHROPIC_BASE_URL="http://127.0.0.1:3456"
-export ANTHROPIC_AUTH_TOKEN=""
+export ANTHROPIC_AUTH_TOKEN="test"
 export ANTHROPIC_API_KEY="" # Important: Must be explicitly empty
 
 
