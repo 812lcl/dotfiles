@@ -345,5 +345,19 @@
         "editor.defaultFormatter": "redhat.vscode-yaml"
     },
     "claudeCode.claudeProcessWrapper": "/Users/liuchunlei/.local/bin/claude",
-    "claudeCode.preferredLocation": "panel"
+    "claudeCode.preferredLocation": "panel",
+    "claudeCode.environmentVariables": [
+        {
+            "name": "ANTHROPIC_BASE_URL",
+            "value": "http://127.0.0.1:3456"
+        },
+        {
+             "name": "ANTHROPIC_AUTH_TOKEN",
+             "value": ""
+        },
+        {
+             "name": "ANTHROPIC_API_KEY",
+             "value": ""
+        }
+    ]
 }
