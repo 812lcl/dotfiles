@@ -1,0 +1,349 @@
+{
+    "workbench.colorTheme": "One Dark Pro Darker",
+    "workbench.preferredDarkColorTheme": "Monokai",
+    "editor.lineNumbers": "relative",
+    "editor.cursorSurroundingLines": 2,
+    "editor.wordWrap": "on",
+    "editor.fontSize": 14,
+    "editor.codeLensFontFamily": "Source Code Pro for Powerline",
+    "editor.fontFamily": "Source Code Pro for Powerline, Menlo, Monaco, 'Courier New', monospace",
+    "debug.console.fontFamily": "Source Code Pro for Powerline, Menlo, Monaco, 'Courier New', monospace",
+    "chat.editor.fontFamily": "Source Code Pro for Powerline, Menlo, Monaco, 'Courier New', monospace",
+    "explorer.excludeGitIgnore": true,
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "go.coverOnSingleTest": true,
+    "go.coverOnSingleTestFile": true,
+    "go.formatTool": "goimports",
+    "vim.hlsearch": true,
+    "vim.incsearch": true,
+    "vim.ignorecase": true,
+    "vim.smartcase": true,
+    "vim.useSystemClipboard": false,
+    "vim.useCtrlKeys": true,
+    "vim.easymotion": true,
+    "vim.leader": "\\",
+    "vim.insertModeKeyBindings": [
+        {
+            "before": [
+                "j",
+                "j"
+            ],
+            "after": [
+                "<Esc>"
+            ]
+        }
+    ],
+    "vim.normalModeKeyBindings": [
+        {
+            "before": [
+                "g",
+                "y"
+            ],
+            "commands": [
+                "editor.action.goToTypeDefinition"
+            ]
+        },
+        {
+            "before": [
+                "g",
+                "I"
+            ],
+            "commands": [
+                "editor.action.goToImplementation"
+            ]
+        },
+        {
+            "before": [
+                "g",
+                "r"
+            ],
+            "commands": [
+                "editor.action.goToReferences"
+            ]
+        },
+        {
+            "before": [
+                "[",
+                "e"
+            ],
+            "commands": [
+                "editor.action.marker.prev"
+            ]
+        },
+        {
+            "before": [
+                "]",
+                "e"
+            ],
+            "commands": [
+                "editor.action.marker.next"
+            ]
+        },
+        {
+            "before": [
+                "g",
+                "h"
+            ],
+            "commands": [
+                "workbench.action.editor.nextChange"
+            ]
+        },
+        {
+            "before": [
+                "h",
+                "g"
+            ],
+            "commands": [
+                "workbench.action.editor.previousChange"
+            ]
+        }
+    ],
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": [
+                "<leader>",
+                "c",
+                "f"
+            ],
+            "commands": [
+                "editor.action.formatDocument"
+            ]
+        },
+        {
+            "before": [
+                "K"
+            ],
+            "commands": [
+                "editor.action.showHover"
+            ]
+        },
+        {
+            "before": [
+                "f"
+            ],
+            "after": [
+                "leader",
+                "leader",
+                "s"
+            ]
+        },
+        {
+            "before": [
+                "<c-h>"
+            ],
+            "after": [
+                "<c-w>",
+                "h"
+            ]
+        },
+        {
+            "before": [
+                "<c-j>"
+            ],
+            "after": [
+                "<c-w>",
+                "j"
+            ]
+        },
+        {
+            "before": [
+                "<c-k>"
+            ],
+            "after": [
+                "<c-w>",
+                "k"
+            ]
+        },
+        {
+            "before": [
+                "<c-l>"
+            ],
+            "after": [
+                "<c-w>",
+                "l"
+            ]
+        },
+        {
+            "before": [
+                "s",
+                "g"
+            ],
+            "commands": [
+                "workbench.action.splitEditorDown"
+            ]
+        },
+        {
+            "before": [
+                "s",
+                "v"
+            ],
+            "commands": [
+                "workbench.action.splitEditorRight"
+            ]
+        },
+        {
+            "before": [
+                "]",
+                "b"
+            ],
+            "commands": [
+                "workbench.action.nextEditor"
+            ]
+        },
+        {
+            "before": [
+                "[",
+                "b"
+            ],
+            "commands": [
+                "workbench.action.previousEditor"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "1"
+            ],
+            "commands": [
+                "workbench.action.openEditorAtIndex1"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "2"
+            ],
+            "commands": [
+                "workbench.action.openEditorAtIndex2"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "3"
+            ],
+            "commands": [
+                "workbench.action.openEditorAtIndex3"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "4"
+            ],
+            "commands": [
+                "workbench.action.openEditorAtIndex4"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "5"
+            ],
+            "commands": [
+                "workbench.action.openEditorAtIndex5"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "6"
+            ],
+            "commands": [
+                "workbench.action.openEditorAtIndex6"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "7"
+            ],
+            "commands": [
+                "workbench.action.openEditorAtIndex7"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "8"
+            ],
+            "commands": [
+                "workbench.action.openEditorAtIndex8"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "9"
+            ],
+            "commands": [
+                "workbench.action.openEditorAtIndex9"
+            ]
+        }
+    ],
+    "terminal.integrated.fontWeight": "normal",
+    "git.openRepositoryInParentFolders": "always",
+    "gitlens.views.searchAndCompare.files.layout": "tree",
+    "gitlens.hovers.currentLine.over": "line",
+    "terminal.integrated.defaultProfile.osx": "zsh",
+    "gopls": {
+        "ui.semanticTokens": true
+    },
+    "git.confirmSync": false,
+    "editor.semanticTokenColorCustomizations": {},
+    "security.workspace.trust.untrustedFiles": "open",
+    "projectManager.sortList": "Recent",
+    "terminal.external.osxExec": "iTerm.app",
+    "vim.commandLineModeKeyBindings": [
+        {
+            "before": [
+                ":",
+                "A"
+            ],
+            "commands": [
+                "extension.switcher.doSwitch"
+            ]
+        }
+    ],
+    "cmake.showOptionsMovedNotification": false,
+    "redhat.telemetry.enabled": false,
+    "gradle.nestedProjects": false,
+    "[spring-boot-properties-yaml]": {
+        "editor.quickSuggestions": {
+            "strings": true
+        }
+    },
+    "java.import.gradle.home": "/opt/homebrew/Cellar/gradle/8.11.1",
+    "github.copilot.chat.localeOverride": "zh-CN",
+    "go.toolsManagement.autoUpdate": true,
+    "marscode.chatLanguage": "cn",
+    "cline.preferredLanguage": "Simplified Chinese - 简体中文",
+    "[go]": {
+        "editor.insertSpaces": false,
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+        }
+    },
+    "vs-kubernetes": {
+        "vscode-kubernetes.helm-path-mac": "/Users/liuchunlei/.vs-kubernetes/tools/helm/darwin-arm64/helm"
+    },
+    "python.analysis.autoImportCompletions": true,
+    "go.goroot": "/opt/homebrew/opt/go@1.23/libexec",
+    "go.gopath": "/Users/liuchunlei/go",
+    "diffEditor.maxComputationTime": 0,
+    "cursorpyright.analysis.autoImportCompletions": true,
+    "[dockercompose]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2,
+        "editor.autoIndent": "advanced",
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "[github-actions-workflow]": {
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "claudeCode.claudeProcessWrapper": "/Users/liuchunlei/.local/bin/claude",
+    "claudeCode.preferredLocation": "panel"
+}

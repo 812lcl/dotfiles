@@ -1,0 +1,27 @@
+// Place your key bindings in this file to override the defaults
+[
+    {
+        "key": "cmd+i",
+        "command": "composerMode.agent"
+    },
+    {
+        "command": "runCommands",
+        "key": "cmd+g cmd+g",
+        "args": {
+            "commands": [
+                "workbench.action.files.save",
+                "git.stageAll",
+                "cursor.generateGitCommitMessage",
+                "git.commit"
+            ]
+        }
+    },
+    {
+        "key": "shift+enter",
+        "command": "workbench.action.terminal.sendSequence",
+        "args": {
+            "text": "\\\r\n"
+        },
+        "when": "terminalFocus"
+    }
+]
