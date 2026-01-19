@@ -6,7 +6,7 @@
     tool = vimdiff
 [core]
 	excludesfile = /Users/812lcl/.gitignore_global
-	fsmonitor = true
+	fsmonitor = false
 [commit]
 	template = /Users/812lcl/.stCommitMsg
 [filter "lfs"]

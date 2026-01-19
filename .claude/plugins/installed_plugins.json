@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "plugins": {
+    "obsidian@obsidian-skills": [
+      {
+        "scope": "user",
+        "installPath": "/Users/liuchunlei/.claude/plugins/cache/obsidian-skills/obsidian/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-01-17T06:06:03.916Z",
+        "lastUpdated": "2026-01-17T06:06:03.916Z",
+        "gitCommitSha": "4540df83fc68a68bef27e83ae79bc4f1b4d2ea7c"
+      }
+    ]
+  }
+}
