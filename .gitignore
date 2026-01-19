@@ -2,3 +2,5 @@ Library/Application\ Support/Tunnelblick
 bin/bd
 */.DS_Store
 .DS_Store
+.claude/plugins/install-counts-cache.json
+.claude/plugins/known_marketplaces.json
