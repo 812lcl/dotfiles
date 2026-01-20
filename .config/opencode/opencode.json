@@ -5,7 +5,7 @@
       "npm": "@ai-sdk/openai-compatible",
       "name": "SK",
       "options": {
-        "baseURL": "{env:OPENAI_BASE_URL}",
+        "baseURL": "{env:OPENAI_BASE_URL_SKY}",
         "apiKey": "{env:OPENAI_API_KEY}",
         "headers": {
           "app_key": "custom-token"
@@ -14,6 +14,74 @@
       "models": {
         "claude-4-sonnet": {
           "name": "claude-4-sonnet",
+          "limit": {
+            "context": 200000,
+            "output": 65536
+          }
+        }
+      }
+    },
+    "SK-xmind": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "SK-xmind",
+      "options": {
+        "baseURL": "{env:OPENAI_BASE_URL_XMIND}",
+        "apiKey": "{env:OPENAI_API_KEY}",
+        "headers": {
+          "app_key": "custom-token"
+        }
+      },
+      "models": {
+        "claude-opus-4.5": {
+          "name": "claude-opus-4.5",
+          "limit": {
+            "context": 200000,
+            "output": 65536
+          }
+        }
+      }
+    },
+    "SK-router": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "SK-router",
+      "options": {
+        "baseURL": "{env:OPENAI_BASE_URL_ROUTER}",
+        "apiKey": "{env:OPENAI_API_KEY}",
+        "headers": {
+          "app_key": "custom-token"
+        }
+      },
+      "models": {
+        "claude-sonnet-4.5": {
+          "name": "claude-sonnet-4.5",
+          "limit": {
+            "context": 200000,
+            "output": 65536
+          }
+        },
+        "claude-haiku-4.5": {
+          "name": "claude-haiku-4.5",
+          "limit": {
+            "context": 200000,
+            "output": 65536
+          }
+        },
+        "gemini-3-flash-preview": {
+          "name": "gemini-3-flash-preview",
+          "limit": {
+            "context": 200000,
+            "output": 65536
+          }
+        },
+        "gpt-5-mini": {
+          "name": "gpt-5-mini",
+          "limit": {
+            "context": 200000,
+            "output": 65536
+          }
+        },
+        "gpt-5.2": {
+          "name": "gpt-5.2",
           "limit": {
             "context": 200000,
             "output": 65536
