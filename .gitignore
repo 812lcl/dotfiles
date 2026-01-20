@@ -5,3 +5,5 @@ bin/bd
 .claude/plugins/install-counts-cache.json
 .claude/plugins/known_marketplaces.json
 .claude/plugins/cache
+.env
+.codex/auth.json
