@@ -1,0 +1,6 @@
+model = "gpt-5"
+disable_response_storage = true
+preferred_auth_method = "apikey"
+
+[notice.model_migrations]
+gpt-5 = "gpt-5.2-codex"
