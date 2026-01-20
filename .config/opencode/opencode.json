@@ -1,0 +1,25 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "SK": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "SK",
+      "options": {
+        "baseURL": "{env:OPENAI_BASE_URL}",
+        "apiKey": "{env:OPENAI_API_KEY}",
+        "headers": {
+          "app_key": "custom-token"
+        }
+      },
+      "models": {
+        "claude-4-sonnet": {
+          "name": "claude-4-sonnet",
+          "limit": {
+            "context": 200000,
+            "output": 65536
+          }
+        }
+      }
+    }
+  }
+}
