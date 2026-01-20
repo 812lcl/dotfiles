@@ -6,3 +6,4 @@ bin/bd
 .claude/plugins/known_marketplaces.json
 .claude/plugins/cache
 .env
+.codex/auth.json
