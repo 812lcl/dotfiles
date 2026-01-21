@@ -131,7 +131,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # pnpm
-export PNPM_HOME="/Users/liuchunlei/Library/pnpm"
+export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
@@ -144,9 +144,9 @@ export WORKON_HOME=$HOME/.virtualenvs
 source /opt/homebrew/opt/virtualenvwrapper/bin/virtualenvwrapper.sh
 
 # Added by Windsurf
-export PATH="/Users/liuchunlei/.codeium/windsurf/bin:$PATH"
+export PATH="$HOME/.codeium/windsurf/bin:$PATH"
 # >>> xmake >>>
-test -f "/Users/liuchunlei/.xmake/profile" && source "/Users/liuchunlei/.xmake/profile"
+test -f "$HOME/.xmake/profile" && source "$HOME/.xmake/profile"
 # <<< xmake <<<
 # # >>> conda initialize >>>
 # # !! Contents within this block are managed by 'conda init' !!
@@ -179,5 +179,12 @@ export CLAUDE_AGENTS_PATH="$HOME/.claude/agents"
 
 
 # opencode
-export PATH=/Users/liuchunlei/.opencode/bin:$PATH
+export PATH=$HOME/.opencode/bin:$PATH
 source $HOME/.env
+
+# bun completions
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
