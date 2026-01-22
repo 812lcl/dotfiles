@@ -1,0 +1,49 @@
+{
+    "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/master/assets/oh-my-opencode.schema.json",
+    "google_auth": false,
+    "agents": {
+        "Sisyphus": {
+            "model": "SK-router/gpt-5.2"
+        },
+        "Prometheus (Planner)": {
+            "model": "SK-router/gpt-5.2"
+        },
+        "librarian": {
+            "model": "SK-router/claude-sonnet-4.5"
+        },
+        "explore": {
+            "model": "google/antigravity-gemini-3-flash"
+        },
+        "oracle": {
+            "model": "SK-router/gpt-5.2"
+        },
+        "frontend-ui-ux-engineer": {
+            "model": "google/antigravity-gemini-3-pro-high"
+        },
+        "document-writer": {
+            "model": "google/antigravity-gemini-3-flash"
+        },
+        "multimodal-looker": {
+            "model": "google/antigravity-gemini-3-flash"
+        },
+        "Metis (Plan Consultant)": {
+            "model": "SK-router/claude-sonnet-4.5"
+        }
+    },
+    "background_task": {
+        "defaultConcurrency": 5,
+        "providerConcurrency": {
+            "anthropic": 3,
+            "openai": 5,
+            "google": 10,
+            "SK-sky": 5,
+            "SK-xmind": 5,
+            "SK-router": 5
+        },
+        "modelConcurrency": {
+            "anthropic/claude-opus-4-5": 2,
+            "google/gemini-3-flash": 10,
+            "SK-router/gpt-5.2": 2
+        }
+    }
+}
