@@ -18,6 +18,13 @@
             "context": 200000,
             "output": 65536
           }
+        },
+        "gemini-3-pro-preview": {
+          "name": "gemini-3-pro-preview",
+          "limit": {
+            "context": 200000,
+            "output": 65536
+          }
         }
       }
     },
@@ -153,6 +160,6 @@
   },
   "plugin": [
     "oh-my-opencode",
-    "opencode-antigravity-auth@1.3.0"
+    "opencode-antigravity-auth@1.3.1"
   ]
 }
