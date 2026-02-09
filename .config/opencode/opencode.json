@@ -19,6 +19,20 @@
             "output": 65536
           }
         },
+        "gemini-2.5-flash": {
+          "name": "gemini-2.5-flash",
+          "limit": {
+            "context": 1000000,
+            "output": 65536
+          }
+        },
+        "gemini-2.5-pro": {
+          "name": "gemini-2.5-pro",
+          "limit": {
+            "context": 1000000,
+            "output": 65536
+          }
+        },
         "gemini-3-pro-preview": {
           "name": "gemini-3-pro-preview",
           "limit": {
@@ -94,6 +108,20 @@
             "output": 65536
           }
         },
+        "gemini-2.5-pro": {
+          "name": "gemini-2.5-pro",
+          "limit": {
+            "context": 1000000,
+            "output": 65536
+          }
+        },
+        "gemini-2.5-flash": {
+          "name": "gemini-2.5-flash",
+          "limit": {
+            "context": 1000000,
+            "output": 65536
+          }
+        },
         "gemini-3-flash-preview": {
           "name": "gemini-3-flash-preview",
           "limit": {
@@ -110,6 +138,20 @@
         },
         "gpt-5.2": {
           "name": "gpt-5.2",
+          "limit": {
+            "context": 200000,
+            "output": 65536
+          }
+        },
+        "gpt-5.2-pro": {
+          "name": "gpt-5.2-pro",
+          "limit": {
+            "context": 200000,
+            "output": 65536
+          }
+        },
+        "o3-pro": {
+          "name": "o3-pro",
           "limit": {
             "context": 200000,
             "output": 65536
@@ -181,6 +223,6 @@
   },
   "plugin": [
     "oh-my-opencode",
-    "opencode-antigravity-auth@1.4.3"
+    "opencode-antigravity-auth@1.4.6"
   ]
 }
