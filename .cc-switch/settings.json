@@ -1,0 +1,11 @@
+{
+  "showInTray": true,
+  "minimizeToTrayOnClose": true,
+  "enableClaudePluginIntegration": false,
+  "skipClaudeOnboarding": false,
+  "launchOnStartup": false,
+  "silentStartup": false,
+  "language": "zh",
+  "skillSyncMethod": "auto",
+  "preferredTerminal": "iterm2"
+}

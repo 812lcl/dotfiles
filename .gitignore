@@ -7,3 +7,4 @@ bin/bd
 .claude/plugins/cache
 .env
 .codex/auth.json
+nohup.out
