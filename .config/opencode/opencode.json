@@ -1,9 +1,9 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "provider": {
-    "SK-sky": {
+    "sk-sky": {
       "npm": "@ai-sdk/openai-compatible",
-      "name": "SK-sky",
+      "name": "sk-sky",
       "options": {
         "baseURL": "{env:OPENAI_BASE_URL_SKY}",
         "apiKey": "{env:OPENAI_API_KEY}",
@@ -28,9 +28,9 @@
         }
       }
     },
-    "SK-xmind": {
+    "sk-xmind": {
       "npm": "@ai-sdk/openai-compatible",
-      "name": "SK-xmind",
+      "name": "sk-xmind",
       "options": {
         "baseURL": "{env:OPENAI_BASE_URL_XMIND}",
         "apiKey": "{env:OPENAI_API_KEY}",
@@ -48,9 +48,30 @@
         }
       }
     },
-    "SK-router": {
+    "sk-google": {
       "npm": "@ai-sdk/openai-compatible",
-      "name": "SK-router",
+      "name": "sk-google",
+      "options": {
+        "baseURL": "{env:OPENAI_BASE_URL_GOOGLE}",
+        "apiKey": "{env:OPENAI_API_KEY}",
+        "headers": {
+          "app_key": "custom-token"
+        }
+      },
+      "models": {
+        "claude-opus-4.5": {
+          "name": "claude-opus-4.5",
+          "limit": {
+            "context": 200000,
+            "output": 65536
+          },
+          "top_k":1
+        }
+      }
+    },
+    "sk-router": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "sk-router",
       "options": {
         "baseURL": "{env:OPENAI_BASE_URL_ROUTER}",
         "apiKey": "{env:OPENAI_API_KEY}",
@@ -160,6 +181,6 @@
   },
   "plugin": [
     "oh-my-opencode",
-    "opencode-antigravity-auth@1.3.1"
+    "opencode-antigravity-auth@1.4.3"
   ]
 }

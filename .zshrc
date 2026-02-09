@@ -131,11 +131,11 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # pnpm
-export PNPM_HOME="$HOME/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
+# export PNPM_HOME="$HOME/Library/pnpm"
+# case ":$PATH:" in
+#   *":$PNPM_HOME:"*) ;;
+#   *) export PATH="$PNPM_HOME:$PATH" ;;
+# esac
 # pnpm end
 export PATH="/opt/homebrew/opt/mysql@8.4/bin:$PATH"
 export GRADLE="/opt/homebrew/opt/gradle"
@@ -188,3 +188,12 @@ source $HOME/.env
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+
+# For compilers to find ruby you may need to set:
+export LDFLAGS="-L/opt/homebrew/opt/ruby/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/ruby/include"
+
+# For pkgconf to find ruby you may need to set:
+export PKG_CONFIG_PATH="/opt/homebrew/opt/ruby/lib/pkgconfig"

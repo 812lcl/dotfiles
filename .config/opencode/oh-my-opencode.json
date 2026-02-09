@@ -3,19 +3,19 @@
   "google_auth": false,
   "agents": {
     "sisyphus": {
-      "model": "SK-router/gpt-5.2"
+      "model": "sk-router/gpt-5.2"
     },
     "prometheus": {
-      "model": "SK-router/gpt-5.2"
+      "model": "sk-router/gpt-5.2"
     },
     "librarian": {
-      "model": "SK-router/claude-sonnet-4.5"
+      "model": "sk-router/claude-sonnet-4.5"
     },
     "explore": {
       "model": "google/antigravity-gemini-3-flash"
     },
     "oracle": {
-      "model": "SK-router/gpt-5.2"
+      "model": "sk-router/gpt-5.2"
     },
     "frontend-ui-ux-engineer": {
       "model": "google/antigravity-gemini-3-pro-high"
@@ -27,7 +27,7 @@
       "model": "google/antigravity-gemini-3-flash"
     },
     "metis": {
-      "model": "SK-router/claude-sonnet-4.5"
+      "model": "sk-router/claude-sonnet-4.5"
     }
   },
   "background_task": {
@@ -36,14 +36,14 @@
       "anthropic": 3,
       "openai": 5,
       "google": 10,
-      "SK-sky": 5,
-      "SK-xmind": 5,
-      "SK-router": 5
+      "sk-sky": 5,
+      "sk-xmind": 5,
+      "sk-router": 5
     },
     "modelConcurrency": {
       "anthropic/claude-opus-4-5": 2,
       "google/gemini-3-flash": 10,
-      "SK-router/gpt-5.2": 2
+      "sk-router/gpt-5.2": 2
     }
   }
 }
