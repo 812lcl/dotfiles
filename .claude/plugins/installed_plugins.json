@@ -40,6 +40,26 @@
         "lastUpdated": "2026-01-19T22:49:25.792Z",
         "gitCommitSha": "96276205880a60fd66bbae981f5ab568e70c4cbf"
       }
+    ],
+    "frontend-design@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-plugins-official/frontend-design/96276205880a",
+        "version": "96276205880a",
+        "installedAt": "2026-02-10T02:00:16.084Z",
+        "lastUpdated": "2026-02-10T02:00:16.084Z",
+        "gitCommitSha": "96276205880a60fd66bbae981f5ab568e70c4cbf"
+      }
+    ],
+    "typescript-lsp@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-plugins-official/typescript-lsp/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-02-10T02:00:42.705Z",
+        "lastUpdated": "2026-02-10T02:00:42.705Z",
+        "gitCommitSha": "96276205880a60fd66bbae981f5ab568e70c4cbf"
+      }
     ]
   }
 }
