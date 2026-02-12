@@ -5,6 +5,9 @@
     "sisyphus": {
       "model": "sk-router/gpt-5.2-pro"
     },
+    "hephaestus": {
+      "model": "sk-router/gpt-5.2-pro"
+    },
     "prometheus": {
       "model": "sk-router/gpt-5.2-pro"
     },
