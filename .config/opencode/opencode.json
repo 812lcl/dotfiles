@@ -223,6 +223,6 @@
   },
   "plugin": [
     "oh-my-opencode",
-    "opencode-antigravity-auth@1.4.6"
+    "opencode-antigravity-auth@1.5.1"
   ]
 }
