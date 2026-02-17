@@ -60,6 +60,42 @@
         "lastUpdated": "2026-02-10T02:00:42.705Z",
         "gitCommitSha": "96276205880a60fd66bbae981f5ab568e70c4cbf"
       }
+    ],
+    "code-simplifier@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/812lcl/.claude/plugins/cache/claude-plugins-official/code-simplifier/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-02-16T08:25:09.672Z",
+        "lastUpdated": "2026-02-16T08:25:09.672Z"
+      }
+    ],
+    "code-review@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/812lcl/.claude/plugins/cache/claude-plugins-official/code-review/unknown",
+        "version": "unknown",
+        "installedAt": "2026-02-16T08:25:31.870Z",
+        "lastUpdated": "2026-02-16T08:25:31.870Z"
+      }
+    ],
+    "security-guidance@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/812lcl/.claude/plugins/cache/claude-plugins-official/security-guidance/unknown",
+        "version": "unknown",
+        "installedAt": "2026-02-16T08:26:02.690Z",
+        "lastUpdated": "2026-02-16T08:26:02.690Z"
+      }
+    ],
+    "feature-dev@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/812lcl/.claude/plugins/cache/claude-plugins-official/feature-dev/unknown",
+        "version": "unknown",
+        "installedAt": "2026-02-16T08:26:12.431Z",
+        "lastUpdated": "2026-02-16T08:26:12.431Z"
+      }
     ]
   }
 }
