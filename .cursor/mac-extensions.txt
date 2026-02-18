@@ -1,12 +1,9 @@
-42crunch.vscode-openapi
 alefragnani.bookmarks
 alefragnani.project-manager
 almenon.arepl
 anthropic.claude-code
 anweber.vscode-httpyac
 anysphere.cursorpyright
-anysphere.remote-containers
-batisteo.vscode-django
 christian-kohler.npm-intellisense
 christian-kohler.path-intellisense
 dbaeumer.vscode-eslint
@@ -16,7 +13,6 @@ donjayamanne.python-extension-pack
 dotjoshjohnson.xml
 dvirtz.parquet-viewer
 eamodio.gitlens
-github.vscode-github-actions
 golang.go
 gruntfuggly.todo-tree
 humao.rest-client
@@ -24,10 +20,6 @@ joyous-coder.springboot-extension-pack
 kevinrose.vsc-python-indent
 mechatroner.rainbow-csv
 mgesbert.python-path
-mhutchie.git-graph
-monokai.theme-monokai-pro-vscode
-ms-azuretools.vscode-containers
-ms-azuretools.vscode-docker
 ms-ceintl.vscode-language-pack-zh-hans
 ms-python.debugpy
 ms-python.flake8
@@ -42,17 +34,14 @@ ms-vscode.cmake-tools
 ms-vscode.cpptools-themes
 ms-vscode.makefile-tools
 naco-siren.gradle-language
-njpwerner.autodocstring
 openai.chatgpt
 pflannery.vscode-versionlens
-qczone.switch2idea
 redhat.fabric8-analytics
 redhat.java
 redhat.vscode-commons
 redhat.vscode-xml
 redhat.vscode-yaml
 richardwillis.vscode-gradle-extension-pack
-sonarsource.sonarlint-vscode
 sst-dev.opencode
 swellaby.node-pack
 tboox.xmake-vscode
@@ -74,6 +63,7 @@ vscodevim.vim
 vue.volar
 wakatime.vscode-wakatime
 wholroyd.jinja
+xicilion.markdown-viewer-extension
 yangbaopan.vscode-java-ibatisx
 zeshuaro.vscode-python-poetry
 zhuangtongfa.material-theme
