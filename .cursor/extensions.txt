@@ -1,12 +1,9 @@
-42crunch.vscode-openapi
 alefragnani.bookmarks
 alefragnani.project-manager
 almenon.arepl
 anthropic.claude-code
 anweber.vscode-httpyac
 anysphere.cursorpyright
-anysphere.remote-containers
-batisteo.vscode-django
 cduruk.thrift
 christian-kohler.npm-intellisense
 dgileadi.java-decompiler
@@ -20,7 +17,6 @@ gruntfuggly.todo-tree
 kevinrose.vsc-python-indent
 mechatroner.rainbow-csv
 mgesbert.python-path
-monokai.theme-monokai-pro-vscode
 ms-azuretools.vscode-docker
 ms-python.debugpy
 ms-python.flake8
@@ -31,13 +27,11 @@ ms-toolsai.jupyter
 ms-toolsai.jupyter-renderers
 ms-toolsai.vscode-jupyter-cell-tags
 ms-toolsai.vscode-jupyter-slideshow
-ms-vscode-remote.remote-containers
 ms-vscode.cmake-tools
 ms-vscode.cpptools
 ms-vscode.cpptools-extension-pack
 ms-vscode.cpptools-themes
 naco-siren.gradle-language
-njpwerner.autodocstring
 openai.chatgpt
 redhat.java
 redhat.vscode-commons
@@ -51,8 +45,6 @@ tht13.python
 tintinweb.vscode-decompiler
 tushortz.python-extended-snippets
 undefined_publisher.exgraph
-visualstudioexptteam.intellicode-api-usage-examples
-visualstudioexptteam.vscodeintellicode
 vmware.vscode-boot-dev-pack
 vmware.vscode-spring-boot
 vscjava.vscode-gradle

@@ -11,6 +11,9 @@
     "prometheus": {
       "model": "sk-router/gpt-5.2-pro"
     },
+    "atlas": {
+      "model": "sk-router/claude-sonnet-4.5"
+    },
     "librarian": {
       "model": "sk-router/claude-sonnet-4.5"
     },
