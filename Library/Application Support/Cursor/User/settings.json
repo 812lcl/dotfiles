@@ -360,5 +360,6 @@
             "value": ""
         }
     ],
-    "chatgpt.localeOverride": "zh-CN"
+    "chatgpt.localeOverride": "zh-CN",
+    "explorer.confirmDelete": false
 }
