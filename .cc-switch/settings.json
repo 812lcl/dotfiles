@@ -3,9 +3,10 @@
   "minimizeToTrayOnClose": true,
   "enableClaudePluginIntegration": false,
   "skipClaudeOnboarding": false,
-  "launchOnStartup": false,
-  "silentStartup": false,
+  "launchOnStartup": true,
+  "silentStartup": true,
   "language": "zh",
+  "currentProviderClaude": "453669d9-5d3d-4808-8761-6d0d815522f5",
   "skillSyncMethod": "auto",
   "preferredTerminal": "iterm2"
 }

@@ -361,5 +361,6 @@
         }
     ],
     "chatgpt.localeOverride": "zh-CN",
-    "explorer.confirmDelete": false
+    "explorer.confirmDelete": false,
+    "python.defaultInterpreterPath": "/opt/homebrew/bin/python3"
 }
