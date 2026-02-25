@@ -5,6 +5,7 @@ bin/bd
 .claude/plugins/install-counts-cache.json
 .claude/plugins/known_marketplaces.json
 .claude/plugins/cache
+.claude/plugins/blocklist.json
 .env
 .codex/auth.json
 nohup.out
