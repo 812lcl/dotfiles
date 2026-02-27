@@ -14,10 +14,10 @@
     "superpowers@claude-plugins-official": [
       {
         "scope": "user",
-        "installPath": "/Users/812lcl/.claude/plugins/cache/claude-plugins-official/superpowers/4.0.3",
-        "version": "4.0.3",
+        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-plugins-official/superpowers/4.3.1",
+        "version": "4.3.1",
         "installedAt": "2026-01-19T22:47:58.152Z",
-        "lastUpdated": "2026-01-19T22:47:58.152Z",
+        "lastUpdated": "2026-02-27T04:48:26.368Z",
         "gitCommitSha": "a01a135fe185559ff9dc84dd70d6e9bb57d92bdf"
       }
     ],
@@ -34,20 +34,20 @@
     "commit-commands@claude-plugins-official": [
       {
         "scope": "user",
-        "installPath": "/Users/812lcl/.claude/plugins/cache/claude-plugins-official/commit-commands/96276205880a",
-        "version": "96276205880a",
+        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-plugins-official/commit-commands/55b58ec6e564",
+        "version": "55b58ec6e564",
         "installedAt": "2026-01-19T22:49:25.792Z",
-        "lastUpdated": "2026-01-19T22:49:25.792Z",
+        "lastUpdated": "2026-02-27T04:48:20.888Z",
         "gitCommitSha": "96276205880a60fd66bbae981f5ab568e70c4cbf"
       }
     ],
     "frontend-design@claude-plugins-official": [
       {
         "scope": "user",
-        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-plugins-official/frontend-design/96276205880a",
-        "version": "96276205880a",
+        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-plugins-official/frontend-design/55b58ec6e564",
+        "version": "55b58ec6e564",
         "installedAt": "2026-02-10T02:00:16.084Z",
-        "lastUpdated": "2026-02-10T02:00:16.084Z",
+        "lastUpdated": "2026-02-27T04:48:20.879Z",
         "gitCommitSha": "96276205880a60fd66bbae981f5ab568e70c4cbf"
       }
     ],
@@ -73,28 +73,58 @@
     "code-review@claude-plugins-official": [
       {
         "scope": "user",
-        "installPath": "/Users/812lcl/.claude/plugins/cache/claude-plugins-official/code-review/unknown",
-        "version": "unknown",
+        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-plugins-official/code-review/55b58ec6e564",
+        "version": "55b58ec6e564",
         "installedAt": "2026-02-16T08:25:31.870Z",
-        "lastUpdated": "2026-02-16T08:25:31.870Z"
+        "lastUpdated": "2026-02-27T04:48:20.874Z"
       }
     ],
     "security-guidance@claude-plugins-official": [
       {
         "scope": "user",
-        "installPath": "/Users/812lcl/.claude/plugins/cache/claude-plugins-official/security-guidance/unknown",
-        "version": "unknown",
+        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-plugins-official/security-guidance/55b58ec6e564",
+        "version": "55b58ec6e564",
         "installedAt": "2026-02-16T08:26:02.690Z",
-        "lastUpdated": "2026-02-16T08:26:02.690Z"
+        "lastUpdated": "2026-02-27T04:48:20.869Z"
       }
     ],
     "feature-dev@claude-plugins-official": [
       {
         "scope": "user",
-        "installPath": "/Users/812lcl/.claude/plugins/cache/claude-plugins-official/feature-dev/unknown",
-        "version": "unknown",
+        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-plugins-official/feature-dev/55b58ec6e564",
+        "version": "55b58ec6e564",
         "installedAt": "2026-02-16T08:26:12.431Z",
-        "lastUpdated": "2026-02-16T08:26:12.431Z"
+        "lastUpdated": "2026-02-27T04:48:20.893Z"
+      }
+    ],
+    "ai-generation-skills@baoyu-skills": [
+      {
+        "scope": "user",
+        "installPath": "/Users/liuchunlei/.claude/plugins/cache/baoyu-skills/ai-generation-skills/e7367076281d",
+        "version": "e7367076281d",
+        "installedAt": "2026-02-26T10:12:34.903Z",
+        "lastUpdated": "2026-02-26T10:12:34.903Z",
+        "gitCommitSha": "e7367076281ddf2453f1653200ff5b75cea8563d"
+      }
+    ],
+    "content-skills@baoyu-skills": [
+      {
+        "scope": "user",
+        "installPath": "/Users/liuchunlei/.claude/plugins/cache/baoyu-skills/content-skills/e7367076281d",
+        "version": "e7367076281d",
+        "installedAt": "2026-02-26T10:12:41.485Z",
+        "lastUpdated": "2026-02-26T10:12:41.485Z",
+        "gitCommitSha": "e7367076281ddf2453f1653200ff5b75cea8563d"
+      }
+    ],
+    "utility-skills@baoyu-skills": [
+      {
+        "scope": "user",
+        "installPath": "/Users/liuchunlei/.claude/plugins/cache/baoyu-skills/utility-skills/e7367076281d",
+        "version": "e7367076281d",
+        "installedAt": "2026-02-26T10:12:48.423Z",
+        "lastUpdated": "2026-02-26T10:12:48.423Z",
+        "gitCommitSha": "e7367076281ddf2453f1653200ff5b75cea8563d"
       }
     ]
   }
