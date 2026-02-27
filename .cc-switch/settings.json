@@ -7,6 +7,7 @@
   "silentStartup": true,
   "language": "zh",
   "currentProviderClaude": "81bef914-a5e4-46a3-82c2-051fe25fcd6e",
+  "currentProviderCodex": "default",
   "skillSyncMethod": "auto",
   "preferredTerminal": "iterm2"
 }
