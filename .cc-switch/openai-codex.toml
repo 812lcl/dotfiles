@@ -1,0 +1,4 @@
+disable_response_storage = true
+personality = "pragmatic"
+model = "gpt-5.3-codex"
+model_reasoning_effort = "medium"

@@ -1,0 +1,70 @@
+{
+  "enabledPlugins": {
+    "code-review@claude-plugins-official": true,
+    "code-simplifier@claude-plugins-official": true,
+    "commit-commands@claude-plugins-official": true,
+    "feature-dev@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": true,
+    "gopls-lsp@claude-plugins-official": true,
+    "obsidian@obsidian-skills": true,
+    "security-guidance@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true
+  },
+  "env": {
+    "ANTHROPIC_AUTH_TOKEN": "",
+    "ANTHROPIC_BASE_URL": "",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "claude-haiku-4.5",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4.6",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "claude-sonnet-4.6",
+    "ANTHROPIC_MODEL": "claude-sonnet-4.6",
+    "ANTHROPIC_REASONING_MODEL": "claude-sonnet-4.6",
+    "CLAUDE_CODE_DISABLE_1M_CONTEXT": "1",
+    "CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS": "1",
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
+    "DISABLE_AUTOUPDATER": "1"
+  },
+  "permissions": {
+    "additionalDirectories": [
+      "/private/tmp",
+      "/Users/liuchunlei/.claude"
+    ],
+    "allow": [
+      "WebFetch(domain:docs.anthropic.com)",
+      "mcp__notion__search",
+      "mcp__fetch__fetch",
+      "mcp__sequential-thinking__sequentialthinking",
+      "Bash(python -m unittest:*)",
+      "Bash(python -m pytest:*)",
+      "Bash(python:*)",
+      "Bash(pytest:*)",
+      "Read(/Users/liuchunlei/.claude/**)",
+      "Bash(claude:*)",
+      "Bash(cat:*)",
+      "Bash(find:*)",
+      "Bash(gh:*)",
+      "Bash(git:*)",
+      "Bash(grep:*)",
+      "Bash(ln:*)",
+      "Bash(ls:*)",
+      "Bash(mv:*)",
+      "Bash(npm:*)",
+      "Bash(npx:*)",
+      "Bash(pnpm:*)",
+      "Bash(rm:*)",
+      "Bash(sed:*)",
+      "Bash(then)",
+      "Bash(touch:*)",
+      "Bash(tree:*)",
+      "List(**)",
+      "WebFetch(domain:github.com)",
+      "WebSearch"
+    ],
+    "deny": []
+  },
+  "skipWebFetchPreflight": true,
+  "statusLine": {
+    "command": "bash /Users/liuchunlei/.claude/statusline-command.sh",
+    "type": "command"
+  }
+}

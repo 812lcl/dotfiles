@@ -1,0 +1,12 @@
+model_provider = "sky_router"
+model = "gpt-5.2-codex"
+model_reasoning_effort = "medium"
+
+[model_providers.sky_router]
+name = "SkyRouter"
+base_url = ""
+http_headers = { "Authorization" = "Bearer " }
+
+model_reasoning_effort = "medium"
+personality = "pragmatic"
+

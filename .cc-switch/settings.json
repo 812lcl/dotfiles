@@ -1,13 +1,14 @@
 {
   "showInTray": true,
   "minimizeToTrayOnClose": true,
-  "enableClaudePluginIntegration": false,
+  "enableClaudePluginIntegration": true,
   "skipClaudeOnboarding": false,
   "launchOnStartup": true,
   "silentStartup": true,
+  "enableLocalProxy": false,
   "language": "zh",
   "currentProviderClaude": "81bef914-a5e4-46a3-82c2-051fe25fcd6e",
   "currentProviderCodex": "default",
   "skillSyncMethod": "auto",
-  "preferredTerminal": "iterm2"
+  "preferredTerminal": "ghostty"
 }

@@ -222,7 +222,7 @@
     }
   },
   "plugin": [
-    "oh-my-opencode",
+    "oh-my-opencode@latest",
     "opencode-antigravity-auth@1.5.1"
   ]
 }
