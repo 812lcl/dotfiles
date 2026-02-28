@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Claude Code statusline command
-# Displays: [user@host dir] branch model [ctx] [tokens] [git-diff-summary] | IDE:file
+# Displays: [user@host dir] branch [git-diff-summary] model [ctx] [tokens] | IDE:file
 
 input=$(cat)
 
@@ -67,12 +67,37 @@ if [ -n "$used" ] && [ -n "$ctx_size" ]; then
   ctx_info=$(printf ' \033[1;90m[ctx: %.0f%%/%dK]\033[0m' "$used" "$ctx_size_k")
 fi
 
-# --- Current token usage ---
+# --- Current token usage + totals + cache hit rate ---
+# Format: [↑1.2K↓0.3K | Σ↑45K↓12K | $87%]
 current_usage=""
 current_in=$(echo "$input" | jq -r '.context_window.current_usage.input_tokens // empty')
+current_cache_read=$(echo "$input" | jq -r '.context_window.current_usage.cache_read_input_tokens // 0')
 current_out=$(echo "$input" | jq -r '.context_window.current_usage.output_tokens // empty')
+total_in_all=$(echo "$input" | jq -r '.context_window.total_input_tokens // empty')
+total_out_all=$(echo "$input" | jq -r '.context_window.total_output_tokens // empty')
 if [ -n "$current_in" ] && [ -n "$current_out" ]; then
-  current_usage=$(printf ' \033[1;90m[in:%d out:%d]\033[0m' "$current_in" "$current_out")
+  # Current round: input + cache_read as effective input
+  round_in=$((current_in + current_cache_read))
+  round_in_k=$(awk "BEGIN { printf \"%.1f\", $round_in / 1000 }")
+  round_out_k=$(awk "BEGIN { printf \"%.1f\", $current_out / 1000 }")
+
+  # Cache hit rate: cache_read / (input + cache_read)
+  cache_pct=$(awk "BEGIN { if ($round_in > 0) printf \"%.0f\", $current_cache_read * 100 / $round_in; else print \"0\" }")
+
+  # Build usage string
+  usage_str=$(printf '↑%sK↓%sK' "$round_in_k" "$round_out_k")
+
+  # Totals (if available)
+  if [ -n "$total_in_all" ] && [ -n "$total_out_all" ]; then
+    total_in_k=$(awk "BEGIN { printf \"%.1f\", $total_in_all / 1000 }")
+    total_out_k=$(awk "BEGIN { printf \"%.1f\", $total_out_all / 1000 }")
+    usage_str=$(printf '%s | Σ↑%sK↓%sK' "$usage_str" "$total_in_k" "$total_out_k")
+  fi
+
+  # Cache hit rate
+  usage_str=$(printf '%s | $%s%%' "$usage_str" "$cache_pct")
+
+  current_usage=$(printf ' \033[1;90m[%s]\033[0m' "$usage_str")
 fi
 
 # --- IDE current file ---
@@ -90,9 +115,62 @@ if [ -n "$session_id" ]; then
   fi
 fi
 
+# --- Token/Cost statistics via ccusage ---
+fmt_tokens() {
+  local n="$1"
+  awk "BEGIN {
+    n = $n + 0
+    if (n >= 1000000) { printf \"%.1fM\", n/1000000 }
+    else if (n >= 1000) { printf \"%.1fK\", n/1000 }
+    else { printf \"%d\", n }
+  }"
+}
+
+usage_stats_line=""
+if command -v ccusage >/dev/null 2>&1; then
+  TODAY=$(date +%Y%m%d)
+  WEEK_AGO=$(date -v-6d +%Y%m%d)
+  MONTH_AGO=$(date -v-29d +%Y%m%d)
+
+  t_json=$(ccusage daily --since "$TODAY"     --json 2>/dev/null)
+  w_json=$(ccusage daily --since "$WEEK_AGO"  --json 2>/dev/null)
+  m_json=$(ccusage daily --since "$MONTH_AGO" --json 2>/dev/null)
+
+  sum_json() {
+    echo "$1" | jq -r '[.daily[]] | { t: ([.[].totalTokens] | add // 0), c: ([.[].totalCost] | add // 0) } | "\(.t)|\(.c)"' 2>/dev/null
+  }
+
+  t_raw=$(sum_json "$t_json")
+  w_raw=$(sum_json "$w_json")
+  m_raw=$(sum_json "$m_json")
+
+  if [ -n "$t_raw" ] && [ -n "$w_raw" ] && [ -n "$m_raw" ]; then
+    IFS='|' read -r t_tkns t_cost <<< "$t_raw"
+    IFS='|' read -r w_tkns w_cost <<< "$w_raw"
+    IFS='|' read -r m_tkns m_cost <<< "$m_raw"
+
+    t_tkns_fmt=$(fmt_tokens "${t_tkns:-0}")
+    t_cost_fmt=$(awk "BEGIN { printf \"\$%.2f\", ${t_cost:-0} }")
+    w_tkns_fmt=$(fmt_tokens "${w_tkns:-0}")
+    w_cost_fmt=$(awk "BEGIN { printf \"\$%.2f\", ${w_cost:-0} }")
+    m_tkns_fmt=$(fmt_tokens "${m_tkns:-0}")
+    m_cost_fmt=$(awk "BEGIN { printf \"\$%.2f\", ${m_cost:-0} }")
+
+    usage_stats_line=$(printf '\033[1;90mToday: \033[0;37m%s %s\033[1;90m | 7d: \033[0;37m%s %s\033[1;90m | 30d: \033[0;37m%s %s\033[0m' \
+      "$t_tkns_fmt" "$t_cost_fmt" \
+      "$w_tkns_fmt" "$w_cost_fmt" \
+      "$m_tkns_fmt" "$m_cost_fmt")
+  fi
+fi
+
 # --- Render ---
-printf '\033[1;31m[\033[1;33m%s\033[1;32m@\033[1;34m%s \033[1;35m%s\033[1;31m]\033[0m%s \033[1;95m%s\033[0m%s%s%s%s' \
+printf '\033[1;31m[\033[1;33m%s\033[1;32m@\033[1;34m%s \033[1;35m%s\033[1;31m]\033[0m%s%s \033[1;95m%s\033[0m%s%s%s' \
   "$(whoami)" "$(hostname -s)" "$dir" \
-  "$git_info" "$model" \
-  "$ctx_info" "$current_usage" "$git_diff_summary" \
+  "$git_info" "$git_diff_summary" "$model" \
+  "$ctx_info" "$current_usage" \
   "$ide_info"
+
+# Second line: token/cost stats
+if [ -n "$usage_stats_line" ]; then
+  printf '\n%s' "$usage_stats_line"
+fi
