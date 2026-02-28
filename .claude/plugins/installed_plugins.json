@@ -126,6 +126,36 @@
         "lastUpdated": "2026-02-26T10:12:48.423Z",
         "gitCommitSha": "e7367076281ddf2453f1653200ff5b75cea8563d"
       }
+    ],
+    "pyright-lsp@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-plugins-official/pyright-lsp/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-02-28T06:45:03.007Z",
+        "lastUpdated": "2026-02-28T06:45:03.007Z",
+        "gitCommitSha": "55b58ec6e5649104f926ba7558b567dc8d33c5ff"
+      }
+    ],
+    "context7@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-plugins-official/context7/55b58ec6e564",
+        "version": "55b58ec6e564",
+        "installedAt": "2026-02-28T06:45:22.991Z",
+        "lastUpdated": "2026-02-28T06:45:22.991Z",
+        "gitCommitSha": "55b58ec6e5649104f926ba7558b567dc8d33c5ff"
+      }
+    ],
+    "gitlab@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-plugins-official/gitlab/55b58ec6e564",
+        "version": "55b58ec6e564",
+        "installedAt": "2026-02-28T06:47:13.049Z",
+        "lastUpdated": "2026-02-28T06:47:13.049Z",
+        "gitCommitSha": "55b58ec6e5649104f926ba7558b567dc8d33c5ff"
+      }
     ]
   }
 }

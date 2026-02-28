@@ -65,9 +65,16 @@
     "code-review@claude-plugins-official": true,
     "security-guidance@claude-plugins-official": true,
     "feature-dev@claude-plugins-official": true,
+    "pyright-lsp@claude-plugins-official": true,
+    "context7@claude-plugins-official": true,
+    "gitlab@claude-plugins-official": true,
     "ai-generation-skills@baoyu-skills": true,
     "content-skills@baoyu-skills": true,
     "utility-skills@baoyu-skills": true
   },
-  "skipWebFetchPreflight": true
+  "skipWebFetchPreflight": true,
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true
+  }
 }
