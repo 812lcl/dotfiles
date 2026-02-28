@@ -1,0 +1,9 @@
+model_provider = "sky_router_azure"
+model = "gpt-5"
+model_reasoning_effort = "medium"
+
+[model_providers.sky_router_azure]
+name = "SkyRouter"
+base_url = ""
+http_headers = { "Authorization" = "Bearer " }
+
