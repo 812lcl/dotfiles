@@ -58,23 +58,25 @@ EOF
   fi
 fi
 
-# --- Context window info ---
-ctx_info=""
+# --- Context window + token usage + cache hit rate (second line, first section) ---
+# Always show ctx window size/usage. Show token details only if current_usage exists.
+ctx_token_line=""
 used=$(echo "$input" | jq -r '.context_window.used_percentage // empty')
 ctx_size=$(echo "$input" | jq -r '.context_window.context_window_size // empty')
-if [ -n "$used" ] && [ -n "$ctx_size" ]; then
-  ctx_size_k=$((ctx_size / 1000))
-  ctx_info=$(printf ' \033[1;90m[ctx: %.0f%%/%dK]\033[0m' "$used" "$ctx_size_k")
-fi
-
-# --- Current token usage + totals + cache hit rate ---
-# Format: [↑1.2K↓0.3K | Σ↑45K↓12K | $87%]
-current_usage=""
 current_in=$(echo "$input" | jq -r '.context_window.current_usage.input_tokens // empty')
 current_cache_read=$(echo "$input" | jq -r '.context_window.current_usage.cache_read_input_tokens // 0')
 current_out=$(echo "$input" | jq -r '.context_window.current_usage.output_tokens // empty')
 total_in_all=$(echo "$input" | jq -r '.context_window.total_input_tokens // empty')
 total_out_all=$(echo "$input" | jq -r '.context_window.total_output_tokens // empty')
+
+# ctx window: show whenever we have the data (even before first query)
+if [ -n "$used" ] && [ -n "$ctx_size" ]; then
+  ctx_size_k=$((ctx_size / 1000))
+  # ctx: XX%/200K — 青色
+  ctx_token_line=$(printf '\033[0;36mctx: \033[1;36m%.0f%%/%dK\033[0m' "$used" "$ctx_size_k")
+fi
+
+# token details: only when current_usage is present
 if [ -n "$current_in" ] && [ -n "$current_out" ]; then
   # Current round: input + cache_read as effective input
   round_in=$((current_in + current_cache_read))
@@ -84,20 +86,24 @@ if [ -n "$current_in" ] && [ -n "$current_out" ]; then
   # Cache hit rate: cache_read / (input + cache_read)
   cache_pct=$(awk "BEGIN { if ($round_in > 0) printf \"%.0f\", $current_cache_read * 100 / $round_in; else print \"0\" }")
 
-  # Build usage string
-  usage_str=$(printf '↑%sK↓%sK' "$round_in_k" "$round_out_k")
+  # Build token string — ↑in 绿色，↓out 黄色
+  token_str=$(printf '\033[0;32m↑%sK\033[0;33m ↓%sK\033[0m' "$round_in_k" "$round_out_k")
 
-  # Totals (if available)
+  # Totals (if available) — 灰白色
   if [ -n "$total_in_all" ] && [ -n "$total_out_all" ]; then
     total_in_k=$(awk "BEGIN { printf \"%.1f\", $total_in_all / 1000 }")
     total_out_k=$(awk "BEGIN { printf \"%.1f\", $total_out_all / 1000 }")
-    usage_str=$(printf '%s | Σ↑%sK↓%sK' "$usage_str" "$total_in_k" "$total_out_k")
+    token_str=$(printf '%s \033[1;90m|\033[0m \033[0;37mΣ↑%sK ↓%sK\033[0m' "$token_str" "$total_in_k" "$total_out_k")
   fi
 
-  # Cache hit rate
-  usage_str=$(printf '%s | $%s%%' "$usage_str" "$cache_pct")
+  # Cache hit rate — 品红色
+  token_str=$(printf '%s \033[1;90m|\033[0m \033[1;35m$%s%%\033[0m' "$token_str" "$cache_pct")
 
-  current_usage=$(printf ' \033[1;90m[%s]\033[0m' "$usage_str")
+  if [ -n "$ctx_token_line" ]; then
+    ctx_token_line=$(printf '%s \033[1;90m|\033[0m %s' "$ctx_token_line" "$token_str")
+  else
+    ctx_token_line="$token_str"
+  fi
 fi
 
 # --- IDE current file ---
@@ -150,13 +156,14 @@ if command -v ccusage >/dev/null 2>&1; then
     IFS='|' read -r m_tkns m_cost <<< "$m_raw"
 
     t_tkns_fmt=$(fmt_tokens "${t_tkns:-0}")
-    t_cost_fmt=$(awk "BEGIN { printf \"\$%.2f\", ${t_cost:-0} }")
+    t_cost_fmt=$(awk "BEGIN { printf \"\$%d\", ${t_cost:-0} }")
     w_tkns_fmt=$(fmt_tokens "${w_tkns:-0}")
-    w_cost_fmt=$(awk "BEGIN { printf \"\$%.2f\", ${w_cost:-0} }")
+    w_cost_fmt=$(awk "BEGIN { printf \"\$%d\", ${w_cost:-0} }")
     m_tkns_fmt=$(fmt_tokens "${m_tkns:-0}")
-    m_cost_fmt=$(awk "BEGIN { printf \"\$%.2f\", ${m_cost:-0} }")
+    m_cost_fmt=$(awk "BEGIN { printf \"\$%d\", ${m_cost:-0} }")
 
-    usage_stats_line=$(printf '\033[1;90mToday: \033[0;37m%s %s\033[1;90m | 7d: \033[0;37m%s %s\033[1;90m | 30d: \033[0;37m%s %s\033[0m' \
+    # T: 黄色，7d: 橙色，30d: 红色；| 分隔符暗灰色
+    usage_stats_line=$(printf '\033[0;33mT:\033[1;33m%s/%s\033[0m \033[1;90m|\033[0m \033[38;5;208m7d:%s/%s\033[0m \033[1;90m|\033[0m \033[0;31m30d:\033[1;31m%s/%s\033[0m' \
       "$t_tkns_fmt" "$t_cost_fmt" \
       "$w_tkns_fmt" "$w_cost_fmt" \
       "$m_tkns_fmt" "$m_cost_fmt")
@@ -164,13 +171,23 @@ if command -v ccusage >/dev/null 2>&1; then
 fi
 
 # --- Render ---
-printf '\033[1;31m[\033[1;33m%s\033[1;32m@\033[1;34m%s \033[1;35m%s\033[1;31m]\033[0m%s%s \033[1;95m%s\033[0m%s%s%s' \
+printf '\033[1;31m[\033[1;33m%s\033[1;32m@\033[1;34m%s \033[1;35m%s\033[1;31m]\033[0m%s%s \033[1;95m%s\033[0m%s' \
   "$(whoami)" "$(hostname -s)" "$dir" \
   "$git_info" "$git_diff_summary" "$model" \
-  "$ctx_info" "$current_usage" \
   "$ide_info"
 
-# Second line: token/cost stats
+# Second line: ctx/token info + token/cost stats
+second_line=""
+if [ -n "$ctx_token_line" ]; then
+  second_line="$ctx_token_line"
+fi
 if [ -n "$usage_stats_line" ]; then
-  printf '\n%s' "$usage_stats_line"
+  if [ -n "$second_line" ]; then
+    second_line=$(printf '%s \033[1;90m|\033[0m %s' "$second_line" "$usage_stats_line")
+  else
+    second_line="$usage_stats_line"
+  fi
+fi
+if [ -n "$second_line" ]; then
+  printf '\n%s' "$second_line"
 fi
