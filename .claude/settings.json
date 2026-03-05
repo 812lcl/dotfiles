@@ -13,21 +13,47 @@
     "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
   },
   "permissions": {
+    "additionalDirectories": [
+      "/private/tmp",
+      "/Users/liuchunlei/.claude"
+    ],
     "allow": [
-      "WebFetch(domain:docs.anthropic.com)",
-      "mcp__notion__search",
-      "mcp__fetch__fetch",
-      "mcp__sequential-thinking__sequentialthinking",
+      "Read",
+      "Edit",
+      "MultiEdit",
+      "Write",
+      "Glob",
+      "Grep",
+      "LS",
+      "WebFetch",
+      "WebSearch",
+      "Bash(go build *)",
+      "Bash(go run *)",
+      "Bash(go test *)",
+      "Bash(go mod *)",
+      "Bash(go fmt *)",
+      "Bash(go vet *)",
+      "Bash(go generate *)",
+      "Bash(go install *)",
+      "Bash(golangci-lint *)",
+      "Bash(gofmt *)",
+      "Bash(git *)",
+      "Bash(python *)",
+      "Bash(python3 *)",
+      "Bash(pip *)",
+      "Bash(pip3 *)",
+      "Bash(uv *)",
+      "Bash(poetry *)",
+      "Bash(pytest *)",
+      "Bash(ruff *)",
+      "Bash(black *)",
+      "Bash(mypy *)",
+      "Bash(isort *)",
+      "Bash(flake8 *)",
+      "Bash(make *)",
       "Bash(python -m unittest:*)",
       "Bash(python -m pytest:*)",
-      "Bash(python:*)",
       "Bash(pytest:*)",
-      "Read(/Users/liuchunlei/.claude/**)",
-      "Bash(claude:*)",
-      "Bash(cat:*)",
-      "Bash(find:*)",
-      "Bash(gh:*)",
-      "Bash(git:*)",
       "Bash(grep:*)",
       "Bash(ln:*)",
       "Bash(ls:*)",
@@ -40,14 +66,16 @@
       "Bash(then)",
       "Bash(touch:*)",
       "Bash(tree:*)",
-      "List(**)",
-      "WebFetch(domain:github.com)",
-      "WebSearch"
+      "Bash(cat:*)",
+      "Bash(find:*)",
+      "Bash(gh:*)",
+      "Bash(glab:*)"
     ],
-    "deny": [],
-    "additionalDirectories": [
-      "/private/tmp",
-      "/Users/liuchunlei/.claude"
+    "deny": [
+      "Read(.env)",
+      "Read(.env.*)",
+      "Bash(rm -rf *)",
+      "Bash(sudo *)"
     ]
   },
   "statusLine": {
@@ -76,5 +104,6 @@
   "sandbox": {
     "enabled": true,
     "autoAllowBashIfSandboxed": true
-  }
+  },
+  "skipDangerousModePermissionPrompt": true
 }

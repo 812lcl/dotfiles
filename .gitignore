@@ -9,3 +9,4 @@ bin/bd
 .env
 .codex/auth.json
 nohup.out
+.claude/settings.local.json
