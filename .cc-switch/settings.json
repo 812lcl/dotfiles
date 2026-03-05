@@ -6,8 +6,9 @@
   "launchOnStartup": true,
   "silentStartup": true,
   "enableLocalProxy": false,
+  "usageConfirmed": true,
   "language": "zh",
-  "currentProviderClaude": "81bef914-a5e4-46a3-82c2-051fe25fcd6e",
+  "currentProviderClaude": "453669d9-5d3d-4808-8761-6d0d815522f5",
   "currentProviderCodex": "8c4b6f99-6541-4d8b-b87d-8ea5fb707a4d",
   "skillSyncMethod": "auto",
   "preferredTerminal": "ghostty"
