@@ -362,5 +362,10 @@
     ],
     "chatgpt.localeOverride": "zh-CN",
     "explorer.confirmDelete": false,
-    "python.defaultInterpreterPath": "/opt/homebrew/bin/python3"
+    "python.defaultInterpreterPath": "/opt/homebrew/bin/python3",
+    "projectManager.git.baseFolders": [
+        "/Users/liuchunlei/Code/skywork/",
+        "/Users/liuchunlei/Documents/Code",
+        "/Users/liuchunlei/go/src"
+    ]
 }
