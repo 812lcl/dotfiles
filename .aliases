@@ -6,6 +6,8 @@ alias la='ls -AF'
 alias lla='ls -alF'
 alias vi='nvim'
 alias tmux='tmux -2'
+alias tmux-clear='tmux list-panes -a -F "#{pane_id}" | xargs -I {} tmux send-keys -t {} C-l'
+alias tmux-reload-zsh='tmux list-panes -a -F "#{pane_id}" | xargs -I {} tmux send-keys -t {} "source ~/.zshrc && clear" C-m'
 alias cat='bat'
 
 alias dl='cd ~/Downloads'
@@ -47,3 +49,4 @@ alias sci='source /Users/812lcl/go/src/gitlab.myteksi.net/gophers/go/scripts/set
 
 alias t='asynctask -f'
 alias python="python3"
+alias claude="claude --permission-mode acceptEdits"
