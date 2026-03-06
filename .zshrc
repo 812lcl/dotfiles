@@ -202,4 +202,4 @@ export PKG_CONFIG_PATH="/opt/homebrew/opt/ruby/lib/pkgconfig"
 export PATH=/Users/812lcl/.opencode/bin:$PATH
 
 # OpenClaw Completion
-source "/Users/liuchunlei/.openclaw/completions/openclaw.zsh"
+source "/Users/812lcl/.openclaw/completions/openclaw.zsh"
