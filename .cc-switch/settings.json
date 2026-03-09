@@ -9,7 +9,7 @@
   "usageConfirmed": true,
   "language": "zh",
   "currentProviderClaude": "453669d9-5d3d-4808-8761-6d0d815522f5",
-  "currentProviderCodex": "aa3db2c1-f04b-433e-87c0-ef31c6ccf462",
+  "currentProviderCodex": "default",
   "skillSyncMethod": "auto",
   "preferredTerminal": "ghostty"
 }
