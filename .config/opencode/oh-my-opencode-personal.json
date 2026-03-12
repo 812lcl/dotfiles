@@ -1,43 +1,37 @@
 {
   "agents": {
     "atlas": {
-      "model": "sk-router/claude-sonnet-4.5"
-    },
-    "document-writer": {
-      "model": "google/antigravity-gemini-3-flash"
+      "model": "sk-router-copy/claude-sonnet-4.6"
     },
     "explore": {
-      "model": "google/antigravity-gemini-3-flash"
-    },
-    "frontend-ui-ux-engineer": {
-      "model": "google/antigravity-gemini-3-pro-high"
+      "model": "sk-router-copy/claude-haiku-4.5"
     },
     "hephaestus": {
-      "model": "sk-router/gpt-5.2"
+      "model": "sk-router-copy-copy/gpt-5.2-codex"
     },
     "librarian": {
-      "model": "sk-router/claude-sonnet-4.5"
+      "model": "sk-router-copy/claude-sonnet-4.6"
     },
     "metis": {
-      "model": "sk-router/claude-sonnet-4.5"
+      "model": "sk-router-copy/claude-opus-4.6"
     },
     "momus": {
-      "model": "sk-router/gpt-5.2"
+      "model": "sk-router-copy-copy/gpt-5.2-codex"
     },
     "multimodal-looker": {
-      "model": "google/antigravity-gemini-3-flash"
+      "model": "sk-router/gemini-3-flash-preview"
     },
     "oracle": {
-      "model": "sk-router/gpt-5.2"
+      "model": "sk-router-copy-copy/gpt-5.2-codex"
     },
     "prometheus": {
-      "model": "sk-router/gpt-5.2"
+      "model": "sk-router-copy/claude-opus-4.6"
     },
     "sisyphus": {
-      "model": "sk-router/gpt-5.2"
+      "model": "sk-router-copy/claude-opus-4.6"
     },
     "sisyphus-junior": {
-      "model": "sk-router/claude-sonnet-4.5"
+      "model": "sk-router-copy/claude-sonnet-4.6"
     }
   },
   "categories": {
@@ -45,25 +39,22 @@
       "model": "sk-sky/gemini-3-pro-preview"
     },
     "deep": {
-      "model": "sk-router/gpt-5.2"
+      "model": "sk-router-copy-copy/gpt-5.2-codex"
     },
     "quick": {
-      "model": "sk-router/claude-haiku-4.5"
+      "model": "sk-router-copy/claude-haiku-4.5"
     },
     "ultrabrain": {
-      "model": "sk-router/gpt-5.2"
+      "model": "sk-router-copy-copy/gpt-5.2-codex"
     },
     "unspecified-high": {
-      "model": "sk-router/gpt-5.2"
+      "model": "sk-router-copy/claude-opus-4.6"
     },
     "unspecified-low": {
-      "model": "sk-router/claude-sonnet-4.5"
+      "model": "sk-router-copy/claude-sonnet-4.6"
     },
     "visual-engineering": {
       "model": "sk-sky/gemini-3-pro-preview"
-    },
-    "writing": {
-      "model": "sk-router/gemini-3-flash-preview"
     }
   },
   "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/master/assets/oh-my-opencode.schema.json",
