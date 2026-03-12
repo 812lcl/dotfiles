@@ -1,7 +1,4 @@
-model = "gpt-5"
-disable_response_storage = true
-preferred_auth_method = "apikey"
+model = "gpt-5.4"
+model_reasoning_effort = "high"
 personality = "pragmatic"
 
-[notice.model_migrations]
-gpt-5 = "gpt-5.3-codex"
