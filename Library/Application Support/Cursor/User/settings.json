@@ -367,5 +367,6 @@
         "/Users/liuchunlei/Code/skywork/",
         "/Users/liuchunlei/Documents/Code",
         "/Users/liuchunlei/go/src"
-    ]
+    ],
+    "security.promptForLocalFileProtocolHandling": false
 }
