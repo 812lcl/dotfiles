@@ -8,7 +8,7 @@
   "enableLocalProxy": false,
   "usageConfirmed": true,
   "language": "zh",
-  "currentProviderClaude": "453669d9-5d3d-4808-8761-6d0d815522f5",
+  "currentProviderClaude": "default",
   "currentProviderCodex": "default",
   "skillSyncMethod": "auto",
   "preferredTerminal": "ghostty"
