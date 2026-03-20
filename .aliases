@@ -49,4 +49,3 @@ alias sci='source /Users/812lcl/go/src/gitlab.myteksi.net/gophers/go/scripts/set
 
 alias t='asynctask -f'
 alias python="python3"
-alias claude="claude --permission-mode acceptEdits"
