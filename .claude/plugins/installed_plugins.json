@@ -156,6 +156,16 @@
         "lastUpdated": "2026-02-28T06:47:13.049Z",
         "gitCommitSha": "55b58ec6e5649104f926ba7558b567dc8d33c5ff"
       }
+    ],
+    "claude-hud@claude-hud": [
+      {
+        "scope": "user",
+        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-hud/claude-hud/0.0.10",
+        "version": "0.0.10",
+        "installedAt": "2026-03-20T02:37:19.773Z",
+        "lastUpdated": "2026-03-20T02:37:19.773Z",
+        "gitCommitSha": "26e38decd762f1a2d31e6d83bf33193b3b293084"
+      }
     ]
   }
 }
