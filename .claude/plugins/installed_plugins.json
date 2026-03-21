@@ -173,6 +173,16 @@
         "installedAt": "2026-03-21T00:06:23.775Z",
         "lastUpdated": "2026-03-21T00:06:23.775Z"
       }
+    ],
+    "code-review-graph@code-review-graph": [
+      {
+        "scope": "user",
+        "installPath": "/Users/812lcl/.claude/plugins/cache/code-review-graph/code-review-graph/1.8.3",
+        "version": "1.8.3",
+        "installedAt": "2026-03-21T00:16:39.452Z",
+        "lastUpdated": "2026-03-21T00:16:39.452Z",
+        "gitCommitSha": "f9f01aed00b6913f7e0014ab85b4fc2bc7ced1b7"
+      }
     ]
   }
 }
