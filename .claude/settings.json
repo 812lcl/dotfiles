@@ -1,22 +1,4 @@
 {
-  "enabledPlugins": {
-    "ai-generation-skills@baoyu-skills": true,
-    "code-review@claude-plugins-official": true,
-    "code-simplifier@claude-plugins-official": true,
-    "commit-commands@claude-plugins-official": true,
-    "content-skills@baoyu-skills": true,
-    "context7@claude-plugins-official": true,
-    "feature-dev@claude-plugins-official": true,
-    "frontend-design@claude-plugins-official": true,
-    "gitlab@claude-plugins-official": true,
-    "gopls-lsp@claude-plugins-official": true,
-    "obsidian@obsidian-skills": true,
-    "pyright-lsp@claude-plugins-official": true,
-    "security-guidance@claude-plugins-official": true,
-    "superpowers@claude-plugins-official": true,
-    "typescript-lsp@claude-plugins-official": true,
-    "utility-skills@baoyu-skills": true
-  },
   "env": {
     "ANTHROPIC_AUTH_TOKEN": "test",
     "ANTHROPIC_BASE_URL": "http://127.0.0.1:3456",
@@ -30,11 +12,6 @@
     "DISABLE_AUTOUPDATER": "1"
   },
   "permissions": {
-    "defaultMode": "bypassPermissions",
-    "additionalDirectories": [
-      "/private/tmp",
-      "/Users/liuchunlei/.claude"
-    ],
     "allow": [
       "Read",
       "Edit",
@@ -94,13 +71,36 @@
       "Read(.env.*)",
       "Bash(rm -rf *)",
       "Bash(sudo *)"
+    ],
+    "defaultMode": "bypassPermissions",
+    "additionalDirectories": [
+      "/private/tmp",
+      "/Users/liuchunlei/.claude"
     ]
   },
   "model": "opus[1m]",
-  "skipDangerousModePermissionPrompt": true,
-  "skipWebFetchPreflight": true,
   "statusLine": {
-    "command": "bash /Users/liuchunlei/.claude/statusline-command.sh",
-    "type": "command"
-  }
+    "type": "command",
+    "command": "bash /Users/liuchunlei/.claude/statusline-command.sh"
+  },
+  "enabledPlugins": {
+    "code-review@claude-plugins-official": true,
+    "code-simplifier@claude-plugins-official": true,
+    "commit-commands@claude-plugins-official": true,
+    "context7@claude-plugins-official": true,
+    "feature-dev@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": true,
+    "gopls-lsp@claude-plugins-official": true,
+    "pyright-lsp@claude-plugins-official": true,
+    "security-guidance@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "claude-md-management@claude-plugins-official": true,
+    "greptile@claude-plugins-official": true,
+    "coderabbit@claude-plugins-official": true,
+    "chrome-devtools-mcp@claude-plugins-official": true,
+    "discord@claude-plugins-official": true
+  },
+  "skipWebFetchPreflight": true,
+  "skipDangerousModePermissionPrompt": true
 }
