@@ -1,16 +1,6 @@
 {
   "version": 2,
   "plugins": {
-    "obsidian@obsidian-skills": [
-      {
-        "scope": "user",
-        "installPath": "/Users/liuchunlei/.claude/plugins/cache/obsidian-skills/obsidian/1.0.0",
-        "version": "1.0.0",
-        "installedAt": "2026-01-17T06:06:03.916Z",
-        "lastUpdated": "2026-01-17T06:06:03.916Z",
-        "gitCommitSha": "4540df83fc68a68bef27e83ae79bc4f1b4d2ea7c"
-      }
-    ],
     "superpowers@claude-plugins-official": [
       {
         "scope": "user",
@@ -97,36 +87,6 @@
         "lastUpdated": "2026-02-27T04:48:20.893Z"
       }
     ],
-    "ai-generation-skills@baoyu-skills": [
-      {
-        "scope": "user",
-        "installPath": "/Users/liuchunlei/.claude/plugins/cache/baoyu-skills/ai-generation-skills/e7367076281d",
-        "version": "e7367076281d",
-        "installedAt": "2026-02-26T10:12:34.903Z",
-        "lastUpdated": "2026-02-26T10:12:34.903Z",
-        "gitCommitSha": "e7367076281ddf2453f1653200ff5b75cea8563d"
-      }
-    ],
-    "content-skills@baoyu-skills": [
-      {
-        "scope": "user",
-        "installPath": "/Users/liuchunlei/.claude/plugins/cache/baoyu-skills/content-skills/e7367076281d",
-        "version": "e7367076281d",
-        "installedAt": "2026-02-26T10:12:41.485Z",
-        "lastUpdated": "2026-02-26T10:12:41.485Z",
-        "gitCommitSha": "e7367076281ddf2453f1653200ff5b75cea8563d"
-      }
-    ],
-    "utility-skills@baoyu-skills": [
-      {
-        "scope": "user",
-        "installPath": "/Users/liuchunlei/.claude/plugins/cache/baoyu-skills/utility-skills/e7367076281d",
-        "version": "e7367076281d",
-        "installedAt": "2026-02-26T10:12:48.423Z",
-        "lastUpdated": "2026-02-26T10:12:48.423Z",
-        "gitCommitSha": "e7367076281ddf2453f1653200ff5b75cea8563d"
-      }
-    ],
     "pyright-lsp@claude-plugins-official": [
       {
         "scope": "user",
@@ -165,6 +125,53 @@
         "installedAt": "2026-03-20T02:37:19.773Z",
         "lastUpdated": "2026-03-20T02:37:19.773Z",
         "gitCommitSha": "26e38decd762f1a2d31e6d83bf33193b3b293084"
+      }
+    ],
+    "claude-md-management@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/812lcl/.claude/plugins/cache/claude-plugins-official/claude-md-management/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-03-21T00:04:05.025Z",
+        "lastUpdated": "2026-03-21T00:04:05.025Z"
+      }
+    ],
+    "greptile@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/812lcl/.claude/plugins/cache/claude-plugins-official/greptile/unknown",
+        "version": "unknown",
+        "installedAt": "2026-03-21T00:04:30.115Z",
+        "lastUpdated": "2026-03-21T00:04:30.115Z"
+      }
+    ],
+    "coderabbit@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/812lcl/.claude/plugins/cache/claude-plugins-official/coderabbit/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-03-21T00:05:07.313Z",
+        "lastUpdated": "2026-03-21T00:05:07.313Z",
+        "gitCommitSha": "8fbf7eb630000a5ec7cc3e7ce2d2703c8c119d0c"
+      }
+    ],
+    "chrome-devtools-mcp@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/812lcl/.claude/plugins/cache/claude-plugins-official/chrome-devtools-mcp/latest",
+        "version": "latest",
+        "installedAt": "2026-03-21T00:05:44.180Z",
+        "lastUpdated": "2026-03-21T00:05:44.180Z",
+        "gitCommitSha": "c2d8009ff75f76bce1ec4cf79c2467b50d81725e"
+      }
+    ],
+    "discord@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/812lcl/.claude/plugins/cache/claude-plugins-official/discord/0.0.1",
+        "version": "0.0.1",
+        "installedAt": "2026-03-21T00:06:23.775Z",
+        "lastUpdated": "2026-03-21T00:06:23.775Z"
       }
     ]
   }
