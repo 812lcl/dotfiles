@@ -7,6 +7,7 @@
   "silentStartup": true,
   "enableLocalProxy": false,
   "usageConfirmed": true,
+  "enableFailoverToggle": false,
   "language": "zh",
   "currentProviderClaude": "default",
   "currentProviderCodex": "default",

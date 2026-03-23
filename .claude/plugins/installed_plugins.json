@@ -107,16 +107,6 @@
         "gitCommitSha": "55b58ec6e5649104f926ba7558b567dc8d33c5ff"
       }
     ],
-    "gitlab@claude-plugins-official": [
-      {
-        "scope": "user",
-        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-plugins-official/gitlab/55b58ec6e564",
-        "version": "55b58ec6e564",
-        "installedAt": "2026-02-28T06:47:13.049Z",
-        "lastUpdated": "2026-02-28T06:47:13.049Z",
-        "gitCommitSha": "55b58ec6e5649104f926ba7558b567dc8d33c5ff"
-      }
-    ],
     "claude-hud@claude-hud": [
       {
         "scope": "user",
@@ -168,19 +158,20 @@
     "discord@claude-plugins-official": [
       {
         "scope": "user",
-        "installPath": "/Users/812lcl/.claude/plugins/cache/claude-plugins-official/discord/0.0.1",
+        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-plugins-official/discord/0.0.1",
         "version": "0.0.1",
-        "installedAt": "2026-03-21T00:06:23.775Z",
-        "lastUpdated": "2026-03-21T00:06:23.775Z"
+        "installedAt": "2026-03-23T02:08:22.124Z",
+        "lastUpdated": "2026-03-23T02:08:22.124Z",
+        "gitCommitSha": "61c0597779bd2d670dcd4fbbf37c66aa19eb2ce6"
       }
     ],
     "code-review-graph@code-review-graph": [
       {
         "scope": "user",
-        "installPath": "/Users/812lcl/.claude/plugins/cache/code-review-graph/code-review-graph/1.8.3",
+        "installPath": "/Users/liuchunlei/.claude/plugins/cache/code-review-graph/code-review-graph/1.8.3",
         "version": "1.8.3",
-        "installedAt": "2026-03-21T00:16:39.452Z",
-        "lastUpdated": "2026-03-21T00:16:39.452Z",
+        "installedAt": "2026-03-23T02:02:15.563Z",
+        "lastUpdated": "2026-03-23T02:02:15.563Z",
         "gitCommitSha": "f9f01aed00b6913f7e0014ab85b4fc2bc7ced1b7"
       }
     ]
