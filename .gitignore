@@ -10,3 +10,5 @@ bin/bd
 .codex/auth.json
 nohup.out
 .claude/settings.local.json
+.claude/plugins/claude-hud/.speed-cache.json
+.claude/plugins/claude-hud/.usage-cache.json
