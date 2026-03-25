@@ -19,6 +19,6 @@
     "enabled": true,
     "showDirty": true,
     "showAheadBehind": false,
-    "showFileStats": false
+    "showFileStats": true
   }
 }
