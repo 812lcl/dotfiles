@@ -295,7 +295,7 @@
       "skillPath": "skills/defuddle/SKILL.md",
       "skillFolderHash": "",
       "installedAt": "2026-03-21T00:08:09.209Z",
-      "updatedAt": "2026-03-21T00:08:09.209Z"
+      "updatedAt": "2026-03-28T21:53:15.511Z"
     },
     "json-canvas": {
       "source": "git@github.com:kepano/obsidian-skills.git",
@@ -304,7 +304,7 @@
       "skillPath": "skills/json-canvas/SKILL.md",
       "skillFolderHash": "",
       "installedAt": "2026-03-21T00:08:09.215Z",
-      "updatedAt": "2026-03-21T00:08:09.215Z"
+      "updatedAt": "2026-03-28T21:53:15.520Z"
     },
     "obsidian-bases": {
       "source": "git@github.com:kepano/obsidian-skills.git",
@@ -313,7 +313,7 @@
       "skillPath": "skills/obsidian-bases/SKILL.md",
       "skillFolderHash": "",
       "installedAt": "2026-03-21T00:08:09.216Z",
-      "updatedAt": "2026-03-21T00:08:09.216Z"
+      "updatedAt": "2026-03-28T21:53:15.521Z"
     },
     "obsidian-cli": {
       "source": "git@github.com:kepano/obsidian-skills.git",
@@ -322,7 +322,7 @@
       "skillPath": "skills/obsidian-cli/SKILL.md",
       "skillFolderHash": "",
       "installedAt": "2026-03-21T00:08:09.217Z",
-      "updatedAt": "2026-03-21T00:08:09.217Z"
+      "updatedAt": "2026-03-28T21:53:15.523Z"
     },
     "obsidian-markdown": {
       "source": "git@github.com:kepano/obsidian-skills.git",
@@ -331,7 +331,7 @@
       "skillPath": "skills/obsidian-markdown/SKILL.md",
       "skillFolderHash": "",
       "installedAt": "2026-03-21T00:08:09.217Z",
-      "updatedAt": "2026-03-21T00:08:09.217Z"
+      "updatedAt": "2026-03-28T21:53:15.524Z"
     },
     "self-improving-agent": {
       "source": "charon-fan/agent-playbook",
@@ -366,9 +366,11 @@
   },
   "lastSelectedAgents": [
     "amp",
+    "antigravity",
     "cline",
     "codex",
     "cursor",
+    "deepagents",
     "gemini-cli",
     "github-copilot",
     "kimi-cli",
