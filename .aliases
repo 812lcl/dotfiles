@@ -49,3 +49,7 @@ alias sci='source /Users/812lcl/go/src/gitlab.myteksi.net/gophers/go/scripts/set
 
 alias t='asynctask -f'
 alias python="python3"
+
+alias ccd='claude --channels plugin:discord@claude-plugins-official'
+alias cct='claude --channels plugin:telegram@claude-plugins-official'
+alias ccc='claude --continue'
