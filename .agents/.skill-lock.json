@@ -602,6 +602,15 @@
       "skillFolderHash": "",
       "installedAt": "2026-04-08T01:18:47.527Z",
       "updatedAt": "2026-04-08T01:18:47.527Z"
+    },
+    "autocli": {
+      "source": "nashsu/autocli-skill",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/nashsu/autocli-skill.git",
+      "skillPath": "SKILL.md",
+      "skillFolderHash": "",
+      "installedAt": "2026-04-08T01:37:17.010Z",
+      "updatedAt": "2026-04-08T01:37:17.010Z"
     }
   },
   "dismissed": {

@@ -1,0 +1,1 @@
+/Users/liuchunlei/Documents/Code/dotfiles/.claude/skills/gstack/open-gstack-browser/SKILL.md
