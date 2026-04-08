@@ -3,48 +3,5 @@
   "config": {
     "stopReviewGate": false
   },
-  "jobs": [
-    {
-      "createdAt": "2026-04-06T10:12:15.647Z",
-      "updatedAt": "2026-04-06T10:20:46.351Z",
-      "id": "task-mnn172qn-y03rwb",
-      "kind": "task",
-      "kindLabel": "rescue",
-      "title": "Codex Task",
-      "workspaceRoot": "/Users/liuchunlei/Code/skywork/agent",
-      "jobClass": "task",
-      "summary": "**Summary**",
-      "write": false,
-      "sessionId": "9306bcbb-8226-408c-9eb9-849c222299d7",
-      "status": "completed",
-      "startedAt": "2026-04-06T10:12:15.810Z",
-      "phase": "done",
-      "pid": null,
-      "logFile": "/Users/liuchunlei/.claude/plugins/data/codex-openai-codex/state/agent-287676a518911d0e/jobs/task-mnn172qn-y03rwb.log",
-      "threadId": "019d6247-6612-7403-9260-0a8e45ed050c",
-      "turnId": "019d6247-69c4-76a0-8a45-22be64ceeb6a",
-      "completedAt": "2026-04-06T10:20:46.039Z"
-    },
-    {
-      "createdAt": "2026-04-06T09:42:10.604Z",
-      "updatedAt": "2026-04-06T09:47:35.016Z",
-      "id": "task-mnn04dyk-59q17z",
-      "kind": "task",
-      "kindLabel": "rescue",
-      "title": "Codex Task",
-      "workspaceRoot": "/Users/liuchunlei/Code/skywork/agent",
-      "jobClass": "task",
-      "summary": "**Findings**",
-      "write": false,
-      "sessionId": "9306bcbb-8226-408c-9eb9-849c222299d7",
-      "status": "completed",
-      "startedAt": "2026-04-06T09:42:10.753Z",
-      "phase": "done",
-      "pid": null,
-      "logFile": "/Users/liuchunlei/.claude/plugins/data/codex-openai-codex/state/agent-287676a518911d0e/jobs/task-mnn04dyk-59q17z.log",
-      "threadId": "019d622b-dc6e-7d20-8607-68af4a86a7d2",
-      "turnId": "019d622b-dfd7-7c03-92e4-30e62834cf2e",
-      "completedAt": "2026-04-06T09:47:34.561Z"
-    }
-  ]
+  "jobs": []
 }

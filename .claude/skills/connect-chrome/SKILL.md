@@ -1,0 +1,1 @@
+/Users/liuchunlei/Documents/Code/dotfiles/.claude/skills/gstack/connect-chrome/SKILL.md

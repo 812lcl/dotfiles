@@ -1,7 +1,0 @@
-{
-  "endpoint": "unix:/var/folders/q9/d557_52s70x1p2kjgpvmm_c80000gn/T/cxc-6JRdwy/broker.sock",
-  "pidFile": "/var/folders/q9/d557_52s70x1p2kjgpvmm_c80000gn/T/cxc-6JRdwy/broker.pid",
-  "logFile": "/var/folders/q9/d557_52s70x1p2kjgpvmm_c80000gn/T/cxc-6JRdwy/broker.log",
-  "sessionDir": "/var/folders/q9/d557_52s70x1p2kjgpvmm_c80000gn/T/cxc-6JRdwy",
-  "pid": 42069
-}
