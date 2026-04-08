@@ -1,5 +1,5 @@
 ---
-name: health
+name: health-2
 version: 3.2.0
 description: Invoke when Claude ignores instructions, behaves inconsistently, hooks malfunction, or MCP servers need auditing. Audits the full six-layer config stack and flags issues by severity. Not for debugging code or reviewing PRs.
 allowed-tools:
