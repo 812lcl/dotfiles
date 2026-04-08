@@ -184,6 +184,16 @@
         "lastUpdated": "2026-03-27T02:47:47.390Z",
         "gitCommitSha": "61c0597779bd2d670dcd4fbbf37c66aa19eb2ce6"
       }
+    ],
+    "codex@openai-codex": [
+      {
+        "scope": "user",
+        "installPath": "/Users/liuchunlei/.claude/plugins/cache/openai-codex/codex/1.0.2",
+        "version": "1.0.2",
+        "installedAt": "2026-04-01T02:07:56.472Z",
+        "lastUpdated": "2026-04-01T02:07:56.472Z",
+        "gitCommitSha": "8e403f9d4b496b0b0aff50fa3673f889f6a22cb1"
+      }
     ]
   }
 }
