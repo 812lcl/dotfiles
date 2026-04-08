@@ -56,3 +56,43 @@
 ## 核心原则
 - **简洁优先**：所有改动尽可能精简，实现最小代码侵入
 - **杜绝敷衍**：定位问题根因，不做临时修复，始终遵循资深工程师开发标准
+
+---
+## gstack
+
+所有网页浏览操作使用 `/browse` skill（来自 gstack），**永远不要使用** `mcp__claude-in-chrome__*` 工具。
+
+可用 skills：
+- `/office-hours` — YC Office Hours 创业诊断
+- `/plan-ceo-review` — CEO 视角计划评审
+- `/plan-eng-review` — 工程视角计划评审
+- `/plan-design-review` — 设计视角计划评审
+- `/design-consultation` — 从零设计系统
+- `/design-shotgun` — 视觉设计探索
+- `/design-html` — 设计转 HTML
+- `/review` — PR 代码审查
+- `/ship` — 发布工作流
+- `/land-and-deploy` — 合并、部署、金丝雀验证
+- `/canary` — 部署后监控
+- `/benchmark` — 性能回归检测
+- `/browse` — 快速无头浏览器（QA/测试/截图）
+- `/connect-chrome` — 连接 Chrome 浏览器
+- `/qa` — QA 测试 + 修复
+- `/qa-only` — 仅 QA 报告（不修复）
+- `/design-review` — 设计审查 + 修复循环
+- `/setup-browser-cookies` — 配置浏览器 cookies
+- `/setup-deploy` — 配置部署
+- `/retro` — 回顾复盘
+- `/investigate` — 系统性根因调试
+- `/document-release` — 发布后文档更新
+- `/codex` — 多 AI 第二意见（Codex CLI）
+- `/cso` — OWASP Top 10 + STRIDE 安全审计
+- `/autoplan` — 自动评审流水线（CEO → 设计 → 工程）
+- `/plan-devex-review` — 开发者体验评审
+- `/devex-review` — 开发者体验评审 + 修复
+- `/careful` — 谨慎模式
+- `/freeze` — 冻结分支
+- `/guard` — 守卫模式
+- `/unfreeze` — 解冻分支
+- `/gstack-upgrade` — 升级 gstack
+- `/learn` — 深度学习/研究工作流
