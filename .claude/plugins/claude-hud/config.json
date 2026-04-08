@@ -1,6 +1,7 @@
 {
-  "lineLayout": "expanded",
-  "showSeparators": false,
+  "lineLayout": "compact",
+  "showSeparators": true,
+  "language": "en",
   "display": {
     "showModel": true,
     "showContextBar": true,
@@ -14,7 +15,8 @@
     "showUsage": true,
     "usageBarEnabled": true,
     "showDuration": true,
-    "showSessionName": true
+    "showSessionName": true,
+    "showSessionTokens": true
   },
   "gitStatus": {
     "enabled": true,

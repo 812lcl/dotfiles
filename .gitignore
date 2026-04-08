@@ -13,5 +13,5 @@ nohup.out
 .claude/plugins/claude-hud/.speed-cache.json
 .claude/plugins/claude-hud/.usage-cache.json
 **/__pycache__/
-.claude/plugins/claude-hud/config-cache/
-.claude/plugins/claude-hud/transcript-cache/
+.claude/plugins/claude-hud/config-cache/*
+.claude/plugins/claude-hud/transcript-cache/*
