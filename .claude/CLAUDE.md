@@ -56,3 +56,6 @@
 ## 核心原则
 - **简洁优先**：所有改动尽可能精简，实现最小代码侵入
 - **杜绝敷衍**：定位问题根因，不做临时修复，始终遵循资深工程师开发标准
+# graphify
+- **graphify** (`~/.claude/skills/graphify/SKILL.md`) - any input to knowledge graph. Trigger: `/graphify`
+When the user types `/graphify`, invoke the Skill tool with `skill: "graphify"` before doing anything else.
