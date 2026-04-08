@@ -1,0 +1,38 @@
+{
+  "id": "review-mnfvyb4z-bnqds3",
+  "kind": "review",
+  "kindLabel": "review",
+  "title": "Codex Review",
+  "workspaceRoot": "/Users/liuchunlei/Code/skywork/agent/chat",
+  "jobClass": "review",
+  "summary": "Review branch diff against master",
+  "write": false,
+  "createdAt": "2026-04-01T10:11:05.315Z",
+  "sessionId": "47b93742-b7e5-46ea-82e3-99c4d5bffea7",
+  "status": "completed",
+  "startedAt": "2026-04-01T10:11:06.394Z",
+  "phase": "done",
+  "pid": null,
+  "logFile": "/Users/liuchunlei/.claude/plugins/data/codex-openai-codex/state/chat-26754054f7fc25fb/jobs/review-mnfvyb4z-bnqds3.log",
+  "threadId": "019d4886-9175-78d1-a7fa-bb5f924027a1",
+  "turnId": "019d4886-98b0-7600-9f07-3d83d8eff81d",
+  "completedAt": "2026-04-01T10:19:35.587Z",
+  "result": {
+    "review": "Review",
+    "target": {
+      "mode": "branch",
+      "label": "branch diff against master",
+      "baseRef": "master",
+      "explicit": false
+    },
+    "threadId": "019d4886-9175-78d1-a7fa-bb5f924027a1",
+    "sourceThreadId": "019d4886-9175-78d1-a7fa-bb5f924027a1",
+    "codex": {
+      "status": 0,
+      "stderr": "",
+      "stdout": "The patch currently introduces a build-breaking unused local in `checkAndCostUserBenefitsForSkills`. Beyond that, the new skill-benefit and skill-editing flows contain regressions that can bypass paywalls, crash on stale references, and corrupt edited skill packages.\n\nFull review comments:\n\n- [P0] Remove unused `indexToSkillKey` local — /Users/liuchunlei/Code/skywork/agent/chat/service/page/chat/chat_route.go:1515-1515\n  This local is never read, so `go build`/`go test` for `service/page/chat` will fail with `declared and not used: indexToSkillKey`. The new skill-benefit path cannot ship until this variable is removed or actually consumed.\n\n- [P1] Run general benefit checks for skill-key items — /Users/liuchunlei/Code/skywork/agent/chat/service/page/chat/chat_benefits.go:552-554\n  When `item.SkillKey` is present we only enqueue the item for `checkSkillBenefitBatchInternal`; it never goes through `CheckUserBenefitsBatch`. In `checkAndCostUserBenefitsForSkills` every referenced/auto-invoked skill sets `SkillKey`, so any paywall modeled through `SubOfficeID` (for example pro-mode or advanced-agent benefit items) is neither checked nor charged, and those skills become usable as long as `min_membership_type` passes.\n\n- [P1] Fail closed when skill benefit checks error — /Users/liuchunlei/Code/skywork/agent/chat/service/page/chat/chat_route.go:1532-1538\n  If `CheckSkillBenefitBatch` hits a transient DB/Marketing error, or if its response length is inconsistent, this branch returns `true` and leaves all skills at their default `IsBenefitValid=true`. `injectSkillInfo` then forwards the referenced skills to the agent anyway, so premium skills are exposed during backend failures instead of being rejected or filtered out.\n\n- [P2] Guard missing legacy-sub-office skill lookups — /Users/liuchunlei/Code/skywork/agent/chat/service/page/chat/chat_sender.go:9352-9358\n  `FindByLegacySubOfficeID` returns `(nil, nil)` when the legacy id is unknown. In that case `skill.SkillKey` dereferences a nil pointer and crashes the request. A stale or deleted `legacy_sub_office_id` inside `<reference>` content is enough to trigger this path.\n\n- [P2] Preserve auxiliary files when editing a skill archive — /Users/liuchunlei/Code/skywork/agent/chat/service/page/chat/file_artifact_update_sender.go:991-1002\n  This rebuilds the edited archive from scratch and writes only `SKILL.md`. For any skill package that also contains `scripts/`, `assets/`, templates, or other files, editing the markdown produces a new zip that silently drops those dependencies, so the next invocation of the skill breaks even though the user only changed metadata or instructions.",
+      "reasoning": []
+    }
+  },
+  "rendered": "# Codex Review\n\nTarget: branch diff against master\n\nThe patch currently introduces a build-breaking unused local in `checkAndCostUserBenefitsForSkills`. Beyond that, the new skill-benefit and skill-editing flows contain regressions that can bypass paywalls, crash on stale references, and corrupt edited skill packages.\n\nFull review comments:\n\n- [P0] Remove unused `indexToSkillKey` local — /Users/liuchunlei/Code/skywork/agent/chat/service/page/chat/chat_route.go:1515-1515\n  This local is never read, so `go build`/`go test` for `service/page/chat` will fail with `declared and not used: indexToSkillKey`. The new skill-benefit path cannot ship until this variable is removed or actually consumed.\n\n- [P1] Run general benefit checks for skill-key items — /Users/liuchunlei/Code/skywork/agent/chat/service/page/chat/chat_benefits.go:552-554\n  When `item.SkillKey` is present we only enqueue the item for `checkSkillBenefitBatchInternal`; it never goes through `CheckUserBenefitsBatch`. In `checkAndCostUserBenefitsForSkills` every referenced/auto-invoked skill sets `SkillKey`, so any paywall modeled through `SubOfficeID` (for example pro-mode or advanced-agent benefit items) is neither checked nor charged, and those skills become usable as long as `min_membership_type` passes.\n\n- [P1] Fail closed when skill benefit checks error — /Users/liuchunlei/Code/skywork/agent/chat/service/page/chat/chat_route.go:1532-1538\n  If `CheckSkillBenefitBatch` hits a transient DB/Marketing error, or if its response length is inconsistent, this branch returns `true` and leaves all skills at their default `IsBenefitValid=true`. `injectSkillInfo` then forwards the referenced skills to the agent anyway, so premium skills are exposed during backend failures instead of being rejected or filtered out.\n\n- [P2] Guard missing legacy-sub-office skill lookups — /Users/liuchunlei/Code/skywork/agent/chat/service/page/chat/chat_sender.go:9352-9358\n  `FindByLegacySubOfficeID` returns `(nil, nil)` when the legacy id is unknown. In that case `skill.SkillKey` dereferences a nil pointer and crashes the request. A stale or deleted `legacy_sub_office_id` inside `<reference>` content is enough to trigger this path.\n\n- [P2] Preserve auxiliary files when editing a skill archive — /Users/liuchunlei/Code/skywork/agent/chat/service/page/chat/file_artifact_update_sender.go:991-1002\n  This rebuilds the edited archive from scratch and writes only `SKILL.md`. For any skill package that also contains `scripts/`, `assets/`, templates, or other files, editing the markdown produces a new zip that silently drops those dependencies, so the next invocation of the skill breaks even though the user only changed metadata or instructions.\n"
+}

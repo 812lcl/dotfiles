@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "config": {
+    "stopReviewGate": false
+  },
+  "jobs": [
+    {
+      "createdAt": "2026-04-02T04:02:40.911Z",
+      "updatedAt": "2026-04-02T04:09:25.715Z",
+      "id": "review-mngy8dxr-qmv6g5",
+      "kind": "review",
+      "kindLabel": "review",
+      "title": "Codex Review",
+      "workspaceRoot": "/Users/liuchunlei/Code/skywork/agent/skyclaw/channels",
+      "jobClass": "review",
+      "summary": "The retry/recovery additions have multiple correctness gaps: recovered outbound deliveries cannot be resent successfully, active WS turns are discarded on unfinished exits, and the retry queue can lose or prematurely exhaust work during restarts. These issues make the new reliability features unsafe as shipped.",
+      "write": false,
+      "sessionId": "9fa9aa09-cb91-453c-b611-844cd646bcfc",
+      "status": "completed",
+      "startedAt": "2026-04-02T04:02:41.078Z",
+      "phase": "done",
+      "pid": null,
+      "logFile": "/Users/liuchunlei/.claude/plugins/data/codex-openai-codex/state/channels-b80ad2f9e65f7b8c/jobs/review-mngy8dxr-qmv6g5.log",
+      "threadId": "019d4c5b-9c3c-7961-836f-7788ae9d3abc",
+      "turnId": "019d4c5b-9fa2-7833-a9e5-9392af3da638",
+      "completedAt": "2026-04-02T04:09:25.361Z"
+    }
+  ]
+}

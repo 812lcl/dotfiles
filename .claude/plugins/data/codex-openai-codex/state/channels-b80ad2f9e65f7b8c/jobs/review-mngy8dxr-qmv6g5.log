@@ -1,0 +1,131 @@
+[2026-04-02T04:02:41.078Z] Starting Codex Review.
+[2026-04-02T04:02:43.129Z] Starting Codex review thread.
+[2026-04-02T04:02:45.451Z] Thread ready (019d4c5b-9c3c-7961-836f-7788ae9d3abc).
+[2026-04-02T04:02:46.432Z] Reviewer started: changes against 'master'
+[2026-04-02T04:02:56.467Z] Running command: /bin/zsh -lc 'git diff 6560e69fc81f221b0e37581778a5d6017131bd5e --'
+[2026-04-02T04:02:57.276Z] Command completed: /bin/zsh -lc 'git diff 6560e69fc81f221b0e37581778a5d6017131bd5e --' (exit 0)
+[2026-04-02T04:03:01.636Z] Running command: /bin/zsh -lc 'git diff --name-only 6560e69fc81f221b0e37581778a5d6017131bd5e --'
+[2026-04-02T04:03:01.637Z] Running command: /bin/zsh -lc 'git diff --stat 6560e69fc81f221b0e37581778a5d6017131bd5e --'
+[2026-04-02T04:03:01.689Z] Command completed: /bin/zsh -lc 'git diff --stat 6560e69fc81f221b0e37581778a5d6017131bd5e --' (exit 0)
+[2026-04-02T04:03:01.689Z] Command completed: /bin/zsh -lc 'git diff --name-only 6560e69fc81f221b0e37581778a5d6017131bd5e --' (exit 0)
+[2026-04-02T04:03:08.587Z] Running command: /bin/zsh -lc "sed -n '1,260p' src/channels/outbound/redis_retry_queue.py && printf '\\n---FIL...
+[2026-04-02T04:03:08.591Z] Running command: /bin/zsh -lc 'git diff 6560e69fc81f221b0e37581778a5d6017131bd5e -- src/channels/repositories/...
+[2026-04-02T04:03:08.591Z] Running command: /bin/zsh -lc 'git diff 6560e69fc81f221b0e37581778a5d6017131bd5e -- src/channels/ports/chat_po...
+[2026-04-02T04:03:08.639Z] Command completed: /bin/zsh -lc "sed -n '1,260p' src/channels/outbound/redis_retry_queue.py && printf '\\n---FIL... (exit 0)
+[2026-04-02T04:03:08.643Z] Command completed: /bin/zsh -lc 'git diff 6560e69fc81f221b0e37581778a5d6017131bd5e -- src/channels/repositories/... (exit 0)
+[2026-04-02T04:03:08.646Z] Command completed: /bin/zsh -lc 'git diff 6560e69fc81f221b0e37581778a5d6017131bd5e -- src/channels/ports/chat_po... (exit 0)
+[2026-04-02T04:03:15.933Z] Running command: /bin/zsh -lc "sed -n '1,240p' src/channels/core/service.py && printf '\\n---APP---\\n' && sed...
+[2026-04-02T04:03:15.998Z] Command completed: /bin/zsh -lc "sed -n '1,240p' src/channels/core/service.py && printf '\\n---APP---\\n' && sed... (exit 0)
+[2026-04-02T04:03:16.060Z] Running command: /bin/zsh -lc "sed -n '1,260p' src/channels/outbound/retry.py"
+[2026-04-02T04:03:16.110Z] Command completed: /bin/zsh -lc "sed -n '1,260p' src/channels/outbound/retry.py" (exit 0)
+[2026-04-02T04:03:16.126Z] Running command: /bin/zsh -lc "grep -R \"class BindingResolution\\|@dataclass\\s*class BindingResolution\\|Bin...
+[2026-04-02T04:03:16.184Z] Command completed: /bin/zsh -lc "grep -R \"class BindingResolution\\|@dataclass\\s*class BindingResolution\\|Bin... (exit 0)
+[2026-04-02T04:03:20.257Z] Running command: /bin/zsh -lc "sed -n '1,180p' src/channels/binding/session_resolver.py"
+[2026-04-02T04:03:20.257Z] Running command: /bin/zsh -lc "sed -n '1,220p' src/channels/models/messages.py"
+[2026-04-02T04:03:20.308Z] Command completed: /bin/zsh -lc "sed -n '1,180p' src/channels/binding/session_resolver.py" (exit 0)
+[2026-04-02T04:03:20.308Z] Command completed: /bin/zsh -lc "sed -n '1,220p' src/channels/models/messages.py" (exit 0)
+[2026-04-02T04:03:27.002Z] Running command: /bin/zsh -lc "sed -n '1,260p' src/channels/ports/chat_port.py && printf '\\n---MID---\\n' && ...
+[2026-04-02T04:03:27.059Z] Command completed: /bin/zsh -lc "sed -n '1,260p' src/channels/ports/chat_port.py && printf '\\n---MID---\\n' && ... (exit 0)
+[2026-04-02T04:03:32.518Z] Running command: /bin/zsh -lc "sed -n '1,220p' src/channels/repositories/contracts.py && printf '\\n---MODEL--...
+[2026-04-02T04:03:32.571Z] Running command: /bin/zsh -lc "grep -R \"class OutboundDeliveryModel\\|OutboundDeliveryRecord\" -n src/channel...
+[2026-04-02T04:03:32.572Z] Command failed: /bin/zsh -lc "sed -n '1,220p' src/channels/repositories/contracts.py && printf '\\n---MODEL--... (exit 1)
+[2026-04-02T04:03:32.624Z] Command completed: /bin/zsh -lc "grep -R \"class OutboundDeliveryModel\\|OutboundDeliveryRecord\" -n src/channel... (exit 0)
+[2026-04-02T04:03:39.625Z] Running command: /bin/zsh -lc "sed -n '1,220p' src/channels/repositories/sqlalchemy_outbound_delivery.py && pr...
+[2026-04-02T04:03:39.678Z] Command completed: /bin/zsh -lc "sed -n '1,220p' src/channels/repositories/sqlalchemy_outbound_delivery.py && pr... (exit 0)
+[2026-04-02T04:03:39.678Z] Running command: /bin/zsh -lc "grep -R \"update_status(.*attempt_count\\|attempt_count\" -n src/channels | hea...
+[2026-04-02T04:03:39.730Z] Command completed: /bin/zsh -lc "grep -R \"update_status(.*attempt_count\\|attempt_count\" -n src/channels | hea... (exit 0)
+[2026-04-02T04:03:51.328Z] Running command: /bin/zsh -lc "sed -n '1,320p' tests/test_async_retry_scheduler.py"
+[2026-04-02T04:03:52.260Z] Command completed: /bin/zsh -lc "sed -n '1,320p' tests/test_async_retry_scheduler.py" (exit 0)
+[2026-04-02T04:03:53.792Z] Running command: /bin/zsh -lc "sed -n '320,640p' tests/test_async_retry_scheduler.py"
+[2026-04-02T04:03:53.844Z] Command completed: /bin/zsh -lc "sed -n '320,640p' tests/test_async_retry_scheduler.py" (exit 0)
+[2026-04-02T04:03:56.865Z] Running command: /bin/zsh -lc "sed -n '200,420p' src/channels/core/service.py"
+[2026-04-02T04:03:57.676Z] Command completed: /bin/zsh -lc "sed -n '200,420p' src/channels/core/service.py" (exit 0)
+[2026-04-02T04:04:19.031Z] Running command: /bin/zsh -lc 'grep -R "card_type.*first" -n tests | head -50'
+[2026-04-02T04:04:19.860Z] Command completed: /bin/zsh -lc 'grep -R "card_type.*first" -n tests | head -50' (exit 0)
+[2026-04-02T04:04:33.738Z] Running command: /bin/zsh -lc "sed -n '1,220p' tests/test_chat_port.py && printf '\\n---MID---\\n' && sed -n '...
+[2026-04-02T04:04:33.792Z] Command completed: /bin/zsh -lc "sed -n '1,220p' tests/test_chat_port.py && printf '\\n---MID---\\n' && sed -n '... (exit 0)
+[2026-04-02T04:04:43.099Z] Running command: /bin/zsh -lc "grep -R \"missing_reply_target\\|reply_target is None\\|reply_target.*None\" -n...
+[2026-04-02T04:04:43.949Z] Command completed: /bin/zsh -lc "grep -R \"missing_reply_target\\|reply_target is None\\|reply_target.*None\" -n... (exit 0)
+[2026-04-02T04:04:49.398Z] Running command: /bin/zsh -lc "sed -n '1,140p' src/channels/outbound/dispatcher.py && printf '\\n---MULTI---\\...
+[2026-04-02T04:04:49.450Z] Command completed: /bin/zsh -lc "sed -n '1,140p' src/channels/outbound/dispatcher.py && printf '\\n---MULTI---\\... (exit 0)
+[2026-04-02T04:04:49.483Z] Running command: /bin/zsh -lc "grep -R \"ReplyTarget(target_type=\\\"channel\\\"\" -n src tests"
+[2026-04-02T04:04:50.292Z] Command completed: /bin/zsh -lc "grep -R \"ReplyTarget(target_type=\\\"channel\\\"\" -n src tests" (exit 0)
+[2026-04-02T04:05:21.389Z] Running command: /bin/zsh -lc "grep -n \"ack_first\\|ACK.*first\\|card_type\":\\ \"first\" -n tests/test_chat_...
+[2026-04-02T04:05:21.441Z] Command completed: /bin/zsh -lc "grep -n \"ack_first\\|ACK.*first\\|card_type\":\\ \"first\" -n tests/test_chat_... (exit 0)
+[2026-04-02T04:05:29.243Z] Running command: /bin/zsh -lc "sed -n '1,220p' tests/test_chat_ws_reconnect.py"
+[2026-04-02T04:05:29.296Z] Command completed: /bin/zsh -lc "sed -n '1,220p' tests/test_chat_ws_reconnect.py" (exit 0)
+[2026-04-02T04:06:07.379Z] Running command: /bin/zsh -lc 'grep -R "delivery_id" -n src/channels/outbound | head -200'
+[2026-04-02T04:06:08.292Z] Command completed: /bin/zsh -lc 'grep -R "delivery_id" -n src/channels/outbound | head -200' (exit 0)
+[2026-04-02T04:06:15.311Z] Running command: /bin/zsh -lc "grep -R \"Redis(\" -n src/channels | head -50 && printf '\\n---settings---\\n' ...
+[2026-04-02T04:06:15.363Z] Command completed: /bin/zsh -lc "grep -R \"Redis(\" -n src/channels | head -50 && printf '\\n---settings---\\n' ... (exit 0)
+[2026-04-02T04:06:40.006Z] Running command: /bin/zsh -lc "grep -R \"action.*reconnect\\|chat_offset\\|question_id\\|task_id\" -n .. | hea...
+[2026-04-02T04:06:46.991Z] Command completed: /bin/zsh -lc "grep -R \"action.*reconnect\\|chat_offset\\|question_id\\|task_id\" -n .. | hea... (exit 0)
+[2026-04-02T04:06:57.754Z] Running command: /bin/zsh -lc "nl -ba src/channels/ports/chat_port.py | sed -n '760,980p'"
+[2026-04-02T04:06:57.755Z] Running command: /bin/zsh -lc "nl -ba src/channels/outbound/async_retry.py | sed -n '135,170p'"
+[2026-04-02T04:06:57.755Z] Running command: /bin/zsh -lc "nl -ba src/channels/ports/chat_port.py | sed -n '560,760p'"
+[2026-04-02T04:06:57.811Z] Command completed: /bin/zsh -lc "nl -ba src/channels/outbound/async_retry.py | sed -n '135,170p'" (exit 0)
+[2026-04-02T04:06:57.822Z] Command completed: /bin/zsh -lc "nl -ba src/channels/ports/chat_port.py | sed -n '760,980p'" (exit 0)
+[2026-04-02T04:06:57.824Z] Command completed: /bin/zsh -lc "nl -ba src/channels/ports/chat_port.py | sed -n '560,760p'" (exit 0)
+[2026-04-02T04:07:01.238Z] Running command: /bin/zsh -lc "nl -ba src/channels/core/service.py | sed -n '220,390p' && printf '\\n---APP---...
+[2026-04-02T04:07:01.289Z] Command completed: /bin/zsh -lc "nl -ba src/channels/core/service.py | sed -n '220,390p' && printf '\\n---APP---... (exit 0)
+[2026-04-02T04:07:26.610Z] Running command: /bin/zsh -lc "nl -ba src/channels/outbound/redis_retry_queue.py | sed -n '85,115p'"
+[2026-04-02T04:07:26.663Z] Command completed: /bin/zsh -lc "nl -ba src/channels/outbound/redis_retry_queue.py | sed -n '85,115p'" (exit 0)
+[2026-04-02T04:09:24.495Z] Review output captured.
+
+[2026-04-02T04:09:24.499Z] Review output
+The retry/recovery additions have multiple correctness gaps: recovered outbound deliveries cannot be resent successfully, active WS turns are discarded on unfinished exits, and the retry queue can lose or prematurely exhaust work during restarts. These issues make the new reliability features unsafe as shipped.
+
+Full review comments:
+
+- [P1] Build a valid ReplyTarget when recovering stale deliveries — /Users/liuchunlei/Code/skywork/agent/skyclaw/channels/src/channels/outbound/async_retry.py:149-150
+  In `_startup_compensation()`, `ReplyTarget(target_type="channel", ...)` can never validate because `ReplyTarget.target_type` only allows `dm`, `group`, or `thread`. The exception is swallowed, `reply_target_json` stays empty, and `_retry_one()` redispatches every recovered `pending`/`pending_retry` row with `reply_target=None`; the channel dispatchers then return `missing_reply_target`, so messages recovered after a restart go straight to `dead_letter` instead of actually retrying.
+
+- [P1] Preserve active-turn state until a stream really finishes — /Users/liuchunlei/Code/skywork/agent/skyclaw/channels/src/channels/ports/chat_port.py:779-784
+  This cleanup runs for every exit path, not just after a `finish` card. If the process is shutting down or reconnect attempts are exhausted, the `finally` block deletes `channels:active_turns` and the buffered card keys before `recover_active_turns()` can use them, so an in-flight chat turn cannot be resumed after restart and the user loses the rest of the answer.
+
+- [P2] Keep claimed retry items durable until processing completes — /Users/liuchunlei/Code/skywork/agent/skyclaw/channels/src/channels/outbound/redis_retry_queue.py:104-109
+  `dequeue_batch()` removes a due member from the ZSET before the scheduler has durably re-enqueued or completed it. If the worker dies after `zrem()` succeeds but before `_retry_one()` finishes, that delivery is no longer scheduled anywhere; `_startup_compensation()` only rescans stale rows once at startup, so an ordinary crash/restart can permanently lose the retry.
+
+- [P2] Avoid counting one failed send as two retry attempts — /Users/liuchunlei/Code/skywork/agent/skyclaw/channels/src/channels/core/service.py:267-270
+  `update_status()` increments `attempt_count`, and this path calls it once for the immediate failure and again when moving the same delivery to `pending_retry`. That means one failed initial send is stored as attempt 2 even though the queued `RetryItem` starts at attempt 1; if the process restarts before that queued retry runs, startup compensation copies the inflated DB count and the delivery exhausts one retry earlier than the live path.
+[2026-04-02T04:09:25.350Z] Reviewer finished.
+[2026-04-02T04:09:25.354Z] Assistant message captured: The retry/recovery additions have multiple correctness gaps: recovered outbound deliveries ca...
+
+[2026-04-02T04:09:25.354Z] Assistant message
+The retry/recovery additions have multiple correctness gaps: recovered outbound deliveries cannot be resent successfully, active WS turns are discarded on unfinished exits, and the retry queue can lose or prematurely exhaust work during restarts. These issues make the new reliability features unsafe as shipped.
+
+Full review comments:
+
+- [P1] Build a valid ReplyTarget when recovering stale deliveries — /Users/liuchunlei/Code/skywork/agent/skyclaw/channels/src/channels/outbound/async_retry.py:149-150
+  In `_startup_compensation()`, `ReplyTarget(target_type="channel", ...)` can never validate because `ReplyTarget.target_type` only allows `dm`, `group`, or `thread`. The exception is swallowed, `reply_target_json` stays empty, and `_retry_one()` redispatches every recovered `pending`/`pending_retry` row with `reply_target=None`; the channel dispatchers then return `missing_reply_target`, so messages recovered after a restart go straight to `dead_letter` instead of actually retrying.
+
+- [P1] Preserve active-turn state until a stream really finishes — /Users/liuchunlei/Code/skywork/agent/skyclaw/channels/src/channels/ports/chat_port.py:779-784
+  This cleanup runs for every exit path, not just after a `finish` card. If the process is shutting down or reconnect attempts are exhausted, the `finally` block deletes `channels:active_turns` and the buffered card keys before `recover_active_turns()` can use them, so an in-flight chat turn cannot be resumed after restart and the user loses the rest of the answer.
+
+- [P2] Keep claimed retry items durable until processing completes — /Users/liuchunlei/Code/skywork/agent/skyclaw/channels/src/channels/outbound/redis_retry_queue.py:104-109
+  `dequeue_batch()` removes a due member from the ZSET before the scheduler has durably re-enqueued or completed it. If the worker dies after `zrem()` succeeds but before `_retry_one()` finishes, that delivery is no longer scheduled anywhere; `_startup_compensation()` only rescans stale rows once at startup, so an ordinary crash/restart can permanently lose the retry.
+
+- [P2] Avoid counting one failed send as two retry attempts — /Users/liuchunlei/Code/skywork/agent/skyclaw/channels/src/channels/core/service.py:267-270
+  `update_status()` increments `attempt_count`, and this path calls it once for the immediate failure and again when moving the same delivery to `pending_retry`. That means one failed initial send is stored as attempt 2 even though the queued `RetryItem` starts at attempt 1; if the process restarts before that queued retry runs, startup compensation copies the inflated DB count and the delivery exhausts one retry earlier than the live path.
+[2026-04-02T04:09:25.354Z] Turn completed.
+
+[2026-04-02T04:09:25.998Z] Final output
+# Codex Review
+
+Target: branch diff against master
+
+The retry/recovery additions have multiple correctness gaps: recovered outbound deliveries cannot be resent successfully, active WS turns are discarded on unfinished exits, and the retry queue can lose or prematurely exhaust work during restarts. These issues make the new reliability features unsafe as shipped.
+
+Full review comments:
+
+- [P1] Build a valid ReplyTarget when recovering stale deliveries — /Users/liuchunlei/Code/skywork/agent/skyclaw/channels/src/channels/outbound/async_retry.py:149-150
+  In `_startup_compensation()`, `ReplyTarget(target_type="channel", ...)` can never validate because `ReplyTarget.target_type` only allows `dm`, `group`, or `thread`. The exception is swallowed, `reply_target_json` stays empty, and `_retry_one()` redispatches every recovered `pending`/`pending_retry` row with `reply_target=None`; the channel dispatchers then return `missing_reply_target`, so messages recovered after a restart go straight to `dead_letter` instead of actually retrying.
+
+- [P1] Preserve active-turn state until a stream really finishes — /Users/liuchunlei/Code/skywork/agent/skyclaw/channels/src/channels/ports/chat_port.py:779-784
+  This cleanup runs for every exit path, not just after a `finish` card. If the process is shutting down or reconnect attempts are exhausted, the `finally` block deletes `channels:active_turns` and the buffered card keys before `recover_active_turns()` can use them, so an in-flight chat turn cannot be resumed after restart and the user loses the rest of the answer.
+
+- [P2] Keep claimed retry items durable until processing completes — /Users/liuchunlei/Code/skywork/agent/skyclaw/channels/src/channels/outbound/redis_retry_queue.py:104-109
+  `dequeue_batch()` removes a due member from the ZSET before the scheduler has durably re-enqueued or completed it. If the worker dies after `zrem()` succeeds but before `_retry_one()` finishes, that delivery is no longer scheduled anywhere; `_startup_compensation()` only rescans stale rows once at startup, so an ordinary crash/restart can permanently lose the retry.
+
+- [P2] Avoid counting one failed send as two retry attempts — /Users/liuchunlei/Code/skywork/agent/skyclaw/channels/src/channels/core/service.py:267-270
+  `update_status()` increments `attempt_count`, and this path calls it once for the immediate failure and again when moving the same delivery to `pending_retry`. That means one failed initial send is stored as attempt 2 even though the queued `RetryItem` starts at attempt 1; if the process restarts before that queued retry runs, startup compensation copies the inflated DB count and the delivery exhausts one retry earlier than the live path.

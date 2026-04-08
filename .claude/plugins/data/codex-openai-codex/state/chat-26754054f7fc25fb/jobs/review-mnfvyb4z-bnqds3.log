@@ -1,0 +1,174 @@
+[2026-04-01T10:11:06.393Z] Starting Codex Review.
+[2026-04-01T10:11:09.164Z] Starting Codex review thread.
+[2026-04-01T10:11:11.957Z] Thread ready (019d4886-9175-78d1-a7fa-bb5f924027a1).
+[2026-04-01T10:11:13.840Z] Reviewer started: changes against 'master'
+[2026-04-01T10:11:26.277Z] Running command: /bin/zsh -lc 'cat knowledge/_INDEX.md'
+[2026-04-01T10:11:27.179Z] Command completed: /bin/zsh -lc 'cat knowledge/_INDEX.md' (exit 0)
+[2026-04-01T10:11:27.179Z] Running command: /bin/zsh -lc "git diff 1ac11a76d3781e9afe1bb9d9882de6c6d2b3cb62 --stat && echo '---DIFF---' &...
+[2026-04-01T10:11:27.201Z] Command completed: /bin/zsh -lc "git diff 1ac11a76d3781e9afe1bb9d9882de6c6d2b3cb62 --stat && echo '---DIFF---' &... (exit 0)
+[2026-04-01T10:11:33.360Z] Running command: /bin/zsh -lc 'git diff --name-only 1ac11a76d3781e9afe1bb9d9882de6c6d2b3cb62'
+[2026-04-01T10:11:33.399Z] Command completed: /bin/zsh -lc 'git diff --name-only 1ac11a76d3781e9afe1bb9d9882de6c6d2b3cb62' (exit 0)
+[2026-04-01T10:11:42.851Z] Running command: /bin/zsh -lc 'git diff 1ac11a76d3781e9afe1bb9d9882de6c6d2b3cb62 -- service/page/chat/chat_ben...
+[2026-04-01T10:11:42.851Z] Running command: /bin/zsh -lc 'git diff 1ac11a76d3781e9afe1bb9d9882de6c6d2b3cb62 -- service/page/chat/chat_rou...
+[2026-04-01T10:11:42.853Z] Running command: /bin/zsh -lc 'git diff 1ac11a76d3781e9afe1bb9d9882de6c6d2b3cb62 -- service/page/chat/chat_sen...
+[2026-04-01T10:11:42.904Z] Command completed: /bin/zsh -lc 'git diff 1ac11a76d3781e9afe1bb9d9882de6c6d2b3cb62 -- service/page/chat/chat_ben... (exit 0)
+[2026-04-01T10:11:42.907Z] Command completed: /bin/zsh -lc 'git diff 1ac11a76d3781e9afe1bb9d9882de6c6d2b3cb62 -- service/page/chat/chat_rou... (exit 0)
+[2026-04-01T10:11:42.909Z] Command completed: /bin/zsh -lc 'git diff 1ac11a76d3781e9afe1bb9d9882de6c6d2b3cb62 -- service/page/chat/chat_sen... (exit 0)
+[2026-04-01T10:11:52.234Z] Running command: /bin/zsh -lc 'git diff 1ac11a76d3781e9afe1bb9d9882de6c6d2b3cb62 -- service/page/chat/chat_com...
+[2026-04-01T10:11:52.237Z] Running command: /bin/zsh -lc 'git diff 1ac11a76d3781e9afe1bb9d9882de6c6d2b3cb62 -- lib/vars/consts.go service...
+[2026-04-01T10:11:52.286Z] Command completed: /bin/zsh -lc 'git diff 1ac11a76d3781e9afe1bb9d9882de6c6d2b3cb62 -- service/page/chat/chat_com... (exit 0)
+[2026-04-01T10:11:52.290Z] Command completed: /bin/zsh -lc 'git diff 1ac11a76d3781e9afe1bb9d9882de6c6d2b3cb62 -- lib/vars/consts.go service... (exit 0)
+[2026-04-01T10:12:08.493Z] Running command: /bin/zsh -lc "sed -n '2360,2855p' service/page/chat/chat_route.go"
+[2026-04-01T10:12:08.547Z] Command completed: /bin/zsh -lc "sed -n '2360,2855p' service/page/chat/chat_route.go" (exit 0)
+[2026-04-01T10:12:11.856Z] Running command: /bin/zsh -lc "sed -n '2855,3005p' service/page/chat/chat_route.go"
+[2026-04-01T10:12:11.909Z] Command completed: /bin/zsh -lc "sed -n '2855,3005p' service/page/chat/chat_route.go" (exit 0)
+[2026-04-01T10:12:18.608Z] Running command: /bin/zsh -lc "sed -n '3005,3075p' service/page/chat/chat_route.go"
+[2026-04-01T10:12:18.651Z] Command completed: /bin/zsh -lc "sed -n '3005,3075p' service/page/chat/chat_route.go" (exit 0)
+[2026-04-01T10:12:33.861Z] Running command: /bin/zsh -lc 'grep -R "CheckSkillBenefitBatch(" -n .'
+[2026-04-01T10:12:35.883Z] Command failed: /bin/zsh -lc 'grep -R "CheckSkillBenefitBatch(" -n .' (exit 2)
+[2026-04-01T10:12:39.763Z] Running command: /bin/zsh -lc 'git diff 1ac11a76d3781e9afe1bb9d9882de6c6d2b3cb62 -- handler/chat/chat_benifits...
+[2026-04-01T10:12:39.803Z] Command completed: /bin/zsh -lc 'git diff 1ac11a76d3781e9afe1bb9d9882de6c6d2b3cb62 -- handler/chat/chat_benifits... (exit 0)
+[2026-04-01T10:12:47.075Z] Running command: /bin/zsh -lc 'git diff 1ac11a76d3781e9afe1bb9d9882de6c6d2b3cb62 -- service/page/chat/chat_ppt...
+[2026-04-01T10:12:47.076Z] Running command: /bin/zsh -lc 'git diff 1ac11a76d3781e9afe1bb9d9882de6c6d2b3cb62 -- service/dao/api/fileParser...
+[2026-04-01T10:12:47.076Z] Running command: /bin/zsh -lc 'git diff 1ac11a76d3781e9afe1bb9d9882de6c6d2b3cb62 -- service/page/artifact/arti...
+[2026-04-01T10:12:47.127Z] Command completed: /bin/zsh -lc 'git diff 1ac11a76d3781e9afe1bb9d9882de6c6d2b3cb62 -- service/page/artifact/arti... (exit 0)
+[2026-04-01T10:12:47.131Z] Command completed: /bin/zsh -lc 'git diff 1ac11a76d3781e9afe1bb9d9882de6c6d2b3cb62 -- service/page/chat/chat_ppt... (exit 0)
+[2026-04-01T10:12:47.132Z] Command completed: /bin/zsh -lc 'git diff 1ac11a76d3781e9afe1bb9d9882de6c6d2b3cb62 -- service/dao/api/fileParser... (exit 0)
+[2026-04-01T10:12:52.460Z] Running command: /bin/zsh -lc 'git diff 1ac11a76d3781e9afe1bb9d9882de6c6d2b3cb62 -- handler/routers.go handler...
+[2026-04-01T10:12:52.506Z] Command completed: /bin/zsh -lc 'git diff 1ac11a76d3781e9afe1bb9d9882de6c6d2b3cb62 -- handler/routers.go handler... (exit 0)
+[2026-04-01T10:12:58.212Z] Running command: /bin/zsh -lc 'git diff 1ac11a76d3781e9afe1bb9d9882de6c6d2b3cb62 -- service/dao/db/init.go ser...
+[2026-04-01T10:12:58.266Z] Command completed: /bin/zsh -lc 'git diff 1ac11a76d3781e9afe1bb9d9882de6c6d2b3cb62 -- service/dao/db/init.go ser... (exit 0)
+[2026-04-01T10:13:09.772Z] Running command: /bin/zsh -lc 'grep -R "func ApiObjectToSessObject" -n service/page/chat service/page | head'
+[2026-04-01T10:13:09.823Z] Command completed: /bin/zsh -lc 'grep -R "func ApiObjectToSessObject" -n service/page/chat service/page | head' (exit 0)
+[2026-04-01T10:13:12.147Z] Running command: /bin/zsh -lc "sed -n '1,160p' service/page/chat/chat_utils.go"
+[2026-04-01T10:13:12.211Z] Command completed: /bin/zsh -lc "sed -n '1,160p' service/page/chat/chat_utils.go" (exit 0)
+[2026-04-01T10:13:17.077Z] Running command: /bin/zsh -lc 'grep -R "type Object struct" -n api service/dao/api/chat | head -n 5'
+[2026-04-01T10:13:17.088Z] Command completed: /bin/zsh -lc 'grep -R "type Object struct" -n api service/dao/api/chat | head -n 5' (exit 0)
+[2026-04-01T10:13:21.333Z] Running command: /bin/zsh -lc "sed -n '326,390p' api/chat.go && echo '---' && sed -n '418,490p' service/dao/ap...
+[2026-04-01T10:13:21.386Z] Command completed: /bin/zsh -lc "sed -n '326,390p' api/chat.go && echo '---' && sed -n '418,490p' service/dao/ap... (exit 0)
+[2026-04-01T10:13:29.104Z] Running command: /bin/zsh -lc 'grep -R "GetModeTip(" -n -- */*.go | head -n 20'
+[2026-04-01T10:13:29.156Z] Command completed: /bin/zsh -lc 'grep -R "GetModeTip(" -n -- */*.go | head -n 20' (exit 0)
+[2026-04-01T10:13:33.411Z] Running command: /bin/zsh -lc "rg -n \"GetModeTip\\(\" ."
+[2026-04-01T10:13:33.463Z] Command completed: /bin/zsh -lc "rg -n \"GetModeTip\\(\" ." (exit 0)
+[2026-04-01T10:13:37.354Z] Running command: /bin/zsh -lc 'git diff 1ac11a76d3781e9afe1bb9d9882de6c6d2b3cb62 -- handler/chat/chat_http_han...
+[2026-04-01T10:13:37.406Z] Command completed: /bin/zsh -lc 'git diff 1ac11a76d3781e9afe1bb9d9882de6c6d2b3cb62 -- handler/chat/chat_http_han... (exit 0)
+[2026-04-01T10:13:42.226Z] Running command: /bin/zsh -lc 'rg -n "DomainBind" lib/vars service/page/chat service/dao/db | head -n 40'
+[2026-04-01T10:13:42.279Z] Command completed: /bin/zsh -lc 'rg -n "DomainBind" lib/vars service/page/chat service/dao/db | head -n 40' (exit 0)
+[2026-04-01T10:13:45.014Z] Running command: /bin/zsh -lc "sed -n '200,340p' service/page/chat/chat_web_pub_logic.go"
+[2026-04-01T10:13:45.067Z] Command completed: /bin/zsh -lc "sed -n '200,340p' service/page/chat/chat_web_pub_logic.go" (exit 0)
+[2026-04-01T10:14:00.948Z] Running command: /bin/zsh -lc "sed -n '9090,9155p' service/page/chat/chat_sender.go && echo '---struct---' && ...
+[2026-04-01T10:14:01.001Z] Command failed: /bin/zsh -lc "sed -n '9090,9155p' service/page/chat/chat_sender.go && echo '---struct---' && ... (exit 1)
+[2026-04-01T10:14:10.487Z] Running command: /bin/zsh -lc "rg -n \"type UploadReferenceItem\" service/dao/api/chat/define.go && sed -n '54...
+[2026-04-01T10:14:10.539Z] Command failed: /bin/zsh -lc "rg -n \"type UploadReferenceItem\" service/dao/api/chat/define.go && sed -n '54... (exit 1)
+[2026-04-01T10:14:12.989Z] Running command: /bin/zsh -lc 'rg -n "UploadReferenceItem" .'
+[2026-04-01T10:14:13.032Z] Command completed: /bin/zsh -lc 'rg -n "UploadReferenceItem" .' (exit 0)
+[2026-04-01T10:14:19.197Z] Running command: /bin/zsh -lc "sed -n '800,850p' service/dao/api/chat/api.go"
+[2026-04-01T10:14:19.244Z] Command completed: /bin/zsh -lc "sed -n '800,850p' service/dao/api/chat/api.go" (exit 0)
+[2026-04-01T10:14:26.148Z] Running command: /bin/zsh -lc "sed -n '1460,1765p' service/page/chat/chat_route.go"
+[2026-04-01T10:14:26.200Z] Command completed: /bin/zsh -lc "sed -n '1460,1765p' service/page/chat/chat_route.go" (exit 0)
+[2026-04-01T10:14:40.089Z] Running command: /bin/zsh -lc 'git diff 1ac11a76d3781e9afe1bb9d9882de6c6d2b3cb62 -- service/page/chat/chat_sen...
+[2026-04-01T10:14:40.147Z] Command completed: /bin/zsh -lc 'git diff 1ac11a76d3781e9afe1bb9d9882de6c6d2b3cb62 -- service/page/chat/chat_sen... (exit 0)
+[2026-04-01T10:14:58.781Z] Running command: /bin/zsh -lc "sed -n '1,80p' service/page/chat/chat_sender.go"
+[2026-04-01T10:14:58.834Z] Command completed: /bin/zsh -lc "sed -n '1,80p' service/page/chat/chat_sender.go" (exit 0)
+[2026-04-01T10:15:06.011Z] Running command: /bin/zsh -lc 'rg -n "TranslateSkillTitle" service/page/chat/chat_sender.go'
+[2026-04-01T10:15:06.061Z] Command completed: /bin/zsh -lc 'rg -n "TranslateSkillTitle" service/page/chat/chat_sender.go' (exit 0)
+[2026-04-01T10:15:10.827Z] Running command: /bin/zsh -lc "sed -n '80,120p' service/page/chat/chat_sender.go"
+[2026-04-01T10:15:10.880Z] Command completed: /bin/zsh -lc "sed -n '80,120p' service/page/chat/chat_sender.go" (exit 0)
+[2026-04-01T10:15:22.375Z] Running command: /bin/zsh -lc 'git diff 1ac11a76d3781e9afe1bb9d9882de6c6d2b3cb62 -- service/page/chat/file_art...
+[2026-04-01T10:15:22.427Z] Command completed: /bin/zsh -lc 'git diff 1ac11a76d3781e9afe1bb9d9882de6c6d2b3cb62 -- service/page/chat/file_art... (exit 0)
+[2026-04-01T10:15:29.557Z] Running command: /bin/zsh -lc "rg -n \"func \\(l \\*DocArtifactUpdateSender\\) saveArtifactRelation\" -n servi...
+[2026-04-01T10:15:29.608Z] Command completed: /bin/zsh -lc "rg -n \"func \\(l \\*DocArtifactUpdateSender\\) saveArtifactRelation\" -n servi... (exit 0)
+[2026-04-01T10:15:42.074Z] Running command: /bin/zsh -lc 'rg -n "func downloadSkillFrontMatter" -n service/page/chat service/page/chat/ch...
+[2026-04-01T10:15:42.125Z] Command completed: /bin/zsh -lc 'rg -n "func downloadSkillFrontMatter" -n service/page/chat service/page/chat/ch... (exit 0)
+[2026-04-01T10:15:45.832Z] Running command: /bin/zsh -lc "sed -n '1,170p' service/page/chat/sheets_md_download.go"
+[2026-04-01T10:15:45.883Z] Command completed: /bin/zsh -lc "sed -n '1,170p' service/page/chat/sheets_md_download.go" (exit 0)
+[2026-04-01T10:15:52.758Z] Running command: /bin/zsh -lc "sed -n '470,610p' service/page/cost/cost_service.go"
+[2026-04-01T10:15:52.813Z] Command completed: /bin/zsh -lc "sed -n '470,610p' service/page/cost/cost_service.go" (exit 0)
+[2026-04-01T10:16:19.026Z] Running command: /bin/zsh -lc "sed -n '860,980p' service/page/chat/chat_common.go"
+[2026-04-01T10:16:19.078Z] Command completed: /bin/zsh -lc "sed -n '860,980p' service/page/chat/chat_common.go" (exit 0)
+[2026-04-01T10:16:21.863Z] Running command: /bin/zsh -lc "sed -n '980,1085p' service/page/chat/chat_common.go"
+[2026-04-01T10:16:21.961Z] Command completed: /bin/zsh -lc "sed -n '980,1085p' service/page/chat/chat_common.go" (exit 0)
+[2026-04-01T10:16:30.314Z] Running command: /bin/zsh -lc 'rg -n "FindListByProjectId" service/dao/db service/page | head -n 20'
+[2026-04-01T10:16:30.365Z] Command completed: /bin/zsh -lc 'rg -n "FindListByProjectId" service/dao/db service/page | head -n 20' (exit 0)
+[2026-04-01T10:17:02.313Z] Running command: /bin/zsh -lc 'rg -n "SubOfficeID" service/page/chat/chat_benefits.go'
+[2026-04-01T10:17:02.363Z] Command completed: /bin/zsh -lc 'rg -n "SubOfficeID" service/page/chat/chat_benefits.go' (exit 0)
+[2026-04-01T10:17:04.911Z] Running command: /bin/zsh -lc "sed -n '880,1025p' service/page/chat/chat_benefits.go"
+[2026-04-01T10:17:04.967Z] Command completed: /bin/zsh -lc "sed -n '880,1025p' service/page/chat/chat_benefits.go" (exit 0)
+[2026-04-01T10:17:30.815Z] Running command: /bin/zsh -lc "nl -ba service/page/chat/file_artifact_update_sender.go | sed -n '953,1015p'"
+[2026-04-01T10:17:30.817Z] Running command: /bin/zsh -lc "nl -ba service/page/chat/chat_sender.go | sed -n '9340,9375p'"
+[2026-04-01T10:17:30.817Z] Running command: /bin/zsh -lc "nl -ba service/page/chat/chat_benefits.go | sed -n '540,610p'"
+[2026-04-01T10:17:30.867Z] Command completed: /bin/zsh -lc "nl -ba service/page/chat/file_artifact_update_sender.go | sed -n '953,1015p'" (exit 0)
+[2026-04-01T10:17:30.869Z] Command completed: /bin/zsh -lc "nl -ba service/page/chat/chat_sender.go | sed -n '9340,9375p'" (exit 0)
+[2026-04-01T10:17:30.869Z] Command completed: /bin/zsh -lc "nl -ba service/page/chat/chat_benefits.go | sed -n '540,610p'" (exit 0)
+[2026-04-01T10:17:33.973Z] Running command: /bin/zsh -lc "nl -ba service/page/chat/chat_route.go | sed -n '1518,1540p'"
+[2026-04-01T10:17:34.025Z] Command completed: /bin/zsh -lc "nl -ba service/page/chat/chat_route.go | sed -n '1518,1540p'" (exit 0)
+[2026-04-01T10:18:24.338Z] Running command: /bin/zsh -lc 'rg -n "indexToSkillKey" service/page/chat/chat_route.go'
+[2026-04-01T10:18:24.390Z] Command completed: /bin/zsh -lc 'rg -n "indexToSkillKey" service/page/chat/chat_route.go' (exit 0)
+[2026-04-01T10:19:34.708Z] Review output captured.
+
+[2026-04-01T10:19:34.710Z] Review output
+The patch currently introduces a build-breaking unused local in `checkAndCostUserBenefitsForSkills`. Beyond that, the new skill-benefit and skill-editing flows contain regressions that can bypass paywalls, crash on stale references, and corrupt edited skill packages.
+
+Full review comments:
+
+- [P0] Remove unused `indexToSkillKey` local — /Users/liuchunlei/Code/skywork/agent/chat/service/page/chat/chat_route.go:1515-1515
+  This local is never read, so `go build`/`go test` for `service/page/chat` will fail with `declared and not used: indexToSkillKey`. The new skill-benefit path cannot ship until this variable is removed or actually consumed.
+
+- [P1] Run general benefit checks for skill-key items — /Users/liuchunlei/Code/skywork/agent/chat/service/page/chat/chat_benefits.go:552-554
+  When `item.SkillKey` is present we only enqueue the item for `checkSkillBenefitBatchInternal`; it never goes through `CheckUserBenefitsBatch`. In `checkAndCostUserBenefitsForSkills` every referenced/auto-invoked skill sets `SkillKey`, so any paywall modeled through `SubOfficeID` (for example pro-mode or advanced-agent benefit items) is neither checked nor charged, and those skills become usable as long as `min_membership_type` passes.
+
+- [P1] Fail closed when skill benefit checks error — /Users/liuchunlei/Code/skywork/agent/chat/service/page/chat/chat_route.go:1532-1538
+  If `CheckSkillBenefitBatch` hits a transient DB/Marketing error, or if its response length is inconsistent, this branch returns `true` and leaves all skills at their default `IsBenefitValid=true`. `injectSkillInfo` then forwards the referenced skills to the agent anyway, so premium skills are exposed during backend failures instead of being rejected or filtered out.
+
+- [P2] Guard missing legacy-sub-office skill lookups — /Users/liuchunlei/Code/skywork/agent/chat/service/page/chat/chat_sender.go:9352-9358
+  `FindByLegacySubOfficeID` returns `(nil, nil)` when the legacy id is unknown. In that case `skill.SkillKey` dereferences a nil pointer and crashes the request. A stale or deleted `legacy_sub_office_id` inside `<reference>` content is enough to trigger this path.
+
+- [P2] Preserve auxiliary files when editing a skill archive — /Users/liuchunlei/Code/skywork/agent/chat/service/page/chat/file_artifact_update_sender.go:991-1002
+  This rebuilds the edited archive from scratch and writes only `SKILL.md`. For any skill package that also contains `scripts/`, `assets/`, templates, or other files, editing the markdown produces a new zip that silently drops those dependencies, so the next invocation of the skill breaks even though the user only changed metadata or instructions.
+[2026-04-01T10:19:35.574Z] Reviewer finished.
+[2026-04-01T10:19:35.577Z] Assistant message captured: The patch currently introduces a build-breaking unused local in `checkAndCostUserBenefitsForS...
+
+[2026-04-01T10:19:35.578Z] Assistant message
+The patch currently introduces a build-breaking unused local in `checkAndCostUserBenefitsForSkills`. Beyond that, the new skill-benefit and skill-editing flows contain regressions that can bypass paywalls, crash on stale references, and corrupt edited skill packages.
+
+Full review comments:
+
+- [P0] Remove unused `indexToSkillKey` local — /Users/liuchunlei/Code/skywork/agent/chat/service/page/chat/chat_route.go:1515-1515
+  This local is never read, so `go build`/`go test` for `service/page/chat` will fail with `declared and not used: indexToSkillKey`. The new skill-benefit path cannot ship until this variable is removed or actually consumed.
+
+- [P1] Run general benefit checks for skill-key items — /Users/liuchunlei/Code/skywork/agent/chat/service/page/chat/chat_benefits.go:552-554
+  When `item.SkillKey` is present we only enqueue the item for `checkSkillBenefitBatchInternal`; it never goes through `CheckUserBenefitsBatch`. In `checkAndCostUserBenefitsForSkills` every referenced/auto-invoked skill sets `SkillKey`, so any paywall modeled through `SubOfficeID` (for example pro-mode or advanced-agent benefit items) is neither checked nor charged, and those skills become usable as long as `min_membership_type` passes.
+
+- [P1] Fail closed when skill benefit checks error — /Users/liuchunlei/Code/skywork/agent/chat/service/page/chat/chat_route.go:1532-1538
+  If `CheckSkillBenefitBatch` hits a transient DB/Marketing error, or if its response length is inconsistent, this branch returns `true` and leaves all skills at their default `IsBenefitValid=true`. `injectSkillInfo` then forwards the referenced skills to the agent anyway, so premium skills are exposed during backend failures instead of being rejected or filtered out.
+
+- [P2] Guard missing legacy-sub-office skill lookups — /Users/liuchunlei/Code/skywork/agent/chat/service/page/chat/chat_sender.go:9352-9358
+  `FindByLegacySubOfficeID` returns `(nil, nil)` when the legacy id is unknown. In that case `skill.SkillKey` dereferences a nil pointer and crashes the request. A stale or deleted `legacy_sub_office_id` inside `<reference>` content is enough to trigger this path.
+
+- [P2] Preserve auxiliary files when editing a skill archive — /Users/liuchunlei/Code/skywork/agent/chat/service/page/chat/file_artifact_update_sender.go:991-1002
+  This rebuilds the edited archive from scratch and writes only `SKILL.md`. For any skill package that also contains `scripts/`, `assets/`, templates, or other files, editing the markdown produces a new zip that silently drops those dependencies, so the next invocation of the skill breaks even though the user only changed metadata or instructions.
+[2026-04-01T10:19:35.578Z] Turn completed.
+
+[2026-04-01T10:19:36.227Z] Final output
+# Codex Review
+
+Target: branch diff against master
+
+The patch currently introduces a build-breaking unused local in `checkAndCostUserBenefitsForSkills`. Beyond that, the new skill-benefit and skill-editing flows contain regressions that can bypass paywalls, crash on stale references, and corrupt edited skill packages.
+
+Full review comments:
+
+- [P0] Remove unused `indexToSkillKey` local — /Users/liuchunlei/Code/skywork/agent/chat/service/page/chat/chat_route.go:1515-1515
+  This local is never read, so `go build`/`go test` for `service/page/chat` will fail with `declared and not used: indexToSkillKey`. The new skill-benefit path cannot ship until this variable is removed or actually consumed.
+
+- [P1] Run general benefit checks for skill-key items — /Users/liuchunlei/Code/skywork/agent/chat/service/page/chat/chat_benefits.go:552-554
+  When `item.SkillKey` is present we only enqueue the item for `checkSkillBenefitBatchInternal`; it never goes through `CheckUserBenefitsBatch`. In `checkAndCostUserBenefitsForSkills` every referenced/auto-invoked skill sets `SkillKey`, so any paywall modeled through `SubOfficeID` (for example pro-mode or advanced-agent benefit items) is neither checked nor charged, and those skills become usable as long as `min_membership_type` passes.
+
+- [P1] Fail closed when skill benefit checks error — /Users/liuchunlei/Code/skywork/agent/chat/service/page/chat/chat_route.go:1532-1538
+  If `CheckSkillBenefitBatch` hits a transient DB/Marketing error, or if its response length is inconsistent, this branch returns `true` and leaves all skills at their default `IsBenefitValid=true`. `injectSkillInfo` then forwards the referenced skills to the agent anyway, so premium skills are exposed during backend failures instead of being rejected or filtered out.
+
+- [P2] Guard missing legacy-sub-office skill lookups — /Users/liuchunlei/Code/skywork/agent/chat/service/page/chat/chat_sender.go:9352-9358
+  `FindByLegacySubOfficeID` returns `(nil, nil)` when the legacy id is unknown. In that case `skill.SkillKey` dereferences a nil pointer and crashes the request. A stale or deleted `legacy_sub_office_id` inside `<reference>` content is enough to trigger this path.
+
+- [P2] Preserve auxiliary files when editing a skill archive — /Users/liuchunlei/Code/skywork/agent/chat/service/page/chat/file_artifact_update_sender.go:991-1002
+  This rebuilds the edited archive from scratch and writes only `SKILL.md`. For any skill package that also contains `scripts/`, `assets/`, templates, or other files, editing the markdown produces a new zip that silently drops those dependencies, so the next invocation of the skill breaks even though the user only changed metadata or instructions.

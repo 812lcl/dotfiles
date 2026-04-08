@@ -1,0 +1,38 @@
+{
+  "id": "review-mngy8dxr-qmv6g5",
+  "kind": "review",
+  "kindLabel": "review",
+  "title": "Codex Review",
+  "workspaceRoot": "/Users/liuchunlei/Code/skywork/agent/skyclaw/channels",
+  "jobClass": "review",
+  "summary": "Review branch diff against master",
+  "write": false,
+  "createdAt": "2026-04-02T04:02:40.911Z",
+  "sessionId": "9fa9aa09-cb91-453c-b611-844cd646bcfc",
+  "status": "completed",
+  "startedAt": "2026-04-02T04:02:41.078Z",
+  "phase": "done",
+  "pid": null,
+  "logFile": "/Users/liuchunlei/.claude/plugins/data/codex-openai-codex/state/channels-b80ad2f9e65f7b8c/jobs/review-mngy8dxr-qmv6g5.log",
+  "threadId": "019d4c5b-9c3c-7961-836f-7788ae9d3abc",
+  "turnId": "019d4c5b-9fa2-7833-a9e5-9392af3da638",
+  "completedAt": "2026-04-02T04:09:25.361Z",
+  "result": {
+    "review": "Review",
+    "target": {
+      "mode": "branch",
+      "label": "branch diff against master",
+      "baseRef": "master",
+      "explicit": false
+    },
+    "threadId": "019d4c5b-9c3c-7961-836f-7788ae9d3abc",
+    "sourceThreadId": "019d4c5b-9c3c-7961-836f-7788ae9d3abc",
+    "codex": {
+      "status": 0,
+      "stderr": "",
+      "stdout": "The retry/recovery additions have multiple correctness gaps: recovered outbound deliveries cannot be resent successfully, active WS turns are discarded on unfinished exits, and the retry queue can lose or prematurely exhaust work during restarts. These issues make the new reliability features unsafe as shipped.\n\nFull review comments:\n\n- [P1] Build a valid ReplyTarget when recovering stale deliveries — /Users/liuchunlei/Code/skywork/agent/skyclaw/channels/src/channels/outbound/async_retry.py:149-150\n  In `_startup_compensation()`, `ReplyTarget(target_type=\"channel\", ...)` can never validate because `ReplyTarget.target_type` only allows `dm`, `group`, or `thread`. The exception is swallowed, `reply_target_json` stays empty, and `_retry_one()` redispatches every recovered `pending`/`pending_retry` row with `reply_target=None`; the channel dispatchers then return `missing_reply_target`, so messages recovered after a restart go straight to `dead_letter` instead of actually retrying.\n\n- [P1] Preserve active-turn state until a stream really finishes — /Users/liuchunlei/Code/skywork/agent/skyclaw/channels/src/channels/ports/chat_port.py:779-784\n  This cleanup runs for every exit path, not just after a `finish` card. If the process is shutting down or reconnect attempts are exhausted, the `finally` block deletes `channels:active_turns` and the buffered card keys before `recover_active_turns()` can use them, so an in-flight chat turn cannot be resumed after restart and the user loses the rest of the answer.\n\n- [P2] Keep claimed retry items durable until processing completes — /Users/liuchunlei/Code/skywork/agent/skyclaw/channels/src/channels/outbound/redis_retry_queue.py:104-109\n  `dequeue_batch()` removes a due member from the ZSET before the scheduler has durably re-enqueued or completed it. If the worker dies after `zrem()` succeeds but before `_retry_one()` finishes, that delivery is no longer scheduled anywhere; `_startup_compensation()` only rescans stale rows once at startup, so an ordinary crash/restart can permanently lose the retry.\n\n- [P2] Avoid counting one failed send as two retry attempts — /Users/liuchunlei/Code/skywork/agent/skyclaw/channels/src/channels/core/service.py:267-270\n  `update_status()` increments `attempt_count`, and this path calls it once for the immediate failure and again when moving the same delivery to `pending_retry`. That means one failed initial send is stored as attempt 2 even though the queued `RetryItem` starts at attempt 1; if the process restarts before that queued retry runs, startup compensation copies the inflated DB count and the delivery exhausts one retry earlier than the live path.",
+      "reasoning": []
+    }
+  },
+  "rendered": "# Codex Review\n\nTarget: branch diff against master\n\nThe retry/recovery additions have multiple correctness gaps: recovered outbound deliveries cannot be resent successfully, active WS turns are discarded on unfinished exits, and the retry queue can lose or prematurely exhaust work during restarts. These issues make the new reliability features unsafe as shipped.\n\nFull review comments:\n\n- [P1] Build a valid ReplyTarget when recovering stale deliveries — /Users/liuchunlei/Code/skywork/agent/skyclaw/channels/src/channels/outbound/async_retry.py:149-150\n  In `_startup_compensation()`, `ReplyTarget(target_type=\"channel\", ...)` can never validate because `ReplyTarget.target_type` only allows `dm`, `group`, or `thread`. The exception is swallowed, `reply_target_json` stays empty, and `_retry_one()` redispatches every recovered `pending`/`pending_retry` row with `reply_target=None`; the channel dispatchers then return `missing_reply_target`, so messages recovered after a restart go straight to `dead_letter` instead of actually retrying.\n\n- [P1] Preserve active-turn state until a stream really finishes — /Users/liuchunlei/Code/skywork/agent/skyclaw/channels/src/channels/ports/chat_port.py:779-784\n  This cleanup runs for every exit path, not just after a `finish` card. If the process is shutting down or reconnect attempts are exhausted, the `finally` block deletes `channels:active_turns` and the buffered card keys before `recover_active_turns()` can use them, so an in-flight chat turn cannot be resumed after restart and the user loses the rest of the answer.\n\n- [P2] Keep claimed retry items durable until processing completes — /Users/liuchunlei/Code/skywork/agent/skyclaw/channels/src/channels/outbound/redis_retry_queue.py:104-109\n  `dequeue_batch()` removes a due member from the ZSET before the scheduler has durably re-enqueued or completed it. If the worker dies after `zrem()` succeeds but before `_retry_one()` finishes, that delivery is no longer scheduled anywhere; `_startup_compensation()` only rescans stale rows once at startup, so an ordinary crash/restart can permanently lose the retry.\n\n- [P2] Avoid counting one failed send as two retry attempts — /Users/liuchunlei/Code/skywork/agent/skyclaw/channels/src/channels/core/service.py:267-270\n  `update_status()` increments `attempt_count`, and this path calls it once for the immediate failure and again when moving the same delivery to `pending_retry`. That means one failed initial send is stored as attempt 2 even though the queued `RetryItem` starts at attempt 1; if the process restarts before that queued retry runs, startup compensation copies the inflated DB count and the delivery exhausts one retry earlier than the live path.\n"
+}
