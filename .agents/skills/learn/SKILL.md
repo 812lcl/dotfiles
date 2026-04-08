@@ -1,5 +1,5 @@
 ---
-name: learn
+name: learn-2
 description: "Invoke when diving deep into an unfamiliar domain, preparing a research article, or turning collected sources into publishable output. Runs a six-phase workflow: collect, digest, outline, fill in, refine, publish. Not for quick lookups or single-file reads."
 version: 3.2.0
 allowed-tools:
