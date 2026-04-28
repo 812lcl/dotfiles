@@ -29,6 +29,14 @@
         "installedAt": "2026-01-19T22:49:03.518Z",
         "lastUpdated": "2026-04-07T10:13:22.912Z",
         "gitCommitSha": "96276205880a60fd66bbae981f5ab568e70c4cbf"
+      },
+      {
+        "scope": "user",
+        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-plugins-official/gopls-lsp/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-04-09T06:18:23.542Z",
+        "lastUpdated": "2026-04-09T06:18:23.542Z",
+        "gitCommitSha": "98c01d3fbf621892e437fc64a10d38950690e2c6"
       }
     ],
     "commit-commands@claude-plugins-official": [
@@ -62,6 +70,14 @@
         "installedAt": "2026-02-10T02:00:42.705Z",
         "lastUpdated": "2026-04-07T10:13:22.912Z",
         "gitCommitSha": "96276205880a60fd66bbae981f5ab568e70c4cbf"
+      },
+      {
+        "scope": "user",
+        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-plugins-official/typescript-lsp/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-04-10T07:46:30.663Z",
+        "lastUpdated": "2026-04-10T07:46:30.663Z",
+        "gitCommitSha": "98c01d3fbf621892e437fc64a10d38950690e2c6"
       }
     ],
     "code-simplifier@claude-plugins-official": [
@@ -217,26 +233,6 @@
         "installedAt": "2026-04-01T02:07:56.472Z",
         "lastUpdated": "2026-04-01T02:07:56.472Z",
         "gitCommitSha": "8e403f9d4b496b0b0aff50fa3673f889f6a22cb1"
-      }
-    ],
-    "compound-engineering@compound-engineering-plugin": [
-      {
-        "scope": "user",
-        "installPath": "/Users/liuchunlei/.claude/plugins/cache/compound-engineering-plugin/compound-engineering/2.63.1",
-        "version": "2.63.1",
-        "installedAt": "2026-04-08T01:26:49.526Z",
-        "lastUpdated": "2026-04-08T01:26:49.526Z",
-        "gitCommitSha": "0ae91dcc298721e5b2c4ab6d1fc6f76a13b6f67c"
-      }
-    ],
-    "gitlab@claude-plugins-official": [
-      {
-        "scope": "local",
-        "installPath": "/Users/812lcl/.claude/plugins/cache/claude-plugins-official/gitlab/unknown",
-        "version": "unknown",
-        "installedAt": "2026-04-08T22:16:10.869Z",
-        "lastUpdated": "2026-04-08T22:16:10.869Z",
-        "projectPath": "/Users/812lcl/Code/dotfiles"
       }
     ]
   }
