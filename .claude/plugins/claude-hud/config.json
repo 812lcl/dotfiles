@@ -1,6 +1,6 @@
 {
   "lineLayout": "compact",
-  "showSeparators": true,
+  "showSeparators": false,
   "language": "en",
   "display": {
     "showModel": true,

@@ -1,1 +1,0 @@
-/Users/liuchunlei/Documents/Code/dotfiles/.claude/skills/gstack/freeze/SKILL.md
