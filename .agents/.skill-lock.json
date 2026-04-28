@@ -611,6 +611,15 @@
       "skillFolderHash": "",
       "installedAt": "2026-04-08T01:37:17.010Z",
       "updatedAt": "2026-04-08T01:37:17.010Z"
+    },
+    "xiaoyuzhou-podcast-transcriber": {
+      "source": "nanzhipro/QuestSkills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/nanzhipro/QuestSkills.git",
+      "skillPath": "xiaoyuzhou-podcast-transcriber/SKILL.md",
+      "skillFolderHash": "c742a00c31b5ecee7fe39cfa1dbf5162b05e86c3",
+      "installedAt": "2026-04-14T23:05:46.278Z",
+      "updatedAt": "2026-04-14T23:05:46.278Z"
     }
   },
   "dismissed": {
