@@ -107,23 +107,23 @@
     "pyright-lsp@claude-plugins-official": [
       {
         "scope": "project",
+        "projectPath": "/Users/812lcl/Code/dotfiles",
         "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-plugins-official/pyright-lsp/1.0.0",
         "version": "1.0.0",
         "installedAt": "2026-02-28T06:45:03.007Z",
         "lastUpdated": "2026-04-07T10:13:22.912Z",
-        "gitCommitSha": "55b58ec6e5649104f926ba7558b567dc8d33c5ff",
-        "projectPath": "/Users/812lcl/Code/dotfiles"
+        "gitCommitSha": "55b58ec6e5649104f926ba7558b567dc8d33c5ff"
       }
     ],
     "context7@claude-plugins-official": [
       {
         "scope": "project",
+        "projectPath": "/Users/812lcl/Code/dotfiles",
         "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-plugins-official/context7/55b58ec6e564",
         "version": "55b58ec6e564",
         "installedAt": "2026-02-28T06:45:22.991Z",
         "lastUpdated": "2026-04-07T10:13:22.912Z",
-        "gitCommitSha": "55b58ec6e5649104f926ba7558b567dc8d33c5ff",
-        "projectPath": "/Users/812lcl/Code/dotfiles"
+        "gitCommitSha": "55b58ec6e5649104f926ba7558b567dc8d33c5ff"
       }
     ],
     "claude-hud@claude-hud": [
@@ -139,54 +139,54 @@
     "claude-md-management@claude-plugins-official": [
       {
         "scope": "project",
+        "projectPath": "/Users/812lcl/Code/dotfiles",
         "installPath": "/Users/812lcl/.claude/plugins/cache/claude-plugins-official/claude-md-management/1.0.0",
         "version": "1.0.0",
         "installedAt": "2026-03-21T00:04:05.025Z",
-        "lastUpdated": "2026-04-07T10:13:22.912Z",
-        "projectPath": "/Users/812lcl/Code/dotfiles"
+        "lastUpdated": "2026-04-07T10:13:22.912Z"
       }
     ],
     "greptile@claude-plugins-official": [
       {
         "scope": "project",
+        "projectPath": "/Users/812lcl/Code/dotfiles",
         "installPath": "/Users/812lcl/.claude/plugins/cache/claude-plugins-official/greptile/unknown",
         "version": "unknown",
         "installedAt": "2026-03-21T00:04:30.115Z",
-        "lastUpdated": "2026-04-07T10:13:22.912Z",
-        "projectPath": "/Users/812lcl/Code/dotfiles"
+        "lastUpdated": "2026-04-07T10:13:22.912Z"
       }
     ],
     "coderabbit@claude-plugins-official": [
       {
         "scope": "project",
+        "projectPath": "/Users/812lcl/Code/dotfiles",
         "installPath": "/Users/812lcl/.claude/plugins/cache/claude-plugins-official/coderabbit/1.0.0",
         "version": "1.0.0",
         "installedAt": "2026-03-21T00:05:07.313Z",
         "lastUpdated": "2026-04-07T10:13:22.912Z",
-        "gitCommitSha": "8fbf7eb630000a5ec7cc3e7ce2d2703c8c119d0c",
-        "projectPath": "/Users/812lcl/Code/dotfiles"
+        "gitCommitSha": "8fbf7eb630000a5ec7cc3e7ce2d2703c8c119d0c"
       }
     ],
     "chrome-devtools-mcp@claude-plugins-official": [
       {
         "scope": "project",
+        "projectPath": "/Users/812lcl/Code/dotfiles",
         "installPath": "/Users/812lcl/.claude/plugins/cache/claude-plugins-official/chrome-devtools-mcp/latest",
         "version": "latest",
         "installedAt": "2026-03-21T00:05:44.180Z",
         "lastUpdated": "2026-04-07T10:13:22.912Z",
-        "gitCommitSha": "c2d8009ff75f76bce1ec4cf79c2467b50d81725e",
-        "projectPath": "/Users/812lcl/Code/dotfiles"
+        "gitCommitSha": "c2d8009ff75f76bce1ec4cf79c2467b50d81725e"
       }
     ],
     "discord@claude-plugins-official": [
       {
         "scope": "project",
+        "projectPath": "/Users/812lcl/Code/dotfiles",
         "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-plugins-official/discord/0.0.1",
         "version": "0.0.1",
         "installedAt": "2026-03-23T02:08:22.124Z",
         "lastUpdated": "2026-04-07T10:13:22.912Z",
-        "gitCommitSha": "61c0597779bd2d670dcd4fbbf37c66aa19eb2ce6",
-        "projectPath": "/Users/812lcl/Code/dotfiles"
+        "gitCommitSha": "61c0597779bd2d670dcd4fbbf37c66aa19eb2ce6"
       }
     ],
     "code-review-graph@code-review-graph": [
@@ -227,6 +227,16 @@
         "installedAt": "2026-04-08T01:26:49.526Z",
         "lastUpdated": "2026-04-08T01:26:49.526Z",
         "gitCommitSha": "0ae91dcc298721e5b2c4ab6d1fc6f76a13b6f67c"
+      }
+    ],
+    "gitlab@claude-plugins-official": [
+      {
+        "scope": "local",
+        "installPath": "/Users/812lcl/.claude/plugins/cache/claude-plugins-official/gitlab/unknown",
+        "version": "unknown",
+        "installedAt": "2026-04-08T22:16:10.869Z",
+        "lastUpdated": "2026-04-08T22:16:10.869Z",
+        "projectPath": "/Users/812lcl/Code/dotfiles"
       }
     ]
   }
