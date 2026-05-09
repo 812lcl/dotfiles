@@ -217,7 +217,7 @@
       "skillPath": "skills/defuddle/SKILL.md",
       "skillFolderHash": "0ed68bc3e818ba0e6b8d192357ea3daaf552a3893f8854e7fd43c06831f91323",
       "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-09T03:46:21.571Z",
+      "updatedAt": "2026-05-09T04:55:18.920Z",
       "pluginName": "obsidian-skills"
     },
     "design": {
@@ -245,9 +245,9 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/vercel-labs/skills.git",
       "skillPath": "skills/find-skills/SKILL.md",
-      "skillFolderHash": "3013fdeb8a11b10b1eb795ec3ae8bfca38f7c26d",
+      "skillFolderHash": "d31e234f0c90694a670222cdd1dafa853e051d7066beda389f1097c22dadd461",
       "installedAt": "2026-03-20T22:16:32.079Z",
-      "updatedAt": "2026-03-20T22:16:32.079Z"
+      "updatedAt": "2026-05-09T04:50:49.662Z"
     },
     "health": {
       "source": "tw93/Waza",
@@ -286,7 +286,7 @@
       "skillPath": "skills/json-canvas/SKILL.md",
       "skillFolderHash": "56cbac74a93e4fba97f4d44bccfdeaae89e545b223f47df392c7705e01e6c543",
       "installedAt": "2026-03-21T00:08:09.215Z",
-      "updatedAt": "2026-05-09T03:46:38.483Z",
+      "updatedAt": "2026-05-09T04:50:38.865Z",
       "pluginName": "obsidian-skills"
     },
     "lark-approval": {
@@ -506,7 +506,7 @@
       "skillPath": "skills/obsidian-bases/SKILL.md",
       "skillFolderHash": "ed0a53502693e56c67575a9958daca9a3a1ac7ba483367f400b4cad9488bfb3c",
       "installedAt": "2026-03-21T00:08:09.216Z",
-      "updatedAt": "2026-05-09T03:46:38.501Z",
+      "updatedAt": "2026-05-09T04:50:38.866Z",
       "pluginName": "obsidian-skills"
     },
     "obsidian-cli": {
@@ -516,7 +516,7 @@
       "skillPath": "skills/obsidian-cli/SKILL.md",
       "skillFolderHash": "f46ae626875f7e47c410c2ee93896c4526024ebe127719e8fb430261b5677edc",
       "installedAt": "2026-03-21T00:08:09.217Z",
-      "updatedAt": "2026-05-09T03:46:38.509Z",
+      "updatedAt": "2026-05-09T04:50:38.867Z",
       "pluginName": "obsidian-skills"
     },
     "obsidian-markdown": {
@@ -526,7 +526,7 @@
       "skillPath": "skills/obsidian-markdown/SKILL.md",
       "skillFolderHash": "cacc9058a35ad3fd4985b4c31121bff8202f1337c39808c1326ded6a19a7915f",
       "installedAt": "2026-03-21T00:08:09.217Z",
-      "updatedAt": "2026-05-09T03:46:38.516Z",
+      "updatedAt": "2026-05-09T04:50:38.868Z",
       "pluginName": "obsidian-skills"
     },
     "quiz": {
@@ -585,17 +585,18 @@
       "sourceUrl": "https://github.com/anthropics/skills.git",
       "skillPath": "skills/skill-creator/SKILL.md",
       "skillFolderHash": "5ea13a6d9f0d4bb694405d79acd00cadec0d21bb138c4dd10fcf3c500cb835c2",
+      "pluginName": "example-skills",
       "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-09T03:31:12.472Z"
+      "updatedAt": "2026-05-09T04:51:07.411Z"
     },
     "skill-vetter": {
       "source": "useai-pro/openclaw-skills-security",
       "sourceType": "github",
       "sourceUrl": "https://github.com/useai-pro/openclaw-skills-security.git",
       "skillPath": "skills/skill-vetter/SKILL.md",
-      "skillFolderHash": "a2fa41039f86451ff25ac6506979b03b12588aef",
+      "skillFolderHash": "5172ac6d437a5f41b5fa8be0def458a48b0e73c6b901c3f4e5e792434c4dc133",
       "installedAt": "2026-03-21T01:28:24.452Z",
-      "updatedAt": "2026-03-21T01:28:24.452Z"
+      "updatedAt": "2026-05-09T04:55:09.550Z"
     },
     "surprise-me": {
       "source": "readwiseio/readwise-skills",

@@ -1,0 +1,8 @@
+{
+  "_comment": "Per-source pluginName overrides re-applied after every skill install/update because CLI overwrites lock entries entirely. Used by ~/.agents/safe-skills-update.sh and ~/.agents/apply-pluginName-overrides.py.",
+  "JimLiu/baoyu-skills":         "baoyu-skills",
+  "kepano/obsidian-skills":      "obsidian-skills",
+  "larksuite/cli":               "lark",
+  "readwiseio/readwise-skills":  "readwise-skills",
+  "tw93/Waza":                   "waza"
+}
