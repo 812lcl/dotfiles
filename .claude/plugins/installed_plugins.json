@@ -129,14 +129,6 @@
         "installedAt": "2026-02-28T06:45:03.007Z",
         "lastUpdated": "2026-04-07T10:13:22.912Z",
         "gitCommitSha": "55b58ec6e5649104f926ba7558b567dc8d33c5ff"
-      },
-      {
-        "scope": "user",
-        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-plugins-official/pyright-lsp/1.0.0",
-        "version": "1.0.0",
-        "installedAt": "2026-04-09T12:52:18.392Z",
-        "lastUpdated": "2026-04-09T12:52:18.392Z",
-        "gitCommitSha": "98c01d3fbf621892e437fc64a10d38950690e2c6"
       }
     ],
     "context7@claude-plugins-official": [
@@ -199,14 +191,6 @@
         "version": "latest",
         "installedAt": "2026-03-21T00:05:44.180Z",
         "lastUpdated": "2026-04-07T10:13:22.912Z",
-        "gitCommitSha": "c2d8009ff75f76bce1ec4cf79c2467b50d81725e"
-      },
-      {
-        "scope": "user",
-        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-plugins-official/chrome-devtools-mcp/latest",
-        "version": "latest",
-        "installedAt": "2026-04-15T02:03:56.720Z",
-        "lastUpdated": "2026-04-15T02:03:56.720Z",
         "gitCommitSha": "c2d8009ff75f76bce1ec4cf79c2467b50d81725e"
       }
     ],
