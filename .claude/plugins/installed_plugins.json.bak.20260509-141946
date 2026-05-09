@@ -1,6 +1,25 @@
 {
   "version": 2,
   "plugins": {
+    "superpowers@claude-plugins-official": [
+      {
+        "scope": "project",
+        "projectPath": "/Users/812lcl/Code/dotfiles",
+        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-plugins-official/superpowers/4.3.1",
+        "version": "4.3.1",
+        "installedAt": "2026-01-19T22:47:58.152Z",
+        "lastUpdated": "2026-04-07T10:13:22.912Z",
+        "gitCommitSha": "a01a135fe185559ff9dc84dd70d6e9bb57d92bdf"
+      },
+      {
+        "scope": "user",
+        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-plugins-official/superpowers/5.0.7",
+        "version": "5.0.7",
+        "installedAt": "2026-04-08T01:25:13.034Z",
+        "lastUpdated": "2026-04-08T01:25:13.034Z",
+        "gitCommitSha": "917e5f53b16b115b70a3a355ed5f4993b9f8b73d"
+      }
+    ],
     "gopls-lsp@claude-plugins-official": [
       {
         "scope": "project",
@@ -110,13 +129,6 @@
         "installedAt": "2026-02-28T06:45:03.007Z",
         "lastUpdated": "2026-04-07T10:13:22.912Z",
         "gitCommitSha": "55b58ec6e5649104f926ba7558b567dc8d33c5ff"
-      },
-      {
-        "scope": "user",
-        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-plugins-official/pyright-lsp/1.0.0",
-        "version": "1.0.0",
-        "installedAt": "2026-05-09T06:45:35.151Z",
-        "lastUpdated": "2026-05-09T06:45:35.151Z"
       }
     ],
     "context7@claude-plugins-official": [
@@ -169,6 +181,17 @@
         "installedAt": "2026-03-21T00:05:07.313Z",
         "lastUpdated": "2026-04-07T10:13:22.912Z",
         "gitCommitSha": "8fbf7eb630000a5ec7cc3e7ce2d2703c8c119d0c"
+      }
+    ],
+    "chrome-devtools-mcp@claude-plugins-official": [
+      {
+        "scope": "project",
+        "projectPath": "/Users/812lcl/Code/dotfiles",
+        "installPath": "/Users/812lcl/.claude/plugins/cache/claude-plugins-official/chrome-devtools-mcp/latest",
+        "version": "latest",
+        "installedAt": "2026-03-21T00:05:44.180Z",
+        "lastUpdated": "2026-04-07T10:13:22.912Z",
+        "gitCommitSha": "c2d8009ff75f76bce1ec4cf79c2467b50d81725e"
       }
     ],
     "discord@claude-plugins-official": [
