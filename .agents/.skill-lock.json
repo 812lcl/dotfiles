@@ -637,6 +637,66 @@
       "pluginName": "waza",
       "installedAt": "2026-05-09T11:05:00.000Z",
       "updatedAt": "2026-05-09T03:34:21.422Z"
+    },
+    "a11y-debugging": {
+      "source": "ChromeDevTools/chrome-devtools-mcp",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/ChromeDevTools/chrome-devtools-mcp.git",
+      "ref": "main",
+      "skillPath": "skills/a11y-debugging/SKILL.md",
+      "skillFolderHash": "0cfdaa59d1a21f94509d2633a81735f57812c06661b1645a7a7b9dc778e6e0f7",
+      "installedAt": "2026-05-09T07:56:56.785Z",
+      "updatedAt": "2026-05-09T08:05:09.818Z"
+    },
+    "chrome-devtools": {
+      "source": "ChromeDevTools/chrome-devtools-mcp",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/ChromeDevTools/chrome-devtools-mcp.git",
+      "ref": "main",
+      "skillPath": "skills/chrome-devtools/SKILL.md",
+      "skillFolderHash": "5260f8bf2b080592eec1a381cbe381e6a5ba52cbc7d374ed97df588872afb2ad",
+      "installedAt": "2026-05-09T07:56:56.822Z",
+      "updatedAt": "2026-05-09T08:05:09.823Z"
+    },
+    "chrome-devtools-cli": {
+      "source": "ChromeDevTools/chrome-devtools-mcp",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/ChromeDevTools/chrome-devtools-mcp.git",
+      "ref": "main",
+      "skillPath": "skills/chrome-devtools-cli/SKILL.md",
+      "skillFolderHash": "17cb3fc4a4c2dce77f5dadd8c7f906f286ea0903e051535814daa7fd7e3161c4",
+      "installedAt": "2026-05-09T07:56:56.826Z",
+      "updatedAt": "2026-05-09T08:05:09.825Z"
+    },
+    "debug-optimize-lcp": {
+      "source": "ChromeDevTools/chrome-devtools-mcp",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/ChromeDevTools/chrome-devtools-mcp.git",
+      "ref": "main",
+      "skillPath": "skills/debug-optimize-lcp/SKILL.md",
+      "skillFolderHash": "dd3ee7c42f0f4c5c12f852188ad7f04ca4289129dc5e3d9bd0cc25e3f2e4c68c",
+      "installedAt": "2026-05-09T07:56:56.828Z",
+      "updatedAt": "2026-05-09T08:05:09.826Z"
+    },
+    "memory-leak-debugging": {
+      "source": "ChromeDevTools/chrome-devtools-mcp",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/ChromeDevTools/chrome-devtools-mcp.git",
+      "ref": "main",
+      "skillPath": "skills/memory-leak-debugging/SKILL.md",
+      "skillFolderHash": "25ff728d6eed6dd6810c0f1eba306613e019613ac709e1797482b4450b71e1d2",
+      "installedAt": "2026-05-09T07:56:56.829Z",
+      "updatedAt": "2026-05-09T08:05:09.827Z"
+    },
+    "troubleshooting": {
+      "source": "ChromeDevTools/chrome-devtools-mcp",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/ChromeDevTools/chrome-devtools-mcp.git",
+      "ref": "main",
+      "skillPath": "skills/troubleshooting/SKILL.md",
+      "skillFolderHash": "4b0faa18305bd71d4a1b22bc4ad739d13e20645d5b8484d3c8cf285a1efa7865",
+      "installedAt": "2026-05-09T07:56:56.832Z",
+      "updatedAt": "2026-05-09T08:05:09.828Z"
     }
   },
   "dismissed": {
@@ -649,6 +709,7 @@
     "codex",
     "cursor",
     "deepagents",
+    "dexto",
     "firebender",
     "gemini-cli",
     "github-copilot",
