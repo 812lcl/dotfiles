@@ -5,10 +5,11 @@ import {
   CdpConnection,
   findExistingChromeDebugPort,
   getDefaultProfileDir,
-  killChrome,
+  gracefulKillChrome,
   launchChrome,
   openPageSession,
   sleep,
+  waitForXSessionPersistence,
   waitForChromeDebugPort,
 } from './x-utils.js';
 
@@ -49,7 +50,9 @@ export async function quotePost(options: QuoteOptions): Promise<void> {
   else console.log(`[x-quote] Launching Chrome (profile: ${profileDir})`);
 
   let cdp: CdpConnection | null = null;
+  let sessionId: string | null = null;
   let targetId: string | null = null;
+  let loggedInDuringRun = false;
 
   try {
     const wsUrl = await waitForChromeDebugPort(port, 30_000, { includeLastError: true });
@@ -62,8 +65,10 @@ export async function quotePost(options: QuoteOptions): Promise<void> {
       matchTarget: (target) => target.type === 'page' && target.url.includes('x.com'),
       enablePage: true,
       enableRuntime: true,
+      enableNetwork: true,
     });
-    const { sessionId } = page;
+    const activeSessionId = page.sessionId;
+    sessionId = activeSessionId;
     targetId = page.targetId;
 
     console.log('[x-quote] Waiting for tweet to load...');
@@ -76,7 +81,7 @@ export async function quotePost(options: QuoteOptions): Promise<void> {
         const result = await cdp!.send<{ result: { value: boolean } }>('Runtime.evaluate', {
           expression: `!!document.querySelector('[data-testid="retweet"]')`,
           returnByValue: true,
-        }, { sessionId });
+        }, { sessionId: activeSessionId });
         if (result.result.value) return true;
         await sleep(1000);
       }
@@ -89,13 +94,14 @@ export async function quotePost(options: QuoteOptions): Promise<void> {
       console.log('[x-quote] Waiting for login...');
       const loggedIn = await waitForRetweetButton();
       if (!loggedIn) throw new Error('Timed out waiting for tweet. Please log in first or check the tweet URL.');
+      loggedInDuringRun = true;
     }
 
     // Click the retweet button
     console.log('[x-quote] Clicking retweet button...');
     await cdp.send('Runtime.evaluate', {
       expression: `document.querySelector('[data-testid="retweet"]')?.click()`,
-    }, { sessionId });
+    }, { sessionId: activeSessionId });
     await sleep(1000);
 
     // Wait for and click the "Quote" option in the menu
@@ -106,7 +112,7 @@ export async function quotePost(options: QuoteOptions): Promise<void> {
         const result = await cdp!.send<{ result: { value: boolean } }>('Runtime.evaluate', {
           expression: `!!document.querySelector('[data-testid="Dropdown"] [role="menuitem"]:nth-child(2)')`,
           returnByValue: true,
-        }, { sessionId });
+        }, { sessionId: activeSessionId });
         if (result.result.value) return true;
         await sleep(200);
       }
@@ -121,7 +127,7 @@ export async function quotePost(options: QuoteOptions): Promise<void> {
     // Click the quote option (second menu item)
     await cdp.send('Runtime.evaluate', {
       expression: `document.querySelector('[data-testid="Dropdown"] [role="menuitem"]:nth-child(2)')?.click()`,
-    }, { sessionId });
+    }, { sessionId: activeSessionId });
     await sleep(2000);
 
     // Wait for the quote compose dialog
@@ -132,7 +138,7 @@ export async function quotePost(options: QuoteOptions): Promise<void> {
         const result = await cdp!.send<{ result: { value: boolean } }>('Runtime.evaluate', {
           expression: `!!document.querySelector('[data-testid="tweetTextarea_0"]')`,
           returnByValue: true,
-        }, { sessionId });
+        }, { sessionId: activeSessionId });
         if (result.result.value) return true;
         await sleep(200);
       }
@@ -150,12 +156,12 @@ export async function quotePost(options: QuoteOptions): Promise<void> {
       // Use CDP Input.insertText for more reliable text insertion
       await cdp.send('Runtime.evaluate', {
         expression: `document.querySelector('[data-testid="tweetTextarea_0"]')?.focus()`,
-      }, { sessionId });
+      }, { sessionId: activeSessionId });
       await sleep(200);
 
       await cdp.send('Input.insertText', {
         text: comment,
-      }, { sessionId });
+      }, { sessionId: activeSessionId });
       await sleep(500);
     }
 
@@ -163,7 +169,7 @@ export async function quotePost(options: QuoteOptions): Promise<void> {
       console.log('[x-quote] Submitting quote post...');
       await cdp.send('Runtime.evaluate', {
         expression: `document.querySelector('[data-testid="tweetButton"]')?.click()`,
-      }, { sessionId });
+      }, { sessionId: activeSessionId });
       await sleep(2000);
       console.log('[x-quote] Quote post submitted!');
     } else {
@@ -172,15 +178,29 @@ export async function quotePost(options: QuoteOptions): Promise<void> {
       await sleep(30_000);
     }
   } finally {
+    let leaveChromeOpen = false;
+    if (chrome && loggedInDuringRun && cdp && sessionId) {
+      console.log('[x-quote] Waiting for X session cookies to persist...');
+      const sessionReady = await waitForXSessionPersistence({ cdp, sessionId });
+      if (!sessionReady) {
+        console.warn('[x-quote] X session cookies not observed yet. Leaving Chrome open so login can finish persisting.');
+        leaveChromeOpen = true;
+      }
+    }
+
     if (cdp) {
       if (reusing && targetId) {
         try { await cdp.send('Target.closeTarget', { targetId }, { timeoutMs: 5_000 }); } catch {}
-      } else if (!reusing) {
-        try { await cdp.send('Browser.close', {}, { timeoutMs: 5_000 }); } catch {}
       }
       cdp.close();
     }
-    if (chrome) killChrome(chrome);
+    if (chrome) {
+      if (leaveChromeOpen) {
+        chrome.unref();
+      } else {
+        await gracefulKillChrome(chrome, port);
+      }
+    }
   }
 }
 

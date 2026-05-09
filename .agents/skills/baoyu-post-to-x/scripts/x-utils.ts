@@ -1,4 +1,5 @@
 import { execSync, spawnSync } from 'node:child_process';
+import fs from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
 import { fileURLToPath } from 'node:url';
@@ -8,6 +9,7 @@ import {
   findChromeExecutable as findChromeExecutableBase,
   findExistingChromeDebugPort as findExistingChromeDebugPortBase,
   getFreePort as getFreePortBase,
+  gracefulKillChrome,
   killChrome,
   launchChrome as launchChromeBase,
   openPageSession,
@@ -17,8 +19,20 @@ import {
   type PlatformCandidates,
 } from 'baoyu-chrome-cdp';
 
-export { CdpConnection, killChrome, openPageSession, sleep, waitForChromeDebugPort };
+export { CdpConnection, gracefulKillChrome, killChrome, openPageSession, sleep, waitForChromeDebugPort };
 export type { PlatformCandidates } from 'baoyu-chrome-cdp';
+
+const X_SESSION_URLS = ['https://x.com/', 'https://twitter.com/'] as const;
+const REQUIRED_X_SESSION_COOKIES = ['auth_token', 'ct0'] as const;
+
+interface CookieLike {
+  name?: string;
+  value?: string | null;
+}
+
+interface NetworkGetCookiesResult {
+  cookies?: CookieLike[];
+}
 
 export const CHROME_CANDIDATES_BASIC: PlatformCandidates = {
   darwin: [
@@ -94,15 +108,105 @@ export async function findExistingChromeDebugPort(profileDir: string): Promise<n
   return await findExistingChromeDebugPortBase({ profileDir });
 }
 
-export async function launchChrome(
+const CHROME_LOCK_FILES = ['SingletonLock', 'SingletonSocket', 'SingletonCookie', 'chrome.pid'] as const;
+
+export function hasChromeLockArtifacts(entries: readonly string[]): boolean {
+  return CHROME_LOCK_FILES.some((name) => entries.includes(name));
+}
+
+export function shouldRetryChromeLaunch(options: {
+  lockArtifactsPresent: boolean;
+  hasLiveOwner: boolean;
+}): boolean {
+  return options.lockArtifactsPresent && !options.hasLiveOwner;
+}
+
+export function buildXSessionCookieMap(cookies: readonly CookieLike[]): Record<string, string> {
+  const cookieMap: Record<string, string> = {};
+  for (const cookie of cookies) {
+    const name = cookie.name?.trim();
+    const value = cookie.value?.trim();
+    if (!name || !value) {
+      continue;
+    }
+    cookieMap[name] = value;
+  }
+  return cookieMap;
+}
+
+export function hasRequiredXSessionCookies(cookieMap: Record<string, string>): boolean {
+  return REQUIRED_X_SESSION_COOKIES.every((name) => Boolean(cookieMap[name]));
+}
+
+export async function readXSessionCookieMap(
+  cdp: CdpConnection,
+  sessionId?: string,
+): Promise<Record<string, string>> {
+  const { cookies } = await cdp.send<NetworkGetCookiesResult>(
+    'Network.getCookies',
+    { urls: [...X_SESSION_URLS] },
+    {
+      sessionId,
+      timeoutMs: 5_000,
+    },
+  );
+  return buildXSessionCookieMap(cookies ?? []);
+}
+
+export async function waitForXSessionPersistence(options: {
+  cdp: CdpConnection;
+  sessionId?: string;
+  timeoutMs?: number;
+  pollIntervalMs?: number;
+}): Promise<boolean> {
+  const timeoutMs = options.timeoutMs ?? 15_000;
+  const pollIntervalMs = options.pollIntervalMs ?? 1_000;
+  const start = Date.now();
+
+  while (Date.now() - start < timeoutMs) {
+    const cookieMap = await readXSessionCookieMap(options.cdp, options.sessionId).catch(() => ({}));
+    if (hasRequiredXSessionCookies(cookieMap)) {
+      return true;
+    }
+    await sleep(pollIntervalMs);
+  }
+
+  return false;
+}
+
+function cleanStaleLockFiles(profileDir: string): void {
+  for (const name of CHROME_LOCK_FILES) {
+    try { fs.unlinkSync(path.join(profileDir, name)); } catch {}
+  }
+}
+
+function hasLiveChromeOwner(profileDir: string): boolean {
+  if (process.platform === 'win32') return false;
+  try {
+    const result = spawnSync('ps', ['aux'], {
+      encoding: 'utf8',
+      timeout: 5000,
+    });
+    if (result.status !== 0 || !result.stdout) return false;
+    return result.stdout.split('\n').some((line) => line.includes(`--user-data-dir=${profileDir}`));
+  } catch {
+    return false;
+  }
+}
+
+async function listProfileDirEntries(profileDir: string): Promise<string[]> {
+  try {
+    return await fs.promises.readdir(profileDir);
+  } catch {
+    return [];
+  }
+}
+
+async function launchChromeOnce(
   url: string,
   profileDir: string,
-  candidates: PlatformCandidates,
-  chromePathOverride?: string,
+  chromePath: string,
 ): Promise<{ chrome: Awaited<ReturnType<typeof launchChromeBase>>; port: number }> {
-  const chromePath = chromePathOverride?.trim() || findChromeExecutable(candidates);
-  if (!chromePath) throw new Error('Chrome not found. Set X_BROWSER_CHROME_PATH env var.');
-
   const port = await getFreePort();
   const chrome = await launchChromeBase({
     chromePath,
@@ -112,7 +216,37 @@ export async function launchChrome(
     extraArgs: ['--start-maximized'],
   });
 
-  return { chrome, port };
+  try {
+    await waitForChromeDebugPort(port, 30_000, { includeLastError: true });
+    return { chrome, port };
+  } catch (error) {
+    killChrome(chrome);
+    throw error;
+  }
+}
+
+export async function launchChrome(
+  url: string,
+  profileDir: string,
+  candidates: PlatformCandidates,
+  chromePathOverride?: string,
+): Promise<{ chrome: Awaited<ReturnType<typeof launchChromeBase>>; port: number }> {
+  const chromePath = chromePathOverride?.trim() || findChromeExecutable(candidates);
+  if (!chromePath) throw new Error('Chrome not found. Set X_BROWSER_CHROME_PATH env var.');
+
+  try {
+    return await launchChromeOnce(url, profileDir, chromePath);
+  } catch (error) {
+    const entries = await listProfileDirEntries(profileDir);
+    const shouldRetry = shouldRetryChromeLaunch({
+      lockArtifactsPresent: hasChromeLockArtifacts(entries),
+      hasLiveOwner: hasLiveChromeOwner(profileDir),
+    });
+    if (!shouldRetry) throw error;
+
+    cleanStaleLockFiles(profileDir);
+    return await launchChromeOnce(url, profileDir, chromePath);
+  }
 }
 
 export function getScriptDir(): string {

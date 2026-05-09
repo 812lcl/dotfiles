@@ -7,10 +7,11 @@ import {
   CdpConnection,
   findExistingChromeDebugPort,
   getDefaultProfileDir,
-  killChrome,
+  gracefulKillChrome,
   launchChrome,
   openPageSession,
   sleep,
+  waitForXSessionPersistence,
   waitForChromeDebugPort,
 } from './x-utils.js';
 
@@ -49,7 +50,9 @@ export async function postVideoToX(options: XVideoOptions): Promise<void> {
   else console.log(`[x-video] Launching Chrome (profile: ${profileDir})`);
 
   let cdp: CdpConnection | null = null;
+  let sessionId: string | null = null;
   let targetId: string | null = null;
+  let loggedInDuringRun = false;
 
   try {
     const wsUrl = await waitForChromeDebugPort(port, 30_000, { includeLastError: true });
@@ -63,10 +66,12 @@ export async function postVideoToX(options: XVideoOptions): Promise<void> {
       enablePage: true,
       enableRuntime: true,
       enableDom: true,
+      enableNetwork: true,
     });
-    const { sessionId } = page;
+    const activeSessionId = page.sessionId;
+    sessionId = activeSessionId;
     targetId = page.targetId;
-    await cdp.send('Input.setIgnoreInputEvents', { ignore: false }, { sessionId });
+    await cdp.send('Input.setIgnoreInputEvents', { ignore: false }, { sessionId: activeSessionId });
 
     console.log('[x-video] Waiting for X editor...');
     await sleep(3000);
@@ -77,7 +82,7 @@ export async function postVideoToX(options: XVideoOptions): Promise<void> {
         const result = await cdp!.send<{ result: { value: boolean } }>('Runtime.evaluate', {
           expression: `!!document.querySelector('[data-testid="tweetTextarea_0"]')`,
           returnByValue: true,
-        }, { sessionId });
+        }, { sessionId: activeSessionId });
         if (result.result.value) return true;
         await sleep(1000);
       }
@@ -90,16 +95,17 @@ export async function postVideoToX(options: XVideoOptions): Promise<void> {
       console.log('[x-video] Waiting for login...');
       const loggedIn = await waitForEditor();
       if (!loggedIn) throw new Error('Timed out waiting for X editor. Please log in first.');
+      loggedInDuringRun = true;
     }
 
     // Upload video FIRST (before typing text to avoid text being cleared)
     console.log('[x-video] Uploading video...');
 
-    const { root } = await cdp.send<{ root: { nodeId: number } }>('DOM.getDocument', {}, { sessionId });
+    const { root } = await cdp.send<{ root: { nodeId: number } }>('DOM.getDocument', {}, { sessionId: activeSessionId });
     const { nodeId } = await cdp.send<{ nodeId: number }>('DOM.querySelector', {
       nodeId: root.nodeId,
       selector: 'input[type="file"][accept*="video"], input[data-testid="fileInput"], input[type="file"]',
-    }, { sessionId });
+    }, { sessionId: activeSessionId });
 
     if (!nodeId || nodeId === 0) {
       throw new Error('Could not find file input for video upload.');
@@ -108,7 +114,7 @@ export async function postVideoToX(options: XVideoOptions): Promise<void> {
     await cdp.send('DOM.setFileInputFiles', {
       nodeId,
       files: [absVideoPath],
-    }, { sessionId });
+    }, { sessionId: activeSessionId });
     console.log('[x-video] Video file set, uploading in background...');
 
     // Wait a moment for upload to start, then type text while video processes
@@ -125,7 +131,7 @@ export async function postVideoToX(options: XVideoOptions): Promise<void> {
             document.execCommand('insertText', false, ${JSON.stringify(text)});
           }
         `,
-      }, { sessionId });
+      }, { sessionId: activeSessionId });
       await sleep(500);
     }
 
@@ -143,7 +149,7 @@ export async function postVideoToX(options: XVideoOptions): Promise<void> {
             return { hasMedia, buttonEnabled };
           })()`,
           returnByValue: true,
-        }, { sessionId });
+        }, { sessionId: activeSessionId });
 
         const { hasMedia, buttonEnabled } = result.result.value;
         if (hasMedia && buttonEnabled) {
@@ -171,7 +177,7 @@ export async function postVideoToX(options: XVideoOptions): Promise<void> {
       console.log('[x-video] Submitting post...');
       await cdp.send('Runtime.evaluate', {
         expression: `document.querySelector('[data-testid="tweetButton"]')?.click()`,
-      }, { sessionId });
+      }, { sessionId: activeSessionId });
       await sleep(5000);
       console.log('[x-video] Post submitted!');
     } else {
@@ -179,13 +185,29 @@ export async function postVideoToX(options: XVideoOptions): Promise<void> {
       console.log('[x-video] Browser stays open for review.');
     }
   } finally {
+    let leaveChromeOpen = !submit;
+    if (chrome && submit && loggedInDuringRun && cdp && sessionId) {
+      console.log('[x-video] Waiting for X session cookies to persist...');
+      const sessionReady = await waitForXSessionPersistence({ cdp, sessionId });
+      if (!sessionReady) {
+        console.warn('[x-video] X session cookies not observed yet. Leaving Chrome open so login can finish persisting.');
+        leaveChromeOpen = true;
+      }
+    }
+
     if (cdp) {
       if (reusing && submit && targetId) {
         try { await cdp.send('Target.closeTarget', { targetId }, { timeoutMs: 5_000 }); } catch {}
       }
       cdp.close();
     }
-    if (chrome && submit) killChrome(chrome);
+    if (chrome && submit) {
+      if (leaveChromeOpen) {
+        chrome.unref();
+      } else {
+        await gracefulKillChrome(chrome, port);
+      }
+    }
   }
 }
 

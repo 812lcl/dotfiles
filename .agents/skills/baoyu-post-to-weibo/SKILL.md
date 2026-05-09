@@ -35,40 +35,17 @@ Posts text, images, videos, and long-form articles to Weibo via real Chrome brow
 
 ## Preferences (EXTEND.md)
 
-Check EXTEND.md existence (priority order):
+Check EXTEND.md in priority order — the first one found wins:
 
-```bash
-# macOS, Linux, WSL, Git Bash
-test -f .baoyu-skills/baoyu-post-to-weibo/EXTEND.md && echo "project"
-test -f "${XDG_CONFIG_HOME:-$HOME/.config}/baoyu-skills/baoyu-post-to-weibo/EXTEND.md" && echo "xdg"
-test -f "$HOME/.baoyu-skills/baoyu-post-to-weibo/EXTEND.md" && echo "user"
-```
+| Priority | Path | Scope |
+|----------|------|-------|
+| 1 | `.baoyu-skills/baoyu-post-to-weibo/EXTEND.md` | Project |
+| 2 | `${XDG_CONFIG_HOME:-$HOME/.config}/baoyu-skills/baoyu-post-to-weibo/EXTEND.md` | XDG |
+| 3 | `$HOME/.baoyu-skills/baoyu-post-to-weibo/EXTEND.md` | User home |
 
-```powershell
-# PowerShell (Windows)
-if (Test-Path .baoyu-skills/baoyu-post-to-weibo/EXTEND.md) { "project" }
-$xdg = if ($env:XDG_CONFIG_HOME) { $env:XDG_CONFIG_HOME } else { "$HOME/.config" }
-if (Test-Path "$xdg/baoyu-skills/baoyu-post-to-weibo/EXTEND.md") { "xdg" }
-if (Test-Path "$HOME/.baoyu-skills/baoyu-post-to-weibo/EXTEND.md") { "user" }
-```
+If none found, use defaults.
 
-┌──────────────────────────────────────────────────┬───────────────────┐
-│                       Path                       │     Location      │
-├──────────────────────────────────────────────────┼───────────────────┤
-│ .baoyu-skills/baoyu-post-to-weibo/EXTEND.md      │ Project directory │
-├──────────────────────────────────────────────────┼───────────────────┤
-│ $HOME/.baoyu-skills/baoyu-post-to-weibo/EXTEND.md│ User home         │
-└──────────────────────────────────────────────────┴───────────────────┘
-
-┌───────────┬───────────────────────────────────────────────────────────────────────────┐
-│  Result   │                                  Action                                   │
-├───────────┼───────────────────────────────────────────────────────────────────────────┤
-│ Found     │ Read, parse, apply settings                                               │
-├───────────┼───────────────────────────────────────────────────────────────────────────┤
-│ Not found │ Use defaults                                                              │
-└───────────┴───────────────────────────────────────────────────────────────────────────┘
-
-**EXTEND.md Supports**: Default Chrome profile
+**EXTEND.md supports**: Default Chrome profile
 
 ## Prerequisites
 
@@ -123,6 +100,8 @@ ${BUN_X} {baseDir}/scripts/weibo-article.ts article.md --cover ./cover.jpg
 - Title: 32 characters max (truncated with warning if longer)
 - Summary/导语: 44 characters max (auto-regenerated from content if longer)
 
+**Markdown-to-HTML**: Do NOT pass any `--theme` parameter when converting markdown to HTML. Use the default theme (no theme argument).
+
 **Article Workflow**:
 1. Opens `https://card.weibo.com/article/v3/editor`
 2. Clicks "写文章" button, waits for editor to become editable
@@ -139,17 +118,25 @@ If the check fails (warnings in output), alert the user with the specific issues
 
 ---
 
+## Post Type Selection
+
+Unless the user explicitly specifies the post type:
+- **Markdown file** (`.md`) → **Headline Article** (头条文章)
+- **Plain text** / text with images → **Regular Post**
+
 ## Troubleshooting
 
 ### Chrome debug port not ready
 
-If a script fails with `Chrome debug port not ready` or `Unable to connect`, kill existing Chrome CDP instances first, then retry:
+If a script fails with `Chrome debug port not ready` or `Unable to connect`, kill only the CDP Chrome instances (those with `--remote-debugging-port` AND the baoyu-skills profile), then retry:
 
 ```bash
-pkill -f "Chrome.*remote-debugging-port" 2>/dev/null; pkill -f "Chromium.*remote-debugging-port" 2>/dev/null; sleep 2
+pkill -f "remote-debugging-port.*baoyu-skills/chrome-profile" 2>/dev/null; sleep 2
 ```
 
-**Important**: This should be done automatically -- when encountering this error, kill Chrome CDP instances and retry the command without asking the user.
+**CRITICAL**: Never kill all Chrome processes (`pkill -f "Google Chrome"`). Only kill Chrome instances launched by CDP with the baoyu-skills profile directory. The user may have regular Chrome windows open.
+
+**Important**: This should be done automatically -- when encountering this error, kill the CDP Chrome instances and retry the command without asking the user.
 
 ## Notes
 

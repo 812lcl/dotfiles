@@ -1,0 +1,1007 @@
+{
+  "autocli": {
+    "agents": {
+      "claude-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/autocli",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/autocli"
+      },
+      "openclaw": {
+        "mode": "copy"
+      }
+    }
+  },
+  "baoyu-article-illustrator": {
+    "agents": {}
+  },
+  "baoyu-comic": {
+    "agents": {}
+  },
+  "baoyu-compress-image": {
+    "agents": {}
+  },
+  "baoyu-cover-image": {
+    "agents": {}
+  },
+  "baoyu-danger-gemini-web": {
+    "agents": {}
+  },
+  "baoyu-danger-x-to-markdown": {
+    "agents": {}
+  },
+  "baoyu-format-markdown": {
+    "agents": {}
+  },
+  "baoyu-image-gen": {
+    "agents": {}
+  },
+  "baoyu-infographic": {
+    "agents": {}
+  },
+  "baoyu-markdown-to-html": {
+    "agents": {}
+  },
+  "baoyu-post-to-wechat": {
+    "agents": {}
+  },
+  "baoyu-post-to-weibo": {
+    "agents": {}
+  },
+  "baoyu-post-to-x": {
+    "agents": {}
+  },
+  "baoyu-slide-deck": {
+    "agents": {}
+  },
+  "baoyu-translate": {
+    "agents": {}
+  },
+  "baoyu-url-to-markdown": {
+    "agents": {}
+  },
+  "baoyu-xhs-images": {
+    "agents": {}
+  },
+  "book-review": {
+    "agents": {
+      "claude-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/book-review",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/book-review"
+      },
+      "openclaw": {
+        "mode": "copy"
+      },
+      "antigravity": {
+        "mode": "symlink",
+        "linkTarget": "../../../.agents/skills/book-review",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/book-review"
+      }
+    }
+  },
+  "build-persona": {
+    "agents": {
+      "claude-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/build-persona",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/build-persona"
+      },
+      "openclaw": {
+        "mode": "copy"
+      },
+      "antigravity": {
+        "mode": "symlink",
+        "linkTarget": "../../../.agents/skills/build-persona",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/build-persona"
+      }
+    }
+  },
+  "check": {
+    "agents": {
+      "openclaw": {
+        "mode": "copy"
+      }
+    }
+  },
+  "defuddle": {
+    "agents": {}
+  },
+  "design": {
+    "agents": {
+      "openclaw": {
+        "mode": "copy"
+      }
+    }
+  },
+  "feed-catchup": {
+    "agents": {
+      "claude-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/feed-catchup",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/feed-catchup"
+      },
+      "openclaw": {
+        "mode": "copy"
+      },
+      "antigravity": {
+        "mode": "symlink",
+        "linkTarget": "../../../.agents/skills/feed-catchup",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/feed-catchup"
+      }
+    }
+  },
+  "find-skills": {
+    "agents": {
+      "claude-code": {
+        "mode": "symlink",
+        "linkTarget": "/Users/liuchunlei/.agents/skills/find-skills",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/find-skills"
+      }
+    }
+  },
+  "health": {
+    "agents": {
+      "openclaw": {
+        "mode": "copy"
+      }
+    }
+  },
+  "highlight-graph": {
+    "agents": {
+      "claude-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/highlight-graph",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/highlight-graph"
+      },
+      "openclaw": {
+        "mode": "copy"
+      },
+      "antigravity": {
+        "mode": "symlink",
+        "linkTarget": "../../../.agents/skills/highlight-graph",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/highlight-graph"
+      }
+    }
+  },
+  "hunt": {
+    "agents": {
+      "openclaw": {
+        "mode": "copy"
+      }
+    }
+  },
+  "json-canvas": {
+    "agents": {
+      "claude-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/json-canvas",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/json-canvas"
+      }
+    }
+  },
+  "lark-approval": {
+    "agents": {
+      "claude-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-approval",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-approval"
+      },
+      "openclaw": {
+        "mode": "copy"
+      },
+      "kiro-cli": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-approval",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-approval"
+      },
+      "qwen-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-approval",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-approval"
+      },
+      "trae": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-approval",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-approval"
+      },
+      "windsurf": {
+        "mode": "symlink",
+        "linkTarget": "../../../.agents/skills/lark-approval",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-approval"
+      }
+    }
+  },
+  "lark-base": {
+    "agents": {
+      "claude-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-base",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-base"
+      },
+      "openclaw": {
+        "mode": "copy"
+      },
+      "kiro-cli": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-base",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-base"
+      },
+      "qwen-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-base",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-base"
+      },
+      "trae": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-base",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-base"
+      },
+      "windsurf": {
+        "mode": "symlink",
+        "linkTarget": "../../../.agents/skills/lark-base",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-base"
+      }
+    }
+  },
+  "lark-calendar": {
+    "agents": {
+      "claude-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-calendar",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-calendar"
+      },
+      "openclaw": {
+        "mode": "copy"
+      },
+      "kiro-cli": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-calendar",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-calendar"
+      },
+      "qwen-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-calendar",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-calendar"
+      },
+      "trae": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-calendar",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-calendar"
+      },
+      "windsurf": {
+        "mode": "symlink",
+        "linkTarget": "../../../.agents/skills/lark-calendar",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-calendar"
+      }
+    }
+  },
+  "lark-contact": {
+    "agents": {
+      "claude-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-contact",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-contact"
+      },
+      "openclaw": {
+        "mode": "copy"
+      },
+      "kiro-cli": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-contact",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-contact"
+      },
+      "qwen-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-contact",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-contact"
+      },
+      "trae": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-contact",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-contact"
+      },
+      "windsurf": {
+        "mode": "symlink",
+        "linkTarget": "../../../.agents/skills/lark-contact",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-contact"
+      }
+    }
+  },
+  "lark-doc": {
+    "agents": {
+      "claude-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-doc",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-doc"
+      },
+      "openclaw": {
+        "mode": "copy"
+      },
+      "kiro-cli": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-doc",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-doc"
+      },
+      "qwen-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-doc",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-doc"
+      },
+      "trae": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-doc",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-doc"
+      },
+      "windsurf": {
+        "mode": "symlink",
+        "linkTarget": "../../../.agents/skills/lark-doc",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-doc"
+      }
+    }
+  },
+  "lark-drive": {
+    "agents": {
+      "claude-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-drive",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-drive"
+      },
+      "openclaw": {
+        "mode": "copy"
+      },
+      "kiro-cli": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-drive",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-drive"
+      },
+      "qwen-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-drive",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-drive"
+      },
+      "trae": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-drive",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-drive"
+      },
+      "windsurf": {
+        "mode": "symlink",
+        "linkTarget": "../../../.agents/skills/lark-drive",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-drive"
+      }
+    }
+  },
+  "lark-event": {
+    "agents": {
+      "claude-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-event",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-event"
+      },
+      "openclaw": {
+        "mode": "copy"
+      },
+      "kiro-cli": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-event",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-event"
+      },
+      "qwen-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-event",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-event"
+      },
+      "trae": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-event",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-event"
+      },
+      "windsurf": {
+        "mode": "symlink",
+        "linkTarget": "../../../.agents/skills/lark-event",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-event"
+      }
+    }
+  },
+  "lark-im": {
+    "agents": {
+      "claude-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-im",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-im"
+      },
+      "openclaw": {
+        "mode": "copy"
+      },
+      "kiro-cli": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-im",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-im"
+      },
+      "qwen-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-im",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-im"
+      },
+      "trae": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-im",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-im"
+      },
+      "windsurf": {
+        "mode": "symlink",
+        "linkTarget": "../../../.agents/skills/lark-im",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-im"
+      }
+    }
+  },
+  "lark-mail": {
+    "agents": {
+      "claude-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-mail",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-mail"
+      },
+      "openclaw": {
+        "mode": "copy"
+      },
+      "kiro-cli": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-mail",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-mail"
+      },
+      "qwen-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-mail",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-mail"
+      },
+      "trae": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-mail",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-mail"
+      },
+      "windsurf": {
+        "mode": "symlink",
+        "linkTarget": "../../../.agents/skills/lark-mail",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-mail"
+      }
+    }
+  },
+  "lark-minutes": {
+    "agents": {
+      "claude-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-minutes",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-minutes"
+      },
+      "openclaw": {
+        "mode": "copy"
+      },
+      "kiro-cli": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-minutes",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-minutes"
+      },
+      "qwen-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-minutes",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-minutes"
+      },
+      "trae": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-minutes",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-minutes"
+      },
+      "windsurf": {
+        "mode": "symlink",
+        "linkTarget": "../../../.agents/skills/lark-minutes",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-minutes"
+      }
+    }
+  },
+  "lark-openapi-explorer": {
+    "agents": {
+      "claude-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-openapi-explorer",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-openapi-explorer"
+      },
+      "openclaw": {
+        "mode": "copy"
+      },
+      "kiro-cli": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-openapi-explorer",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-openapi-explorer"
+      },
+      "qwen-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-openapi-explorer",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-openapi-explorer"
+      },
+      "trae": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-openapi-explorer",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-openapi-explorer"
+      },
+      "windsurf": {
+        "mode": "symlink",
+        "linkTarget": "../../../.agents/skills/lark-openapi-explorer",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-openapi-explorer"
+      }
+    }
+  },
+  "lark-shared": {
+    "agents": {
+      "claude-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-shared",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-shared"
+      },
+      "openclaw": {
+        "mode": "copy"
+      },
+      "kiro-cli": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-shared",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-shared"
+      },
+      "qwen-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-shared",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-shared"
+      },
+      "trae": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-shared",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-shared"
+      },
+      "windsurf": {
+        "mode": "symlink",
+        "linkTarget": "../../../.agents/skills/lark-shared",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-shared"
+      }
+    }
+  },
+  "lark-sheets": {
+    "agents": {
+      "claude-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-sheets",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-sheets"
+      },
+      "openclaw": {
+        "mode": "copy"
+      },
+      "kiro-cli": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-sheets",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-sheets"
+      },
+      "qwen-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-sheets",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-sheets"
+      },
+      "trae": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-sheets",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-sheets"
+      },
+      "windsurf": {
+        "mode": "symlink",
+        "linkTarget": "../../../.agents/skills/lark-sheets",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-sheets"
+      }
+    }
+  },
+  "lark-skill-maker": {
+    "agents": {
+      "claude-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-skill-maker",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-skill-maker"
+      },
+      "openclaw": {
+        "mode": "copy"
+      },
+      "kiro-cli": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-skill-maker",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-skill-maker"
+      },
+      "qwen-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-skill-maker",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-skill-maker"
+      },
+      "trae": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-skill-maker",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-skill-maker"
+      },
+      "windsurf": {
+        "mode": "symlink",
+        "linkTarget": "../../../.agents/skills/lark-skill-maker",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-skill-maker"
+      }
+    }
+  },
+  "lark-task": {
+    "agents": {
+      "claude-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-task",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-task"
+      },
+      "openclaw": {
+        "mode": "copy"
+      },
+      "kiro-cli": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-task",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-task"
+      },
+      "qwen-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-task",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-task"
+      },
+      "trae": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-task",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-task"
+      },
+      "windsurf": {
+        "mode": "symlink",
+        "linkTarget": "../../../.agents/skills/lark-task",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-task"
+      }
+    }
+  },
+  "lark-vc": {
+    "agents": {
+      "claude-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-vc",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-vc"
+      },
+      "openclaw": {
+        "mode": "copy"
+      },
+      "kiro-cli": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-vc",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-vc"
+      },
+      "qwen-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-vc",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-vc"
+      },
+      "trae": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-vc",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-vc"
+      },
+      "windsurf": {
+        "mode": "symlink",
+        "linkTarget": "../../../.agents/skills/lark-vc",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-vc"
+      }
+    }
+  },
+  "lark-whiteboard": {
+    "agents": {
+      "claude-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-whiteboard",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-whiteboard"
+      },
+      "openclaw": {
+        "mode": "copy"
+      },
+      "kiro-cli": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-whiteboard",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-whiteboard"
+      },
+      "qwen-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-whiteboard",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-whiteboard"
+      },
+      "trae": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-whiteboard",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-whiteboard"
+      },
+      "windsurf": {
+        "mode": "symlink",
+        "linkTarget": "../../../.agents/skills/lark-whiteboard",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-whiteboard"
+      }
+    }
+  },
+  "lark-wiki": {
+    "agents": {
+      "claude-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-wiki",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-wiki"
+      },
+      "openclaw": {
+        "mode": "copy"
+      },
+      "kiro-cli": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-wiki",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-wiki"
+      },
+      "qwen-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-wiki",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-wiki"
+      },
+      "trae": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-wiki",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-wiki"
+      },
+      "windsurf": {
+        "mode": "symlink",
+        "linkTarget": "../../../.agents/skills/lark-wiki",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-wiki"
+      }
+    }
+  },
+  "lark-workflow-meeting-summary": {
+    "agents": {
+      "claude-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-workflow-meeting-summary",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-workflow-meeting-summary"
+      },
+      "openclaw": {
+        "mode": "copy"
+      },
+      "kiro-cli": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-workflow-meeting-summary",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-workflow-meeting-summary"
+      },
+      "qwen-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-workflow-meeting-summary",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-workflow-meeting-summary"
+      },
+      "trae": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-workflow-meeting-summary",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-workflow-meeting-summary"
+      },
+      "windsurf": {
+        "mode": "symlink",
+        "linkTarget": "../../../.agents/skills/lark-workflow-meeting-summary",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-workflow-meeting-summary"
+      }
+    }
+  },
+  "lark-workflow-standup-report": {
+    "agents": {
+      "claude-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-workflow-standup-report",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-workflow-standup-report"
+      },
+      "openclaw": {
+        "mode": "copy"
+      },
+      "kiro-cli": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-workflow-standup-report",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-workflow-standup-report"
+      },
+      "qwen-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-workflow-standup-report",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-workflow-standup-report"
+      },
+      "trae": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/lark-workflow-standup-report",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-workflow-standup-report"
+      },
+      "windsurf": {
+        "mode": "symlink",
+        "linkTarget": "../../../.agents/skills/lark-workflow-standup-report",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/lark-workflow-standup-report"
+      }
+    }
+  },
+  "now-reading-page": {
+    "agents": {
+      "claude-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/now-reading-page",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/now-reading-page"
+      },
+      "openclaw": {
+        "mode": "copy"
+      },
+      "antigravity": {
+        "mode": "symlink",
+        "linkTarget": "../../../.agents/skills/now-reading-page",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/now-reading-page"
+      }
+    }
+  },
+  "obsidian-bases": {
+    "agents": {
+      "claude-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/obsidian-bases",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/obsidian-bases"
+      }
+    }
+  },
+  "obsidian-cli": {
+    "agents": {
+      "claude-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/obsidian-cli",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/obsidian-cli"
+      }
+    }
+  },
+  "obsidian-markdown": {
+    "agents": {
+      "claude-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/obsidian-markdown",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/obsidian-markdown"
+      }
+    }
+  },
+  "quiz": {
+    "agents": {
+      "claude-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/quiz",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/quiz"
+      },
+      "openclaw": {
+        "mode": "copy"
+      },
+      "antigravity": {
+        "mode": "symlink",
+        "linkTarget": "../../../.agents/skills/quiz",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/quiz"
+      }
+    }
+  },
+  "read": {
+    "agents": {
+      "openclaw": {
+        "mode": "copy"
+      }
+    }
+  },
+  "reader-recap": {
+    "agents": {
+      "claude-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/reader-recap",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/reader-recap"
+      },
+      "openclaw": {
+        "mode": "copy"
+      },
+      "antigravity": {
+        "mode": "symlink",
+        "linkTarget": "../../../.agents/skills/reader-recap",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/reader-recap"
+      }
+    }
+  },
+  "readwise-cli": {
+    "agents": {
+      "claude-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/readwise-cli",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/readwise-cli"
+      },
+      "openclaw": {
+        "mode": "copy"
+      },
+      "antigravity": {
+        "mode": "symlink",
+        "linkTarget": "../../../.agents/skills/readwise-cli",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/readwise-cli"
+      }
+    }
+  },
+  "readwise-mcp": {
+    "agents": {
+      "claude-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/readwise-mcp",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/readwise-mcp"
+      },
+      "openclaw": {
+        "mode": "copy"
+      },
+      "antigravity": {
+        "mode": "symlink",
+        "linkTarget": "../../../.agents/skills/readwise-mcp",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/readwise-mcp"
+      }
+    }
+  },
+  "skill-creator": {
+    "agents": {
+      "claude-code": {
+        "mode": "symlink",
+        "linkTarget": "/Users/liuchunlei/.agents/skills/skill-creator",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/skill-creator"
+      }
+    }
+  },
+  "skill-vetter": {
+    "agents": {
+      "claude-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/skill-vetter",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/skill-vetter"
+      }
+    }
+  },
+  "surprise-me": {
+    "agents": {
+      "claude-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/surprise-me",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/surprise-me"
+      },
+      "openclaw": {
+        "mode": "copy"
+      },
+      "antigravity": {
+        "mode": "symlink",
+        "linkTarget": "../../../.agents/skills/surprise-me",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/surprise-me"
+      }
+    }
+  },
+  "think": {
+    "agents": {
+      "openclaw": {
+        "mode": "copy"
+      }
+    }
+  },
+  "triage": {
+    "agents": {
+      "claude-code": {
+        "mode": "symlink",
+        "linkTarget": "../../.agents/skills/triage",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/triage"
+      },
+      "openclaw": {
+        "mode": "copy"
+      },
+      "antigravity": {
+        "mode": "symlink",
+        "linkTarget": "../../../.agents/skills/triage",
+        "resolvesTo": "/Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/triage"
+      }
+    }
+  },
+  "write": {
+    "agents": {
+      "openclaw": {
+        "mode": "copy"
+      }
+    }
+  }
+}

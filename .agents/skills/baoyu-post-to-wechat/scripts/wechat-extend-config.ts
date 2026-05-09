@@ -196,48 +196,116 @@ function aliasToEnvKey(alias: string): string {
   return alias.toUpperCase().replace(/-/g, "_");
 }
 
-export function loadCredentials(account?: ResolvedAccount): { appId: string; appSecret: string } {
-  if (account?.app_id && account?.app_secret) {
-    return { appId: account.app_id, appSecret: account.app_secret };
+interface CredentialSource {
+  name: string;
+  appIdKey: string;
+  appSecretKey: string;
+  appId?: string;
+  appSecret?: string;
+}
+
+export interface LoadedCredentials {
+  appId: string;
+  appSecret: string;
+  source: string;
+  skippedSources: string[];
+}
+
+function normalizeCredentialValue(value?: string): string | undefined {
+  const trimmed = value?.trim();
+  return trimmed ? trimmed : undefined;
+}
+
+function describeMissingKeys(source: CredentialSource): string {
+  const missingKeys: string[] = [];
+  if (!source.appId) missingKeys.push(source.appIdKey);
+  if (!source.appSecret) missingKeys.push(source.appSecretKey);
+  return `${source.name} missing ${missingKeys.join(" and ")}`;
+}
+
+function buildCredentialSource(
+  name: string,
+  values: Record<string, string | undefined>,
+  appIdKey: string,
+  appSecretKey: string,
+): CredentialSource {
+  return {
+    name,
+    appIdKey,
+    appSecretKey,
+    appId: normalizeCredentialValue(values[appIdKey]),
+    appSecret: normalizeCredentialValue(values[appSecretKey]),
+  };
+}
+
+function resolveCredentialSource(
+  sources: CredentialSource[],
+  account?: ResolvedAccount,
+): LoadedCredentials {
+  const skippedSources: string[] = [];
+
+  for (const source of sources) {
+    if (source.appId && source.appSecret) {
+      return {
+        appId: source.appId,
+        appSecret: source.appSecret,
+        source: source.name,
+        skippedSources,
+      };
+    }
+
+    if (source.appId || source.appSecret) {
+      skippedSources.push(describeMissingKeys(source));
+    }
   }
 
+  const hint = account?.alias ? ` (account: ${account.alias})` : "";
+  const partialHint = skippedSources.length > 0
+    ? `\nIncomplete credential sources skipped:\n- ${skippedSources.join("\n- ")}`
+    : "";
+
+  throw new Error(
+    `Missing WECHAT_APP_ID or WECHAT_APP_SECRET${hint}.\n` +
+    "Set via EXTEND.md account config, environment variables, or .baoyu-skills/.env file." +
+    partialHint
+  );
+}
+
+export function loadCredentials(account?: ResolvedAccount): LoadedCredentials {
   const cwdEnvPath = path.join(process.cwd(), ".baoyu-skills", ".env");
   const homeEnvPath = path.join(os.homedir(), ".baoyu-skills", ".env");
   const cwdEnv = loadEnvFile(cwdEnvPath);
   const homeEnv = loadEnvFile(homeEnvPath);
 
+  const sources: CredentialSource[] = [];
+
+  if (account?.app_id || account?.app_secret) {
+    sources.push({
+      name: account.alias ? `EXTEND.md account "${account.alias}"` : "EXTEND.md account config",
+      appIdKey: "app_id",
+      appSecretKey: "app_secret",
+      appId: normalizeCredentialValue(account.app_id),
+      appSecret: normalizeCredentialValue(account.app_secret),
+    });
+  }
+
   const prefix = account?.alias ? `WECHAT_${aliasToEnvKey(account.alias)}_` : "";
-
-  let appId = "";
-  let appSecret = "";
-
   if (prefix) {
-    appId = process.env[`${prefix}APP_ID`]
-      || cwdEnv[`${prefix}APP_ID`]
-      || homeEnv[`${prefix}APP_ID`]
-      || "";
-    appSecret = process.env[`${prefix}APP_SECRET`]
-      || cwdEnv[`${prefix}APP_SECRET`]
-      || homeEnv[`${prefix}APP_SECRET`]
-      || "";
-  }
-
-  if (!appId) {
-    appId = process.env.WECHAT_APP_ID || cwdEnv.WECHAT_APP_ID || homeEnv.WECHAT_APP_ID || "";
-  }
-  if (!appSecret) {
-    appSecret = process.env.WECHAT_APP_SECRET || cwdEnv.WECHAT_APP_SECRET || homeEnv.WECHAT_APP_SECRET || "";
-  }
-
-  if (!appId || !appSecret) {
-    const hint = account?.alias ? ` (account: ${account.alias})` : "";
-    throw new Error(
-      `Missing WECHAT_APP_ID or WECHAT_APP_SECRET${hint}.\n` +
-      "Set via EXTEND.md account config, environment variables, or .baoyu-skills/.env file."
+    const prefixedKeyLabel = `${prefix}APP_ID/${prefix}APP_SECRET`;
+    sources.push(
+      buildCredentialSource(`process.env (${prefixedKeyLabel})`, process.env, `${prefix}APP_ID`, `${prefix}APP_SECRET`),
+      buildCredentialSource(`<cwd>/.baoyu-skills/.env (${prefixedKeyLabel})`, cwdEnv, `${prefix}APP_ID`, `${prefix}APP_SECRET`),
+      buildCredentialSource(`~/.baoyu-skills/.env (${prefixedKeyLabel})`, homeEnv, `${prefix}APP_ID`, `${prefix}APP_SECRET`),
     );
   }
 
-  return { appId, appSecret };
+  sources.push(
+    buildCredentialSource("process.env", process.env, "WECHAT_APP_ID", "WECHAT_APP_SECRET"),
+    buildCredentialSource("<cwd>/.baoyu-skills/.env", cwdEnv, "WECHAT_APP_ID", "WECHAT_APP_SECRET"),
+    buildCredentialSource("~/.baoyu-skills/.env", homeEnv, "WECHAT_APP_ID", "WECHAT_APP_SECRET"),
+  );
+
+  return resolveCredentialSource(sources, account);
 }
 
 export function listAccounts(config: WechatExtendConfig): string[] {
