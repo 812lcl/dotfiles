@@ -6,162 +6,179 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/nashsu/autocli-skill.git",
       "skillPath": "SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "f3ba2b56e3ff710e95f6a4e1063b074a897a51ebc27c17eff69bc7f6f7906b5f",
       "installedAt": "2026-04-08T01:37:17.010Z",
-      "updatedAt": "2026-04-08T01:37:17.010Z"
+      "updatedAt": "2026-05-09T03:34:06.134Z"
     },
     "baoyu-article-illustrator": {
       "source": "JimLiu/baoyu-skills",
       "sourceType": "github",
       "sourceUrl": "https://github.com/JimLiu/baoyu-skills.git",
       "skillPath": "skills/baoyu-article-illustrator/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "5020238a3d7c9cff546755b2dfdd0cc4eefd657146a615cd866cc01ba39cfed4",
+      "pluginName": "baoyu-skills",
       "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-09T11:05:00.000Z"
+      "updatedAt": "2026-05-09T03:26:33.459Z"
     },
     "baoyu-comic": {
       "source": "JimLiu/baoyu-skills",
       "sourceType": "github",
       "sourceUrl": "https://github.com/JimLiu/baoyu-skills.git",
       "skillPath": "skills/baoyu-comic/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "3c5904431cc829b98520c00b829643e18770925bf80de7bb28248837ffefac8f",
+      "pluginName": "baoyu-skills",
       "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-09T11:05:00.000Z"
+      "updatedAt": "2026-05-09T03:26:33.471Z"
     },
     "baoyu-compress-image": {
       "source": "JimLiu/baoyu-skills",
       "sourceType": "github",
       "sourceUrl": "https://github.com/JimLiu/baoyu-skills.git",
       "skillPath": "skills/baoyu-compress-image/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "30bc37968d803621e7833a469b722da6349665d7e80efb9a43d2f38b4928c570",
+      "pluginName": "baoyu-skills",
       "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-09T11:05:00.000Z"
+      "updatedAt": "2026-05-09T03:26:33.475Z"
     },
     "baoyu-cover-image": {
       "source": "JimLiu/baoyu-skills",
       "sourceType": "github",
       "sourceUrl": "https://github.com/JimLiu/baoyu-skills.git",
       "skillPath": "skills/baoyu-cover-image/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "20927d40cde7f6d3a0f289b6373672e36ede36dc3567e8575945c9b3cd13b0fd",
+      "pluginName": "baoyu-skills",
       "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-09T11:05:00.000Z"
+      "updatedAt": "2026-05-09T03:26:33.480Z"
     },
     "baoyu-danger-gemini-web": {
       "source": "JimLiu/baoyu-skills",
       "sourceType": "github",
       "sourceUrl": "https://github.com/JimLiu/baoyu-skills.git",
       "skillPath": "skills/baoyu-danger-gemini-web/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "9fd3f06d1ace898ad47e2c7ae67bd5a8b22b683588dd0f32a75d0c68ad20697a",
+      "pluginName": "baoyu-skills",
       "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-09T11:05:00.000Z"
+      "updatedAt": "2026-05-09T03:26:33.483Z"
     },
     "baoyu-danger-x-to-markdown": {
       "source": "JimLiu/baoyu-skills",
       "sourceType": "github",
       "sourceUrl": "https://github.com/JimLiu/baoyu-skills.git",
       "skillPath": "skills/baoyu-danger-x-to-markdown/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "d0bad53d1a7a459009a23943b85e7b0a1af83874f5f7dc76c694526b4616ee7f",
+      "pluginName": "baoyu-skills",
       "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-09T11:05:00.000Z"
+      "updatedAt": "2026-05-09T03:26:33.486Z"
     },
     "baoyu-format-markdown": {
       "source": "JimLiu/baoyu-skills",
       "sourceType": "github",
       "sourceUrl": "https://github.com/JimLiu/baoyu-skills.git",
       "skillPath": "skills/baoyu-format-markdown/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "48ebaa7378f4c38f56d05d9b32038476ecc74732c4110160e13840c405cc7082",
+      "pluginName": "baoyu-skills",
       "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-09T11:05:00.000Z"
+      "updatedAt": "2026-05-09T03:26:33.488Z"
     },
     "baoyu-image-gen": {
       "source": "JimLiu/baoyu-skills",
       "sourceType": "github",
       "sourceUrl": "https://github.com/JimLiu/baoyu-skills.git",
       "skillPath": "skills/baoyu-image-gen/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "43f6c4ed297eea9aba4534e2a9f3a6c33e98628d1f01f46635d48c2fbd666a9a",
       "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-09T11:05:00.000Z"
+      "updatedAt": "2026-05-09T03:26:33.492Z",
+      "pluginName": "baoyu-skills"
     },
     "baoyu-infographic": {
       "source": "JimLiu/baoyu-skills",
       "sourceType": "github",
       "sourceUrl": "https://github.com/JimLiu/baoyu-skills.git",
       "skillPath": "skills/baoyu-infographic/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "c370a6f9cd24fdadc9b3565515f748f6f28dc228ca3b687c1e4bb4e1f2256a2e",
+      "pluginName": "baoyu-skills",
       "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-09T11:05:00.000Z"
+      "updatedAt": "2026-05-09T03:26:33.496Z"
     },
     "baoyu-markdown-to-html": {
       "source": "JimLiu/baoyu-skills",
       "sourceType": "github",
       "sourceUrl": "https://github.com/JimLiu/baoyu-skills.git",
       "skillPath": "skills/baoyu-markdown-to-html/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "68ec2028dbe345908d8df50422fbc79d28215a67b39d3e184bfcc8b45ec33b34",
+      "pluginName": "baoyu-skills",
       "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-09T11:05:00.000Z"
+      "updatedAt": "2026-05-09T03:26:33.499Z"
     },
     "baoyu-post-to-wechat": {
       "source": "JimLiu/baoyu-skills",
       "sourceType": "github",
       "sourceUrl": "https://github.com/JimLiu/baoyu-skills.git",
       "skillPath": "skills/baoyu-post-to-wechat/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "a2d2387f9433b0cef6acd8703a6d160da07c08107f7d102847e5c493bcb3f61d",
+      "pluginName": "baoyu-skills",
       "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-09T11:05:00.000Z"
+      "updatedAt": "2026-05-09T03:26:33.505Z"
     },
     "baoyu-post-to-weibo": {
       "source": "JimLiu/baoyu-skills",
       "sourceType": "github",
       "sourceUrl": "https://github.com/JimLiu/baoyu-skills.git",
       "skillPath": "skills/baoyu-post-to-weibo/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "509d9aa87fb0b7ad9b5ae0c013f8d5d0b4334244fbdb8a9887fe4f3701987557",
+      "pluginName": "baoyu-skills",
       "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-09T11:05:00.000Z"
+      "updatedAt": "2026-05-09T03:26:33.513Z"
     },
     "baoyu-post-to-x": {
       "source": "JimLiu/baoyu-skills",
       "sourceType": "github",
       "sourceUrl": "https://github.com/JimLiu/baoyu-skills.git",
       "skillPath": "skills/baoyu-post-to-x/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "86ab4e8d0dc11c7e468d6064d71e801e18b4c4a181f13578f4245669e1f38b4e",
+      "pluginName": "baoyu-skills",
       "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-09T11:05:00.000Z"
+      "updatedAt": "2026-05-09T03:26:33.521Z"
     },
     "baoyu-slide-deck": {
       "source": "JimLiu/baoyu-skills",
       "sourceType": "github",
       "sourceUrl": "https://github.com/JimLiu/baoyu-skills.git",
       "skillPath": "skills/baoyu-slide-deck/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "fff24d8251320f31a79f5c54b905c57794900857017903be07206d86ceb4b4f4",
+      "pluginName": "baoyu-skills",
       "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-09T11:05:00.000Z"
+      "updatedAt": "2026-05-09T03:26:33.527Z"
     },
     "baoyu-translate": {
       "source": "JimLiu/baoyu-skills",
       "sourceType": "github",
       "sourceUrl": "https://github.com/JimLiu/baoyu-skills.git",
       "skillPath": "skills/baoyu-translate/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "3dc723aa4b86c4c6b8557faeec558e54f5bce5f9cf39aa629dd588ed6531df20",
+      "pluginName": "baoyu-skills",
       "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-09T11:05:00.000Z"
+      "updatedAt": "2026-05-09T03:26:33.530Z"
     },
     "baoyu-url-to-markdown": {
       "source": "JimLiu/baoyu-skills",
       "sourceType": "github",
       "sourceUrl": "https://github.com/JimLiu/baoyu-skills.git",
       "skillPath": "skills/baoyu-url-to-markdown/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "b55b97dd2489018ab25588a7c4450eb24ea37bce501aebcb8cee9c294660d21c",
+      "pluginName": "baoyu-skills",
       "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-09T11:05:00.000Z"
+      "updatedAt": "2026-05-09T03:26:33.537Z"
     },
     "baoyu-xhs-images": {
       "source": "JimLiu/baoyu-skills",
       "sourceType": "github",
       "sourceUrl": "https://github.com/JimLiu/baoyu-skills.git",
       "skillPath": "skills/baoyu-xhs-images/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "5096cb04e5037939147ea5d1cdfabc84c570a6ea607fe62f91ad2bf3c936ae45",
       "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-09T11:05:00.000Z"
+      "updatedAt": "2026-05-09T03:26:33.548Z",
+      "pluginName": "baoyu-skills"
     },
     "book-review": {
       "source": "readwiseio/readwise-skills",
@@ -170,7 +187,8 @@
       "skillPath": "skills/book-review/SKILL.md",
       "skillFolderHash": "1193fdcf838dd8e00735f02523b69a348aa2d2a3",
       "installedAt": "2026-03-20T22:16:17.753Z",
-      "updatedAt": "2026-03-20T22:16:17.753Z"
+      "updatedAt": "2026-03-20T22:16:17.753Z",
+      "pluginName": "readwise-skills"
     },
     "build-persona": {
       "source": "readwiseio/readwise-skills",
@@ -179,34 +197,38 @@
       "skillPath": "skills/build-persona/SKILL.md",
       "skillFolderHash": "a8bbbe8838fe9aeb24e56e69d21e8e59982faf4f",
       "installedAt": "2026-03-20T22:16:17.996Z",
-      "updatedAt": "2026-03-20T22:16:17.996Z"
+      "updatedAt": "2026-03-20T22:16:17.996Z",
+      "pluginName": "readwise-skills"
     },
     "check": {
       "source": "tw93/Waza",
       "sourceType": "github",
       "sourceUrl": "https://github.com/tw93/Waza.git",
       "skillPath": "skills/check/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "f354a0bba4e6bbf8b410f235d41291e3de7c868eaeb000c3e386bdaeb43e7bbc",
+      "pluginName": "waza",
       "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-09T11:05:00.000Z"
+      "updatedAt": "2026-05-09T03:34:21.412Z"
     },
     "defuddle": {
-      "source": "git@github.com:kepano/obsidian-skills.git",
-      "sourceType": "git",
-      "sourceUrl": "git@github.com:kepano/obsidian-skills.git",
+      "source": "kepano/obsidian-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/kepano/obsidian-skills.git",
       "skillPath": "skills/defuddle/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "0ed68bc3e818ba0e6b8d192357ea3daaf552a3893f8854e7fd43c06831f91323",
       "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-09T11:05:00.000Z"
+      "updatedAt": "2026-05-09T03:46:21.571Z",
+      "pluginName": "obsidian-skills"
     },
     "design": {
       "source": "tw93/Waza",
       "sourceType": "github",
       "sourceUrl": "https://github.com/tw93/Waza.git",
       "skillPath": "skills/design/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "9a8104005f421abbbc7043967290fee91ef244958c58e9f8b1ffff8a3ff1e223",
+      "pluginName": "waza",
       "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-09T11:05:00.000Z"
+      "updatedAt": "2026-05-09T03:34:21.416Z"
     },
     "feed-catchup": {
       "source": "readwiseio/readwise-skills",
@@ -215,7 +237,8 @@
       "skillPath": "skills/feed-catchup/SKILL.md",
       "skillFolderHash": "5a4aa0a0dcdc1f4ee4ec7f056adc3212f577c8e7",
       "installedAt": "2026-03-20T22:16:18.246Z",
-      "updatedAt": "2026-03-20T22:16:18.246Z"
+      "updatedAt": "2026-03-20T22:16:18.246Z",
+      "pluginName": "readwise-skills"
     },
     "find-skills": {
       "source": "vercel-labs/skills",
@@ -231,9 +254,10 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/tw93/Waza.git",
       "skillPath": "skills/health/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "48f99477795242da672d4405c1e86ba73f33925a36021a2c222e6edbe1e311b2",
+      "pluginName": "waza",
       "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-09T11:05:00.000Z"
+      "updatedAt": "2026-05-09T03:34:21.418Z"
     },
     "highlight-graph": {
       "source": "readwiseio/readwise-skills",
@@ -242,214 +266,228 @@
       "skillPath": "skills/highlight-graph/SKILL.md",
       "skillFolderHash": "7251c29bb3d97f78a1b76cb92658ce05c10369df",
       "installedAt": "2026-03-20T22:16:18.489Z",
-      "updatedAt": "2026-03-20T22:16:18.489Z"
+      "updatedAt": "2026-03-20T22:16:18.489Z",
+      "pluginName": "readwise-skills"
     },
     "hunt": {
       "source": "tw93/Waza",
       "sourceType": "github",
       "sourceUrl": "https://github.com/tw93/Waza.git",
       "skillPath": "skills/hunt/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "2472f022493c014832683d91c6a0a40f72f7393e2a24185e990accaa2ca809fa",
+      "pluginName": "waza",
       "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-09T11:05:00.000Z"
+      "updatedAt": "2026-05-09T03:34:21.419Z"
     },
     "json-canvas": {
-      "source": "git@github.com:kepano/obsidian-skills.git",
-      "sourceType": "git",
-      "sourceUrl": "git@github.com:kepano/obsidian-skills.git",
+      "source": "kepano/obsidian-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/kepano/obsidian-skills.git",
       "skillPath": "skills/json-canvas/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "56cbac74a93e4fba97f4d44bccfdeaae89e545b223f47df392c7705e01e6c543",
       "installedAt": "2026-03-21T00:08:09.215Z",
-      "updatedAt": "2026-03-28T21:53:15.520Z"
+      "updatedAt": "2026-05-09T03:46:38.483Z",
+      "pluginName": "obsidian-skills"
     },
     "lark-approval": {
       "source": "larksuite/cli",
       "sourceType": "github",
       "sourceUrl": "https://github.com/larksuite/cli.git",
       "skillPath": "skills/lark-approval/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "392e3251415a92a398eee87d03c9d569b91438b57895b7eac81137ec7cbd1036",
       "installedAt": "2026-04-10T04:27:18.509Z",
-      "updatedAt": "2026-04-11T02:11:33.018Z"
+      "updatedAt": "2026-05-09T03:33:48.044Z",
+      "pluginName": "lark"
     },
     "lark-base": {
       "source": "larksuite/cli",
       "sourceType": "github",
       "sourceUrl": "https://github.com/larksuite/cli.git",
       "skillPath": "skills/lark-base/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "f8721a13381166063512bcfe1827d6e9025f4ec185e699d6e96b01cd99d27b77",
       "installedAt": "2026-04-02T01:18:54.236Z",
-      "updatedAt": "2026-04-11T02:11:35.351Z"
+      "updatedAt": "2026-05-09T03:33:48.070Z",
+      "pluginName": "lark"
     },
     "lark-calendar": {
       "source": "larksuite/cli",
       "sourceType": "github",
       "sourceUrl": "https://github.com/larksuite/cli.git",
       "skillPath": "skills/lark-calendar/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "cf60e13e2f195884ed7e6d26ca33d7dd3a76490a37c75dda818200457a9d203b",
       "installedAt": "2026-04-02T01:18:55.788Z",
-      "updatedAt": "2026-04-11T02:11:37.753Z"
+      "updatedAt": "2026-05-09T03:33:48.071Z",
+      "pluginName": "lark"
     },
     "lark-contact": {
       "source": "larksuite/cli",
       "sourceType": "github",
       "sourceUrl": "https://github.com/larksuite/cli.git",
       "skillPath": "skills/lark-contact/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "c905ce0185a81a19b3ee2cb814f20af0f028aaeb79ae48ee38242ef37955c338",
       "installedAt": "2026-04-02T01:18:56.957Z",
-      "updatedAt": "2026-04-11T02:11:39.485Z"
+      "updatedAt": "2026-05-09T03:33:48.072Z",
+      "pluginName": "lark"
     },
     "lark-doc": {
       "source": "larksuite/cli",
       "sourceType": "github",
       "sourceUrl": "https://github.com/larksuite/cli.git",
       "skillPath": "skills/lark-doc/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "f5dc7dfa58daf6a73ba7df217edcf3a4c839a3b3e27fdc1f3596ef955725f270",
       "installedAt": "2026-04-02T01:18:57.993Z",
-      "updatedAt": "2026-04-11T02:11:41.110Z"
+      "updatedAt": "2026-05-09T03:33:48.073Z",
+      "pluginName": "lark"
     },
     "lark-drive": {
       "source": "larksuite/cli",
       "sourceType": "github",
       "sourceUrl": "https://github.com/larksuite/cli.git",
       "skillPath": "skills/lark-drive/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "ed04a4d8438ab99d40449ffaaa8fa4e7eb776a557a74f580a1a4fc5aae1da552",
       "installedAt": "2026-04-02T01:18:59.052Z",
-      "updatedAt": "2026-04-11T02:11:42.946Z"
+      "updatedAt": "2026-05-09T03:33:48.075Z",
+      "pluginName": "lark"
     },
     "lark-event": {
       "source": "larksuite/cli",
       "sourceType": "github",
       "sourceUrl": "https://github.com/larksuite/cli.git",
       "skillPath": "skills/lark-event/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "0403ed86fb451a59c965686e795d32e37b69d904e44167a5de8fcf59a27d488e",
       "installedAt": "2026-04-02T01:19:00.104Z",
-      "updatedAt": "2026-04-11T02:11:45.270Z"
+      "updatedAt": "2026-05-09T03:33:48.076Z",
+      "pluginName": "lark"
     },
     "lark-im": {
       "source": "larksuite/cli",
       "sourceType": "github",
       "sourceUrl": "https://github.com/larksuite/cli.git",
       "skillPath": "skills/lark-im/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "de459f0dd19b8b58f4c9f6383d7e755bd666c6707662e6223a23130a1664e5ba",
       "installedAt": "2026-04-02T01:19:01.198Z",
-      "updatedAt": "2026-04-11T02:11:47.386Z"
+      "updatedAt": "2026-05-09T03:33:48.077Z",
+      "pluginName": "lark"
     },
     "lark-mail": {
       "source": "larksuite/cli",
       "sourceType": "github",
       "sourceUrl": "https://github.com/larksuite/cli.git",
       "skillPath": "skills/lark-mail/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "9998ffba7dcd8e0341cab9046ac1870d7fdbc85873907906e00c1a3755aa36ad",
       "installedAt": "2026-04-02T01:19:02.776Z",
-      "updatedAt": "2026-04-11T02:11:49.101Z"
+      "updatedAt": "2026-05-09T03:33:48.078Z",
+      "pluginName": "lark"
     },
     "lark-minutes": {
       "source": "larksuite/cli",
       "sourceType": "github",
       "sourceUrl": "https://github.com/larksuite/cli.git",
       "skillPath": "skills/lark-minutes/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "b0a9d9adf4663e58f8730509b0a8d2aa974c123123492d873fb32dbcfb11d4e4",
       "installedAt": "2026-04-02T01:19:03.941Z",
-      "updatedAt": "2026-04-11T02:11:51.566Z"
+      "updatedAt": "2026-05-09T03:33:48.078Z",
+      "pluginName": "lark"
     },
     "lark-openapi-explorer": {
       "source": "larksuite/cli",
       "sourceType": "github",
       "sourceUrl": "https://github.com/larksuite/cli.git",
       "skillPath": "skills/lark-openapi-explorer/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "a49ad0ad41b4bdeec9f5ccae6d5f6fba7b128fae0b0f428fde7df94cda6e6555",
       "installedAt": "2026-04-02T01:19:05.002Z",
-      "updatedAt": "2026-04-11T02:11:54.660Z"
+      "updatedAt": "2026-05-09T03:33:48.079Z",
+      "pluginName": "lark"
     },
     "lark-shared": {
       "source": "larksuite/cli",
       "sourceType": "github",
       "sourceUrl": "https://github.com/larksuite/cli.git",
       "skillPath": "skills/lark-shared/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "4ce1b2bc44eb7e20338631037046d9e1468ba941a2a02a364fab990f06c60750",
       "installedAt": "2026-04-02T01:19:06.498Z",
-      "updatedAt": "2026-04-11T02:11:56.268Z"
+      "updatedAt": "2026-05-09T03:33:48.079Z",
+      "pluginName": "lark"
     },
     "lark-sheets": {
       "source": "larksuite/cli",
       "sourceType": "github",
       "sourceUrl": "https://github.com/larksuite/cli.git",
       "skillPath": "skills/lark-sheets/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "483bb22c155c248cd566555f820391653061614b4e3bf13ade89d7f654b2cfe5",
       "installedAt": "2026-04-02T01:19:08.218Z",
-      "updatedAt": "2026-04-11T02:11:57.933Z"
+      "updatedAt": "2026-05-09T03:33:48.080Z",
+      "pluginName": "lark"
     },
     "lark-skill-maker": {
       "source": "larksuite/cli",
       "sourceType": "github",
       "sourceUrl": "https://github.com/larksuite/cli.git",
       "skillPath": "skills/lark-skill-maker/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "78e2f8725d2525c846bd1fd07d82bdc718be4c382b9971d3d74ffa14d3e2b7c5",
       "installedAt": "2026-04-02T01:19:09.260Z",
-      "updatedAt": "2026-04-11T02:11:59.538Z"
+      "updatedAt": "2026-05-09T03:33:48.081Z",
+      "pluginName": "lark"
     },
     "lark-task": {
       "source": "larksuite/cli",
       "sourceType": "github",
       "sourceUrl": "https://github.com/larksuite/cli.git",
       "skillPath": "skills/lark-task/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "8701bd4d6cde338d96dd91584b3a6e73d542ee776b4dae2edf79a0557b96f047",
       "installedAt": "2026-04-02T01:19:10.353Z",
-      "updatedAt": "2026-04-11T02:12:01.253Z"
+      "updatedAt": "2026-05-09T03:33:48.082Z",
+      "pluginName": "lark"
     },
     "lark-vc": {
       "source": "larksuite/cli",
       "sourceType": "github",
       "sourceUrl": "https://github.com/larksuite/cli.git",
       "skillPath": "skills/lark-vc/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "70c94f301eaa6680445fa425e5554be1e1d6d48d3349128ff4e1f3ceece97646",
       "installedAt": "2026-04-02T01:19:11.433Z",
-      "updatedAt": "2026-04-11T02:12:02.920Z"
+      "updatedAt": "2026-05-09T03:33:48.083Z",
+      "pluginName": "lark"
     },
     "lark-whiteboard": {
       "source": "larksuite/cli",
       "sourceType": "github",
       "sourceUrl": "https://github.com/larksuite/cli.git",
       "skillPath": "skills/lark-whiteboard/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "12dce35e05ee18376608abb1da5aee1aababc1eb3cde13fc4b6782959447b508",
       "installedAt": "2026-04-02T01:19:12.523Z",
-      "updatedAt": "2026-04-11T02:12:05.546Z"
-    },
-    "lark-whiteboard-cli": {
-      "source": "larksuite/cli",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/larksuite/cli.git",
-      "skillPath": "skills/lark-whiteboard-cli/SKILL.md",
-      "skillFolderHash": "",
-      "installedAt": "2026-04-11T02:12:07.751Z",
-      "updatedAt": "2026-04-11T02:12:07.751Z"
+      "updatedAt": "2026-05-09T03:33:48.084Z",
+      "pluginName": "lark"
     },
     "lark-wiki": {
       "source": "larksuite/cli",
       "sourceType": "github",
       "sourceUrl": "https://github.com/larksuite/cli.git",
       "skillPath": "skills/lark-wiki/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "31c035b59622bee8cc798f5342dcdccfc2d56e9a080bc2ebfb64653656a32696",
       "installedAt": "2026-04-02T01:19:14.025Z",
-      "updatedAt": "2026-04-11T02:12:09.350Z"
+      "updatedAt": "2026-05-09T03:33:48.085Z",
+      "pluginName": "lark"
     },
     "lark-workflow-meeting-summary": {
       "source": "larksuite/cli",
       "sourceType": "github",
       "sourceUrl": "https://github.com/larksuite/cli.git",
       "skillPath": "skills/lark-workflow-meeting-summary/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "9e1c8e88859457895cb84d31b6f7c787ab02e6bb8197decbe410dca21653f47d",
       "installedAt": "2026-04-02T01:19:15.545Z",
-      "updatedAt": "2026-04-11T02:12:11.970Z"
+      "updatedAt": "2026-05-09T03:33:48.085Z",
+      "pluginName": "lark"
     },
     "lark-workflow-standup-report": {
       "source": "larksuite/cli",
       "sourceType": "github",
       "sourceUrl": "https://github.com/larksuite/cli.git",
       "skillPath": "skills/lark-workflow-standup-report/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "37664a511e12ecab3fb8eba7a27a42ca35170668b5eaec6b5798229cdebb98a0",
       "installedAt": "2026-04-02T01:19:16.664Z",
-      "updatedAt": "2026-04-11T02:12:13.532Z"
+      "updatedAt": "2026-05-09T03:33:48.086Z",
+      "pluginName": "lark"
     },
     "now-reading-page": {
       "source": "readwiseio/readwise-skills",
@@ -458,34 +496,38 @@
       "skillPath": "skills/now-reading-page/SKILL.md",
       "skillFolderHash": "002f70c6e367512bc5bdde81a9578d67a4497944",
       "installedAt": "2026-03-20T22:16:18.736Z",
-      "updatedAt": "2026-03-20T22:16:18.736Z"
+      "updatedAt": "2026-03-20T22:16:18.736Z",
+      "pluginName": "readwise-skills"
     },
     "obsidian-bases": {
-      "source": "git@github.com:kepano/obsidian-skills.git",
-      "sourceType": "git",
-      "sourceUrl": "git@github.com:kepano/obsidian-skills.git",
+      "source": "kepano/obsidian-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/kepano/obsidian-skills.git",
       "skillPath": "skills/obsidian-bases/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "ed0a53502693e56c67575a9958daca9a3a1ac7ba483367f400b4cad9488bfb3c",
       "installedAt": "2026-03-21T00:08:09.216Z",
-      "updatedAt": "2026-03-28T21:53:15.521Z"
+      "updatedAt": "2026-05-09T03:46:38.501Z",
+      "pluginName": "obsidian-skills"
     },
     "obsidian-cli": {
-      "source": "git@github.com:kepano/obsidian-skills.git",
-      "sourceType": "git",
-      "sourceUrl": "git@github.com:kepano/obsidian-skills.git",
+      "source": "kepano/obsidian-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/kepano/obsidian-skills.git",
       "skillPath": "skills/obsidian-cli/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "f46ae626875f7e47c410c2ee93896c4526024ebe127719e8fb430261b5677edc",
       "installedAt": "2026-03-21T00:08:09.217Z",
-      "updatedAt": "2026-03-28T21:53:15.523Z"
+      "updatedAt": "2026-05-09T03:46:38.509Z",
+      "pluginName": "obsidian-skills"
     },
     "obsidian-markdown": {
-      "source": "git@github.com:kepano/obsidian-skills.git",
-      "sourceType": "git",
-      "sourceUrl": "git@github.com:kepano/obsidian-skills.git",
+      "source": "kepano/obsidian-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/kepano/obsidian-skills.git",
       "skillPath": "skills/obsidian-markdown/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "cacc9058a35ad3fd4985b4c31121bff8202f1337c39808c1326ded6a19a7915f",
       "installedAt": "2026-03-21T00:08:09.217Z",
-      "updatedAt": "2026-03-28T21:53:15.524Z"
+      "updatedAt": "2026-05-09T03:46:38.516Z",
+      "pluginName": "obsidian-skills"
     },
     "quiz": {
       "source": "readwiseio/readwise-skills",
@@ -494,16 +536,18 @@
       "skillPath": "skills/quiz/SKILL.md",
       "skillFolderHash": "1ceb157db519bf2b4fcd40a1b5c7ed3432cd0383",
       "installedAt": "2026-03-20T22:16:18.978Z",
-      "updatedAt": "2026-03-20T22:16:18.978Z"
+      "updatedAt": "2026-03-20T22:16:18.978Z",
+      "pluginName": "readwise-skills"
     },
     "read": {
       "source": "tw93/Waza",
       "sourceType": "github",
       "sourceUrl": "https://github.com/tw93/Waza.git",
       "skillPath": "skills/read/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "ee7b795d05d8a3a99eb6d604e422d478459fa79183a188b3f6bcf3d9519dad72",
+      "pluginName": "waza",
       "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-09T11:05:00.000Z"
+      "updatedAt": "2026-05-09T03:34:21.420Z"
     },
     "reader-recap": {
       "source": "readwiseio/readwise-skills",
@@ -512,7 +556,8 @@
       "skillPath": "skills/reader-recap/SKILL.md",
       "skillFolderHash": "bfd9716e39d84ef08968dbb9358bfe2892ed8461",
       "installedAt": "2026-03-20T22:16:19.226Z",
-      "updatedAt": "2026-03-20T22:16:19.226Z"
+      "updatedAt": "2026-03-20T22:16:19.226Z",
+      "pluginName": "readwise-skills"
     },
     "readwise-cli": {
       "source": "readwiseio/readwise-skills",
@@ -521,7 +566,8 @@
       "skillPath": "skills/readwise-cli/SKILL.md",
       "skillFolderHash": "9b5aaaeaf26efeb82849d76d5ffdfa6e8618d1a0",
       "installedAt": "2026-03-20T22:16:19.473Z",
-      "updatedAt": "2026-03-20T22:16:19.473Z"
+      "updatedAt": "2026-03-20T22:16:19.473Z",
+      "pluginName": "readwise-skills"
     },
     "readwise-mcp": {
       "source": "readwiseio/readwise-skills",
@@ -530,16 +576,17 @@
       "skillPath": "skills/readwise-mcp/SKILL.md",
       "skillFolderHash": "55a91f21a70ead18a855a1811c5c2a228bbc6edb",
       "installedAt": "2026-03-20T22:16:19.716Z",
-      "updatedAt": "2026-03-20T22:16:19.716Z"
+      "updatedAt": "2026-03-20T22:16:19.716Z",
+      "pluginName": "readwise-skills"
     },
     "skill-creator": {
       "source": "anthropics/skills",
       "sourceType": "github",
       "sourceUrl": "https://github.com/anthropics/skills.git",
       "skillPath": "skills/skill-creator/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "5ea13a6d9f0d4bb694405d79acd00cadec0d21bb138c4dd10fcf3c500cb835c2",
       "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-09T11:05:00.000Z"
+      "updatedAt": "2026-05-09T03:31:12.472Z"
     },
     "skill-vetter": {
       "source": "useai-pro/openclaw-skills-security",
@@ -557,16 +604,18 @@
       "skillPath": "skills/surprise-me/SKILL.md",
       "skillFolderHash": "c3de23a92021c691f6a3c9ddccc36dfe1d5467dd",
       "installedAt": "2026-03-20T22:16:19.957Z",
-      "updatedAt": "2026-03-20T22:16:19.957Z"
+      "updatedAt": "2026-03-20T22:16:19.957Z",
+      "pluginName": "readwise-skills"
     },
     "think": {
       "source": "tw93/Waza",
       "sourceType": "github",
       "sourceUrl": "https://github.com/tw93/Waza.git",
       "skillPath": "skills/think/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "d65d43384fcc1328f4ddbf9135f3434cc22cb5c2770182180b2bad165d59b94d",
+      "pluginName": "waza",
       "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-09T11:05:00.000Z"
+      "updatedAt": "2026-05-09T03:34:21.421Z"
     },
     "triage": {
       "source": "readwiseio/readwise-skills",
@@ -575,16 +624,18 @@
       "skillPath": "skills/triage/SKILL.md",
       "skillFolderHash": "2a51c7643a2e512a85f25e7d438276db1e6fc3f0",
       "installedAt": "2026-03-20T22:16:20.192Z",
-      "updatedAt": "2026-03-20T22:16:20.192Z"
+      "updatedAt": "2026-03-20T22:16:20.192Z",
+      "pluginName": "readwise-skills"
     },
     "write": {
       "source": "tw93/Waza",
       "sourceType": "github",
       "sourceUrl": "https://github.com/tw93/Waza.git",
       "skillPath": "skills/write/SKILL.md",
-      "skillFolderHash": "",
+      "skillFolderHash": "621cfea6cc4a096b275fdb448db5ab1105f3c496e66bda0a8bd8c198b0140422",
+      "pluginName": "waza",
       "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-09T11:05:00.000Z"
+      "updatedAt": "2026-05-09T03:34:21.422Z"
     }
   },
   "dismissed": {

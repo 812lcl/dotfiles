@@ -7,10 +7,12 @@ import {
   copyImageToClipboard,
   findExistingChromeDebugPort,
   getDefaultProfileDir,
+  gracefulKillChrome,
   launchChrome,
   openPageSession,
   pasteFromClipboard,
   sleep,
+  waitForXSessionPersistence,
   waitForChromeDebugPort,
 } from './x-utils.js';
 
@@ -44,6 +46,8 @@ export async function postToX(options: XBrowserOptions): Promise<void> {
   else console.log(`[x-browser] Launching Chrome (profile: ${profileDir})`);
 
   let cdp: CdpConnection | null = null;
+  let sessionId: string | null = null;
+  let loggedInDuringRun = false;
 
   try {
     const wsUrl = await waitForChromeDebugPort(port, 30_000, { includeLastError: true });
@@ -56,9 +60,11 @@ export async function postToX(options: XBrowserOptions): Promise<void> {
       matchTarget: (target) => target.type === 'page' && target.url.includes('x.com'),
       enablePage: true,
       enableRuntime: true,
+      enableNetwork: true,
     });
-    const { sessionId } = page;
-    await cdp.send('Input.setIgnoreInputEvents', { ignore: false }, { sessionId });
+    const activeSessionId = page.sessionId;
+    sessionId = activeSessionId;
+    await cdp.send('Input.setIgnoreInputEvents', { ignore: false }, { sessionId: activeSessionId });
 
     console.log('[x-browser] Waiting for X editor...');
     await sleep(3000);
@@ -69,7 +75,7 @@ export async function postToX(options: XBrowserOptions): Promise<void> {
         const result = await cdp!.send<{ result: { value: boolean } }>('Runtime.evaluate', {
           expression: `!!document.querySelector('[data-testid="tweetTextarea_0"]')`,
           returnByValue: true,
-        }, { sessionId });
+        }, { sessionId: activeSessionId });
         if (result.result.value) return true;
         await sleep(1000);
       }
@@ -82,6 +88,7 @@ export async function postToX(options: XBrowserOptions): Promise<void> {
       console.log('[x-browser] Waiting for login...');
       const loggedIn = await waitForEditor();
       if (!loggedIn) throw new Error('Timed out waiting for X editor. Please log in first.');
+      loggedInDuringRun = true;
     }
 
     if (text) {
@@ -94,7 +101,7 @@ export async function postToX(options: XBrowserOptions): Promise<void> {
             document.execCommand('insertText', false, ${JSON.stringify(text)});
           }
         `,
-      }, { sessionId });
+      }, { sessionId: activeSessionId });
       await sleep(500);
     }
 
@@ -115,7 +122,7 @@ export async function postToX(options: XBrowserOptions): Promise<void> {
       const imgCountBefore = await cdp.send<{ result: { value: number } }>('Runtime.evaluate', {
         expression: `document.querySelectorAll('img[src^="blob:"]').length`,
         returnByValue: true,
-      }, { sessionId });
+      }, { sessionId: activeSessionId });
 
       // Wait for clipboard to be ready
       await sleep(500);
@@ -123,7 +130,7 @@ export async function postToX(options: XBrowserOptions): Promise<void> {
       // Focus the editor
       await cdp.send('Runtime.evaluate', {
         expression: `document.querySelector('[data-testid="tweetTextarea_0"]')?.focus()`,
-      }, { sessionId });
+      }, { sessionId: activeSessionId });
       await sleep(200);
 
       // Use paste script (handles platform differences, activates Chrome)
@@ -140,14 +147,14 @@ export async function postToX(options: XBrowserOptions): Promise<void> {
           code: 'KeyV',
           modifiers,
           windowsVirtualKeyCode: 86,
-        }, { sessionId });
+        }, { sessionId: activeSessionId });
         await cdp.send('Input.dispatchKeyEvent', {
           type: 'keyUp',
           key: 'v',
           code: 'KeyV',
           modifiers,
           windowsVirtualKeyCode: 86,
-        }, { sessionId });
+        }, { sessionId: activeSessionId });
       }
 
       console.log('[x-browser] Verifying image upload...');
@@ -158,7 +165,7 @@ export async function postToX(options: XBrowserOptions): Promise<void> {
         const r = await cdp!.send<{ result: { value: number } }>('Runtime.evaluate', {
           expression: `document.querySelectorAll('img[src^="blob:"]').length`,
           returnByValue: true,
-        }, { sessionId });
+        }, { sessionId: activeSessionId });
         if (r.result.value >= expectedImgCount) {
           imgUploadOk = true;
           break;
@@ -177,18 +184,32 @@ export async function postToX(options: XBrowserOptions): Promise<void> {
       console.log('[x-browser] Submitting post...');
       await cdp.send('Runtime.evaluate', {
         expression: `document.querySelector('[data-testid="tweetButton"]')?.click()`,
-      }, { sessionId });
+      }, { sessionId: activeSessionId });
       await sleep(2000);
       console.log('[x-browser] Post submitted!');
     } else {
       console.log('[x-browser] Post composed. Please review and click the publish button in the browser.');
     }
   } finally {
+    let leaveChromeOpen = !submit;
+    if (chrome && submit && loggedInDuringRun && cdp && sessionId) {
+      console.log('[x-browser] Waiting for X session cookies to persist...');
+      const sessionReady = await waitForXSessionPersistence({ cdp, sessionId });
+      if (!sessionReady) {
+        console.warn('[x-browser] X session cookies not observed yet. Leaving Chrome open so login can finish persisting.');
+        leaveChromeOpen = true;
+      }
+    }
+
     if (cdp) {
       cdp.close();
     }
     if (chrome) {
-      chrome.unref();
+      if (leaveChromeOpen) {
+        chrome.unref();
+      } else {
+        await gracefulKillChrome(chrome, port);
+      }
     }
   }
 }

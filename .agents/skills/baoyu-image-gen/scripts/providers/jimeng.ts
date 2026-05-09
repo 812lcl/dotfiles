@@ -246,7 +246,7 @@ async function submitTask(
   const [width, height] = size.split("x").map(Number);
   const bodyObj = {
     req_key: model,
-    prompt_text: prompt,
+    prompt,
     // Use separate width and height parameters instead of size string
     width: width,
     height: height,

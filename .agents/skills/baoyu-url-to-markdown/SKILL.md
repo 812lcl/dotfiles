@@ -1,147 +1,115 @@
 ---
 name: baoyu-url-to-markdown
-description: Fetch any URL and convert to markdown using Chrome CDP. Saves the rendered HTML snapshot alongside the markdown, uses an upgraded Defuddle pipeline with better web-component handling and YouTube transcript extraction, and automatically falls back to the pre-Defuddle HTML-to-Markdown pipeline when needed. If local browser capture fails entirely, it can fall back to the hosted defuddle.md API. Supports two modes - auto-capture on page load, or wait for user signal (for pages requiring login). Use when user wants to save a webpage as markdown.
-version: 1.58.1
+description: Fetch any URL and convert to markdown using baoyu-fetch CLI (Chrome CDP with site-specific adapters). Built-in adapters for X/Twitter, YouTube transcripts, Hacker News threads, and generic pages via Defuddle. Handles login/CAPTCHA via interaction wait modes. Use when user wants to save a webpage as markdown.
+version: 1.61.0
 metadata:
   openclaw:
     homepage: https://github.com/JimLiu/baoyu-skills#baoyu-url-to-markdown
     requires:
       anyBins:
         - bun
-        - npx
 ---
 
 # URL to Markdown
 
-Fetches any URL via Chrome CDP, saves the rendered HTML snapshot, and converts it to clean markdown.
+Fetches any URL via `baoyu-fetch` CLI (Chrome CDP + site-specific adapters) and converts it to clean markdown.
 
-## Script Directory
+## User Input Tools
 
-**Important**: All scripts are located in the `scripts/` subdirectory of this skill.
+When this skill prompts the user, follow this tool-selection rule (priority order):
+
+1. **Prefer built-in user-input tools** exposed by the current agent runtime — e.g., `AskUserQuestion`, `request_user_input`, `clarify`, `ask_user`, or any equivalent.
+2. **Fallback**: if no such tool exists, emit a numbered plain-text message and ask the user to reply with the chosen number/answer for each question.
+3. **Batching**: if the tool supports multiple questions per call, combine all applicable questions into a single call; if only single-question, ask them one at a time in priority order.
+
+Concrete `AskUserQuestion` references below are examples — substitute the local equivalent in other runtimes.
+
+## CLI Setup
+
+**Important**: The CLI source is vendored in `{baseDir}/scripts/lib`. `scripts/package.json` installs only third-party runtime dependencies.
 
 **Agent Execution Instructions**:
 1. Determine this SKILL.md file's directory path as `{baseDir}`
-2. Script path = `{baseDir}/scripts/<script-name>.ts`
-3. Resolve `${BUN_X}` runtime: if `bun` installed → `bun`; if `npx` available → `npx -y bun`; else suggest installing bun
-4. Replace all `{baseDir}` and `${BUN_X}` in this document with actual values
-
-**Script Reference**:
-| Script | Purpose |
-|--------|---------|
-| `scripts/main.ts` | CLI entry point for URL fetching |
-| `scripts/html-to-markdown.ts` | Markdown conversion entry point and converter selection |
-| `scripts/defuddle-converter.ts` | Defuddle-based conversion |
-| `scripts/legacy-converter.ts` | Pre-Defuddle legacy extraction and markdown conversion |
-| `scripts/markdown-conversion-shared.ts` | Shared metadata parsing and markdown document helpers |
+2. Resolve `${BUN}` runtime: if `bun` installed → `bun`; else suggest installing Bun
+3. If `{baseDir}/scripts/node_modules` does not exist, run `${BUN} install --cwd {baseDir}/scripts`
+4. `${READER}` = `{baseDir}/scripts/baoyu-fetch`
+5. Replace all `${READER}` in this document with the resolved value
 
 ## Preferences (EXTEND.md)
 
-Check EXTEND.md existence (priority order):
+Check EXTEND.md in priority order — the first one found wins:
 
-```bash
-# macOS, Linux, WSL, Git Bash
-test -f .baoyu-skills/baoyu-url-to-markdown/EXTEND.md && echo "project"
-test -f "${XDG_CONFIG_HOME:-$HOME/.config}/baoyu-skills/baoyu-url-to-markdown/EXTEND.md" && echo "xdg"
-test -f "$HOME/.baoyu-skills/baoyu-url-to-markdown/EXTEND.md" && echo "user"
-```
+| Priority | Path | Scope |
+|----------|------|-------|
+| 1 | `.baoyu-skills/baoyu-url-to-markdown/EXTEND.md` | Project |
+| 2 | `${XDG_CONFIG_HOME:-$HOME/.config}/baoyu-skills/baoyu-url-to-markdown/EXTEND.md` | XDG |
+| 3 | `$HOME/.baoyu-skills/baoyu-url-to-markdown/EXTEND.md` | User home |
 
-```powershell
-# PowerShell (Windows)
-if (Test-Path .baoyu-skills/baoyu-url-to-markdown/EXTEND.md) { "project" }
-$xdg = if ($env:XDG_CONFIG_HOME) { $env:XDG_CONFIG_HOME } else { "$HOME/.config" }
-if (Test-Path "$xdg/baoyu-skills/baoyu-url-to-markdown/EXTEND.md") { "xdg" }
-if (Test-Path "$HOME/.baoyu-skills/baoyu-url-to-markdown/EXTEND.md") { "user" }
-```
+| Result | Action |
+|--------|--------|
+| Found | Read, parse, apply settings |
+| Not found | **MUST** run first-time setup (see below) — do NOT silently create defaults |
 
-┌────────────────────────────────────────────────────────┬───────────────────┐
-│                          Path                          │     Location      │
-├────────────────────────────────────────────────────────┼───────────────────┤
-│ .baoyu-skills/baoyu-url-to-markdown/EXTEND.md          │ Project directory │
-├────────────────────────────────────────────────────────┼───────────────────┤
-│ $HOME/.baoyu-skills/baoyu-url-to-markdown/EXTEND.md    │ User home         │
-└────────────────────────────────────────────────────────┴───────────────────┘
+**EXTEND.md supports**: download media by default, default output directory.
 
-┌───────────┬───────────────────────────────────────────────────────────────────────────┐
-│  Result   │                                  Action                                   │
-├───────────┼───────────────────────────────────────────────────────────────────────────┤
-│ Found     │ Read, parse, apply settings                                               │
-├───────────┼───────────────────────────────────────────────────────────────────────────┤
-│ Not found │ **MUST** run first-time setup (see below) — do NOT silently create defaults │
-└───────────┴───────────────────────────────────────────────────────────────────────────┘
+### First-Time Setup ⛔ BLOCKING
 
-**EXTEND.md Supports**: Download media by default | Default output directory | Default capture mode | Timeout settings
+When EXTEND.md is not found, you **MUST** use `AskUserQuestion` to gather preferences before creating EXTEND.md. **NEVER** create EXTEND.md with silent defaults. Generation is BLOCKED until setup completes. Batch all three questions into a single call:
 
-### First-Time Setup (BLOCKING)
+- **Q1 — Media** (header "Media"): "How to handle images and videos in pages?"
+  - "Ask each time (Recommended)" — Prompt after each save
+  - "Always download" — Download to local `imgs/` and `videos/`
+  - "Never download" — Keep remote URLs
+- **Q2 — Output** (header "Output"): "Default output directory?"
+  - "url-to-markdown (Recommended)" — Save to `./url-to-markdown/{domain}/{slug}.md`
+  - User may pick "Other" and type a custom path
+- **Q3 — Save** (header "Save"): "Where to save preferences?"
+  - "User (Recommended)" — `~/.baoyu-skills/` (all projects)
+  - "Project" — `.baoyu-skills/` (this project only)
 
-**CRITICAL**: When EXTEND.md is not found, you **MUST use `AskUserQuestion`** to ask the user for their preferences before creating EXTEND.md. **NEVER** create EXTEND.md with defaults without asking. This is a **BLOCKING** operation — do NOT proceed with any conversion until setup is complete.
+After answers, write EXTEND.md, confirm "Preferences saved to [path]", then continue.
 
-Use `AskUserQuestion` with ALL questions in ONE call:
-
-**Question 1** — header: "Media", question: "How to handle images and videos in pages?"
-- "Ask each time (Recommended)" — After saving markdown, ask whether to download media
-- "Always download" — Always download media to local imgs/ and videos/ directories
-- "Never download" — Keep original remote URLs in markdown
-
-**Question 2** — header: "Output", question: "Default output directory?"
-- "url-to-markdown (Recommended)" — Save to ./url-to-markdown/{domain}/{slug}.md
-- (User may choose "Other" to type a custom path)
-
-**Question 3** — header: "Save", question: "Where to save preferences?"
-- "User (Recommended)" — ~/.baoyu-skills/ (all projects)
-- "Project" — .baoyu-skills/ (this project only)
-
-After user answers, create EXTEND.md at the chosen location, confirm "Preferences saved to [path]", then continue.
-
-Full reference: [references/config/first-time-setup.md](references/config/first-time-setup.md)
+Full template: [references/config/first-time-setup.md](references/config/first-time-setup.md).
 
 ### Supported Keys
 
 | Key | Default | Values | Description |
 |-----|---------|--------|-------------|
-| `download_media` | `ask` | `ask` / `1` / `0` | `ask` = prompt each time, `1` = always download, `0` = never |
+| `download_media` | `ask` | `ask` / `1` / `0` | `ask` = prompt each time, `1` = always, `0` = never |
 | `default_output_dir` | empty | path or empty | Default output directory (empty = `./url-to-markdown/`) |
 
 **EXTEND.md → CLI mapping**:
+
 | EXTEND.md key | CLI argument | Notes |
 |---------------|-------------|-------|
-| `download_media: 1` | `--download-media` | |
-| `default_output_dir: ./posts/` | `--output-dir ./posts/` | Directory path. Do NOT pass to `-o` (which expects a file path) |
+| `download_media: 1` | `--download-media` | Requires `--output` to be set |
+| `default_output_dir: ./posts/` | Agent constructs `--output ./posts/{domain}/{slug}.md` | Agent generates path, not a direct flag |
 
-**Value priority**:
-1. CLI arguments (`--download-media`, `-o`, `--output-dir`)
-2. EXTEND.md
-3. Skill defaults
-
-## Features
-
-- Chrome CDP for full JavaScript rendering
-- Two capture modes: auto or wait-for-user
-- Save rendered HTML as a sibling `-captured.html` file
-- Clean markdown output with metadata
-- Upgraded Defuddle-first markdown conversion with automatic fallback to the pre-Defuddle extractor from git history
-- Materializes shadow DOM content before conversion so web-component pages survive serialization better
-- YouTube pages can include transcript/caption text in the markdown when YouTube exposes a caption track
-- If local browser capture fails completely, can fall back to `defuddle.md/<url>` and still save markdown
-- Handles login-required pages via wait mode
-- Download images and videos to local directories
+**Value priority**: CLI arguments → EXTEND.md → skill defaults.
 
 ## Usage
 
 ```bash
-# Auto mode (default) - capture when page loads
-${BUN_X} {baseDir}/scripts/main.ts <url>
+# Default: headless capture, markdown to stdout
+${READER} <url>
 
-# Wait mode - wait for user signal before capture
-${BUN_X} {baseDir}/scripts/main.ts <url> --wait
+# Save to file
+${READER} <url> --output article.md
 
-# Save to specific file
-${BUN_X} {baseDir}/scripts/main.ts <url> -o output.md
+# Save with media download
+${READER} <url> --output article.md --download-media
 
-# Save to a custom output directory (auto-generates filename)
-${BUN_X} {baseDir}/scripts/main.ts <url> --output-dir ./posts/
+# Wait for interaction (login/CAPTCHA) — auto-detect and continue
+${READER} <url> --wait-for interaction --output article.md
 
-# Download images and videos to local directories
-${BUN_X} {baseDir}/scripts/main.ts <url> --download-media
+# Wait for interaction — manual control (Enter to continue)
+${READER} <url> --wait-for force --output article.md
+
+# JSON output
+${READER} <url> --format json --output article.json
+
+# Force specific adapter
+${READER} <url> --adapter youtube --output transcript.md
 ```
 
 ## Options
@@ -149,113 +117,55 @@ ${BUN_X} {baseDir}/scripts/main.ts <url> --download-media
 | Option | Description |
 |--------|-------------|
 | `<url>` | URL to fetch |
-| `-o <path>` | Output file path — must be a **file** path, not directory (default: auto-generated) |
-| `--output-dir <dir>` | Base output directory — auto-generates `{dir}/{domain}/{slug}.md` (default: `./url-to-markdown/`) |
-| `--wait` | Wait for user signal before capturing |
+| `--output <path>` | Output file path (default: stdout) |
+| `--format <type>` | Output format: `markdown` (default) or `json` |
+| `--json` | Shorthand for `--format json` |
+| `--adapter <name>` | Force adapter: `x`, `youtube`, `hn`, or `generic` (default: auto-detect) |
+| `--headless` | Force headless Chrome (no visible window) |
+| `--wait-for <mode>` | Interaction wait mode: `none` (default), `interaction`, or `force` |
+| `--wait-for-interaction` | Alias for `--wait-for interaction` |
+| `--wait-for-login` | Alias for `--wait-for interaction` |
 | `--timeout <ms>` | Page load timeout (default: 30000) |
-| `--download-media` | Download image/video assets to local `imgs/` and `videos/`, and rewrite markdown links to local relative paths |
+| `--interaction-timeout <ms>` | Login/CAPTCHA wait timeout (default: 600000 = 10 min) |
+| `--interaction-poll-interval <ms>` | Poll interval for interaction checks (default: 1500) |
+| `--download-media` | Download images/videos to local `imgs/` and `videos/`, rewrite markdown links. Requires `--output` |
+| `--media-dir <dir>` | Base directory for downloaded media (default: same as `--output` directory) |
+| `--cdp-url <url>` | Reuse existing Chrome DevTools Protocol endpoint |
+| `--browser-path <path>` | Custom Chrome/Chromium binary path |
+| `--chrome-profile-dir <path>` | Chrome user data directory (default: `BAOYU_CHROME_PROFILE_DIR` env or `./baoyu-skills/chrome-profile`) |
+| `--debug-dir <dir>` | Write debug artifacts (document.json, markdown.md, page.html, network.json) |
 
-## Capture Modes
+## Agent Quality Gate
 
-| Mode | Behavior | Use When |
-|------|----------|----------|
-| Auto (default) | Capture on network idle | Public pages, static content |
-| Wait (`--wait`) | User signals when ready | Login-required, lazy loading, paywalls |
+**CRITICAL**: treat default headless capture as provisional. Some sites render differently in headless mode and can silently return low-quality content without failing the CLI.
 
-**Wait mode workflow**:
-1. Run with `--wait` → script outputs "Press Enter when ready"
-2. Ask user to confirm page is ready
-3. Send newline to stdin to trigger capture
+After every headless run, inspect the saved markdown. See [references/quality-gate.md](references/quality-gate.md) for the full checklist, recovery workflow, and capture-mode table. Read it whenever a run looks suspicious or the user asks about login/CAPTCHA handling.
 
-## Output Format
+## Output Path Generation
 
-Each run saves two files side by side:
+The agent must construct the output file path — `baoyu-fetch` does not auto-generate paths.
 
-- Markdown: YAML front matter with `url`, `title`, `description`, `author`, `published`, optional `coverImage`, and `captured_at`, followed by converted markdown content
-- HTML snapshot: `*-captured.html`, containing the rendered page HTML captured from Chrome
+**Algorithm**:
+1. Determine base directory from EXTEND.md `default_output_dir` or default `./url-to-markdown/`
+2. Extract domain from URL (e.g., `example.com`)
+3. Generate slug from URL path or page title (kebab-case, 2-6 words)
+4. Construct: `{base_dir}/{domain}/{slug}/{slug}.md` — each URL gets its own directory so media files stay isolated
+5. Conflict resolution: append timestamp `{slug}-YYYYMMDD-HHMMSS/{slug}-YYYYMMDD-HHMMSS.md`
 
-When Defuddle or page metadata provides a language hint, the markdown front matter also includes `language`.
+Pass the constructed path to `--output`. Media files (`--download-media`) are saved into subdirectories next to the markdown file, keeping each URL's assets self-contained.
 
-The HTML snapshot is saved before any markdown media localization, so it stays a faithful capture of the page DOM used for conversion.
-If the hosted `defuddle.md` API fallback is used, markdown is still saved, but there is no local `-captured.html` snapshot for that run.
+## Adapters & Media
 
-## Output Directory
-
-Default: `url-to-markdown/<domain>/<slug>.md`
-With `--output-dir ./posts/`: `./posts/<domain>/<slug>.md`
-
-HTML snapshot path uses the same basename:
-
-- `url-to-markdown/<domain>/<slug>-captured.html`
-- `./posts/<domain>/<slug>-captured.html`
-
-- `<slug>`: From page title or URL path (kebab-case, 2-6 words)
-- Conflict resolution: Append timestamp `<slug>-YYYYMMDD-HHMMSS.md`
-
-When `--download-media` is enabled:
-- Images are saved to `imgs/` next to the markdown file
-- Videos are saved to `videos/` next to the markdown file
-- Markdown media links are rewritten to local relative paths
-
-## Conversion Fallback
-
-Conversion order:
-
-1. Try Defuddle first
-2. For rich pages such as YouTube, prefer Defuddle's extractor-specific output (including transcripts when available) instead of replacing it with the legacy pipeline
-3. If Defuddle throws, cannot load, returns obviously incomplete markdown, or captures lower-quality content than the legacy pipeline, automatically fall back to the pre-Defuddle extractor
-4. If the entire local browser capture flow fails before markdown can be produced, try the hosted `https://defuddle.md/<url>` API and save its markdown output directly
-5. The legacy fallback path uses the older Readability/selector/Next.js-data based HTML-to-Markdown implementation recovered from git history
-
-CLI output will show:
-
-- `Converter: defuddle` when Defuddle succeeds
-- `Converter: legacy:...` plus `Fallback used: ...` when fallback was needed
-- `Converter: defuddle-api` when local browser capture failed and the hosted API was used instead
-
-## Media Download Workflow
-
-Based on `download_media` setting in EXTEND.md:
-
-| Setting | Behavior |
-|---------|----------|
-| `1` (always) | Run script with `--download-media` flag |
-| `0` (never) | Run script without `--download-media` flag |
-| `ask` (default) | Follow the ask-each-time flow below |
-
-### Ask-Each-Time Flow
-
-1. Run script **without** `--download-media` → markdown saved
-2. Check saved markdown for remote media URLs (`https://` in image/video links)
-3. **If no remote media found** → done, no prompt needed
-4. **If remote media found** → use `AskUserQuestion`:
-   - header: "Media", question: "Download N images/videos to local files?"
-   - "Yes" — Download to local directories
-   - "No" — Keep remote URLs
-5. If user confirms → run script **again** with `--download-media` (overwrites markdown with localized links)
+See [references/adapters.md](references/adapters.md) for the adapter catalog (X, YouTube, Hacker News, generic), per-adapter notes, the media download flow (`ask` / always / never), and the JSON output schema. Read it before answering adapter-specific questions or handling media prompts.
 
 ## Environment Variables
 
 | Variable | Description |
 |----------|-------------|
-| `URL_CHROME_PATH` | Custom Chrome executable path |
-| `URL_DATA_DIR` | Custom data directory |
-| `URL_CHROME_PROFILE_DIR` | Custom Chrome profile directory |
+| `BAOYU_CHROME_PROFILE_DIR` | Chrome user data directory (can also use `--chrome-profile-dir`) |
 
-**Troubleshooting**: Chrome not found → set `URL_CHROME_PATH`. Timeout → increase `--timeout`. Complex pages → try `--wait` mode. If markdown quality is poor, inspect the saved `-captured.html` and check whether the run logged a legacy fallback.
-
-### YouTube Notes
-
-- The upgraded Defuddle path uses async extractors, so YouTube pages can include transcript text directly in the markdown body.
-- Transcript availability depends on YouTube exposing a caption track. Videos with captions disabled, restricted playback, or blocked regional access may still produce description-only output.
-- If the page needs time to finish loading descriptions, chapters, or player metadata, prefer `--wait` and capture after the watch page is fully hydrated.
-
-### Hosted API Fallback
-
-- The hosted fallback endpoint is `https://defuddle.md/<url>`. In shell form: `curl https://defuddle.md/stephango.com`
-- Use it only when the local Chrome/CDP capture path fails outright. The local path still has higher fidelity because it can save the captured HTML and handle authenticated pages.
-- The hosted API already returns Markdown with YAML frontmatter, so save that response as-is and then apply the normal media-localization step if requested.
+**Troubleshooting**: Chrome not found → use `--browser-path`. Timeout → increase `--timeout`. Login/CAPTCHA → `--wait-for interaction`. Debug → `--debug-dir` to inspect captured HTML and network logs.
 
 ## Extension Support
 
-Custom configurations via EXTEND.md. See **Preferences** section for paths and supported options.
+Custom configurations via EXTEND.md. See **Preferences** section above for paths and supported keys.

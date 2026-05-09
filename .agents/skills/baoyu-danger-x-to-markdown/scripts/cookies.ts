@@ -2,8 +2,8 @@ import {
   CdpConnection,
   findChromeExecutable as findChromeExecutableBase,
   findExistingChromeDebugPort,
+  gracefulKillChrome,
   getFreePort,
-  killChrome,
   launchChrome as launchChromeBase,
   openPageSession,
   sleep,
@@ -122,15 +122,11 @@ async function fetchXCookiesViaCdp(
         try {
           await cdp.send("Target.closeTarget", { targetId }, { timeoutMs: 5_000 });
         } catch {}
-      } else {
-        try {
-          await cdp.send("Browser.close", {}, { timeoutMs: 5_000 });
-        } catch {}
       }
       cdp.close();
     }
 
-    if (chrome) killChrome(chrome);
+    if (chrome) await gracefulKillChrome(chrome, port);
   }
 }
 

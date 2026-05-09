@@ -1,7 +1,7 @@
 ---
 name: baoyu-translate
 description: Translates articles and documents between languages with three modes - quick (direct), normal (analyze then translate), and refined (analyze, translate, review, polish). Supports custom glossaries and terminology consistency via EXTEND.md. Use when user asks to "translate", "翻译", "精翻", "translate article", "translate to Chinese/English", "改成中文", "改成英文", "convert to Chinese", "localize", "本地化", or needs any document translation. Also triggers for "refined translation", "精细翻译", "proofread translation", "快速翻译", "快翻", "这篇文章翻译一下", or when a URL or file is provided with translation intent.
-version: 1.56.1
+version: 1.59.0
 metadata:
   openclaw:
     homepage: https://github.com/JimLiu/baoyu-skills#baoyu-translate
@@ -15,6 +15,16 @@ metadata:
 
 Three-mode translation skill: **quick** for direct translation, **normal** for analysis-informed translation, **refined** for full publication-quality workflow with review and polish.
 
+## User Input Tools
+
+When this skill prompts the user, follow this tool-selection rule (priority order):
+
+1. **Prefer built-in user-input tools** exposed by the current agent runtime — e.g., `AskUserQuestion`, `request_user_input`, `clarify`, `ask_user`, or any equivalent.
+2. **Fallback**: if no such tool exists, emit a numbered plain-text message and ask the user to reply with the chosen number/answer for each question.
+3. **Batching**: if the tool supports multiple questions per call, combine all applicable questions into a single call; if only single-question, ask them one at a time in priority order.
+
+Concrete `AskUserQuestion` references below are examples — substitute the local equivalent in other runtimes.
+
 ## Script Directory
 
 Scripts in `scripts/` subdirectory. `{baseDir}` = this SKILL.md's directory path. Resolve `${BUN_X}` runtime: if `bun` installed → `bun`; if `npx` available → `npx -y bun`; else suggest installing bun. Replace `{baseDir}` and `${BUN_X}` with actual values.
@@ -26,36 +36,22 @@ Scripts in `scripts/` subdirectory. `{baseDir}` = this SKILL.md's directory path
 
 ## Preferences (EXTEND.md)
 
-Check EXTEND.md existence (priority order):
+Check EXTEND.md in priority order — the first one found wins:
 
-```bash
-# macOS, Linux, WSL, Git Bash
-test -f .baoyu-skills/baoyu-translate/EXTEND.md && echo "project"
-test -f "${XDG_CONFIG_HOME:-$HOME/.config}/baoyu-skills/baoyu-translate/EXTEND.md" && echo "xdg"
-test -f "$HOME/.baoyu-skills/baoyu-translate/EXTEND.md" && echo "user"
-```
-
-```powershell
-# PowerShell (Windows)
-if (Test-Path .baoyu-skills/baoyu-translate/EXTEND.md) { "project" }
-$xdg = if ($env:XDG_CONFIG_HOME) { $env:XDG_CONFIG_HOME } else { "$HOME/.config" }
-if (Test-Path "$xdg/baoyu-skills/baoyu-translate/EXTEND.md") { "xdg" }
-if (Test-Path "$HOME/.baoyu-skills/baoyu-translate/EXTEND.md") { "user" }
-```
-
-| Path | Location |
-|------|----------|
-| `.baoyu-skills/baoyu-translate/EXTEND.md` | Project directory |
-| `$HOME/.baoyu-skills/baoyu-translate/EXTEND.md` | User home |
+| Priority | Path | Scope |
+|----------|------|-------|
+| 1 | `.baoyu-skills/baoyu-translate/EXTEND.md` | Project |
+| 2 | `${XDG_CONFIG_HOME:-$HOME/.config}/baoyu-skills/baoyu-translate/EXTEND.md` | XDG |
+| 3 | `$HOME/.baoyu-skills/baoyu-translate/EXTEND.md` | User home |
 
 | Result | Action |
 |--------|--------|
-| Found | Read, parse, apply settings. On first use in session, briefly remind: "Using preferences from [path]. You can edit EXTEND.md to customize glossary, audience, etc." |
+| Found | Read, parse, apply. On first use in session, briefly remind: "Using preferences from [path]. You can edit EXTEND.md to customize glossary, audience, etc." |
 | Not found | **MUST** run first-time setup (see below) — do NOT silently use defaults |
 
-**EXTEND.md Supports**: Default target language | Default mode | Target audience | Custom glossaries (inline or file path) | Translation style | Chunk settings
+**EXTEND.md supports**: default target language, default mode, target audience, custom glossaries (inline or file path), translation style, chunk settings.
 
-Schema: [references/config/extend-schema.md](references/config/extend-schema.md)
+Schema: [references/config/extend-schema.md](references/config/extend-schema.md).
 
 ### First-Time Setup (BLOCKING)
 
@@ -113,19 +109,6 @@ Custom style descriptions are also accepted, e.g., `--style "poetic and lyrical"
 > Translation saved. To further review and polish, reply "继续润色" or "refine".
 
 If user responds, continue with review → polish steps (same as refined mode Steps 4-6 in refined-workflow.md) on the existing output.
-
-## Usage
-
-```
-/translate [--mode quick|normal|refined] [--from <lang>] [--to <lang>] [--audience <audience>] [--style <style>] [--glossary <file>] <source>
-```
-
-- `<source>`: File path, URL, or inline text
-- `--from`: Source language (auto-detect if omitted)
-- `--to`: Target language (from EXTEND.md or default `zh-CN`)
-- `--audience`: Target reader profile (from EXTEND.md or default `general`)
-- `--style`: Translation style (from EXTEND.md or default `storytelling`)
-- `--glossary`: Additional glossary file to merge with EXTEND.md glossary
 
 **Audience presets**:
 
@@ -189,12 +172,12 @@ Before translating chunks:
    - Splits at markdown block boundaries to preserve structure
    - If a single block exceeds the threshold, falls back to line splitting, then word splitting
 4. **Assemble translation prompt**:
-   - Main agent reads `01-analysis.md` (if exists) and assembles shared context using Part 1 of [references/subagent-prompt-template.md](references/subagent-prompt-template.md) — inlining the resolved style preset (from `--style` flag, EXTEND.md `style` setting, or default `storytelling`), content background, merged glossary, and comprehension challenges
+   - Main agent reads `01-analysis.md` (if exists) and assembles shared context using Part 1 of [references/subagent-prompt-template.md](references/subagent-prompt-template.md) — inlining: target style, content background, merged glossary, and translation challenges
    - Save as `02-prompt.md` in the output directory (shared context only, no task instructions)
 5. **Draft translation via subagents** (if Agent tool available):
    - Spawn one subagent **per chunk**, all in parallel (Part 2 of the template)
-   - Each subagent reads `02-prompt.md` for shared context, translates its chunk, saves to `chunks/chunk-NN-draft.md`
-   - Terminology consistency is guaranteed by the shared `02-prompt.md` (glossary + comprehension challenges from analysis)
+   - Each subagent reads `02-prompt.md` for shared context, receives chunk position info (chunk N of M + brief context of where it sits in the argument), translates its chunk, saves to `chunks/chunk-NN-draft.md`
+   - Consistency is guaranteed by the shared `02-prompt.md` (glossary, figurative language mapping, comprehension challenges, source voice, and translation challenges from analysis)
    - If no chunks (content under threshold): spawn one subagent for the entire source file
    - If Agent tool is unavailable, translate chunks sequentially inline using `02-prompt.md`
 6. **Merge**: Once all subagents complete, combine translated chunks in order. If `chunks/frontmatter.md` exists, prepend it. Save as `03-draft.md` (refined) or `translation.md` (normal)
@@ -206,26 +189,22 @@ Before translating chunks:
 
 **Translation principles** (apply to all modes):
 
+- **Rewrite, not translate**: Rewrite content into natural, engaging target language as if a skilled native writer composed it from scratch. Quality test: "Does this read like it was originally written in the target language?"
 - **Accuracy first**: Facts, data, and logic must match the original exactly
-- **Meaning over words**: Translate what the author means, not just what the words say. When a literal translation sounds unnatural or fails to convey the intended effect, restructure freely to express the same meaning in idiomatic target language
-- **Figurative language**: Interpret metaphors, idioms, and figurative expressions by their intended meaning rather than translating them word-for-word. When a source-language image does not carry the same connotation in the target language, replace it with a natural expression that conveys the same idea and emotional effect
-- **Emotional fidelity**: Preserve the emotional connotations of word choices, not just their dictionary meanings. Words that carry subjective feelings (e.g., "alarming", "haunting") should be rendered to evoke the same response in target-language readers
-- **Natural flow**: Use idiomatic target language word order and sentence patterns; break or restructure sentences freely when the source structure doesn't work naturally in the target language
-- **Terminology**: Use standard translations; annotate with original term in parentheses on first occurrence
+- **Natural flow**: Use idiomatic target language word order. Break long source sentences into shorter, natural ones. Interpret metaphors and idioms by intended meaning, not word-for-word
+- **Terminology**: Use standard translations consistently. First occurrence of specialized terms: annotate with original in parentheses
 - **Preserve format**: Keep all markdown formatting (headings, bold, italic, images, links, code blocks)
-- **Image-language awareness**: Preserve image references exactly during translation, but after the translation is complete, review referenced images and check whether their likely main text language still matches the translated article language
-- **Frontmatter transformation**: If the source has YAML frontmatter, preserve it in the translation with these changes: (1) Rename metadata fields that describe the *source* article — `url`→`sourceUrl`, `title`→`sourceTitle`, `description`→`sourceDescription`, `author`→`sourceAuthor`, `date`→`sourceDate`, and any similar origin-metadata fields — by adding a `source` prefix (camelCase). (2) Translate the values of text fields (title, description, etc.) and add them as new top-level fields. (3) Keep other fields (tags, categories, custom fields) as-is, translating their values where appropriate
-- **Respect original**: Maintain original meaning and intent; do not add, remove, or editorialize — but sentence structure and imagery may be adapted freely to serve the meaning
-- **Translator's notes**: For terms, concepts, or cultural references that target readers may not understand — due to jargon, cultural gaps, or domain-specific knowledge — add a concise explanatory note in parentheses immediately after the term. The note should explain *what it means* in plain language, not just provide the English original. Format: `译文（English original，通俗解释）`. Calibrate annotation depth to the target audience: general readers need more notes than technical readers. For short texts (< 5 sentences), further reduce annotations — only annotate non-common terms that the target audience is unlikely to know; skip terms that are widely recognized or self-explanatory in context. Only add notes where genuinely needed; do not over-annotate obvious terms.
+- **Proactive interpretation**: For jargon or concepts the target audience may lack context for, add concise explanations in **bold parentheses** `（**解释**）`. Keep annotations few — only where genuinely needed for comprehension
+- **Frontmatter**: If source has YAML frontmatter, rename source-metadata fields with `source` prefix (camelCase: `url`→`sourceUrl`, `title`→`sourceTitle`, etc.), add translated values as new top-level fields (skip `title` if body has H1), keep other fields as-is
 
 #### Quick Mode
 
-Translate directly → save to `translation.md`. No analysis file, but still apply all translation principles above — especially: interpret figurative language by meaning (not word-for-word), preserve emotional connotations, and restructure sentences for natural target-language flow.
+Translate directly → save to `translation.md`. Apply all translation principles above.
 
 #### Normal Mode
 
-1. **Analyze** → `01-analysis.md` (domain, tone, audience, terminology, reader comprehension challenges, figurative language & metaphor mapping)
-2. **Assemble prompt** → `02-prompt.md` (translation instructions with inlined style preset, content background, glossary, and comprehension challenges)
+1. **Analyze** → `01-analysis.md` (domain, tone, terminology, translation challenges)
+2. **Assemble prompt** → `02-prompt.md` (translation instructions with context, glossary, challenges)
 3. **Translate** (following `02-prompt.md`) → `translation.md`
 
 After completion, prompt user: "Translation saved. To further review and polish, reply **继续润色** or **refine**."
@@ -239,7 +218,7 @@ Full workflow for publication quality. See [references/refined-workflow.md](refe
 The subagent (if used in Step 3.1) only handles the initial draft. All subsequent steps (critical review, revision, polish) are handled by the main agent, which may delegate to subagents at its discretion.
 
 Steps and saved files (all in output directory):
-1. **Analyze** → `01-analysis.md` (domain, tone, terminology, reader comprehension challenges, figurative language & metaphor mapping)
+1. **Analyze** → `01-analysis.md` (domain, tone, terminology, translation challenges)
 2. **Assemble prompt** → `02-prompt.md` (translation instructions with inlined context)
 3. **Draft** → `03-draft.md` (initial translation with translator's notes; from subagent if chunked)
 4. **Critical review** → `04-critique.md` (diagnosis only: accuracy, Europeanized language, strategy execution, expression issues)

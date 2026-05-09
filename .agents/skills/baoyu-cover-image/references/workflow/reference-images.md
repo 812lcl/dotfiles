@@ -16,17 +16,24 @@ Guide for processing user-provided reference images in cover generation.
 
 **If user provides file path**:
 1. Copy to `refs/ref-NN-{slug}.{ext}` (NN = 01, 02, ...)
-2. Create description: `refs/ref-NN-{slug}.md`
-3. Verify files exist before proceeding
+2. **Only** create description file `refs/ref-NN-{slug}.md` when model does NOT support `--ref` (see below)
+3. Verify image file exists before proceeding
 
-**Description File Format**:
+**When to create description file**:
+
+| Situation | Action |
+|-----------|--------|
+| Model supports `--ref` (Google, OpenAI, OpenRouter, Replicate, Seedream 4.0+) | Copy image only. **No description file needed.** Pass via `--ref` at generation. |
+| Model does NOT support `--ref` (Jimeng, Seedream 3.0) | Copy image + create description file. Embed description in prompt text. |
+
+**Description File Format** (only when needed):
 ```yaml
 ---
 ref_id: NN
 filename: ref-NN-{slug}.{ext}
 usage: direct | style | palette
 ---
-[User's description or auto-generated description]
+[Character or style description to embed in prompt]
 ```
 
 | Usage | When to Use |

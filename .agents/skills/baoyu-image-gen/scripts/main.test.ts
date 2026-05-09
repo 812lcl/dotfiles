@@ -123,6 +123,8 @@ default_image_size: 2K
 default_model:
   google: gemini-3-pro-image-preview
   openai: gpt-image-1.5
+  azure: image-prod
+  minimax: image-01
 batch:
   max_workers: 8
   provider_limits:
@@ -131,6 +133,12 @@ batch:
       start_interval_ms: 900
     openai:
       concurrency: 4
+    minimax:
+      concurrency: 2
+      start_interval_ms: 1400
+    azure:
+      concurrency: 1
+      start_interval_ms: 1500
 `;
 
   const config = parseSimpleYaml(yaml);
@@ -142,6 +150,8 @@ batch:
   assert.equal(config.default_image_size, "2K");
   assert.equal(config.default_model?.google, "gemini-3-pro-image-preview");
   assert.equal(config.default_model?.openai, "gpt-image-1.5");
+  assert.equal(config.default_model?.azure, "image-prod");
+  assert.equal(config.default_model?.minimax, "image-01");
   assert.equal(config.batch?.max_workers, 8);
   assert.deepEqual(config.batch?.provider_limits?.google, {
     concurrency: 2,
@@ -149,6 +159,14 @@ batch:
   });
   assert.deepEqual(config.batch?.provider_limits?.openai, {
     concurrency: 4,
+  });
+  assert.deepEqual(config.batch?.provider_limits?.minimax, {
+    concurrency: 2,
+    start_interval_ms: 1400,
+  });
+  assert.deepEqual(config.batch?.provider_limits?.azure, {
+    concurrency: 1,
+    start_interval_ms: 1500,
   });
 });
 
@@ -191,6 +209,7 @@ test("detectProvider rejects non-ref-capable providers and prefers Google first 
     OPENAI_API_KEY: "openai-key",
     OPENROUTER_API_KEY: null,
     DASHSCOPE_API_KEY: null,
+    MINIMAX_API_KEY: null,
     REPLICATE_API_TOKEN: null,
     JIMENG_ACCESS_KEY_ID: null,
     JIMENG_SECRET_ACCESS_KEY: null,
@@ -203,8 +222,11 @@ test("detectProvider selects an available ref-capable provider for reference-ima
   useEnv(t, {
     GOOGLE_API_KEY: null,
     OPENAI_API_KEY: "openai-key",
+    AZURE_OPENAI_API_KEY: null,
+    AZURE_OPENAI_BASE_URL: null,
     OPENROUTER_API_KEY: null,
     DASHSCOPE_API_KEY: null,
+    MINIMAX_API_KEY: null,
     REPLICATE_API_TOKEN: null,
     JIMENG_ACCESS_KEY_ID: null,
     JIMENG_SECRET_ACCESS_KEY: null,
@@ -216,12 +238,35 @@ test("detectProvider selects an available ref-capable provider for reference-ima
   );
 });
 
+test("detectProvider selects Azure when only Azure credentials are configured", (t) => {
+  useEnv(t, {
+    GOOGLE_API_KEY: null,
+    OPENAI_API_KEY: null,
+    AZURE_OPENAI_API_KEY: "azure-key",
+    AZURE_OPENAI_BASE_URL: "https://example.openai.azure.com",
+    OPENROUTER_API_KEY: null,
+    DASHSCOPE_API_KEY: null,
+    MINIMAX_API_KEY: null,
+    REPLICATE_API_TOKEN: null,
+    JIMENG_ACCESS_KEY_ID: null,
+    JIMENG_SECRET_ACCESS_KEY: null,
+    ARK_API_KEY: null,
+  });
+
+  assert.equal(detectProvider(makeArgs()), "azure");
+  assert.equal(
+    detectProvider(makeArgs({ referenceImages: ["ref.png"] })),
+    "azure",
+  );
+});
+
 test("detectProvider infers Seedream from model id and allows Seedream reference-image workflows", (t) => {
   useEnv(t, {
     GOOGLE_API_KEY: null,
     OPENAI_API_KEY: null,
     OPENROUTER_API_KEY: null,
     DASHSCOPE_API_KEY: null,
+    MINIMAX_API_KEY: null,
     REPLICATE_API_TOKEN: null,
     JIMENG_ACCESS_KEY_ID: null,
     JIMENG_SECRET_ACCESS_KEY: null,
@@ -249,6 +294,26 @@ test("detectProvider infers Seedream from model id and allows Seedream reference
   );
 });
 
+test("detectProvider selects MiniMax when only MiniMax credentials are configured or the model id matches", (t) => {
+  useEnv(t, {
+    GOOGLE_API_KEY: null,
+    OPENAI_API_KEY: null,
+    AZURE_OPENAI_API_KEY: null,
+    AZURE_OPENAI_BASE_URL: null,
+    OPENROUTER_API_KEY: null,
+    DASHSCOPE_API_KEY: null,
+    MINIMAX_API_KEY: "minimax-key",
+    REPLICATE_API_TOKEN: null,
+    JIMENG_ACCESS_KEY_ID: null,
+    JIMENG_SECRET_ACCESS_KEY: null,
+    ARK_API_KEY: null,
+  });
+
+  assert.equal(detectProvider(makeArgs()), "minimax");
+  assert.equal(detectProvider(makeArgs({ referenceImages: ["ref.png"] })), "minimax");
+  assert.equal(detectProvider(makeArgs({ model: "image-01-live" })), "minimax");
+});
+
 test("batch worker and provider-rate-limit configuration prefer env over EXTEND config", (t) => {
   useEnv(t, {
     BAOYU_IMAGE_GEN_MAX_WORKERS: "12",
@@ -264,6 +329,10 @@ test("batch worker and provider-rate-limit configuration prefer env over EXTEND 
           concurrency: 2,
           start_interval_ms: 900,
         },
+        minimax: {
+          concurrency: 1,
+          start_interval_ms: 1500,
+        },
       },
     },
   };
@@ -272,6 +341,10 @@ test("batch worker and provider-rate-limit configuration prefer env over EXTEND 
   assert.deepEqual(getConfiguredProviderRateLimits(extendConfig).google, {
     concurrency: 5,
     startIntervalMs: 450,
+  });
+  assert.deepEqual(getConfiguredProviderRateLimits(extendConfig).minimax, {
+    concurrency: 1,
+    startIntervalMs: 1500,
   });
 });
 

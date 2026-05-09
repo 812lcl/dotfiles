@@ -47,12 +47,18 @@ options:
     description: "Gemini multimodal - high quality, reference images, flexible sizes"
   - label: "OpenAI"
     description: "GPT Image - consistent quality, reliable output"
+  - label: "Azure OpenAI"
+    description: "Azure-hosted GPT Image deployments with resource-specific routing"
   - label: "OpenRouter"
     description: "Router for Gemini/FLUX/OpenAI-compatible image models"
   - label: "DashScope"
     description: "Alibaba Cloud - Qwen-Image, strong Chinese/English text rendering"
+  - label: "MiniMax"
+    description: "MiniMax image generation with subject-reference character workflows"
   - label: "Replicate"
     description: "Community models - nano-banana-pro, flexible model selection"
+  - label: "Z.AI"
+    description: "GLM-Image - text-to-image with recommended aspect sizes"
 ```
 
 ### Question 2: Default Google Model
@@ -85,6 +91,50 @@ options:
     description: "Fast Gemini preview model on OpenRouter"
   - label: "black-forest-labs/flux.2-pro"
     description: "Strong text-to-image quality through OpenRouter"
+```
+
+### Question 2c: Default Azure Deployment
+
+Only show if user selected Azure OpenAI.
+
+```yaml
+header: "Azure Deploy"
+question: "Default Azure image deployment name?"
+options:
+  - label: "gpt-image-1.5 (Recommended)"
+    description: "Best default if your Azure deployment uses the same name"
+  - label: "gpt-image-1"
+    description: "Previous GPT Image deployment name"
+```
+
+### Question 2d: Default MiniMax Model
+
+Only show if user selected MiniMax.
+
+```yaml
+header: "MiniMax Model"
+question: "Default MiniMax image generation model?"
+options:
+  - label: "image-01 (Recommended)"
+    description: "Best default, supports aspect ratios and custom width/height"
+  - label: "image-01-live"
+    description: "Faster variant, use aspect ratio instead of custom size"
+```
+
+### Question 2e: Default Z.AI Model
+
+Only show if user selected Z.AI.
+
+```yaml
+header: "Z.AI Model"
+question: "Default Z.AI image generation model?"
+options:
+  - label: "glm-image (Recommended)"
+    description: "Latest GLM-Image, best aspect-ratio coverage and text rendering"
+  - label: "cogview-4-250304"
+    description: "Legacy CogView-4 model with 16-pixel size stepping"
+  - label: "cogview-4"
+    description: "Previous CogView-4 snapshot for compatibility"
 ```
 
 ### Question 3: Default Quality
@@ -130,9 +180,12 @@ default_image_size: null
 default_model:
   google: [selected google model or null]
   openai: null
+  azure: [selected azure deployment or null]
   openrouter: [selected openrouter model or null]
   dashscope: null
+  minimax: [selected minimax model or null]
   replicate: null
+  zai: [selected zai model or null]
 ---
 ```
 
@@ -165,6 +218,23 @@ options:
   - label: "gpt-image-1"
     description: "Previous generation GPT Image model"
 ```
+
+### Azure Deployment Selection
+
+```yaml
+header: "Azure Deploy"
+question: "Choose a default Azure image deployment name?"
+options:
+  - label: "gpt-image-1.5 (Recommended)"
+    description: "Use when your Azure deployment name matches the GPT-image-1.5 model"
+  - label: "gpt-image-1"
+    description: "Use when your Azure deployment name matches GPT-image-1"
+```
+
+Notes for Azure setup:
+
+- In `baoyu-image-gen`, Azure `--model` / `default_model.azure` should be the Azure deployment name, not just the underlying model family.
+- If the deployment name is custom, save that exact deployment name in `default_model.azure`.
 
 ### OpenRouter Model Selection
 
@@ -218,6 +288,45 @@ options:
     description: "Google's base image model on Replicate"
 ```
 
+### MiniMax Model Selection
+
+```yaml
+header: "MiniMax Model"
+question: "Choose a default MiniMax image generation model?"
+options:
+  - label: "image-01 (Recommended)"
+    description: "Best general-purpose MiniMax image model with custom width/height support"
+  - label: "image-01-live"
+    description: "Lower-latency MiniMax image model using aspect ratios"
+```
+
+Notes for MiniMax setup:
+
+- `image-01` is the safest default. It supports official `aspect_ratio` values and documented custom `width` / `height` output sizes.
+- `image-01-live` is useful when the user prefers faster generation and can work with aspect-ratio-based sizing.
+- MiniMax subject reference currently uses `subject_reference[].type = character`; docs recommend front-facing portrait references in JPG/JPEG/PNG under 10MB.
+
+### Z.AI Model Selection
+
+```yaml
+header: "Z.AI Model"
+question: "Choose a default Z.AI image generation model?"
+options:
+  - label: "glm-image (Recommended)"
+    description: "Latest GLM-Image; pixels round to multiples of 32 and cap at 2^22"
+  - label: "cogview-4-250304"
+    description: "Legacy CogView-4 snapshot with 16-pixel size stepping"
+  - label: "cogview-4"
+    description: "Earlier CogView-4 snapshot for compatibility"
+```
+
+Notes for Z.AI setup:
+
+- Set `ZAI_API_KEY` (or legacy `BIGMODEL_API_KEY`) from https://docs.z.ai/.
+- `glm-image` supports recommended aspect sizes (1280x1280, 1728x960, 1568x1056, …); uncommon ratios auto-fit to the 2^22 pixel budget on multiples of 32.
+- Legacy CogView models use 16-pixel stepping and cap at 2^21 pixels per image.
+- Z.AI does not accept reference images or `n > 1` in `baoyu-image-gen`; use Google/OpenAI providers for those workflows.
+
 ### Update EXTEND.md
 
 After user selects a model:
@@ -230,9 +339,12 @@ After user selects a model:
 default_model:
   google: [value or null]
   openai: [value or null]
+  azure: [value or null]
   openrouter: [value or null]
   dashscope: [value or null]
+  minimax: [value or null]
   replicate: [value or null]
+  zai: [value or null]
 ```
 
 Only set the selected provider's model; leave others as their current value or null.

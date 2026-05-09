@@ -3,6 +3,19 @@ import { readFile } from "node:fs/promises";
 import type { CliArgs } from "../types";
 
 const DEFAULT_MODEL = "google/gemini-3.1-flash-image-preview";
+const COMMON_ASPECT_RATIOS = [
+  "1:1",
+  "2:3",
+  "3:2",
+  "3:4",
+  "4:3",
+  "4:5",
+  "5:4",
+  "9:16",
+  "16:9",
+  "21:9",
+];
+const GEMINI_EXTENDED_ASPECT_RATIOS = ["1:4", "4:1", "1:8", "8:1"];
 
 type OpenRouterImageEntry = {
   image_url?: string | { url?: string | null } | null;
@@ -18,15 +31,47 @@ type OpenRouterMessagePart = {
 
 type OpenRouterResponse = {
   choices?: Array<{
+    finish_reason?: string | null;
+    native_finish_reason?: string | null;
     message?: {
       images?: OpenRouterImageEntry[];
-      content?: string | OpenRouterMessagePart[];
+      content?: string | OpenRouterMessagePart[] | null;
     };
   }>;
 };
 
 export function getDefaultModel(): string {
   return process.env.OPENROUTER_IMAGE_MODEL || DEFAULT_MODEL;
+}
+
+function normalizeModelId(model: string): string {
+  return model.trim().toLowerCase().split(":")[0]!;
+}
+
+function isTextAndImageModel(model: string): boolean {
+  const normalized = normalizeModelId(model);
+  if (normalized === "openrouter/auto") {
+    return true;
+  }
+
+  if (normalized.startsWith("google/gemini-") && normalized.includes("image")) {
+    return true;
+  }
+
+  if (normalized.startsWith("openai/gpt-") && normalized.includes("image")) {
+    return true;
+  }
+
+  return false;
+}
+
+function getSupportedAspectRatios(model: string): Set<string> {
+  const normalized = normalizeModelId(model);
+  if (normalized !== "google/gemini-3.1-flash-image-preview") {
+    return new Set(COMMON_ASPECT_RATIOS);
+  }
+
+  return new Set([...COMMON_ASPECT_RATIOS, ...GEMINI_EXTENDED_ASPECT_RATIOS]);
 }
 
 function getApiKey(): string | null {
@@ -103,17 +148,50 @@ function inferImageSize(size: string | null): "1K" | "2K" | "4K" | null {
   return "4K";
 }
 
-function getImageSize(args: CliArgs): "1K" | "2K" | "4K" {
+export function getImageSize(args: CliArgs): "1K" | "2K" | "4K" | null {
   if (args.imageSize) return args.imageSize as "1K" | "2K" | "4K";
 
   const inferredFromSize = inferImageSize(args.size);
   if (inferredFromSize) return inferredFromSize;
 
-  return args.quality === "normal" ? "1K" : "2K";
+  if (args.quality === "normal") return "1K";
+  if (args.quality === "2k") return "2K";
+  return null;
 }
 
-function getAspectRatio(args: CliArgs): string | null {
-  return args.aspectRatio || inferAspectRatio(args.size);
+export function getAspectRatio(model: string, args: CliArgs): string | null {
+  if (args.aspectRatio) return args.aspectRatio;
+
+  const inferred = inferAspectRatio(args.size);
+  if (!inferred || !getSupportedAspectRatios(model).has(inferred)) {
+    return null;
+  }
+
+  return inferred;
+}
+
+function getModalities(model: string): string[] {
+  return isTextAndImageModel(model) ? ["image", "text"] : ["image"];
+}
+
+export function validateArgs(model: string, args: CliArgs): void {
+  const requestedAspectRatio = args.aspectRatio || inferAspectRatio(args.size);
+  if (!requestedAspectRatio) {
+    return;
+  }
+
+  const supported = getSupportedAspectRatios(model);
+  if (supported.has(requestedAspectRatio)) {
+    return;
+  }
+
+  const requestedValue = args.aspectRatio
+    ? `aspect ratio ${requestedAspectRatio}`
+    : `size ${args.size} (aspect ratio ${requestedAspectRatio})`;
+
+  throw new Error(
+    `OpenRouter model ${model} does not support ${requestedValue}. Supported values: ${Array.from(supported).join(", ")}`
+  );
 }
 
 function getMimeType(filename: string): string {
@@ -129,7 +207,14 @@ async function readImageAsDataUrl(filePath: string): Promise<string> {
   return `data:${getMimeType(filePath)};base64,${bytes.toString("base64")}`;
 }
 
-function buildContent(prompt: string, referenceImages: string[]): Array<Record<string, unknown>> {
+export function buildContent(
+  prompt: string,
+  referenceImages: string[],
+): string | Array<Record<string, unknown>> {
+  if (referenceImages.length === 0) {
+    return prompt;
+  }
+
   const content: Array<Record<string, unknown>> = [{ type: "text", text: prompt }];
 
   for (const imageUrl of referenceImages) {
@@ -171,8 +256,9 @@ async function downloadImage(value: string): Promise<Uint8Array> {
   return Uint8Array.from(Buffer.from(value, "base64"));
 }
 
-async function extractImageFromResponse(result: OpenRouterResponse): Promise<Uint8Array> {
-  const message = result.choices?.[0]?.message;
+export async function extractImageFromResponse(result: OpenRouterResponse): Promise<Uint8Array> {
+  const choice = result.choices?.[0];
+  const message = choice?.message;
 
   for (const image of message?.images ?? []) {
     const imageUrl = extractImageUrl(image);
@@ -194,7 +280,52 @@ async function extractImageFromResponse(result: OpenRouterResponse): Promise<Uin
     if (inline) return inline;
   }
 
-  throw new Error("No image in OpenRouter response");
+  const finishReason =
+    choice?.native_finish_reason || choice?.finish_reason || "unknown";
+  throw new Error(
+    `No image in OpenRouter response (finish_reason=${finishReason})`,
+  );
+}
+
+export function buildRequestBody(
+  prompt: string,
+  model: string,
+  args: CliArgs,
+  referenceImages: string[],
+): Record<string, unknown> {
+  validateArgs(model, args);
+
+  const imageConfig: Record<string, string> = {};
+
+  const imageSize = getImageSize(args);
+  if (imageSize) {
+    imageConfig.image_size = imageSize;
+  }
+
+  const aspectRatio = getAspectRatio(model, args);
+  if (aspectRatio) {
+    imageConfig.aspect_ratio = aspectRatio;
+  }
+
+  const body: Record<string, unknown> = {
+    messages: [
+      {
+        role: "user",
+        content: buildContent(prompt, referenceImages),
+      },
+    ],
+    modalities: getModalities(model),
+    stream: false,
+  };
+
+  if (Object.keys(imageConfig).length > 0) {
+    body.image_config = imageConfig;
+    body.provider = {
+      require_parameters: true,
+    };
+  }
+
+  return body;
 }
 
 export async function generateImage(
@@ -212,32 +343,15 @@ export async function generateImage(
     referenceImages.push(await readImageAsDataUrl(refPath));
   }
 
-  const imageGenerationOptions: Record<string, string> = {
-    size: getImageSize(args),
-  };
-
-  const aspectRatio = getAspectRatio(args);
-  if (aspectRatio) {
-    imageGenerationOptions.aspect_ratio = aspectRatio;
-  }
-
   const body = {
     model,
-    messages: [
-      {
-        role: "user",
-        content: buildContent(prompt, referenceImages),
-      },
-    ],
-    modalities: ["image", "text"],
-    max_tokens: 256,
-    imageGenerationOptions,
-    providerPreferences: {
-      require_parameters: true,
-    },
+    ...buildRequestBody(prompt, model, args, referenceImages),
   };
 
-  console.log(`Generating image with OpenRouter (${model})...`, imageGenerationOptions);
+  console.log(
+    `Generating image with OpenRouter (${model})...`,
+    (body.image_config as Record<string, string>),
+  );
 
   const response = await fetch(`${getBaseUrl()}/chat/completions`, {
     method: "POST",
