@@ -9,9 +9,10 @@
   "usageConfirmed": true,
   "enableFailoverToggle": false,
   "firstRunNoticeConfirmed": true,
+  "commonConfigConfirmed": true,
   "language": "zh",
-  "currentProviderClaude": "default",
-  "currentProviderCodex": "default",
+  "currentProviderClaude": "claude-official",
+  "currentProviderCodex": "codex-official",
   "skillSyncMethod": "auto",
   "skillStorageLocation": "cc_switch",
   "preferredTerminal": "ghostty"
