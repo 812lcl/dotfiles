@@ -53,4 +53,7 @@ if [ "${#missing_canon[@]}" -gt 0 ]; then
   echo "[safe-update] WARN: canonical missing for: ${missing_canon[*]} (skipped)" >&2
 fi
 
+# Re-apply per-source pluginName overrides (CLI add/update wipes them)
+python3 "$HOME/.agents/apply-pluginName-overrides.py" || true
+
 exit "$status"
