@@ -53,3 +53,24 @@ alias python="python3"
 alias ccd='claude --channels plugin:discord@claude-plugins-official'
 alias cct='claude --channels plugin:telegram@claude-plugins-official'
 alias ccc='claude --continue'
+
+# Sync a Claude Code skill into OpenClaw (cp; OpenClaw can't follow symlinks)
+# Usage: sync-skill <name> [<name>...]
+#   e.g. sync-skill knowledge-clip weekly-report
+sync-skill() {
+  if [ $# -eq 0 ]; then
+    echo "usage: sync-skill <name> [<name>...]" >&2
+    return 2
+  fi
+  local name src dst
+  for name in "$@"; do
+    src="$HOME/.claude/skills/$name"
+    dst="$HOME/.openclaw/skills/$name"
+    if [ ! -d "$src" ]; then
+      echo "❌ source missing: $src" >&2
+      continue
+    fi
+    mkdir -p "$dst"
+    rsync -a --delete "$src/" "$dst/" && echo "✅ synced: $name"
+  done
+}

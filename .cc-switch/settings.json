@@ -1,6 +1,7 @@
 {
   "showInTray": true,
   "minimizeToTrayOnClose": true,
+  "useAppWindowControls": false,
   "enableClaudePluginIntegration": true,
   "skipClaudeOnboarding": false,
   "launchOnStartup": true,
@@ -13,6 +14,7 @@
   "language": "zh",
   "currentProviderClaude": "claude-official",
   "currentProviderCodex": "codex-official",
+  "currentProviderGemini": "gemini-official",
   "skillSyncMethod": "auto",
   "skillStorageLocation": "cc_switch",
   "preferredTerminal": "ghostty"
