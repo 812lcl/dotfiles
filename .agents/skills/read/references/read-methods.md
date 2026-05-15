@@ -20,15 +20,33 @@ curl -sL "https://r.jina.ai/{url}"
 
 Wide coverage, preserves image links. Use if defuddle.md returns empty or errors.
 
-### 3. Local tools
+### 3. Web search plugin reader (if available)
+
+If a web search plugin is installed (e.g., PipeLLM), the cascade tries its reader tool before local fallback. Handles JavaScript-rendered pages better than free proxies.
+
+### 4. Local tools
 
 ```bash
 npx agent-fetch "{url}" --json
 # or
-defuddle parse "{url}" -m -j
+defuddle parse "{url}" -m
 ```
 
-Last resort if both proxies fail.
+Last resort if both proxies fail. `agent-fetch --json` returns JSON, so extract the Markdown-bearing field before returning or saving the result. `defuddle parse -m` outputs Markdown directly. Raw JSON is not a valid final output for `/read`.
+
+## GitHub URLs
+
+GitHub file URLs (`github.com/user/repo/blob/...`) render heavy HTML. The proxy cascade often returns partial or nav-heavy content. Prefer:
+
+```bash
+# Raw file content (fastest)
+curl -sL "https://raw.githubusercontent.com/{user}/{repo}/{branch}/{path}"
+
+# Via gh CLI (works with private repos)
+gh api repos/{user}/{repo}/contents/{path} --jq '.content' | base64 -d
+```
+
+Use the proxy cascade only as a fallback for GitHub pages that are not raw file views (e.g., issue threads, README renders).
 
 ## PDF to Markdown
 
@@ -68,16 +86,16 @@ Use `marker` when layout matters (papers, tables). Use `pdftotext` for speed.
 
 ## Feishu / Lark Document
 
-Built-in script at `$CLAUDE_SKILL_DIR/scripts/fetch_feishu.py`. Requires `requests` and Feishu app credentials:
+Built-in script at `${CLAUDE_SKILL_DIR:-~/.agents/skills/read}/scripts/fetch_feishu.py`. Requires `requests` and Feishu app credentials:
 
 ```bash
 pip install requests  # one-time setup
 export FEISHU_APP_ID=your_app_id
 export FEISHU_APP_SECRET=your_app_secret
-python3 "$CLAUDE_SKILL_DIR/scripts/fetch_feishu.py" "{url}"
+python3 "${CLAUDE_SKILL_DIR:-$HOME/.agents/skills/read}/scripts/fetch_feishu.py" "{url}"
 ```
 
-Supports: docx, legacy docs, wiki pages. App needs `docx:document:readonly` and `wiki:wiki:readonly` permissions.
+Supports: docx and wiki pages. Legacy `/docs/` pages are not supported by this script; convert them to docx first, or use a public-page fallback if the document is accessible without the API. App needs `docx:document:readonly` and `wiki:wiki:readonly` permissions.
 Output: YAML frontmatter (title, document_id, url) + Markdown body.
 
 ## WeChat Public Account
@@ -88,5 +106,5 @@ If the proxy is blocked, use the built-in Playwright script as a last resort (re
 
 ```bash
 pip install playwright beautifulsoup4 lxml && playwright install chromium
-python3 "$CLAUDE_SKILL_DIR/scripts/fetch_weixin.py" "{url}"
+python3 "${CLAUDE_SKILL_DIR:-$HOME/.agents/skills/read}/scripts/fetch_weixin.py" "{url}"
 ```

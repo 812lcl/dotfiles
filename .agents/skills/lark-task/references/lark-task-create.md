@@ -15,6 +15,11 @@ lark-cli task +create \
   --due "2026-03-25" \
   --tasklist-id "https://applink.larkoffice.com/client/todo/task_list?guid=a4b00000-000-000-000-00000000036c"
 
+# Create a task assigned to an app
+lark-cli task +create \
+  --summary "Nightly Sync" \
+  --assignee "cli_xxx"
+
 # Create a simple task
 lark-cli task +create \
   --summary "Buy milk"
@@ -29,7 +34,8 @@ lark-cli task +create --summary "Test Task" --dry-run
 |-----------|----------|-------------|
 | `--summary <text>` | Yes | The title or summary of the task |
 | `--description <text>` | No | Detailed description of the task |
-| `--assignee <id>` | No | The `open_id` of the user to assign the task to (e.g., `ou_xxx`) |
+| `--assignee <id>` | No | Assignee ID. Use user `open_id` like `ou_xxx` for people, or app ID like `cli_xxx` for apps. |
+| `--follower <id>` | No | Follower ID. Use user `open_id` like `ou_xxx` for people, or app ID like `cli_xxx` for apps. |
 | `--due <time>` | No | Due date. Supports ISO 8601, `YYYY-MM-DD`, relative time (e.g., `+2d`), or ms timestamp. `YYYY-MM-DD` and relative time will automatically set it as an all-day task. |
 | `--tasklist-id <id>` | No | The GUID of the tasklist, or a full AppLink URL (the CLI will automatically extract the `guid` parameter from the URL). |
 | `--idempotency-key <key>` | No | Client token to ensure idempotency of the request. |
@@ -38,7 +44,7 @@ lark-cli task +create --summary "Test Task" --dry-run
 ## Workflow
 
 1. Confirm with the user: task summary, due date, assignee, and tasklist if necessary.
-   - **Crucial Rule for Assignee**: If the user explicitly or implicitly says "create a task for me" (给我创建一个任务), or "help me create a task" (帮我新建/创建一个任务), you MUST assign the task to the current logged-in user. You can get the current user's `open_id` by executing `lark-cli auth status --json` or `lark-cli contact +get-user` first, extracting the `userOpenId` or `open_id`, and then passing it to the `--assignee` parameter.
+   - **Crucial Rule for Assignee**: If the user explicitly or implicitly says "create a task for me" (给我创建一个任务), or "help me create a task" (帮我新建/创建一个任务), you MUST assign the task to the current logged-in user. You can get the current user's `open_id` by executing `lark-cli auth status` (it already outputs JSON by default, so do not add `--json`) or `lark-cli contact +get-user` first, extracting the `userOpenId` or `open_id`, and then passing it to the `--assignee` parameter.
 2. Execute `lark-cli task +create --summary "..." ...`
 3. Report the result: task ID and summary.
 

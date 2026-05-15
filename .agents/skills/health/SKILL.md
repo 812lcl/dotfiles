@@ -1,142 +1,205 @@
 ---
 name: health
-version: 3.2.0
-description: Invoke when Claude ignores instructions, behaves inconsistently, hooks malfunction, or MCP servers need auditing. Audits the full six-layer config stack and flags issues by severity. Not for debugging code or reviewing PRs.
-allowed-tools:
-  - Bash
-  - Read
-  - Agent
-  - AskUserQuestion
+description: "Runs a budget-aware Agent Health audit for Codex, Claude Code, agent instructions, verifier surfaces, and AI maintainability when agents ignore instructions, hooks/MCP fail, validation is missing, or AI-written code is hard to maintain. Flags issues by severity. Not for debugging code or reviewing PRs."
+when_to_use: "检查claude, 检查codex, Codex 配置, AGENTS.md, config.toml, agent instructions, 健康度, 配置检查, 配置对不对, AI coding 腐化, 代码变烂, 维护性, 上下文混乱, 验证缺失, 验证命令失真, Claude ignoring instructions, check config, settings not working, audit config"
+metadata:
+  version: "3.24.0"
 ---
 
-# Claude Code Configuration Health Audit
+# Health: Agent Config and AI Maintainability
 
-Audit the current project's Claude Code setup with the six-layer framework:
-`CLAUDE.md → rules → skills → hooks → subagents → verifiers`
+Prefix your first line with 🥷 inline, not as its own paragraph.
 
-The goal is to find violations and identify the misaligned layer, calibrated to project complexity.
+Audit the current project's agent setup and AI coding maintainability against this framework:
+`agent config → instruction surfaces → tools/runtime → verifiers → maintainability`
 
-**Output language:** Check in order: (1) CLAUDE.md `## Communication` rule (global takes precedence over local); (2) language of the user's recent conversation messages; (3) default English. Apply the detected language to all output.
+Find violations. Identify the misaligned layer. Calibrate to project complexity only.
 
-Keep the user informed of progress through the three steps: data collection, analysis, and synthesis.
+**Output language:** Check in order: (1) project agent instructions (`AGENTS.md` before runtime-specific files); (2) global agent instructions; (3) user's recent language; (4) English.
+
+**Budget posture:** Start with the summary audit. Escalate automatically when the user asks for a deep, full, complete, thorough, "深入", "完整", "彻底", or "继续跑完" audit, when the user explicitly mentions AI coding code rot, Codex/Claude config drift, unclear context, missing verification, verifier output that points at stale paths, or "代码变烂", when current project instructions or remembered user preference says to run deep health checks by default, when the project is Complex, or when the summary pass exposes a critical ambiguity that cannot be resolved locally. Otherwise do not read full conversation extracts or launch inspector subagents. Tell the user before escalating because deep health audits can consume significant token quota.
+
+## Durable Context Preflight
+
+Run this only when the user mentions memory, preview, previous decisions, or a prior conclusion; when they provide a memory path; or when the current project exposes an obvious local memory summary. Do not hard-code machine-specific memory roots or read raw transcripts.
+
+Read durable context in this order: user-provided path, current project scope, then global preferences. List titles first, then open at most 1-2 relevant summaries. Treat cross-project entries as transferable patterns only.
+
+Map memory types before using them: `decision`, `preference`, and `principle` are audit expectations; `pattern` and `learning` are checks for repeated failures; `fact` must be verified against current state before it becomes a finding. CLAUDE.md, installed skills, hooks, MCP config, command output, and live probes override memory.
+
+For `/health`, also flag durable memory problems when they affect behavior: oversized injected summaries, stale or contradictory entries, missing project entrypoint references, or private paths copied into public instructions. Keep these as context findings, not code-review findings.
 
 ## Step 0: Assess project tier
 
-Pick tier:
-
-| Tier | Signal | What's expected |
-|------|--------|-----------------|
-| **Simple** | <500 project files, 1 contributor, no CI | CLAUDE.md only; 0–1 skills; no rules/; hooks optional |
-| **Standard** | 500–5K project files, small team or CI present | CLAUDE.md + 1–2 rules files; 2–4 skills; basic hooks |
-| **Complex** | >5K project files, multi-contributor, multi-language, active CI | Full six-layer setup required |
-
-**Apply only the detected tier's requirements.**
+Pick one. Apply only that tier's requirements.
 
 
-## Step 1: Collect all data
+| Tier         | Signal                                  | What's expected                                |
+| ------------ | --------------------------------------- | ---------------------------------------------- |
+| **Simple**   | <500 files, 1 contributor, no CI        | CLAUDE.md only; 0-1 skills; hooks optional     |
+| **Standard** | 500-5K files, small team or CI          | CLAUDE.md + 1-2 rules; 2-4 skills; basic hooks |
+| **Complex**  | >5K files, multi-contributor, active CI | Full six-layer setup required                  |
 
-Run `bash "$CLAUDE_SKILL_DIR/scripts/collect-data.sh"` to collect all configuration data. The script outputs labeled sections covering: tier metrics, CLAUDE.md (global + local), settings/hooks/MCP, rules, skill inventory, context budget, conversation history, and skill security content.
+
+## Step 1: Collect data
+
+Run the collection script in summary mode first. Do not interpret yet.
+
+```bash
+# Resolve collect-data.sh from canonical locations (no personal home-dir paths).
+HEALTH_SCRIPT="${CLAUDE_SKILL_DIR:+$CLAUDE_SKILL_DIR/scripts/collect-data.sh}"
+if [ ! -f "${HEALTH_SCRIPT:-}" ]; then
+  for candidate in \
+    "./skills/health/scripts/collect-data.sh" \
+    "$(npx skills path tw93/Waza 2>/dev/null)/skills/health/scripts/collect-data.sh"; do
+    [ -f "$candidate" ] && HEALTH_SCRIPT="$candidate" && break
+  done
+fi
+if [ ! -f "${HEALTH_SCRIPT:-}" ]; then
+  echo "health collect-data.sh not found; set CLAUDE_SKILL_DIR or reinstall: npx skills add tw93/Waza -a claude-code -g -y"
+  exit 1
+fi
+bash "$HEALTH_SCRIPT"
+```
+
+Sections may show `(unavailable)` when tools are missing:
+
+- `jq` missing → conversation sections unavailable
+- `python3` missing → MCP/hooks/allowedTools sections unavailable
+- `settings.local.json` absent → hooks/MCP may be unavailable (normal for global-only setups)
+
+Treat `(unavailable)` as insufficient data, not a finding. Do not flag those areas.
+
+The collector includes both runtime-specific and agent-agnostic surfaces:
+
+- `AGENT CONFIG SUMMARY` / `AGENT CONFIG DETAIL` for Codex, Claude, and project instruction files.
+- `AI MAINTAINABILITY SUMMARY` / `AI MAINTAINABILITY DETAIL` for project shape, verification surface, hotspot ownership, wrappers, and doc links.
 
 ## Step 1b: MCP Live Check
 
-After the bash block completes, for each MCP server listed in the settings, attempt to call it and verify it actually responds. Do this before launching analysis agents.
+Test every MCP server: call one harmless tool per server. Record `live=yes/no` with error detail. Respect `enabled: false` (skip without flagging). For API keys, only check if the env var is set (`echo $VAR | head -c 5`), never print full keys.
 
-For each server name found in Step 1:
-1. Try listing its available tools (e.g., call a `list_tools` or any known lightweight tool from that server).
-2. If the call succeeds: mark `live=yes`.
-3. If it fails or times out: mark `live=no`, note the error.
+## Step 2: Analyze
 
-Record the result as a table:
+Confirm the tier. Then route:
 
-```
-MCP Live Status:
-  server_name    live=yes  (N tools available)
-  other_server   live=no   error: connection refused / tool not found / API key invalid
-```
+- **Simple:** Analyze locally. No subagents.
+- **Standard:** Analyze locally from the summary output. Do not launch subagents by default. If the user asks for a deep/full/thorough audit, or if local analysis cannot classify a security/control issue, escalate to deep mode and explain the likely token cost.
+- **Complex, remembered deep preference, explicit deep audit, or explicit AI maintainability audit:** Re-run collection with `bash "$HEALTH_SCRIPT" auto deep`, then launch the relevant subagents in parallel. Redact credentials to `[REDACTED]`.
+  - **Agent 1** (Context + Security): Read `agents/inspector-context.md`. Feed `CONVERSATION SIGNALS` section.
+  - **Agent 2** (Control + Behavior): Read `agents/inspector-control.md`. Feed detected tier.
+  - **Agent 3** (AI Maintainability): Read `agents/inspector-maintainability.md`. Feed only `TIER METRICS`, `AI MAINTAINABILITY SUMMARY` or `AI MAINTAINABILITY DETAIL`, and the script hotspot lists. Launch this agent only for deep health audits, Complex projects, or explicit code-rot/AI-maintainability requests.
+- **Fallback:** If a subagent fails, analyze that layer locally and note "(analyzed locally)".
 
-Pass this table to Agent 1 for inclusion in the MCP findings section.
-
-**If API keys are required**: look for relevant env var names in the server config (e.g., `XCRAWL_API_KEY`, `OPENAI_API_KEY`). Do not attempt to validate the key value itself -- just note whether the env var is set: `echo $VAR_NAME | head -c 5` (5 chars only, do not print the full key).
-
-## Gotchas
-
-Before interpreting Step 1 output, check these known failure modes.
-
-**Data collection silent failures**
-- `jq` not installed: conversation extraction prints `(unavailable: jq not installed or parse error)`. BEHAVIOR section will be empty -- treat as [INSUFFICIENT DATA], not a finding.
-- `python3` not on PATH: all MCP/hooks/allowedTools sections print `(unavailable)`. Do not flag those areas when the data source itself failed.
-- `settings.local.json` absent: hooks, MCP, and allowedTools all show `(unavailable)`. Normal for projects using global settings only -- not a misconfiguration.
-
-**MEMORY.md path construction**
-- Path built with `sed 's|[/_]|-|g'` on `pwd`. Unusual characters produce the wrong project key. If MEMORY.md shows `(none)` but the user mentions prior sessions, verify the path manually before flagging as [!].
-
-**Conversation extract scope**
-- Only the 2 most recent `.jsonl` files are sampled, skipping the active session. Findings from fewer than 2 files carry low signal, always tag [LOW CONFIDENCE].
-
-**MCP token estimate**
-- Assumes ~25 tools/server and ~200 tokens/tool. Servers with many or few tools cause large over/under-estimates. Treat as directional, not precise.
-
-**Tier misclassification edge cases**
-- The bash block excludes `node_modules/`, `dist/`, and `build/`, but not all generators. Monorepos with `.next/`, `__pycache__/`, or `.turbo/` output can inflate the file count and trigger COMPLEX tier falsely. Recheck manually if the tier feels wrong.
-
-## Step 2: Analyze with tier-adjusted depth
-
-Summarize what was collected (word counts, skills found, conversation files sampled), confirm the tier, then proceed:
-
-- **SIMPLE:** Analyze locally from Step 1 data. Do not launch subagents. Prioritize core config checks; skip conversation cross-validation unless evidence is obvious.
-- **STANDARD/COMPLEX:** Launch two subagents in parallel with the collected data pasted inline. Do not pass file paths. Before pasting, replace any credential values (API keys, tokens, passwords) with `[REDACTED]`.
-
-**Fallback:** If either subagent fails (API error, timeout, or empty result), do not abort. Analyze that layer locally from Step 1 data instead and note "(analyzed locally -- subagent unavailable)" in the affected section of the report.
-
-### Agent 1 -- Context + Security Audit (no conversation needed)
-
-Read `agents/inspector-context.md` from this skill's directory. It specifies which Step 1 sections to paste and the full audit checklist.
-
-### Agent 2 -- Control + Behavior Audit (uses conversation evidence)
-
-Read `agents/inspector-control.md` from this skill's directory. It specifies which Step 1 sections to paste and the full audit checklist.
-
-## Step 3: Synthesize and present
-
-Aggregate the local analysis and any agent outputs into one report:
-
----
+## Step 3: Report
 
 **Health Report: {project} ({tier} tier, {file_count} files)**
 
-### [PASS] Passing
+### [PASS] Passing checks (table, max 5 rows)
 
-Render a compact table of checks that passed. Include only checks relevant to the detected tier. Limit to 5 rows. Omit rows for checks that have findings.
+### Finding format
 
-| Check | Detail |
-|-------|--------|
-| settings.local.json gitignored | ok |
-| No nested CLAUDE.md | ok |
-| Skill security scan | no flags |
+```
+- [severity] <symptom> ({file}:{line} if known)
+  Why: <one-line reason>
+  Action: <exact command or edit to fix>
+```
+
+`Action:` must be copy-pasteable. Never write "investigate X" or "consider Y". If the fix is unknown, name the diagnostic command.
 
 ### [!] Critical -- fix now
 
-Rules violated, missing verification definitions, dangerous allowedTools, MCP overhead >12.5%, required-path `Access denied`, active cache-breakers, and security findings.
+Rules violated, dangerous allowedTools, MCP overhead >12.5%, security findings, leaked credentials.
+
+Example:
+
+- [!] `settings.local.json` committed to git (exposes MCP tokens)
+Why: leaked token enables remote code execution via installed MCP servers
+Action: `git rm --cached .claude/settings.local.json && echo '.claude/settings.local.json' >> .gitignore`
 
 ### [~] Structural -- fix soon
 
-CLAUDE.md content that belongs elsewhere, missing hooks, oversized skill descriptions, single-layer critical rules, model switching, verifier gaps, subagent permission gaps, and skill structural issues.
+Agent instructions in the wrong layer, missing hooks, oversized descriptions, verifier gaps.
+
+**Codex/Claude instruction drift.** Use `AGENT CONFIG SUMMARY` first. Report a Structural finding when `AGENTS.md` and runtime-specific files both contain substantial guidance without delegation, when Codex `config.toml` lacks trust for the current project, when project agent instructions are missing, or when runtime-specific instructions contradict the shared project source of truth. Do not print raw config values. Secrets, tokens, keys, and passwords must appear only as `[REDACTED]`.
+
+Quick check from the project root:
+
+```bash
+bash skills/health/scripts/check-agent-context.sh . summary
+```
+
+**AI-maintainability gaps.** Use `AI MAINTAINABILITY SUMMARY` in summary mode and `AI MAINTAINABILITY DETAIL` in deep mode. Report `FAIL` when the project has no executable verification command, no agent instruction surface for a non-trivial repo, or broken doc references. Report `WARN` when instructions exist but lack a project map, verification guidance, boundary/non-goal language, when TODO/HACK markers are concentrated, or when large source hotspots lack ownership/boundary and verification guidance. Treat missing `docs/`, `specs/`, `.specify/`, `HANDOFF.md`, `CHANGELOG`, issue templates, and PR templates as informational unless project complexity makes them necessary for handoff.
+
+**Hotspot ownership gaps.** In deep mode, read `HOTSPOT OWNERSHIP SURFACE`. If a largest source file exceeds the hotspot threshold and `AGENTS.md` / `CLAUDE.md` / shared instruction files do not name who owns the hotspot, what boundary should stay stable, and which verification command covers it, report a Structural `WARN`. Do not treat documented large files as code rot by size alone; some modules are intentionally large.
+
+**Missing stable verifier wrapper.** If the repo exposes multiple verification commands through CI, scripts, or manifests but `Makefile` has no `check`, `test`, or `verify` target, report a Structural `WARN`. This is an AI-maintainability gap because agents need one stable default entrypoint, not because the project is broken.
+
+Quick check from the project root:
+
+```bash
+bash skills/health/scripts/check-maintainability.sh . summary
+```
+
+For deep audits:
+
+```bash
+bash skills/health/scripts/check-maintainability.sh . deep
+```
+
+Keep actions concrete and non-invasive: add or fix the smallest useful instruction surface, add one executable validation command, document hotspot ownership and tests, split only when the boundary is already clear, or repair the broken reference. Do not propose broad rewrites from the script output alone.
+
+**Broken doc references.** Scan `AGENTS.md`, `CLAUDE.md`, `.claude/rules/*.md`, and every `.claude/skills/*/SKILL.md` for references shaped like `@<path>`, `~/.claude/rules/<name>.md`, `~/.claude/skills/<name>/`, `docs/<name>.md`, or `references/<name>.md`. For each match, check that the target exists on disk. Report every "referenced but missing" pointer with the source file and line.
+
+Common offenders:
+- A project-level rule references a global rule file that was never created (e.g. `~/.claude/rules/swift.md`).
+- A `CLAUDE.md` uses an `@AGENTS.md` placeholder but the actual `AGENTS.md` is missing or empty.
+- A skill body references `references/<name>.md` but only `references/<name>-v2.md` exists.
+- A rule file references a deleted skill path.
+
+Quick check from the project root:
+
+```bash
+bash skills/health/scripts/check-doc-refs.sh .
+```
+
+The checker resolves `@...` and `docs/...` from the project root, expands `~`, resolves `references/...` from each `.claude/skills/<name>/SKILL.md` directory, checks every reference on a line, skips fenced code examples, and exits non-zero when any target is missing.
+
+Report missing references as Structural findings, not Critical, unless the missing file is named as a hard dependency (e.g. `release.md` for the project's release skill).
+
+**Broken Markdown references.** In deep mode, `check-maintainability.sh` also scans repository Markdown links. Report these as Structural findings when they point to missing local files, especially design, security, release, or handoff docs that agents may follow during future work.
+
+**Stale verifier cache output.** If validation output points at a deleted temp worktree or non-existent `/tmp` / `/private/tmp` file, parse the captured log with:
+
+```bash
+bash skills/health/scripts/check-verifier-output.sh . <log-file>
+```
+
+Only use this script for existing command output supplied by the user or generated during the current audit. Do not run project tests just to feed this checker. Known actions include `golangci-lint cache clean`, `go clean -cache -testcache`, and `npm cache verify`; unknown tools get a diagnostic rerun action.
 
 ### [-] Incremental -- nice to have
 
-New patterns to add, outdated items to remove, global vs local placement, context hygiene, HANDOFF.md adoption, skill invoke tuning, and provenance issues.
+Outdated items, global vs local placement, context hygiene, stale allowedTools entries.
 
 ---
 
-If all three issue sections are empty, output one short line in the output language like: `All relevant checks passed. Nothing to fix.`
+If no issues: `All relevant checks passed. Nothing to fix.`
 
 ## Non-goals
+
 - Never auto-apply fixes without confirmation.
 - Never apply complex-tier checks to simple projects.
-- Flag issues, do not replace architectural judgment.
+- Never act as a heavy lint, typecheck, duplication, or architecture-rewrite substitute; `/health` reports maintainability guardrails and concrete next actions only.
+
+## Gotchas
 
 
-**Stop condition:** After the report, ask in the output language:
-> "Should I draft the changes? I can handle each layer separately: global CLAUDE.md / local CLAUDE.md / rules / hooks / skills / MCP."
-
-Do not make any edits without explicit confirmation.
+| What happened                                                               | Rule                                                                                                                                                                                                                                                                                           |
+| --------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Missed the local override                                                   | Always read `settings.local.json` too; it shadows the committed file                                                                                                                                                                                                                           |
+| Subagent timeout reported as MCP failure                                    | MCP failures come from the live probe, not data collection                                                                                                                                                                                                                                     |
+| Reported issues in wrong language                                           | Honor CLAUDE.md Communication rule first                                                                                                                                                                                                                                                       |
+| Flagged intentionally noisy hook as broken                                  | Ask before calling a hook "broken"                                                                                                                                                                                                                                                             |
+| Hook seemed not to fire, but it did -- a later UI element rendered above it | Hook firing order is not visual order. Before re-editing the hook config: (a) confirm with `--debug` or by piping output, (b) check whether a diff dialog, permission prompt, or other UI element rendered on top and pushed the hook output offscreen, (c) only then suspect the hook itself. |
+| `/health` burned too much quota on first run                                | Stay in summary mode first. Full conversation extracts and inspector subagents are deep-audit tools, not the default path for Standard projects.                                                                                                                                                 |
+| Treated missing specs/docs as a failure                                     | Decision artifacts are optional by default. Escalate missing docs/specs only when the tier, active handoff risk, or user request makes them necessary.                                                                                                                                           |
