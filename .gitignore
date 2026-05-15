@@ -13,7 +13,7 @@ nohup.out
 .claude/plugins/claude-hud/.speed-cache.json
 .claude/plugins/claude-hud/.usage-cache.json
 **/__pycache__/
+**/node_modules/
 .claude/plugins/claude-hud/config-cache/*
 .claude/plugins/claude-hud/transcript-cache/*
 .claude/plugins/data/codex-openai-codex/state/*
-.claude/plugins/marketplaces/claude-plugins-official/external_plugins/discord/node_modules/*
