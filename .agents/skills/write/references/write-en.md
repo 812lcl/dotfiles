@@ -13,8 +13,11 @@ Eliminate predictable AI writing patterns. Write like a human: varied, imperfect
 7. **Trust readers.** State facts directly. Skip softening, justification, hand-holding.
 8. **Cut quotables.** If it sounds like a pull-quote, rewrite it.
 9. **Do not replace one formula with another.** “Human” does not mean slangy, quirky, or performatively casual.
+10. **No emoji.** Remove any emoji from the text being edited.
 
 ### Word Choice
+
+Examples, not exhaustive -- any word used to signal importance rather than to say something is suspect.
 
 **Overused adverbs: kill them all:**
 "quietly", "deeply", "fundamentally", "remarkably", "arguably", "certainly", "really", "just", "literally", "genuinely", "honestly", "simply", "actually"
@@ -48,6 +51,8 @@ Eliminate predictable AI writing patterns. Write like a human: varied, imperfect
 > OK: "is"
 
 ### Sentence Structures to Avoid
+
+Examples, not exhaustive -- any construction that performs insight rather than delivers it belongs here.
 
 **Negative parallelism**: the single most common AI tell:
 > NO: "It's not bold. It's backwards." / "Not because X, but because Y." / "The question isn't X. The question is Y."
@@ -132,6 +137,7 @@ Eliminate predictable AI writing patterns. Write like a human: varied, imperfect
 **Fractal summaries**: "what I'm going to tell you; what I'm telling you; what I just told you":
 > NO: "In this section, we'll explore... [3000 words later] ...as we've seen in this section."
 > OK: Skip the preview and the recap. Write the content.
+> Exception: a single closing sentence in a TL;DR that orients non-specialist readers to the structure ahead ("The rest of this piece follows X in order...") is intentional navigation, not a fractal summary. Keep it; flag it at most, but do not delete without author approval.
 
 **Signposted conclusions:**
 > NO: "In conclusion..." / "To sum up..." / "In summary..."
@@ -167,9 +173,10 @@ Eliminate predictable AI writing patterns. Write like a human: varied, imperfect
 - Paragraph ends with punchy one-liner? Vary it.
 - Em-dash anywhere? Remove it.
 - Vague declarative ("The implications are significant")? Name the specific implication.
-- Meta-joiners ("The rest of this essay...")? Delete. Let the essay move.
+- Meta-joiners ("The rest of this essay...")? Delete. Exception: a single TL;DR closing sentence that orients readers to the structure ahead is navigation, not filler. Keep it.
 - Any bullet starting with bold label? Reconsider the format.
 - Any "In conclusion" or "To sum up"? Cut it.
+- Any emoji? Remove it.
 
 ### Scoring
 

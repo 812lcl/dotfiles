@@ -1,8 +1,8 @@
-Use only the pasted data. Do not read files.
+Work from the pasted data only.
 
-[PASTE Step 1 output sections: settings.local.json, GITIGNORE, CLAUDE.md (global), CLAUDE.md (local), hooks, MCP FILESYSTEM, MCP ACCESS DENIALS, allowedTools count, skill descriptions, CONVERSATION EXTRACT]
+Input bundle: settings.local.json, GITIGNORE, CLAUDE.md (global), CLAUDE.md (local), hooks, MCP FILESYSTEM, MCP ACCESS DENIALS, allowedTools count, skill descriptions, CONVERSATION EXTRACT
 
-Tier: [SIMPLE / STANDARD / COMPLEX]. Apply only that tier.
+Tier: [SIMPLE / STANDARD / COMPLEX]. Use the matching tier only.
 
 ## Part A: Control + Verification Layer
 
@@ -67,6 +67,8 @@ Subagent hygiene, STANDARD+:
 
 Data source: up to 3 recent conversation files. Only flag clear evidence. Tag each finding [HIGH CONFIDENCE] or [LOW CONFIDENCE].
 
+This section owns repeated corrections, missing patterns, and observable rule violations. Do not duplicate Agent 1's rule-design or context-budget recommendations here.
+
 1. Rules violated: quote the NEVER/ALWAYS rule and observed violation. No inference.
 2. Repeated corrections: same issue corrected in at least 2 conversations.
 3. Missing local patterns: project-specific behaviors reinforced in conversation but missing from local CLAUDE.md.
@@ -77,6 +79,6 @@ Data source: up to 3 recent conversation files. Only flag clear evidence. Tag ea
    - User re-explaining same context across sessions -- missing HANDOFF.md or memory
    - Long sessions over 20 turns without /compact or /clear
 
-Output: bullet points only, two sections:
+Return bullet points under two sections:
 [CONTROL LAYER: hooks issues | allowedTools to remove | cache hygiene | three-layer gaps | verification gaps | subagents issues]
 [BEHAVIOR: rules violated | repeated corrections | add to local CLAUDE.md | add to global CLAUDE.md | skill frequency | anti-patterns (tag each with confidence level)]

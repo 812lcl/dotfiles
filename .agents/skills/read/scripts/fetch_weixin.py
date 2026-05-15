@@ -19,6 +19,10 @@ import json
 import asyncio
 
 
+def yaml_string(value: str) -> str:
+    return json.dumps("" if value is None else str(value), ensure_ascii=False)
+
+
 async def fetch(url: str) -> dict:
     try:
         from playwright.async_api import async_playwright
@@ -78,10 +82,10 @@ def to_markdown(r: dict) -> str:
         return f"Error: {r['error']}"
     parts = [
         "---",
-        f'title: "{r["title"]}"',
-        *([ f'author: "{r["author"]}"'] if r.get("author") else []),
-        *([ f'date: "{r["date"]}"'] if r.get("date") else []),
-        f'url: "{r["url"]}"',
+        f"title: {yaml_string(r.get('title', ''))}",
+        *([f"author: {yaml_string(r['author'])}"] if r.get("author") else []),
+        *([f"date: {yaml_string(r['date'])}"] if r.get("date") else []),
+        f"url: {yaml_string(r.get('url', ''))}",
         "---",
         "",
         f"# {r['title']}" if r.get("title") else "",

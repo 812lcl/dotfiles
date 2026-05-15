@@ -1,130 +1,198 @@
 ---
 name: hunt
-description: Invoke when debugging any error, crash, unexpected behavior, or failing test. Finds root cause before applying any fix. Not for code review or new features.
-version: 3.2.0
-allowed-tools:
-  - Bash
-  - Read
-  - Edit
-  - Write
-  - Grep
-  - Glob
-  - WebSearch
-  - AskUserQuestion
+description: "Finds root cause of errors, crashes, regressions, screenshot-reported defects, unexpected behavior, and failing tests before applying any fix. Not for code review or new features."
+when_to_use: "排查, 查查, 报错, 崩溃, 不工作, 不对, 跑不通, 以前是好的, 回归, 截图回归, 判断错误原因, 判断为什么报错, 反复修不好, debug, regression, used to work, broke after update, why broken, not working, what's wrong, fix error, stack trace"
+metadata:
+  version: "3.24.0"
 ---
 
 # Hunt: Diagnose Before You Fix
 
-A patch applied to a symptom creates a new bug somewhere else. Find the origin first.
+Prefix your first line with 🥷 inline, not as its own paragraph.
 
-**Do not touch code until you can state the root cause in one sentence.**
+A patch applied to a symptom creates a new bug somewhere else.
 
-## Orientation
-
-Start by building a complete picture of what happened:
-
-- Get the exact error, stack trace, and steps to reproduce. If anything is missing, ask one specific question.
-- Review recent changes to the files named in the error or stack trace. Regressions almost always live in recent commits.
-- Trace the execution path from the symptom backward: follow the data, not intuition.
-- Reproduce it yourself. If you cannot reproduce it reliably, you do not understand it yet.
-
-Before going further, commit to a testable claim:
+**Do not touch code until you can state the root cause in one sentence:**
 > "I believe the root cause is [X] because [evidence]."
 
-The claim must name a specific file, function, line, or condition. "A state management issue" is not testable. "Stale cache in `useUser` at `src/hooks/user.ts:42` because the dependency array is missing `userId`" is testable. If you cannot be that specific, you do not have a hypothesis yet.
+Name a specific file, function, line, or condition. "A state management issue" is not testable. "Stale cache in `useUser` at `src/hooks/user.ts:42` because the dependency array is missing `userId`" is testable. If you cannot be that specific, you do not have a hypothesis yet.
 
-## Known Failure Shapes
+## Diagnosis Signals
 
-When a hypothesis is hard to form, match the symptom to a known shape:
+Good progress: a log line matches the hypothesis, you can predict the next error before running it, you understand the propagation path from root cause to symptom, you can write a test that fails on the old code. At each of these signals, find one more independent piece of evidence before committing.
 
-| Shape | Clues | Where to look |
-|-------|-------|---------------|
-| Timing problem | Intermittent, load-dependent | Concurrent access to shared state |
-| Missing guard | Crash on field or index access | Optional values, empty collections |
-| Ordering bug | Works in isolation, fails in sequence | Event callbacks, transaction scope |
-| Boundary failure | Timeout, wrong response shape | External APIs, service edges |
-| Environment mismatch | Local pass, CI fail | Env vars, feature flags, seeded data |
-| Stale value | Old data shown, refreshes on restart | In-memory cache, memoized result |
-| Condition wait | Sleeping for time instead of state | Replace fixed sleeps with polling: check file exists, port responds, or process exits |
+Hypothesis quality gate: before acting on a hypothesis, list all observable symptoms (not just the one the user reported first). The hypothesis must explain every symptom; if it only covers some, it is a symptom-level guess, not a root cause. For timing-dependent issues (flicker, intermittent failure, race condition), reproduce reliably before diagnosing.
 
-Also worth checking: existing TODOs near the failure site, and whether this area has been patched before. Recurring fixes in the same place mean the abstraction is wrong.
+Rationalization warning: "I'll just try this" means no hypothesis, write it first. "I'm confident" means run an instrument that proves it. "Probably the same issue" means re-read the execution path from scratch. "It works on my machine" means enumerate every env difference before dismissing. "One more restart" means read the last error verbatim; never restart more than twice without new evidence.
 
-Pay attention to deflection. When a developer or user says "that part doesn't matter" or "don't worry about that area," treat it as a signal rather than a clearance. The area someone is reluctant to examine is often where the actual problem lives.
+## Durable Context Preflight
 
-## Check the Knowledge Store
+Run this only when the user mentions memory, preview, previous decisions, or a prior conclusion; when they provide a memory path; or when the current project exposes an obvious local memory summary. Do not hard-code machine-specific memory roots or read raw transcripts.
 
-Before deep investigation, search for prior solutions to the same or similar bug in `docs/solutions/` (if it exists). If a match is found, read the solution file. It may contain the root cause, what approaches failed, and the fix. This can save an entire investigation.
+Read durable context in this order: user-provided path, current project scope, then global preferences. List titles first, then open at most 1-2 relevant summaries. Treat cross-project entries as transferable patterns only.
 
-## Check for Known Issues
+Map memory types before using them: `decision`, `preference`, and `principle` describe diagnostic constraints; `pattern` and `learning` can seed hypotheses; `fact` must be verified against current state before it affects diagnosis. Current code, logs, repro steps, tests, environment versions, and remote state override memory.
 
-Before deep investigation, search open issues and recent CI failures for the same symptom. If `gh` is not installed, install it first.
+For `/hunt`, durable context is hypothesis fuel only. It never replaces a fresh root-cause sentence, a reproducible symptom list, or evidence from the current state.
 
-## Confirm or Discard the Hypothesis
+## Hard Rules
 
-Add one targeted instrument: a log line, a failing assertion, or the smallest possible test that would fail if the hypothesis is correct. Run it.
+- **Same symptom after a fix is a hard stop; so is "let me just try this."** Both mean the hypothesis is unfinished. Re-read the execution path from scratch before touching code again.
+- **After three failed hypotheses, stop.** Use the Handoff format below to surface what was checked, what was ruled out, and what is unknown. Ask how to proceed.
+- **Verify before claiming.** Never state versions, function names, or file locations from memory. Run `sw_vers` / `node --version` / grep first. No results = re-examine the path.
+- **External tool failure: diagnose before switching.** When an MCP tool or API fails, determine why first (server running? API key valid? Config correct?) before trying an alternative.
+- **Pay attention to deflection.** When someone says "that part doesn't matter," treat it as a signal. The area someone avoids examining is often where the problem lives.
+- **Visual/rendering bugs: static analysis first.** Trace paint layers, stacking contexts, and layer order in DevTools before adding console.log or visual debug overlays. Logs cannot capture what the compositor does. Only add instrumentation after static analysis fails.
+- **Fix the cause, not the symptom.** If the fix touches more than 5 files, pause and confirm scope with the user.
 
-If the evidence contradicts the hypothesis, discard it completely and re-orient with what was just learned. Do not preserve a hypothesis that the evidence disproves.
+## Bisect Mode
 
-After three failed hypotheses, stop. Do not guess a fourth time. Instead, surface the situation to the user: what was checked, what was ruled out, what is still unknown. Ask whether to add more instrumentation, escalate, or approach the problem differently.
+Activate when: "以前是好的", "之前是好的", "used to work", "上一次提交还是对的", "broke after update", or the user remembers a specific good commit or version.
 
-**Same symptom after a fix is a hard stop.** If the user reports the same symptom after a patch was applied, do not patch again. Treat it as a new investigation: the previous hypothesis was wrong. Re-read the execution path from scratch. Three rounds of "fixed but still broken" in the same area means the abstraction is wrong, not the specific line.
+1. Find candidate good tag: `git tag --sort=-version:refname | head -10` or ask the user for the last known-good commit.
+2. Define a non-interactive pass/fail test command before starting bisect. Bisect is worthless without a reproducible check.
+3. Run: `git bisect start && git bisect bad HEAD && git bisect good <tag-or-hash>`
+4. At each step bisect checks out a commit. Run the test command. Mark: `git bisect good` or `git bisect bad`.
+5. Let bisect drive. Do not jump ahead or skip commits unless explicitly asked.
+6. When bisect names the culprit commit, read only that diff. Identify the specific line that introduced the regression.
+7. Run `git bisect reset` when done.
 
-**Never state environment details from memory.** Before diagnosing OS, compiler, SDK, or tool version issues, run the detection command first: `sw_vers`, `xcodebuild -version`, `node --version`, `rustc --version`, etc. State the actual output. A diagnosis built on an assumed version is not a diagnosis.
+Read large files once and reference from notes rather than re-reading at each bisect step.
 
-**External tool or MCP failure: diagnose before switching.** When an MCP tool, CLI dependency, or external API is unavailable or returning errors, do not immediately try an alternative method. First determine why it failed: is the server running? Is the API key valid or expired? Is the config pointing to the right endpoint? Is a proxy needed? Switching to a workaround without diagnosing the root cause leaves the original problem intact and wastes the next session too.
+## Repeated Regression / Screenshot Reference Mode
 
-Stop and reassess if you catch yourself:
-- Writing a fix before you have finished tracing the flow
-- Thinking "let me just try this"
-- Finding that each fix surfaces a new problem in a different module
+Activate when the user says the same issue is still wrong after a fix, provides a "good" screenshot/version/file, or describes a visual result as previously correct.
 
-## Rationalization Watch
+Treat the reference as evidence, not decoration:
 
-These phrases are diagnostic failures in disguise. When one surfaces, stop and re-examine:
+1. List every reported and visible symptom, preserving the user's concrete words where useful ("still slow", "not clear", "尖刺", "先显示上一个内容").
+2. Identify the reference oracle: last-good commit/tag, old build, fixture, screenshot, downloaded artifact, or expected state from the user's description.
+3. Define the pass/fail check before editing. For visual bugs, this may be a narrow screenshot checklist plus the command that renders the view; for behavioral bugs, prefer an automated regression test or deterministic repro.
+4. Compare current vs. reference and name the exact delta. Do not generalize a visual defect into "style polish" when the evidence points to a broken render, race, font pipeline, or state path.
+5. If the same symptom remains after one attempted fix, stop and rebuild the hypothesis from the evidence. Do not stack more patches onto a disproven explanation.
 
-| What you're thinking | What it actually means | Rule |
-|---|---|---|
-| "I'll just try this one thing" | No hypothesis, random-walking | Stop. Write the hypothesis first. |
-| "I'm confident it's X" | Confidence is not evidence | Run an instrument that proves it. |
-| "Probably the same issue as before" | Treating a new symptom as a known pattern | Re-read the execution path from scratch. |
-| "It works on my machine" | Environment difference IS the bug | Enumerate every env difference before dismissing it. |
-| "One more restart should fix it" | Avoiding the error message | Read the last error verbatim. Never restart more than twice without new evidence. |
+If the issue is purely subjective UI taste, route to `/design`. If it is rendering, state, timing, build output, font generation, or a regression from a known-good version, stay in `/hunt`.
 
-## Apply the Fix
+## Scope Blast Mode
 
-Once the root cause is confirmed:
+Activate after fixing a root-cause pattern, before declaring the bug done. The same shape often hides in N other places; one local fix that ignores the blast leaves N - 1 bugs in the tree.
 
-- Fix the cause, not the symptom it produces
-- Keep the diff small: fewest files, fewest lines
-- Write one regression test that fails on the unfixed code and passes after the fix. If the bug is non-testable (timing, environment-specific, UI rendering), document why and add the best available guard instead.
-- For large projects, run the targeted subset first (tests in the affected module). Run the full suite only after the targeted tests pass. Paste the full output, no summaries.
-- If the change touches more than 5 files, pause and confirm the scope with the user
+1. Extract the pattern signature: the specific function name, regex, API call, CSS selector, lock acquisition, validation skip, or input boundary that produced the bug.
+2. `grep -rn <pattern>` across the repo (exclude generated dirs, build output, vendored deps). For class-of-bug patterns (e.g. "any handler missing the lock"), grep for the surrounding shape, not just the literal text.
+3. List every match. For each one, answer in writing: same bug here? Pick fix / leave (explain why it is safe) / unsure (ask the user). Do not silently skip a match.
+4. Do not claim "fixed" until the blast report is in the Outcome block.
 
-**Self-regulation:** track how the fix is going. If you have reverted the same area twice, or if the current fix touches more than 3 files for what started as a single bug, stop. Do not keep patching. Describe what is known and unknown, and ask the user how to proceed. Continued patching past this point means the abstraction is wrong, not the code.
+Common triggers:
+- Visual bug fixed on one page: check every other page using the same component, layout, or media-query breakpoint.
+- One race fixed in one handler: check every handler acquiring the same lock or touching the same shared state.
+- One validation skip patched at one entry point: check every entry point that reaches the same downstream sink.
+- One regex / parser fix for one input shape: check every caller of the same regex / parser.
 
-After the fix lands, consider whether a second layer of defense makes sense: validate the same condition at the call site, the service boundary, or in a test. A bug that cannot be introduced again is better than a bug that was fixed once.
+If the blast surfaces unrelated bugs, list them but do not fix in this PR unless the user agrees; scope creep is its own anti-pattern.
+
+## Confirm or Discard
+
+Add one targeted instrument: a log line, a failing assertion, or the smallest test that would fail if the hypothesis is correct. Run it. If the evidence contradicts the hypothesis, discard it completely and re-orient with what was just learned. Do not preserve a hypothesis the evidence disproves.
+
+## Runtime Evidence Ladder
+
+Use this ladder before claiming a bug is fixed:
+
+1. Source trace: name the exact function, state transition, file, line, or condition that can produce the symptom.
+2. Deterministic repro: run or write the smallest command, fixture, UI path, or scenario that produces it.
+3. Logs/state/cache: inspect the runtime state that proves the path was reached, including queues, DB rows, caches, temp files, generated outputs, or external tool logs.
+4. Build/test: run the narrow test or build that exercises the fix.
+5. Real runtime check: for UI, native app, browser, rendering, or visual bugs, open the app/page/artifact and verify the visible result with a screenshot or concrete checklist.
+
+Compile-only is not enough for UI, native-app, visual, rendering, or generated-artifact bugs. If the runtime check is impossible in the environment, say why and hand off the exact screen, command, or artifact to verify.
+
+For recurring classes of failures, load `references/failure-patterns.md` before adding a second fix.
+
+## Targeted Logging
+
+Use logs as a scalpel, not as noise. Before adding a log, write the question it answers:
+
+> "If this log prints X before Y, hypothesis A is still possible; if it does not, hypothesis A is wrong."
+
+Load `references/logging-techniques.md` for the full logging playbook: binary-search instrumentation, discriminating log content, boundary-first placement, timing bug logging, and removal discipline.
+
+Quick rules:
+1. Place the first log at the midpoint of the execution path, not at the symptom. Binary search from there.
+2. Log discriminating facts only: sequence number, input key, branch taken, old/new state, error code.
+3. Remove temporary logs before finishing. Gate persistent diagnostics behind the project's debug flag.
+
+If adding logs changes the behavior, treat that as evidence of a timing, lifecycle, or concurrency problem.
 
 ## Gotchas
 
-Real failures from prior sessions, in order of frequency:
-
-- **Fixed the wrong code path.** Patched the client pane instead of the local pane because I guessed the location from the symptom. Trace the execution path from the symptom backward before touching any file.
-- **Same symptom, four patches.** Applied a fix, got the same error back, patched again. Each patch buried the real cause deeper. Same symptom after a fix = stop and re-read the whole execution path from scratch.
-- **Stated macOS version from memory.** Diagnosed a notarytool failure as "macOS 26 beta." It was a stable release. Run `sw_vers` first. A diagnosis built on assumed versions is not a diagnosis.
-- **Tried workarounds before diagnosing tool failure.** xcrawl MCP wasn't loading; I tried WebFetch instead of checking why. Check server status, API key validity, and config before switching methods.
-- **Wrote the fix before finishing the trace.** "Let me just try this" is a red flag. It means the hypothesis is incomplete. Stop, finish the trace, write the hypothesis in one sentence, then write the fix.
-- **Blind restart loop.** Restarted the server 8 times, changing one variable each time without reading the actual error response body. Read the last error verbatim before restarting; never restart more than twice without a new evidence-based hypothesis.
-- **Pipeline healthy but no output.** Orchestrator reported RUNNING, but TTS vendor was misconfigured. Polled status instead of testing each stage. In multi-stage pipelines (ASR->LLM->TTS), test each stage in isolation when the orchestrator says healthy but output is missing.
+| What happened | Rule |
+|---------------|------|
+| Patched client pane instead of local pane | Trace the execution path backward before touching any file |
+| MCP not loading, switched tools instead of diagnosing | Check server status, API key, config before switching methods |
+| Orchestrator said RUNNING but TTS vendor was misconfigured | In multi-stage pipelines, test each stage in isolation |
+| Race condition diagnosed as a stale-state bug | For timing-sensitive issues, inspect event timestamps and ordering before state |
+| Added logs everywhere and still could not explain the bug | Rewrite each log as a yes/no question. Delete logs that do not rule a hypothesis in or out |
+| Reproduced locally but failed in CI | Align the environment first (runtime version, env vars, timezone), then chase the code |
+| Stack trace points deep into a library | Walk back 3 frames into your own code; the bug is almost always there, not in the dependency |
+| Worked when launched from app, broke when opened via file association / drag-drop / deep link / external proxy | Reproduce using the exact entry point the user described. App-internal init differs from cold-launch-with-file init; state may not be ready when the document arrives. |
+| Build passed but UI still looked wrong | Move up the Runtime Evidence Ladder and verify the real rendered surface or artifact. |
 
 ## Outcome
 
-End with a short summary:
+### Success Format
 
 ```
-Root cause:  [what was wrong, file:line]
-Fix:         [what changed, file:line]
-Confirmed:   [evidence or test that proves the fix]
-Tests:       [pass/fail count, regression test location]
+Root cause:        [what was wrong, file:line]
+Fix:               [what changed, file:line]
+Confirmed:         [evidence or test that proves the fix]
+Tests:             [pass/fail count, regression test location]
+Regression guard:  [test file:line] or [none, reason]
 ```
 
-Status is one of: **resolved**, **resolved with caveats** (state them), or **blocked** (state what is unknown and why).
+Status: **resolved**, **resolved with caveats** (state them), or **blocked** (state what is unknown).
+
+**Regression guard rule**: for any bug that recurred or was previously "fixed", the fix is not done until:
+1. A regression test exists that fails on the unfixed code and passes on the fixed code.
+2. The test lives in the project's test suite, not a temporary file.
+3. The commit message states why the bug recurred and why this fix prevents it.
+
+### Handoff Format (after 3 failed hypotheses)
+
+```
+Symptom:
+[Original error description, one sentence]
+
+Hypotheses Tested:
+1. [Hypothesis 1] → [Test method] → [Result: ruled out because...]
+2. [Hypothesis 2] → [Test method] → [Result: ruled out because...]
+3. [Hypothesis 3] → [Test method] → [Result: ruled out because...]
+
+Evidence Collected:
+- [Log snippets / stack traces / file content]
+- [Reproduction steps]
+- [Environment info: versions, config, runtime]
+
+Ruled Out:
+- [Root causes that have been eliminated]
+
+Unknowns:
+- [What is still unclear]
+- [What information is missing]
+
+Suggested Next Steps:
+1. [Next investigation direction]
+2. [External tools or permissions that may be needed]
+3. [Additional context the user should provide]
+```
+
+Status: **blocked**
+
+## Rendering Bug Mode
+
+Activate when: "PDF looks wrong", "page break issue", "font not rendering", broken PDF output, or print layout wrong.
+
+Load `references/rendering-debug.md` for the full diagnosis checklist (WeasyPrint quirks, font loading, page overflow, browser print CSS). Static analysis first, then reproduce if needed.
+
+## IME / Unicode Issues
+
+For input method, character rendering, or text encoding bugs (IME state, cursor drift, emoji splitting, composition events), check `references/ime-unicode.md` first before forming a hypothesis.

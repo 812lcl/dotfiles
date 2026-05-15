@@ -8,16 +8,16 @@
 
 ```bash
 lark-cli base +record-upload-attachment \
-  --base-token app_xxx \
-  --table-id tbl_xxx \
-  --record-id rec_xxx \
-  --field-id fld_attach \
+  --base-token <base_token> \
+  --table-id <table_id> \
+  --record-id <record_id> \
+  --field-id <field_id> \
   --file ./report.pdf
 
 lark-cli base +record-upload-attachment \
-  --base-token app_xxx \
-  --table-id tbl_xxx \
-  --record-id rec_xxx \
+  --base-token <base_token> \
+  --table-id <table_id> \
+  --record-id <record_id> \
   --field-id "附件" \
   --file ./report.pdf \
   --name "Q1-final.pdf"
@@ -31,7 +31,7 @@ lark-cli base +record-upload-attachment \
 | `--table-id <id_or_name>` | 是 | 表 ID 或表名 |
 | `--record-id <id>` | 是 | 记录 ID |
 | `--field-id <id_or_name>` | 是 | 附件字段 ID 或字段名 |
-| `--file <path>` | 是 | 本地文件路径，最大 20MB |
+| `--file <path>` | 是 | 本地文件路径，最大 2GB |
 | `--name <name>` | 否 | 写入附件字段时显示的文件名，默认使用本地文件名 |
 
 
@@ -43,8 +43,8 @@ lark-cli base +record-upload-attachment \
 ## 坑点
 
 - ⚠️ 目标字段必须是 `attachment` 字段。
+- ⚠️ 记录里的附件 `file_token` 属于 Drive media token；下载时不要走 `lark-cli drive +download`，应使用 `lark-cli docs +media-download --token <file_token> --output <path>`。
 
 ## 参考
 
 - [lark-base-record.md](lark-base-record.md) — record 索引页
-- [lark-base-shortcut-record-value.md](lark-base-shortcut-record-value.md) — 记录值格式详解

@@ -1,191 +1,218 @@
 ---
 name: check
-description: Invoke after any implementation task completes or before merging. Reviews the diff, auto-fixes safe issues, runs specialist security and architecture reviewers on large diffs. Not for exploring ideas or debugging.
-version: 3.2.0
-allowed-tools:
-  - Bash
-  - Read
-  - Edit
-  - Write
-  - Grep
-  - Glob
-  - Agent
-  - AskUserQuestion
-hooks:
-  PreToolUse:
-    - matcher: Bash
-      hooks:
-        - type: command
-          command: "bash ${CLAUDE_SKILL_DIR}/scripts/check-destructive.sh"
-          statusMessage: "Checking for destructive commands..."
+description: "Reviews code diffs and release-ready changes after implementation, executes approved implementation plans, extracts project-specific constraints from repository context, auto-fixes safe issues, and drives approved release, publish, push, release-reaction, and issue/PR follow-through. Also triages issues and PRs when the user mentions them. Not for exploring ideas, debugging, or document prose review."
+when_to_use: "review, 看看代码, 检查一下, 有没有问题, 是否需要优化, 合并前, 继续优化, 优化代码, 看看issue, 看看PR, release, publish, push, release reaction, GitHub reaction, 发布, 提交, 关闭issue, 发布表情, release表情, close issue, issue close, review my code, check changes, before merge, before release, code review, code-review"
+metadata:
+  version: "3.24.0"
 ---
 
 # Check: Review Before You Ship
 
-Read the diff, find the problems, fix what can be fixed safely, ask about the rest. Do not claim done until verification has run in this session.
+Prefix your first line with 🥷 inline, not as its own paragraph.
+
+> Note: `/review` is a built-in Anthropic plugin command for PR review. Waza uses `/check` (or the alias `code-review`) instead. Do not re-trigger `/review` from within this skill.
+
+Read the diff, find the problems, fix what can be fixed safely, ask about the rest. Done means verification ran in this session and passed.
+
+## Plan Execution Mode
+
+Activate when the user's message starts with "Implement the following plan", "按计划实施", "按照计划", "整", "可以干", "直接改" followed by a plan body, or links to a `/think` output.
+
+In this mode, do not run a code review. Instead:
+
+1. State which plan is being executed (first heading or summary line).
+2. Check for obvious repo drift: run `git status` and skim any changed files that contradict the plan. If drift makes the plan unsafe, name the specific conflict and stop.
+3. Work through each plan item as a to-do. Mark each complete as you go.
+4. After all items are done, run the project's verification command.
+5. Transition automatically into Ship mode if the project context or current thread indicates review-then-ship.
+
+## Default Continuation (review-then-ship)
+
+When the project's `AGENTS.md` or the current thread explicitly asks to "commit after review", "ship if green", or equivalent, transition directly from review to the Ship flow after a clean review. Do not ask again. State "proceeding to ship" before acting.
+
+## Project Context Extraction
+
+This is Waza's public, standalone code-review capability. It should not depend on private machine paths or unpublished project instructions.
+
+Before reviewing, extract project constraints from repository context:
+
+1. Read the diff and identify changed languages, frameworks, manifests, generated outputs, release files, and CI workflows.
+2. Inspect public project files only as needed: README, AGENTS/CLAUDE instructions when present, package manifests, lockfiles, build configs, test configs, workflow files, and release notes.
+3. Compress the findings into review context: verification commands, protected or generated files, release artifacts, domain risks, and public reply rules.
+4. Apply the stricter rule when project context and this skill overlap.
+5. If project docs or CI name a verification command, prefer that over auto-detection.
+
+For the context shape, see `references/project-context.md`.
+
+For release or maintainer work, also fill the Release Gate 2.0 matrix from `references/project-context.md`. It covers review base, dirty/staged/untracked state, latest tag, origin sync, version fields, generated artifacts, package/archive contents, release assets, registry/appcast/CI, and public issue/PR state. Missing matrix evidence is a blocker for a "ready to release" claim.
+
+## Durable Context Preflight
+
+Run this only when the user mentions memory, preview, previous decisions, or a prior conclusion; when they provide a memory path; or when the current project exposes an obvious local memory summary. Do not hard-code machine-specific memory roots or read raw transcripts.
+
+Read durable context in this order: user-provided path, current project scope, then global preferences. List titles first, then open at most 1-2 relevant summaries. Treat cross-project entries as transferable patterns only.
+
+Map memory types before using them: `decision`, `preference`, and `principle` are private task constraints; `pattern` and `learning` are review checklists; `fact` must be verified against current state before it affects the review. Current code, diff, public docs, CI, tests, and remote state override memory.
+
+For `/check`, durable memory can explain user intent and preferred follow-through, but public project rules still come from README files, manifests, CI workflows, release docs, the diff, and explicit instructions in the current thread. Never cite private memory as a public project requirement.
 
 ## Get the Diff
 
-Obtain the full diff between the current branch and the base branch. If the base branch is not clear, ask. If already on the base branch, ask which commits to review.
+Get the full diff between the current branch and the base branch. If unclear, ask. If already on the base branch, ask which commits to review.
 
-## Scope the Review
+## Triage Mode
 
-Measure the diff size (lines changed, files touched) and classify review depth.
+Activate when the user mentions: issue, PR, "review all", triage, "batch", or "批量处理". Skip the diff flow and run this instead.
+
+**Action-first rule:** Items with a clear disposition (already fixed, duplicate, already released) get acted on immediately without analysis paragraphs. When analyzing screenshots or images, state what you see and the suggested action in one message. Only ask the user when the disposition is genuinely ambiguous.
+
+**Flow:** Pull open items with `gh issue list -R <repo> --state open --limit 20` and `gh pr list -R <repo> --state open`. For each item, check if a fix already shipped: `git log --oneline <latest-tag>..HEAD | grep -i "<keyword>"`. If shipped: close with note. If merged but unreleased: reply "已修复，等下一个版本 release" and close. If no fix: analyze and act. Fix now if possible (`fix: closes #N` commit); for Mole nightly-fixed items reply `@<user>, this is already fixed in the latest nightly. Upgrade: mo update --nightly` and close; for valid-but-unreleased items acknowledge and leave open; for invalid items give one-two sentence reason and close.
+
+Before final conclusions in a live queue, refresh the issue/PR list once more and re-read any item that changed during the run. If evidence is incomplete, hold the item instead of closing it on a guess.
+
+**PR handling:** If the PR direction is accepted but the patch needs changes, prefer pushing the maintainer's fixes to the contributor's PR branch and then merging the PR. Check `maintainerCanModify` first. If branch edits are not allowed, ask the contributor to enable maintainer edits or push the needed revision; only fall back to a separate maintainer commit when timing or release safety requires it, and say so in the PR. Close without merging only when the direction is rejected, unsafe, no longer needed, or explicitly not part of the project's scope. Do not silently absorb an accepted PR into `main` and close it.
+
+**Public reply shape (maintainer, issue or PR):**
+
+1. Resolve `@<login>` from `gh issue view` / `gh pr view --json author`.
+2. **Language:** Match the **opener's** language when it is Chinese or English. If the opener used Japanese or Korean, use English for the maintainer reply unless project docs override.
+3. Open with `@<login>` and **at most one** short thanks (`感谢反馈`, `thank you for the report`, etc.). Do **not** add closing thanks stacks (`再次感谢`, `Thanks again`, long courtesy endings).
+4. One or two short paragraphs: factual reason, what shipped or what is blocked, no ceremony.
+5. Always give a **next step tied to releases or verification**: next App Store or GitHub release, nightly upgrade command, cache path to clear once, or exactly what info is still needed.
+6. Prefer **editing** an existing maintainer comment (`PATCH /repos/{owner}/{repo}/issues/comments/{comment_id}`) when updating wording; avoid delete plus repost unless the old text must disappear from history.
+
+Default to this shape unless `AGENTS.md` or `CLAUDE.md` in the repo contradicts it.
+
+**Sign-off line (append to standard sign-off):**
+```
+triage:           N reviewed, N closed, N deferred
+```
+
+## Release Worthiness Analysis
+
+Activate when the user asks "深入分析 X 是不是值得发新版本", "is this worth a new release", "值不值得发版", or similar.
+
+1. Run `git log <last-tag>..HEAD --oneline` (find last tag with `git tag --sort=-version:refname | head -1`).
+2. Count and classify commits: feat (new feature), fix (bug fix), chore/docs/refactor (internal).
+3. Output:
+   - **Commit summary**: N feat, N fix, N chore since last release
+   - **Verdict**: release / skip (one line)
+   - **Recommended version bump**: patch (fixes only), minor (feat present), major (breaking change)
+   - **Key risk**: one sentence on the biggest risk in this batch
+4. If verdict is "release", offer to transition into Ship mode.
+
+## Ship / Release Follow-through
+
+Activate when the user asks to commit, tag, release, publish, push, reply on an issue/PR, or close an issue after a change is ready.
+
+This mode extends review; it does not skip review. Before any public or irreversible action:
+
+1. Extract release rules from public project context: README, manifests, CI workflows, release notes, package scripts, changelogs, and explicit user instructions in the current thread.
+2. Fill the Release Gate 2.0 matrix from `references/project-context.md`: review base, dirty/staged/untracked state, latest tag, origin sync, version fields, generated artifacts, package/archive contents, release assets, registry/appcast/CI, and public issue/PR state.
+3. Verify generated or bundled outputs, version fields, release notes, package contents, and required artifacts are in sync. Prefer dry-run commands when the ecosystem provides them.
+4. Commit only intended files. Preserve unrelated dirty work, and serialize git operations so index locks or overlapping adds do not corrupt the workflow.
+5. Push, publish, tag, or create a release only when the user has explicitly approved that action. If auth, OTP, CI, registry, or network state blocks the operation, pause and report the exact blocker.
+6. For issue/PR follow-through, confirm the item identity with `gh issue view` or `gh pr view` before posting. Use the **Public reply shape** from Triage Mode (mention, single thanks, facts, explicit next release or verification step). Close only when the fix is shipped, already available, invalid, duplicate, or the maintainer explicitly asked for closure.
+7. For GitHub release reaction follow-through, only do it when project context or the current thread asks for it. After the release exists and required assets are verified, resolve the release id from the tag, POST every positive release reaction to `repos/<owner>/<repo>/releases/<id>/reactions` with `gh api`, and re-read reactions to confirm. Positive release reactions are `+1`, `laugh`, `heart`, `hooray`, `rocket`, and `eyes`.
+8. After network or API failures, re-read the end state instead of assuming success or failure.
+
+End with the concrete shipped state: commit hash, tag, release URL, registry/version result, pushed branch, release asset state, release reaction state, issue/PR state, and any remaining blockers. Omit fields that do not apply.
+
+## Scope
+
+Measure the diff and classify depth:
 
 | Depth | Criteria | Reviewers |
 |-------|----------|-----------|
-| **Quick** | Under 100 lines, 1-5 files | Base review only (this skill) |
+| **Quick** | Under 100 lines, 1-5 files | Base review only |
 | **Standard** | 100-500 lines, or 6-10 files | Base + conditional specialists |
-| **Deep** | 500+ lines, or 10+ files, or touches auth/payments/data mutation | Base + all relevant specialists + adversarial pass |
+| **Deep** | 500+ lines, 10+ files, or touches auth/payments/data mutation | Base + all specialists + adversarial pass |
 
-State the depth before proceeding. If the diff is Quick, skip to "Did We Build What Was Asked?" and run the standard single-pass flow. If Standard or Deep, continue to "Specialist Review" after completing the standard flow.
+State the depth before proceeding.
 
 ## Did We Build What Was Asked?
 
-Before reading the code, check for scope drift:
-- Pull up recent commit messages and any task files
-- Does the diff match the stated goal? Flag anything outside that scope: unrelated files, voluntary additions, missing requirements
-- Label it: **on target** / **drift** / **incomplete** and note it, but do not block on it
+Before reading code, check scope drift: do the diff and the stated goal match? Label: **on target** / **drift** / **incomplete**.
 
-## What to Look For
+Drift signals (examples, not exhaustive -- any one is enough to label drift):
+- A changed file has no connection to the stated goal
+- The diff includes pure refactoring (renames, formatting, restructuring) when the goal was a bug fix or feature
+- A new dependency appears that the goal did not mention
+- Code unrelated to the goal was deleted or commented out
+- A new abstraction or helper was introduced that is not required by the goal
 
-### Hard stops (fix before merging)
+## Hard Stops (fix before merging)
 
-These are not negotiable:
+Examples, not exhaustive -- flag any diff that could cause irreversible harm if merged unreviewed.
 
-- **Destructive auto-execution**: any task flagged as "safe" or "auto-run" that modifies user-visible state (history files, config files, stored preferences, installed software, cache entries the user can inspect) must require explicit confirmation. "Safe" means no side effects, not "probably harmless." If a task deletes or rewrites something the user can see, it is not safe by default.
-- **Release artifacts missing**: a GitHub release with an empty body, missing assets, or unuploaded build files is not a completed release. Verify every artifact listed in the release template exists as a local file and has been uploaded before declaring done.
-- **Translated file naming collision**: when placing a file in a language-specific directory (e.g., `_posts_en/`, `en/`), the file name must not repeat the language suffix. Check the naming convention of existing files in the same directory first.
+- **No unverified claims.** Do not write "I verified X", "I ran Y", "tests pass", or "this fixes Z" unless the shell output is in this turn's transcript. If you reason about behavior without running, say "based on reading the code" instead of "I verified". Every verification claim in the sign-off must point to a command that actually ran in this session.
+- **Destructive auto-execution**: any task marked "safe" or "auto-run" that modifies user-visible state (history files, config, preferences, installed software) must require explicit confirmation.
+- **Release artifacts missing**: verify every artifact listed in release notes, release templates, or project workflows exists and has been uploaded before declaring done.
+- **Generated artifact drift**: if source changes require generated or bundled outputs, verify the output was regenerated and included.
+- **Version skew**: release version fields across manifests, package metadata, app configs, changelogs, tags, or lockfiles must stay synchronized.
+- **Unknown identifiers in diff**: any function, variable, or type introduced in the diff that does not exist in the codebase is a hard stop. Grep before writing or approving any reference: `grep -r "name" .` -- no results outside the diff = does not exist.
+- **Injection and validation**: SQL, command, path injection at system entry points. Credentials hardcoded, logged, committed, or copied into public docs.
+- **Dependency changes**: unexpected additions or version bumps in package.json, Cargo.toml, go.mod, requirements.txt. Flag any new dependency not obviously required by the diff.
+- **Safety sinks**: destructive file operations, shell or AppleScript construction, cwd/path/symlink traversal, approval or sandbox boundary changes, signing/appcast flows, and auth prompts need explicit review of validation, rollback, and user-confirmation behavior.
 
-- **GitHub issue or PR number mismatch**: before commenting on, closing, or acting on a GitHub issue or PR, verify the number matches the one discussed in this session. Do not rely on memory. Run `gh issue view N` or `gh pr view N` to confirm the title matches before writing.
+## Knowledge Sync
 
-- **GitHub comment style**: PR review comments and issue replies must be brief (1-2 sentences), natural-sounding, and friendly. Not verbose. Not formatted like a report. Not AI-sounding. If a comment needs more than 2 sentences, it should be structured as a list, not a paragraph.
+After reviewing the diff, check whether it introduces invariants not yet captured in project docs:
 
-- **Injection and validation**: SQL, command, path injection; inputs that bypass validation at system entry points
-- **Shared state**: unsynchronized writes, check-then-act races, missing locks
-- **External trust**: output from LLMs, APIs, or user input fed into commands or queries without sanitization; credentials hardcoded or logged
-- **Missing cases**: enum or match exhaustiveness; use grep on sibling values outside the diff to confirm
-- **Unknown identifiers in diff**: any function, method, variable, or type name introduced in the diff that does not exist in the codebase is a hard stop. Before writing or approving a reference to an identifier, grep for it: `grep -r "identifier_name" .` -- if it returns no results outside the diff itself, it does not exist. Do not assume the name is correct from memory.
+- New safety gate or path-guard rule → AGENTS.md
+- New UI constraint (layout rule, animation, overlay registration) → `.claude/rules/*.md`
+- New deploy/release step or artifact → AGENTS.md or `docs/`
+- New cross-file sync requirement (enum ↔ HTML anchors, Swift keys ↔ xcstrings) → AGENTS.md
 
-- **Dependency changes**: unexpected additions or version bumps in `package.json`, `Cargo.toml`, `go.mod`, or `requirements.txt`. Flag any new dependency not obviously required by the diff.
-
-### Soft signals (flag, do not block)
-
-Worth noting but not merge-blocking:
-
-- Side effects that are not obvious from the function signature
-- Magic literals that should be named constants
-- Dead code, stale comments, style gaps relative to the surrounding code
-- Untested new paths
-- Loop queries, missing indexes, unbounded growth
+If found, either apply the doc update as `safe_auto` (when the invariant is clear from the diff) or flag it in the sign-off as `doc debt`. When no new invariants exist, sign-off says `doc debt: none`.
 
 ## Specialist Review (Standard and Deep only)
 
-Load `references/persona-catalog.md` to determine which specialists activate for this diff.
+Load `references/persona-catalog.md` to determine which specialists activate. Launch all activated specialists in parallel via the environment's agent or sub-agent facility when available, passing the full diff. If no parallel reviewer facility exists, run the specialist passes sequentially in the same session.
 
-For each specialist that activates: launch it via the Agent tool, passing the full diff and the relevant agent prompt from `agents/`. Run all activated specialists in parallel.
-
-After all agents complete, merge findings:
-- Deduplicate: if two specialists flag the same file and line, keep the more severe finding and note the agreement
-- Cross-reviewer agreement on the same issue raises its priority
-
-Then proceed to Autofix Routing before presenting findings.
+Merge findings: when two specialists flag the same code location, keep the higher severity and note cross-reviewer agreement. Findings on different code locations are never duplicates even if they share a theme.
 
 ## Autofix Routing
-
-Classify each finding from the standard review and specialists:
 
 | Class | Definition | Action |
 |-------|------------|--------|
 | `safe_auto` | Unambiguous, risk-free: typos, missing imports, style inconsistencies | Apply immediately |
-| `gated_auto` | Likely correct but changes behavior: null checks on new paths, error handling additions | Batch into one AskUserQuestion |
+| `gated_auto` | Likely correct but changes behavior: null checks, error handling additions | Batch into one user confirmation block |
 | `manual` | Requires judgment: architecture, behavior changes, security tradeoffs | Present in sign-off |
-| `advisory` | Informational, no code change warranted | Note in sign-off |
+| `advisory` | Informational only | Note in sign-off |
 
-Apply all `safe_auto` fixes before presenting anything. Batch all `gated_auto` items into one confirmation block. Never ask separately about each one.
+Apply all `safe_auto` fixes first. Batch all `gated_auto` into one confirmation block. Never ask separately about each one.
 
 ## Adversarial Pass (Deep only)
 
-After all findings are collected, run one focused adversarial pass. Ask: "If I were trying to break this system through this specific diff, what would I exploit?"
-
-Four angles to check (load `references/persona-catalog.md` for detail):
-1. **Assumption violation** -- what does this code assume is always true, and what breaks when it is not?
-2. **Composition failures** -- what breaks when this new code runs concurrently with the rest of the system?
-3. **Cascade construction** -- what sequence of valid operations leads to an invalid state?
-4. **Abuse cases** -- what happens on the 1000th request, during a deploy, or with concurrent mutations?
-
-Suppress adversarial findings below 0.60 confidence. Only file findings with a concrete scenario.
-
-## How to Handle Findings
-
-Fix directly when the correct answer is unambiguous: clear bugs, null checks on crash paths, style inconsistencies matching the surrounding code, trivial test additions.
-
-Batch everything else into a single AskUserQuestion when the fix involves behavior changes, architectural choices, or anything where "right" depends on intent:
-
-```
-[N items need a decision]
-
-1. [hard stop / signal] What: ... Suggested fix: ... Keep / Skip?
-2. ...
-```
+"If I were trying to break this system through this specific diff, what would I exploit?" Four angles (see `references/persona-catalog.md`): assumption violation, composition failures, cascade construction, abuse cases. Suppress findings below 0.60 confidence.
 
 ## GitHub Operations
 
-Use `gh` CLI for GitHub interactions. Prefer `gh` over GitHub MCP or raw API.
-
-- Before commenting on or closing an issue/PR, verify the number matches this session.
-- Before merging, confirm CI status passes.
-- Keep PR/issue comments brief (1-2 sentences), natural, like a colleague.
-
-## Judgment Quality
-
-Beyond correctness, ask three questions a senior reviewer would ask:
-
-- **Right problem?** Does the diff solve what was actually needed, or a slightly different version of it? A technically correct solution to the wrong problem is a bug with extra steps.
-- **Mature approach?** Is the implementation idiomatic for this codebase and language, or does it introduce a pattern that will confuse the next person? Clever code that nobody else can maintain is a liability.
-- **Honest edge cases?** Does the code handle failure modes and boundary conditions explicitly, or does it silently succeed in the happy path and silently corrupt in the others? Check what happens on nil, empty, zero, concurrent access, and upstream failure.
-
-These do not block a merge on their own, but a "no" on any of them is worth flagging explicitly.
-
-## Regression Coverage
-
-For every new code path: trace it, check if a test covers it. If this change fixes a bug, a test that fails on the old code must exist before this is done.
+Use `gh` CLI for all GitHub interactions, not MCP or raw API. Confirm CI passes before merging.
 
 ## Verification
 
-After all fixes are applied, run `scripts/run-tests.sh` from this skill via `CLAUDE_SKILL_DIR`, or the project's known verification command:
+Run `bash scripts/run-tests.sh` from this skill directory, or the project's known verification command from the target repository. Paste the full output.
 
-```bash
-bash "$CLAUDE_SKILL_DIR/scripts/run-tests.sh"
-```
+If the script exits non-zero or prints `(no test command detected)`: halt. Do not claim done. Ask the user for the verification command before proceeding. If the user also cannot provide one, document this explicitly in the sign-off as `verification: none -- no command available` and flag it as a structural gap, not a pass.
 
-If nothing is detected, ask the user for the verification command before proceeding.
-
-Paste the full output. Report exact numbers. Done means: the command ran in this session and passed.
-
-If no verification command exists or the command fails: halt. Do not claim done. Ask the user how to verify before proceeding.
-
-If any of these phrases appear in your reasoning, stop and run the verification command before continuing:
-
-- "should work now" / "should be fine"
-- "probably correct" / "probably fixed"
-- "seems to be working" / "appears to work"
-- "I'm confident" / "clearly fixed"
-- "trivial change, no need to verify"
-
-These are rationalization patterns, not evidence. Verification ran and passed = done. Everything else = not done.
+For bug fixes: a regression test that fails on the old code must exist before the fix is done.
 
 ## Gotchas
 
-Real failures from prior sessions, in order of frequency:
+| What happened | Rule |
+|---------------|------|
+| Commented on #249 when discussing #255 | Run `gh issue view N` to confirm title before acting |
+| PR comment sounded like a report | 1-2 sentences, natural, like a colleague. Not structured, not AI-sounding. |
+| PR comment used bullet points | Write as short paragraphs, one thought per paragraph; thank the contributor first |
+| article.en.md inside _posts_en/ doubled the suffix | Check naming convention of existing files in the target directory first |
+| Deployed without env vars set | Run `vercel env ls` before deploying; diff against local keys |
+| Push failed from auth mismatch | Run `git remote -v` before the first push in a new project |
 
-- **Commented on the wrong issue.** Left a comment on #249 when the conversation was about #255. Run `gh issue view N` or `gh pr view N` to confirm title before commenting or closing.
-- **PR comments sounded like a report.** User had to iterate multiple times on comment tone. GitHub comments should be 1-2 sentences, natural, like a colleague, not a structured review output.
-- **Announced release done before uploading artifacts.** Pushed the GitHub release with no .dmg/.zip/.sha256 attached. Verify every artifact listed in the release template exists as a local file and has been uploaded.
-- **Language suffix doubled.** Placed `article.en.md` inside `_posts_en/`, generating a duplicate URL. Check the naming convention of existing files in the target directory first.
-- **Skipped verification on "trivial" changes.** "It's a one-line fix" is how trivial changes break things. If the urge to skip arises, run `scripts/run-tests.sh` anyway.
-- **Deployed without env vars.** Pushed to Vercel while API keys only existed in local `.env.local`. Site returned 401 on every request. Run `vercel env ls` or equivalent and diff against local keys before deploying.
-- **Git push failed from auth mismatch.** Two failed pushes before discovering remote was HTTPS but local expected SSH. Run `git remote -v` and verify auth method before the first push in a new project.
+## Document Review
+
+For document, PDF, white paper, or prose review, route to `/write` (Document Review Mode). `/check` handles code diffs and release artifacts only.
 
 ## Sign-off
 
@@ -194,8 +221,8 @@ files changed:    N (+X -Y)
 scope:            on target / drift: [what]
 review depth:     quick / standard / deep
 hard stops:       N found, N fixed, N deferred
-signals:          N noted
 specialists:      [security, architecture] or none
 new tests:        N
+doc debt:         none / AGENTS.md needs X / rules need Y
 verification:     [command] -> pass / fail
 ```
