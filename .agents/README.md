@@ -18,7 +18,7 @@ canonical skill 文件放 `skills/`，元数据 lock 放 `.skill-lock.json`。
 | 风险 | 后果 |
 |---|---|
 | OpenClaw 的 copy 模式被翻成 symlink | OpenClaw 加载不出 skill（symlink 时有目录权限/解析故障，2026-05-08 实测） |
-| 自定义 `pluginName` 被清空 | `lark/waza/baoyu-skills/obsidian-skills/readwise-skills` 退化成上游零散名 |
+| 自定义 `pluginName` 被清空 | `lark/waza/baoyu-skills/obsidian-skills/readwise-skills/chrome-devtools` 退化成上游零散名 |
 
 包装脚本 `safe-skills-update.sh` 干的：
 
@@ -40,6 +40,26 @@ canonical skill 文件放 `skills/`，元数据 lock 放 `.skill-lock.json`。
 | 装新 skill 到 OpenClaw | `npx skills add <source> -g -a openclaw -s <names> -y --copy --dangerously-accept-openclaw-risks` |
 | 删 skill | `npx skills remove <name> -g -y` |
 | 改 pluginName 规则 | 编辑 `~/.agents/.pluginName-overrides.json`，下次 update 自动生效 |
+| 注册一个本地自建 skill（无 github source）| 详见下方「本地自建 skill 注册」段 |
+
+### 本地自建 skill 注册（Personal 分组）
+
+直接把 skill 目录放到 `~/.agents/skills/<name>/` 后，`npx skills ls -g` 默认会把它扔到 `General` 兜底分组。如果想归到 `Personal`（或别的）分组，给 `.skill-lock.json` 手加一条 entry：
+
+```jsonc
+"<name>": {
+  "source": "812lcl/personal-skills",   // 占位，本地无远端
+  "sourceType": "local",                // CLI 见 local 不会拉远端
+  "sourceUrl": "",
+  "skillPath": "SKILL.md",              // 或 skill.md，按真实文件
+  "skillFolderHash": "<sha1 of SKILL.md>",
+  "installedAt": "<ISO ts>",
+  "updatedAt": "<ISO ts>",
+  "pluginName": "Personal"
+}
+```
+
+实测过 `safe-skills-update.sh`：local entry 被 update 循环跳过、pluginName 保留、不会被清理（2026-05-15）。当前已注册：`knowledge-clip` / `obsidian-review` / `service-health` / `weekly-report`。
 
 ### CLI 单 agent 强制 copy 的问题 + 修复模板
 

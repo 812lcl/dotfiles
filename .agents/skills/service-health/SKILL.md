@@ -147,7 +147,7 @@ Agent({
   subagent_type: "general-purpose",
   prompt: "你需要对服务 <service>@<env> 做健康检查。
 
-  执行 ~/.claude/skills/service-health/SKILL.md 的 7 项检查流程，使用以下工具：
+  执行 ~/.agents/skills/service-health/SKILL.md 的 7 项检查流程，使用以下工具：
   - brain/tools/jenkins.sh
   - brain/tools/sls-query.sh
   - brain/tools/arms-pod-metrics.py
@@ -161,7 +161,7 @@ Agent({
   - DB host + Redis 实例（§ 2.X 和 § 3）
   - Nacos cluster + namespace（§ 1.3 + § 2.X 的 dataId）
 
-  阈值判定见 ~/.claude/skills/service-health/references/thresholds.md。
+  阈值判定见 ~/.agents/skills/service-health/references/thresholds.md。
 
   按 thresholds.md 中的输出格式返回单服务报告，**500 行内**。如果发现 CRIT 级异常，把根因猜测 + 下一步建议放在最前面。"
 })
