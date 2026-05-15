@@ -334,9 +334,9 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/larksuite/cli.git",
       "skillPath": "skills/lark-doc/SKILL.md",
-      "skillFolderHash": "ef365ccd91349b6e3668e57c59655e9090dd61ae",
+      "skillFolderHash": "fdc83f73b5e4f8bd79a924d6a7bcdae410709e75",
       "installedAt": "2026-04-02T01:18:57.993Z",
-      "updatedAt": "2026-05-15T08:13:01.906Z",
+      "updatedAt": "2026-05-15T10:02:27.054Z",
       "pluginName": "lark"
     },
     "lark-drive": {
@@ -645,7 +645,8 @@
       "skillPath": "skills/a11y-debugging/SKILL.md",
       "skillFolderHash": "49deb16531307e3333894df1839611e2d80958dc",
       "installedAt": "2026-05-09T07:56:56.785Z",
-      "updatedAt": "2026-05-15T08:21:13.530Z"
+      "updatedAt": "2026-05-15T08:21:13.530Z",
+      "pluginName": "chrome-devtools"
     },
     "chrome-devtools": {
       "source": "ChromeDevTools/chrome-devtools-mcp",
@@ -655,7 +656,8 @@
       "skillPath": "skills/chrome-devtools/SKILL.md",
       "skillFolderHash": "63a7f887177af2f59e6d761b9a1fd67b7c173925",
       "installedAt": "2026-05-09T07:56:56.822Z",
-      "updatedAt": "2026-05-15T08:21:48.025Z"
+      "updatedAt": "2026-05-15T08:21:48.025Z",
+      "pluginName": "chrome-devtools"
     },
     "chrome-devtools-cli": {
       "source": "ChromeDevTools/chrome-devtools-mcp",
@@ -665,7 +667,8 @@
       "skillPath": "skills/chrome-devtools-cli/SKILL.md",
       "skillFolderHash": "1d333eff605093c8f3e507d4ad0cd0d30be25c57",
       "installedAt": "2026-05-09T07:56:56.826Z",
-      "updatedAt": "2026-05-15T08:22:22.156Z"
+      "updatedAt": "2026-05-15T08:22:22.156Z",
+      "pluginName": "chrome-devtools"
     },
     "debug-optimize-lcp": {
       "source": "ChromeDevTools/chrome-devtools-mcp",
@@ -675,7 +678,8 @@
       "skillPath": "skills/debug-optimize-lcp/SKILL.md",
       "skillFolderHash": "692b98d63c0f0992cf3d3817416dd754346465ba",
       "installedAt": "2026-05-09T07:56:56.828Z",
-      "updatedAt": "2026-05-15T08:22:56.448Z"
+      "updatedAt": "2026-05-15T08:22:56.448Z",
+      "pluginName": "chrome-devtools"
     },
     "memory-leak-debugging": {
       "source": "ChromeDevTools/chrome-devtools-mcp",
@@ -685,7 +689,8 @@
       "skillPath": "skills/memory-leak-debugging/SKILL.md",
       "skillFolderHash": "7f58a30eb24ca2c302aebb58e9bb9b23fae9a96e",
       "installedAt": "2026-05-09T07:56:56.829Z",
-      "updatedAt": "2026-05-15T08:23:34.135Z"
+      "updatedAt": "2026-05-15T08:23:34.135Z",
+      "pluginName": "chrome-devtools"
     },
     "troubleshooting": {
       "source": "ChromeDevTools/chrome-devtools-mcp",
@@ -695,7 +700,48 @@
       "skillPath": "skills/troubleshooting/SKILL.md",
       "skillFolderHash": "e6dc0436b0c7cf41a0e139b5380879b7a4eacd32",
       "installedAt": "2026-05-09T07:56:56.832Z",
-      "updatedAt": "2026-05-15T08:24:05.450Z"
+      "updatedAt": "2026-05-15T08:24:05.450Z",
+      "pluginName": "chrome-devtools"
+    },
+    "knowledge-clip": {
+      "source": "812lcl/personal-skills",
+      "sourceType": "local",
+      "sourceUrl": "",
+      "skillPath": "SKILL.md",
+      "skillFolderHash": "574351febd981f76ea5004987ffbd52af2ac48ba",
+      "installedAt": "2026-05-15T10:00:26.506Z",
+      "updatedAt": "2026-05-15T10:00:26.506Z",
+      "pluginName": "Personal"
+    },
+    "obsidian-review": {
+      "source": "812lcl/personal-skills",
+      "sourceType": "local",
+      "sourceUrl": "",
+      "skillPath": "SKILL.md",
+      "skillFolderHash": "92382ea26bd7bf695fc57b108f76ad21a57c7453",
+      "installedAt": "2026-05-15T10:00:26.506Z",
+      "updatedAt": "2026-05-15T10:00:26.506Z",
+      "pluginName": "Personal"
+    },
+    "service-health": {
+      "source": "812lcl/personal-skills",
+      "sourceType": "local",
+      "sourceUrl": "",
+      "skillPath": "SKILL.md",
+      "skillFolderHash": "45f0d0f28b4fc37c393ddf86855d4921203225b8",
+      "installedAt": "2026-05-15T10:00:26.506Z",
+      "updatedAt": "2026-05-15T10:00:26.506Z",
+      "pluginName": "Personal"
+    },
+    "weekly-report": {
+      "source": "812lcl/personal-skills",
+      "sourceType": "local",
+      "sourceUrl": "",
+      "skillPath": "SKILL.md",
+      "skillFolderHash": "281319353ad6a676c24d5742c1957c5d9fa08e59",
+      "installedAt": "2026-05-15T10:00:26.506Z",
+      "updatedAt": "2026-05-15T10:00:26.506Z",
+      "pluginName": "Personal"
     }
   },
   "dismissed": {
