@@ -10,176 +10,6 @@
       "installedAt": "2026-04-08T01:37:17.010Z",
       "updatedAt": "2026-05-15T07:48:50.703Z"
     },
-    "baoyu-article-illustrator": {
-      "source": "JimLiu/baoyu-skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/JimLiu/baoyu-skills.git",
-      "skillPath": "skills/baoyu-article-illustrator/SKILL.md",
-      "skillFolderHash": "da19506d70bc9adfff62e92c8792d1b40d54d83f",
-      "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-15T07:49:54.108Z",
-      "pluginName": "baoyu-skills"
-    },
-    "baoyu-comic": {
-      "source": "JimLiu/baoyu-skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/JimLiu/baoyu-skills.git",
-      "skillPath": "skills/baoyu-comic/SKILL.md",
-      "skillFolderHash": "ce4ba2a52dccc8359087c40e8d0aab60ee0a9fcc",
-      "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-15T07:51:06.204Z",
-      "pluginName": "baoyu-skills"
-    },
-    "baoyu-compress-image": {
-      "source": "JimLiu/baoyu-skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/JimLiu/baoyu-skills.git",
-      "skillPath": "skills/baoyu-compress-image/SKILL.md",
-      "skillFolderHash": "20c6b0e332dd370d45859d995f1c89835270138d",
-      "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-15T07:52:06.687Z",
-      "pluginName": "baoyu-skills"
-    },
-    "baoyu-cover-image": {
-      "source": "JimLiu/baoyu-skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/JimLiu/baoyu-skills.git",
-      "skillPath": "skills/baoyu-cover-image/SKILL.md",
-      "skillFolderHash": "caa0d3059a48e80030861da6365e95a5ebd52ab2",
-      "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-15T07:53:08.877Z",
-      "pluginName": "baoyu-skills"
-    },
-    "baoyu-danger-gemini-web": {
-      "source": "JimLiu/baoyu-skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/JimLiu/baoyu-skills.git",
-      "skillPath": "skills/baoyu-danger-gemini-web/SKILL.md",
-      "skillFolderHash": "7435b6b0d58aaadfb9248fc66328862e07fde958",
-      "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-15T07:54:13.576Z",
-      "pluginName": "baoyu-skills"
-    },
-    "baoyu-danger-x-to-markdown": {
-      "source": "JimLiu/baoyu-skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/JimLiu/baoyu-skills.git",
-      "skillPath": "skills/baoyu-danger-x-to-markdown/SKILL.md",
-      "skillFolderHash": "4ac26c225a5ba22ae715c387f3d68f1a5674a7f0",
-      "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-15T07:55:21.260Z",
-      "pluginName": "baoyu-skills"
-    },
-    "baoyu-format-markdown": {
-      "source": "JimLiu/baoyu-skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/JimLiu/baoyu-skills.git",
-      "skillPath": "skills/baoyu-format-markdown/SKILL.md",
-      "skillFolderHash": "4973ce35522c3ca6a3dd4238e73ac431fcac2207",
-      "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-15T07:56:25.376Z",
-      "pluginName": "baoyu-skills"
-    },
-    "baoyu-image-gen": {
-      "source": "JimLiu/baoyu-skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/JimLiu/baoyu-skills.git",
-      "skillPath": "skills/baoyu-image-gen/SKILL.md",
-      "skillFolderHash": "689873055771e6bc87193346b3a1bc57f15f1bb2",
-      "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-15T07:57:34.313Z",
-      "pluginName": "baoyu-skills"
-    },
-    "baoyu-infographic": {
-      "source": "JimLiu/baoyu-skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/JimLiu/baoyu-skills.git",
-      "skillPath": "skills/baoyu-infographic/SKILL.md",
-      "skillFolderHash": "a7164cd959508d9711d65a6597f93425306a8658",
-      "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-15T07:58:36.768Z",
-      "pluginName": "baoyu-skills"
-    },
-    "baoyu-markdown-to-html": {
-      "source": "JimLiu/baoyu-skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/JimLiu/baoyu-skills.git",
-      "skillPath": "skills/baoyu-markdown-to-html/SKILL.md",
-      "skillFolderHash": "c5c478f91f5c81da21cfc7754b7bbf82df7a3377",
-      "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-15T07:59:44.324Z",
-      "pluginName": "baoyu-skills"
-    },
-    "baoyu-post-to-wechat": {
-      "source": "JimLiu/baoyu-skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/JimLiu/baoyu-skills.git",
-      "skillPath": "skills/baoyu-post-to-wechat/SKILL.md",
-      "skillFolderHash": "7267e06a3b4a3e90dc896a51d4d306073044792c",
-      "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-15T08:00:56.601Z",
-      "pluginName": "baoyu-skills"
-    },
-    "baoyu-post-to-weibo": {
-      "source": "JimLiu/baoyu-skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/JimLiu/baoyu-skills.git",
-      "skillPath": "skills/baoyu-post-to-weibo/SKILL.md",
-      "skillFolderHash": "dcfdb0744628d3be502309c73610bd475fac1edb",
-      "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-15T08:02:09.204Z",
-      "pluginName": "baoyu-skills"
-    },
-    "baoyu-post-to-x": {
-      "source": "JimLiu/baoyu-skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/JimLiu/baoyu-skills.git",
-      "skillPath": "skills/baoyu-post-to-x/SKILL.md",
-      "skillFolderHash": "8df511db75ffdce56df2f5b2911d203c6a203894",
-      "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-15T08:03:15.034Z",
-      "pluginName": "baoyu-skills"
-    },
-    "baoyu-slide-deck": {
-      "source": "JimLiu/baoyu-skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/JimLiu/baoyu-skills.git",
-      "skillPath": "skills/baoyu-slide-deck/SKILL.md",
-      "skillFolderHash": "b54878531b9640480ddb869c8caad0fed9a454f7",
-      "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-15T08:07:12.936Z",
-      "pluginName": "baoyu-skills"
-    },
-    "baoyu-translate": {
-      "source": "JimLiu/baoyu-skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/JimLiu/baoyu-skills.git",
-      "skillPath": "skills/baoyu-translate/SKILL.md",
-      "skillFolderHash": "af0bfd8cf48afcd89b0fd3b244ab96df391cfb77",
-      "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-15T08:08:20.008Z",
-      "pluginName": "baoyu-skills"
-    },
-    "baoyu-url-to-markdown": {
-      "source": "JimLiu/baoyu-skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/JimLiu/baoyu-skills.git",
-      "skillPath": "skills/baoyu-url-to-markdown/SKILL.md",
-      "skillFolderHash": "33b1cda80aa387d3e48b7525daf1c74d92ca8179",
-      "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-15T08:09:24.492Z",
-      "pluginName": "baoyu-skills"
-    },
-    "baoyu-xhs-images": {
-      "source": "JimLiu/baoyu-skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/JimLiu/baoyu-skills.git",
-      "skillPath": "skills/baoyu-xhs-images/SKILL.md",
-      "skillFolderHash": "ee66a585ffd01969adddf43dd7d337142533e77a",
-      "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-15T08:10:38.967Z",
-      "pluginName": "baoyu-skills"
-    },
     "book-review": {
       "source": "readwiseio/readwise-skills",
       "sourceType": "github",
@@ -200,16 +30,6 @@
       "updatedAt": "2026-03-20T22:16:17.996Z",
       "pluginName": "readwise-skills"
     },
-    "check": {
-      "source": "tw93/Waza",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/tw93/Waza.git",
-      "skillPath": "skills/check/SKILL.md",
-      "skillFolderHash": "54f1d31913f327b4981d209ef789402f813353ea",
-      "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-15T08:10:46.479Z",
-      "pluginName": "waza"
-    },
     "defuddle": {
       "source": "kepano/obsidian-skills",
       "sourceType": "github",
@@ -219,16 +39,6 @@
       "installedAt": "2026-05-09T11:05:00.000Z",
       "updatedAt": "2026-05-15T08:10:52.719Z",
       "pluginName": "obsidian-skills"
-    },
-    "design": {
-      "source": "tw93/Waza",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/tw93/Waza.git",
-      "skillPath": "skills/design/SKILL.md",
-      "skillFolderHash": "f07620aba3a520635ef6db4a05ad8643eacc8927",
-      "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-15T08:11:01.045Z",
-      "pluginName": "waza"
     },
     "feed-catchup": {
       "source": "readwiseio/readwise-skills",
@@ -249,16 +59,6 @@
       "installedAt": "2026-03-20T22:16:32.079Z",
       "updatedAt": "2026-05-15T08:11:08.497Z"
     },
-    "health": {
-      "source": "tw93/Waza",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/tw93/Waza.git",
-      "skillPath": "skills/health/SKILL.md",
-      "skillFolderHash": "452adf87a5f2e089885a35010482f6c3073ca649",
-      "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-15T08:11:28.249Z",
-      "pluginName": "waza"
-    },
     "highlight-graph": {
       "source": "readwiseio/readwise-skills",
       "sourceType": "github",
@@ -268,16 +68,6 @@
       "installedAt": "2026-03-20T22:16:18.489Z",
       "updatedAt": "2026-03-20T22:16:18.489Z",
       "pluginName": "readwise-skills"
-    },
-    "hunt": {
-      "source": "tw93/Waza",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/tw93/Waza.git",
-      "skillPath": "skills/hunt/SKILL.md",
-      "skillFolderHash": "125897be4fdfeda35b4e7b736d8db1aaa75a036c",
-      "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-15T08:11:37.484Z",
-      "pluginName": "waza"
     },
     "json-canvas": {
       "source": "kepano/obsidian-skills",
@@ -539,16 +329,6 @@
       "updatedAt": "2026-03-20T22:16:18.978Z",
       "pluginName": "readwise-skills"
     },
-    "read": {
-      "source": "tw93/Waza",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/tw93/Waza.git",
-      "skillPath": "skills/read/SKILL.md",
-      "skillFolderHash": "97f8b7872a6e1fa132454fa0b3ba04b1016bdab0",
-      "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-15T08:17:41.162Z",
-      "pluginName": "waza"
-    },
     "reader-recap": {
       "source": "readwiseio/readwise-skills",
       "sourceType": "github",
@@ -607,16 +387,6 @@
       "updatedAt": "2026-03-20T22:16:19.957Z",
       "pluginName": "readwise-skills"
     },
-    "think": {
-      "source": "tw93/Waza",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/tw93/Waza.git",
-      "skillPath": "skills/think/SKILL.md",
-      "skillFolderHash": "c1d0390b277a447d2b15c3993fd77a5b333c5d22",
-      "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-15T08:19:55.518Z",
-      "pluginName": "waza"
-    },
     "triage": {
       "source": "readwiseio/readwise-skills",
       "sourceType": "github",
@@ -626,16 +396,6 @@
       "installedAt": "2026-03-20T22:16:20.192Z",
       "updatedAt": "2026-03-20T22:16:20.192Z",
       "pluginName": "readwise-skills"
-    },
-    "write": {
-      "source": "tw93/Waza",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/tw93/Waza.git",
-      "skillPath": "skills/write/SKILL.md",
-      "skillFolderHash": "48f04935fab000e0ffb7cd22820c02cd672b6175",
-      "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-15T08:20:15.294Z",
-      "pluginName": "waza"
     },
     "a11y-debugging": {
       "source": "ChromeDevTools/chrome-devtools-mcp",
