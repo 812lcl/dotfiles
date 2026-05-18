@@ -1,4 +1,38 @@
-disable_response_storage = true
+model = "gpt-5.5"
+model_reasoning_effort = "xhigh"
 personality = "pragmatic"
-model = "gpt-5.3-codex"
-model_reasoning_effort = "medium"
+approval_policy = "on-request"
+sandbox_mode = "danger-full-access"
+
+[tui]
+notification_condition = "always"
+
+[tui.model_availability_nux]
+"gpt-5.5" = 4
+
+[mcp_servers]
+[mcp_servers.code-review-graph]
+type = "stdio"
+command = "uvx"
+args = ["code-review-graph", "serve"]
+
+[sandbox_workspace_write]
+network_access = true
+
+[shell_environment_policy]
+inherit = "core"
+
+[features]
+multi_agent = true
+memories = true
+chronicle = false
+
+[plugins."browser-use@openai-bundled"]
+enabled = true
+
+[plugins."chrome@openai-bundled"]
+enabled = true
+
+[memories]
+generate_memories = true
+use_memories = true

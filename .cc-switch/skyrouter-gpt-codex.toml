@@ -1,0 +1,74 @@
+model_provider = "sky_router"
+model = "gpt-5.5"
+model_reasoning_effort = "xhigh"
+personality = "pragmatic"
+approval_policy = "on-request"
+sandbox_mode = "danger-full-access"
+
+[sandbox_workspace_write]
+network_access = true
+
+[shell_environment_policy]
+inherit = "core"
+
+[model_providers]
+
+[model_providers.sky_router]
+name = "SkyRouter"
+base_url = ""
+
+[model_providers.sky_router.http_headers]
+Authorization = "Bearer "
+
+[features]
+multi_agent = true
+memories = true
+chronicle = false
+
+[mcp_servers]
+
+[mcp_servers.Readwise]
+type = "stdio"
+command = "npx"
+args = ["-y", "@readwise/readwise-mcp"]
+
+[mcp_servers.Readwise.env]
+ACCESS_TOKEN = ""
+
+[mcp_servers.context7]
+type = "stdio"
+command = "npx"
+args = ["-y", "@upstash/context7-mcp"]
+
+[mcp_servers.code-review-graph]
+type = "stdio"
+command = "uvx"
+args = ["code-review-graph", "serve"]
+
+[plugins."computer-use@openai-bundled"]
+enabled = true
+
+[plugins."documents@openai-primary-runtime"]
+enabled = true
+
+[plugins."spreadsheets@openai-primary-runtime"]
+enabled = true
+
+[plugins."presentations@openai-primary-runtime"]
+enabled = true
+
+[tui.model_availability_nux]
+"gpt-5.5" = 4
+
+[plugins."browser-use@openai-bundled"]
+enabled = true
+
+[plugins."browser@openai-bundled"]
+enabled = true
+
+[plugins."chrome@openai-bundled"]
+enabled = true
+
+[memories]
+generate_memories = true
+use_memories = true

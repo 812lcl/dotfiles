@@ -1,0 +1,23 @@
+{
+  "models": {
+    "gpt-5.5": {
+      "limit": {
+        "context": 200000,
+        "output": 65536
+      },
+      "name": "gpt-5.5"
+    },
+    "gpt-5.4": {
+      "name": "gpt-5.4"
+    }
+  },
+  "name": "sk-gpt",
+  "npm": "@ai-sdk/openai",
+  "options": {
+    "apiKey": "",
+    "baseURL": "",
+    "headers": {
+      "app_key": "custom-token"
+    }
+  }
+}
