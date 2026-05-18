@@ -35,11 +35,16 @@ Plan 段额外数据源：
 | `objectives` | string | **Plan** | 本周目标（≤3 个） |
 | `need to Improve` | string | **Plan** | 基于上周 review 承诺的下阶段改善方向 |
 | `effectiveness` | string | Review | 整周效能感 |
-| `reading` | string | Review | 本周阅读 |
+| `reading` | string | Review | 本周阅读**内容**（从 `4-knowledge_hub/Clippings/` 本周新增 + readwise archive 提取主题分组，**不是天数**）|
 | `gratitude` | string | Review | 感激 |
 | `celebrations` | string | Review | 庆祝 |
 | `can do better` | string | Review | 可改善 |
 | `what I learned` | string | Review | 学到的 |
+
+⚠️ **写入前先 Read 上 1-2 周 weekly 文件对齐字段历史格式约定**。不同字段历史值风格差异大：
+- `effectiveness` 历史值是星级评分（如 `⭑⭑⭑⭑⭑`），**不要填文字描述**
+- `reading` 历史可能是 `X/N 天`，新约定是阅读内容主题分组
+- 多数字段是 1 句 20-40 字精炼描述，不是段落
 
 ### 正文 section（用 Edit 替换/追加）
 
@@ -55,7 +60,46 @@ Plan 段额外数据源：
 4. **运动记录** — 简短文字
 5. **本周笔记与反思** 下 4 个子段：值得庆祝 / 可以做得更好 / 本周感悟 / 家庭笔记
 6. **💡 本周关键收获** — 1-3 条关键收获
-7. **⏭️ 下周重点** — 下周 win 候选
+7. **⏭️ 下周重点** — 下周 win 候选（可留空 1-2 个关键词；Plan 段会直接做 W+1 完整「本周计划」section）
+
+### Plan 段需补 W+1 顶部「本周计划」section（模板没有，必须 skill 起草）
+
+⚠️ **Weekly 模板只覆盖 frontmatter + Days + 任务概览 + 周末总结**，没有顶部「本周计划」section（这是用户实际使用时手动加的）。skill 创建新 weekly 文件后，**必须**在 nav 行之后、`# Days` 之前补这一段。结构参考上一周 weekly 文件，骨架：
+
+```
+# 本周计划 📝
+
+> [!info] 本周目标（YYYY-MM-DD 至 YYYY-MM-DD）
+> 本周重心 ...
+
+> [!note] 上周遗留 & 延续事项
+> - ...（来自 review insight + 标 ❌/⏩ 的 task）
+
+## 💼 工作（第一优先级）
+本周聚焦方向（**主题方向 + 项目页 wikilink，不复制具体 task**）：
+- **主题 1** — 简述 → [[项目页]]
+- **主题 2** → [[项目页]]
+
+## 🏃 健康 & 家庭（红线）
+- [ ] 周级承诺 task（高 level，如「读书 ≥3/7」「周末不加班」）
+
+## 📚 学习与成长
+本周聚焦方向（同 💼 工作风格）：
+- **主题 1** → [[项目页]]
+
+## ⚠️ 红线
+- 红线条目
+
+## 💡 上周关键提醒
+> [!tip] 三条延续认知
+> 1. ...
+```
+
+**关键风格原则**：
+
+- **「💼 工作」/「📚 学习与成长」是主题方向**（无 `- [ ]` 勾选 + 用 `→ [[项目页]]` wikilink），**不复制项目页具体 task**。具体 task 留在项目页（已 ⏳ schedule），会被「本周任务概览」dataviewjs 自动归集到本周 weekly 视图。
+- **「🏃 健康 & 家庭」是周级承诺**（如「读书 ≥3/7」「英语启蒙 ≥4/7」），是 weekly 自带的 task，用 `- [ ]` 勾选。
+- **写完后**周末 Review 时**逐条结清**「💼/🏃/📚」三段的 task（done / cancel / 迁下周）— 见工作流第 4 步 4.9。
 
 ---
 
@@ -97,6 +141,9 @@ celebrations, can do better, gratitude,
 - 用 Skill 工具调用 `weekly-report` skill，让它输出按产品项目聚合的周报 Markdown
 - 不要重新跑 weekly-report 的 collector 脚本，直接用 skill 产出
 - 拿到产出后**原样**作为 `### 💼 工作` 的内容（不要重新组织）
+- ⚠️ weekly-report 产出末尾的「下周计划」段**只作为 Plan 段的输入参考**，**不**直接复制到本周 review 文件；下周计划由 Plan 段从任务池挑统一产出（避免多来源冲突）
+
+**1.6 盘点上周顶部「本周计划」section 的 task**（⭐ Review 段必查）：Read 上周 weekly 文件顶部「本周计划」section（💼 工作 / 🏃 健康 & 家庭 / 📚 学习与成长），列出所有 `- [ ]` task，准备在第 4.9 步跟用户对每条结清（done / cancel / 迁移）。
 
 ### 第 2 步：组织数据展示（按表格）
 
@@ -198,9 +245,20 @@ celebrations, can do better, gratitude,
 
 **4.8 Frontmatter**（用 Edit 逐个替换单行）
 - `objectives`: 4.7 整理出的下周重点
-- `effectiveness`: 整周效能感
-- `reading`: 本周阅读
-- `gratitude` / `celebrations` / `can do better` / `need to Improve` / `what I learned`: 来自对话和 daily 聚合
+- `effectiveness`: 整周效能感（**纯星级评分如 ⭑⭑⭑⭑⭑，不填文字描述**）
+- `reading`: 本周阅读**内容**（从 knowledge_hub Clippings + readwise archive 抽主题分组，不是天数）
+- `gratitude` / `celebrations` / `can do better` / `need to Improve` / `what I learned`: 来自对话和 daily 聚合，1-2 句精炼，不啰嗦
+
+**4.9 结清上周顶部「本周计划」section 的 task**（⭐ Review 段必做收尾）：基于 1.6 盘点结果，逐条跟用户决策标记方式：
+
+| 用户决策 | 标记方式 |
+|---|---|
+| ✅ Done（已达成）| `- [x] ... ✅ <今天日期>` |
+| ❌ Cancel（未达成 / 主动放弃）| `- [-] ... ❌ <今天日期> (备注原因)` |
+| ⏩ 迁 W+1 | 当前留 `- [-]` cancel + 备注「迁 W+1」；同时在 W+1 的「本周计划」section 重新写一条 |
+| ⏳ 持续中（无明确结果）| 保留 `- [ ]` 不动 |
+
+skill 一次列全，用户回复每条决策后**并行 Edit** 批量改 W 文件的 task 行。
 
 ---
 
@@ -230,6 +288,55 @@ weekly-report 会输出形如：
 注意：weekly-report 的产出有"产品项目"层级，但 weekly 模板只有「工作」一个小标题。在 `### 💼 工作` 下方直接贴 weekly-report 的多级产品项目结构，不需要再加额外小标题。
 
 如果 weekly-report 报错（如不在 Code/skywork/agent 目录下），降级方案：从本周 7 个 daily 的 `area::work` 已完成 task 中提取，按 daily 文件名提到的项目分组。明确告诉用户"weekly-report 跑不起来，用降级数据"。
+
+---
+
+## Plan 段补充流程（weekly 特定）
+
+通用 Plan 段（任务池挑序号 + W1 schedule 写入）见 SKILL.md 主流程。weekly 特有的补充步骤：
+
+### P.1 任务池清理建议（展示任务池前，可选）
+
+任务池积压 > 20 条时，先做一轮清理再挑序号。skill 主动指出以下 4 类候选，让用户决策：
+
+1. **疑似已完成但未标 ✅**：同 file 同名 / 近似名 task 历史已完成（grep 验证），但当前仍是 `- [ ]`
+2. **重复 / 可合并**：多条 task 描述高度重叠（同主题，不同切面），询问是否合并成一条
+3. **描述含混**：task 文本太宽（如「各 IM 稳定性优化」），询问是否细化、链接 wiki 或拆分
+4. **高优 ⏫/🔺 但无 ⏳ schedule**：紧急但日期没定，询问 schedule 到哪一天
+
+每条给具体建议（标完成 / 删 / 合并 / 细化 / schedule 哪天），让用户一次性回复批量决策，并行 Edit。
+
+### P.2 「下周方向」补建议 — review 给的方向 vs 任务池
+
+把上周 review 段 `need to Improve` + weekly-report「下周计划」段 + 用户口述方向，列出来跟任务池对比：
+
+- 任务池里**有对应** task → 标记为本周聚焦，进入 P.3 schedule
+- 任务池里**没对应** task → 用 N1 / N2 / N3 ... 编号问用户「要不要新建？在哪个项目页加？」
+
+### P.3 Schedule 分配策略需显式告知
+
+用户挑序号后，**先告知分配逻辑**再批量写入（不要直接默默分配到不同天）：
+
+| 策略 | 适用 |
+|---|---|
+| 按 area 分散 | work 排工作日、learning 排工作日早晚、technique/finance 排周末 |
+| 按 priority 集中 | ⏫ 排周一/二、🔼 排周中、无标 排周末 |
+| 全 ⏳ 同一天 | 让用户在 daily plan 时再细化 |
+
+如果用户挑 5+ 条没指定日期，给一个 area-based 默认方案，让用户认可或调整后再批量 Edit（W1 写入）。
+
+### P.4 起草 W+1 顶部「本周计划」section（必做）
+
+详见上方「目标文件结构 → Plan 段需补 W+1 顶部「本周计划」section」。这一步**和 frontmatter objectives 写入并行**，骨架包括：
+
+- 本周目标（≤3 个高 level 关键词，呼应 frontmatter objectives）
+- 上周遗留 & 延续事项（来自 review insight + 4.9 标 ❌/⏩ 的 task）
+- 💼 工作 / 📚 学习与成长 的主题方向 + 项目页 wikilink（**不复制具体 task**）
+- 🏃 健康 & 家庭的 `- [ ]` 周级承诺 task
+- ⚠️ 红线
+- 💡 上周关键提醒（3 条延续认知）
+
+⚠️ 写入前 Read 上周（W）顶部「本周计划」section 的实际格式，对齐结构和风格。
 
 ---
 
