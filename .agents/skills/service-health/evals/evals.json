@@ -1,0 +1,26 @@
+{
+  "skill_name": "service-health",
+  "evals": [
+    {
+      "id": 0,
+      "name": "chat-cn-prod-same-commit",
+      "prompt": "我刚刚部署了 chat 服务到 cn prod 环境，帮我做一次健康检查。",
+      "expected_output": "需要能识别：1) 这是同 commit 重发（Jenkins #10 与 #9 image_tag 末段 commit hash 相同 f0d5f472），不是真实部署；2) ERROR 主要根因是 OSS AccessKey LTAI5tDR6dMKXa4Vcba8QZKH 被禁用（占总 ERROR ~79%），需要在 Top ERROR Pattern 里给出占比、样例和根因猜测；3) 部署判定符号 ↑↻；4) 给出具体下一步建议（联系运维换 AK / 抓 Jenkins #10 触发者）",
+      "assertions": []
+    },
+    {
+      "id": 1,
+      "name": "gateway-us-prod-jenkins-misreport",
+      "prompt": "我刚刚部署了 agent-gateway 到 us prod，帮我做一次健康检查。",
+      "expected_output": "需要能识别：1) Jenkins #38 报 FAILURE 但实际部署成功 — 新 ReplicaSet 75c767769d 10/10 Running，SLS image_name 已切换到新 tag v_430_master_722329cd；2) 部署判定符号 ↑✗⚠（脚本误报）；3) ARMS pod 按 ReplicaSet 分组（新 RS / 旧 RS）展示 CPU/MEM/uptime；4) SLS ERROR 18934 中有关键字误中（INFO 日志中 error= 字段被全文匹配），真实 level=error 仅 ~1k；5) Top ERROR Pattern 里给出 record_usage_best_effort 样例",
+      "assertions": []
+    },
+    {
+      "id": 2,
+      "name": "channels-cn-prod-no-deploy",
+      "prompt": "我刚刚部署了 channels 到 cn prod，帮我做一次健康检查。",
+      "expected_output": "需要能识别：1) 用户说部署了但 Jenkins 最近 1h 内无新部署触发（最近一次部署是 11h 前 #11，同 commit de6fabd9 重发）；2) SLS image_name 全为旧 tag；3) 部署判定符号 — （部署未发生）；4) 主动反馈给用户：运行时未见新版本，请确认是否真触发了部署；5) 运行时指标 SLS/DB/Redis 全绿不阻塞",
+      "assertions": []
+    }
+  ]
+}
