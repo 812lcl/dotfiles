@@ -16,6 +16,8 @@ inherit = "core"
 [model_providers.sky_router]
 name = "SkyRouter"
 base_url = ""
+experimental_bearer_token = ""
+requires_openai_auth = true
 
 [model_providers.sky_router.http_headers]
 Authorization = "Bearer "
@@ -28,12 +30,7 @@ chronicle = false
 [mcp_servers]
 
 [mcp_servers.Readwise]
-type = "stdio"
-command = "npx"
-args = ["-y", "@readwise/readwise-mcp"]
-
-[mcp_servers.Readwise.env]
-ACCESS_TOKEN = ""
+url = "https://mcp2.readwise.io/mcp"
 
 [mcp_servers.context7]
 type = "stdio"
@@ -56,6 +53,11 @@ enabled = true
 
 [plugins."presentations@openai-primary-runtime"]
 enabled = true
+
+[tui]
+notification_condition = "always"
+status_line = ["model-with-reasoning", "current-dir", "git-branch", "branch-changes", "run-state", "context-used", "five-hour-limit", "weekly-limit", "used-tokens", "task-progress"]
+status_line_use_colors = true
 
 [tui.model_availability_nux]
 "gpt-5.5" = 4

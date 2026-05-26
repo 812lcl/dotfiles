@@ -80,11 +80,14 @@ description: Obsidian vault 中 Daily/Weekly/Monthly/Quarterly/Yearly review 与
 
 客观事实（任务完成数 / 习惯打卡 / git commit / 关键词） + 显著模式 + 与上一周期对比。**精简、不照搬全文**：daily <500 字，weekly <800 字，monthly+ 可更长但仍要分块。
 
-#### A.3 苏格拉底追问 2-3 个
+#### A.3 苏格拉底追问（按需，目标是填完待写字段）
 
-- 紧扣数据里的张力点（连续 N 天写"累"、某习惯下滑、某项目零推进、win 完成但情绪差…）
+- 紧扣数据里的张力点（连续 N 天写"累"、某习惯下滑、某项目零推进、win 完成但情绪差…），或针对某个待填字段（gratitude / celebrations / can do better / 等）针对性追问素材
 - 问"为什么"和"如何"，不问"是不是"
-- **一次一个**，等用户答完再问下一个；不超过 3 个
+- **一次一个**，等用户答完再问下一个
+- **不设硬上限**：目标是把本阶段要写的 frontmatter + 正文 callout 待填项的素材都凑齐。数据展示 + 2-3 个问题就够就停；不够继续追
+- 用户随时可说"跳过 X" / "X 留空"，那个字段不再追问，直接留空
+- 不要替用户写情绪/感悟字段（但可以追问到他说出口）；避免同一字段反复换问法、避免用户已明确表态后继续追问
 
 #### A.4 写回 Review 字段
 
@@ -113,9 +116,9 @@ description: Obsidian vault 中 Daily/Weekly/Monthly/Quarterly/Yearly review 与
 - **视图 A：四象限**（重要紧急 / 重要不紧急 / 不重要紧急 / 不重要不紧急）
 - **视图 B：按 backlink 分组**（任务所在文件路径）
 
-#### B.3 苏格拉底 1-2 个
+#### B.3 苏格拉底追问（按需，引出 Plan 字段）
 
-引出 win the day / objectives / theme 等 Plan 字段。问得比 Review 段少（用户已经在 review 段表达过情绪）。
+引出 win the day / objectives / theme / intention 等 Plan 字段。**不设硬上限** — 目标是这些字段都有用户的明确回应，但 Plan 段一般比 Review 段更直接（用户已在 review 段表达过情绪），常见 1-3 个就够。用户说"跳过"的字段可留空。
 
 #### B.4 用户挑序号 + 自动 schedule + 写回 Plan 字段
 
