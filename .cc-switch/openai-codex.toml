@@ -6,6 +6,8 @@ sandbox_mode = "danger-full-access"
 
 [tui]
 notification_condition = "always"
+status_line = ["model-with-reasoning", "current-dir", "git-branch", "branch-changes", "run-state", "context-used", "five-hour-limit", "weekly-limit", "used-tokens", "task-progress"]
+status_line_use_colors = true
 
 [tui.model_availability_nux]
 "gpt-5.5" = 4
@@ -15,6 +17,9 @@ notification_condition = "always"
 type = "stdio"
 command = "uvx"
 args = ["code-review-graph", "serve"]
+
+[mcp_servers.Readwise]
+url = "https://mcp2.readwise.io/mcp"
 
 [sandbox_workspace_write]
 network_access = true

@@ -13,7 +13,7 @@
   "commonConfigConfirmed": true,
   "language": "zh",
   "currentProviderClaude": "claude-official",
-  "currentProviderCodex": "05cf8d97-68bb-4bcf-b827-36314fb87d44",
+  "currentProviderCodex": "codex-official",
   "currentProviderGemini": "gemini-official",
   "skillSyncMethod": "auto",
   "skillStorageLocation": "cc_switch",

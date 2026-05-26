@@ -198,7 +198,7 @@ celebrations, can do better, gratitude,
 - 上周「下周重点」是 X，本周看起来只推进了一半
 ```
 
-### 第 3 步：苏格拉底式追问 2-3 个
+### 第 3 步：苏格拉底式追问（按需，目标是填完待写字段）
 
 **问题要从展示 E 的"模式"里来**，针对张力点：
 
@@ -213,7 +213,8 @@ celebrations, can do better, gratitude,
 
 **避免**：
 - 不要问"你这周开心吗" 这种空泛的
-- 不要把 5 个问题一次甩出
+- 一次问一个，但**不设硬上限** — 目标是 review 字段（effectiveness / gratitude / celebrations / can do better / need to Improve / what I learned 等）+ 正文反思四段（值得庆祝/可改善/感悟/家庭笔记）都有素材
+- 用户随时可说"跳过 X / X 留空"，那个字段不再追问
 - 不要替用户得结论。用户答完后用他的话整理
 
 ### 第 4 步：分段确认 + 写入
