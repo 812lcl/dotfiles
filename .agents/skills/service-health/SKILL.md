@@ -320,6 +320,80 @@ git log <commit_hash> -1 --pretty=format:'%h | %an | %ae | %ad | %s' --date=shor
 - **不要试图修代码**：只给修复建议（怎么改），不要 Edit 代码。健康检查是只读流程。
 - **commit author 是线索不是判决**：blame 显示 "Alice 三周前写的"，不代表 Alice 现在要负责修。结合 git log 看是否近期改过、是否有相关 review。
 
+### 1.9 业务 Grafana dashboard 关键 panel（必做）
+
+**目标**：拿到服务侧的业务可观测信号（HTTP rate / latency p95-p99 / 业务核心计数器），比 SLS 日志条数更直观。
+
+**工具**：`brain/tools/grafana-dashboard.py <URL>`。dashboard JSON 已缓存进 `brain/knowledge/`，**panel 跑指标只依赖 promql.py + ARMS Prometheus，不依赖 Grafana cookie**。cookie 仅 fetch / `--refresh` JSON 时需要。
+
+**服务 → dashboard 映射**：查 `brain/knowledge/infra-env-ssot.md § 1.6` 的「业务 dashboard」表，唯一来源，**不要在 SKILL 里硬编码 UID / 路径**。SSOT 已列：每个服务对应 host (saiali / saius / aliyun-cn) + UID + Knowledge 缓存路径 + 模板变量。SSOT 未列的服务（如 user_center / mis / ockernel）= 无独立业务 dashboard，此步标 `—` 跳过。
+
+**执行流程**：
+
+1. 在 SSOT § 1.6 查目标服务的 dashboard UID + host
+2. `brain/tools/grafana-dashboard.py <uid> --host <host> --list`，看当前 dashboard panel 标题
+3. **挑 3-5 个核心 panel**（标题/语义匹配下列任一关键词即可，不强求每类都有）：
+   - 流量类：`HTTP rate` / `QPS` / `request_count` / `messages_*`
+   - 错误类：`5xx` / `4xx ratio` / `non_200_rate` / `error_*`
+   - 时延类：`latency p95` / `p99` / `Time Cost`
+   - 业务核心计数器：`active connections` / `consumer exit reason` / `Finish Card Delay` 等服务特有指标
+4. 用 URL（带 `var-Datasource` / `var-source` 等，从 SSOT § 1.6 拼出对应 prod/test 集群的 datasource 名）+ `--panels <id1,id2,...>` 跑出来
+5. 部署前后看趋势：再跑 `--since 1h` 看 panel 在 T 时刻前后是否有阶跃
+
+**判定**：
+- 各 panel 拿到数值且在该 dashboard 历史基线范围内 → ✓
+- panel 返回 "no series" → ⚠（该指标可能在该环境未采集，结合 SSOT § 1.4 SLS logstore 缺失情况判定）
+- promql.py 报错 → 见 `brain/tools/README.md § promql.py` 排错
+- dashboard JSON 缺失且 cookie 过期 → ❓ 跳过，**不阻塞其它检查**
+
+### 1.10 K8s deployment / pod 资源健康（部署后必做）
+
+**目标**：部署后看新 RS 的 pod 真的 Ready 起来了没、有没有 restart / OOM / probe failure / CPU throttle。
+
+**工具**：`brain/tools/grafana-dashboard.py` 走 aliyun-cn Grafana 的**通用 k8s dashboard**（一套面向所有 ACK 集群，按 `var-datasource` 切集群、按 `var-namespace` / `var-name` / `var-pod` 切目标）。
+
+**触发条件**：§ 1.1 判定为 `↑✓` / `↑▷` 时必做；非部署窗口可选。
+
+**Dashboard 列表 + UID + 缓存**：见 `brain/knowledge/infra-env-ssot.md § 1.6` 「通用 k8s dashboard」表（cluster / namespace / node / workload / deployment / pod 6 张），SKILL 不硬编码。本步主要用其中 2 张：
+- **Deployment**（看 desired/available 副本、rollout 进度）
+- **Pod**（看 restart count、probe failure、CPU vs limit、MEM vs limit）
+
+**调用方式**：用裸 UID + `--host` 走工具，参数从 SSOT 拿，**不要在 SKILL 里写死 URL / host / cluster_id**：
+
+```
+grafana-dashboard.py <UID> --host <host_key> --panels <ids> \
+  --var datasource=<ds> --var namespace=<ns> --var name=<dep> --var pod=<pod>
+```
+
+- `<UID>` / `<host_key>`：查 SSOT § 1.6 「通用 k8s dashboard」表
+- `<ds>`：查 SSOT § 1.6 「ARMS Prometheus 公网 endpoint」表（按目标环境取 datasource 名）
+- `<ns>`：查 SSOT § 1.2 Namespace 表（按服务取目标 namespace）
+- `<dep>` / `<pod>`：从 § 1.4 ARMS pod 列表抽，deployment 名 = `<env>-<service>-<region>`，pod 名再加 `-<rs-hash>-<suffix>`
+
+**关键 panel 名（按标题语义匹配，id 跑 `--list` 看实际）**：
+
+| 维度 | panel 标题关键词 | 用途 |
+|---|---|---|
+| Pod | Restart Count | 部署窗口外应为 0 |
+| Pod | Warning Events | 探针失败 / 调度失败等异常事件 |
+| Pod | CPU Usage Percent / CPU Throttled Percent | CPU 用量 vs limit |
+| Pod | Memory Percent / Memory Failcnt | MEM 用量 + OOMKilled 信号 |
+| Deployment | Replicas（desired / available / unavailable）| rollout 进度 |
+
+**判定**：
+
+| 指标 | ✓ | ⚠ | ✗ |
+|---|---|---|---|
+| Pod restart count（部署窗口外）| 0 | 1-2 | > 2 |
+| Probe failure rate | 0 | 偶发 | 持续 |
+| CPU usage / limit | < 70% | 70%-90% | > 90% throttle 风险 |
+| MEM usage / limit | < 70% | 70%-85% | > 85% OOMKilled 风险 |
+| desired ≠ available（rollout 时段外）| — | 短暂 | 持续 5min+ |
+
+**纪律**：
+- aliyun-cn cookie 过期会 fallback 到 stale dashboard 缓存（仍能跑 PromQL）；完全无缓存才标 ❓ 跳过
+- 这一项**只看 pod 健康编排面**，不重复 § 1.4 ARMS pod CPU/MEM 的内容；§ 1.4 看单 pod 性能曲线，§ 1.10 看 restart / probe / rollout 异常
+
 ## 第 2 步：多服务并行（subagent）
 
 若服务数 ≥ 2，**每服务一个子代理**：
@@ -330,12 +404,14 @@ Agent({
   subagent_type: "general-purpose",
   prompt: "你需要对服务 <service>@<env> 做健康检查。
 
-  执行 ~/.claude/skills/service-health\ 2/SKILL.md 的 6 项检查流程，使用以下工具：
+  执行 ~/.agents/skills/service-health/SKILL.md 的 10 项检查流程，使用以下工具：
   - brain/tools/jenkins.sh
   - brain/tools/sls-query.sh
   - brain/tools/arms-pod-metrics.py
   - brain/tools/aliyun-rds-metrics.py
   - brain/tools/aliyun-redis-metrics.py
+  - brain/tools/promql.py             # 任意 ARMS PromQL（4 集群已接入）
+  - brain/tools/grafana-dashboard.py  # 业务 dashboard 关键 panel + k8s 通用 dashboard
 
   **关键纪律**：先做 § 1.1 运行时部署证据（SLS image_name 分布 + ARMS pod image），
   得出综合部署判定后再看 Jenkins。Jenkins 状态只是辅助信号。
@@ -346,15 +422,19 @@ Agent({
   3) Top 3-5 WARN pattern
   4) 部署前后对比（如果有部署）：ERROR/min 变化、新增 pattern、新 RS vs 旧 RS CPU/MEM、DB/Redis QPS 变化
   5) ARMS pod 按 RS 分组列表
-  6) **ERROR 根因深挖（§ 1.8）**：仅当某 pattern 占比 > 50% 非业务噪声 / 部署后 +100% 突增 / 部署判定 ↑✗ 时触发。
-     用 git blame 定位代码 + commit author，按根因类型（凭证/代码 bug/依赖失效）给修复建议。
+  6) **业务 dashboard 关键 panel（§ 1.9，必做）**：按服务→dashboard 映射跑 3-5 个核心 panels（HTTP rate / 5xx / latency p95 / 业务计数器），给当前值与基线偏离判定。dashboard JSON 已在 brain/knowledge/ 缓存，**Grafana cookie 过期不影响 panel 查询**（PromQL 走 ARMS）。
+  7) **K8s deployment / pod 资源（§ 1.10）**：仅当部署判定 ↑✓ / ↑▷ 时做。从 § 1.4 抽 1-2 个新 RS pod name，跑 aliyun-cn k8s-pod dashboard 看 restart count / probe failure / CPU vs limit / MEM vs limit。
+  8) **ERROR 根因深挖（§ 1.8）**：仅当某 pattern 占比 > 50% 非业务噪声 / 部署后 +100% 突增 / 部署判定 ↑✗ 时触发。
+     用 git blame 定位代码 + commit author，按根因类型（凭证 / 代码 bug / 依赖失效）给修复建议。
 
   从 brain/knowledge/infra-env-ssot.md 查该服务的：
   - Jenkins job 名（§ 1.8）
   - SLS service 名（§ 2.X）
   - DB host + Redis 实例（§ 2.X 和 § 3）
+  - 业务 dashboard URL / UID（§ 1.6 + 本 SKILL § 1.9 服务映射表）
+  - K8s 通用 dashboard URL（本 SKILL § 1.10 模板）
 
-  阈值判定见 ~/.claude/skills/service-health\ 2/references/thresholds.md。
+  阈值判定见 ~/.agents/skills/service-health/references/thresholds.md。
 
   按 thresholds.md 中的输出格式返回单服务报告，**600 行内**。
   如果发现 CRIT 级异常，把根因猜测 + 下一步建议放在最前面。"
@@ -405,6 +485,22 @@ ARMS Pod (按 RS):
 DB:         <instance-id> CPU <%>, Conn <n/max>, QPS <n>  [✓ / ⚠ / ✗]
 Redis:      <instance-id> CPU <%>, MEM <%>, Conn <n>, QPS <n>  [✓ / ⚠ / ✗]
 
+业务 Dashboard (§ 1.9，从缓存的 dashboard JSON 跑核心 panels):
+  source:   <grafana host>/<uid> [cache age <h>h]
+  [<panel id>] <title>: <PromQL 结果概要> [✓ / ⚠ / ✗ / no series]
+  [<panel id>] <title>: ...
+  ...
+
+K8s 资源 (§ 1.10，仅部署后填):
+  Deployment <env>-<service>-<region>:
+    replicas: desired=<n> available=<n>  [✓ / ⚠]
+    rollout: <进度描述>
+  Pod <pod-name> (新 RS):
+    restart count (1h):  <n>  [✓ / ⚠ / ✗]
+    probe failures:       <n>
+    CPU usage / limit:   <n>%  [✓ / ⚠ / ✗]
+    MEM usage / limit:   <n>%  [✓ / ⚠ / ✗]
+
 Commits (若 ↑✓ 且 commit 变更):
   feat:
     - abc1234 | Alice | feat: 引入 X
@@ -417,18 +513,18 @@ Commits (若 ↑✓ 且 commit 变更):
 总览（**已去掉 Nacos 列**）：
 
 ```
-| 服务         | Env      | 总状态 | 部署判定 | SLS Pattern         | ARMS | DB   | Redis |
-|--------------|----------|--------|----------|---------------------|------|------|-------|
-| gateway      | us-prod  | 🟢     | ↑✓       | ERROR ✓ noise       | ✓    | ✓    | ✓     |
-| chat         | us-prod  | 🟡     | ↑▷ 滚动中| ⚠ 业务噪声 48k       | ✓    | ✓    | ✓     |
-| chat         | cn-prod  | 🔴     | ↑↻ 重发  | ✗ OSS AK 失效 707k  | ❓   | ✓    | ✓     |
-| creation     | us-prod  | 🟢     | ↑✓       | ✓ 基线              | ✓    | ✓    | ✓     |
-| ...          | ...      | ...    | ...      | ...                 | ...  | ...  | ...   |
+| 服务      | Env      | 总状态 | 部署判定 | SLS Pattern        | ARMS | DB | Redis | Dashboard | K8s |
+|-----------|----------|--------|----------|--------------------|------|----|----|----|----|
+| gateway   | us-prod  | 🟢     | ↑✓       | ERROR ✓ noise      | ✓    | ✓  | ✓  | ✓  | ✓  |
+| chat      | us-prod  | 🟡     | ↑▷ 滚动中| ⚠ 业务噪声 48k     | ✓    | ✓  | ✓  | ⚠  | ✓  |
+| chat      | cn-prod  | 🔴     | ↑↻ 重发  | ✗ OSS AK 失效 707k | ❓   | ✓  | ✓  | ✗  | —  |
+| creation  | us-prod  | 🟢     | ↑✓       | ✓ 基线             | ✓    | ✓  | ✓  | ✓  | ✓  |
+| ...       | ...      | ...    | ...      | ...                | ...  |... |... |... |... |
 ```
 
 图例：
 - 部署判定：`↑✓` 真实成功 / `↑✗⚠` 脚本误报但实际成功 / `↑▷` 滚动中 / `↑↻` 同 commit 重发 / `—` 部署未发生 / `↑✗` 部署失败 / `↑⏸` rollout 卡住
-- SLS / ARMS / DB / Redis：`✓` 健康 / `⚠` 警告 / `✗` 异常 / `❓` 拉不到
+- SLS / ARMS / DB / Redis / Dashboard / K8s：`✓` 健康 / `⚠` 警告 / `✗` 异常 / `❓` 拉不到 / `—` 该项跳过（非部署窗口的 K8s 等）
 
 异常详情展开（按服务）：仅展开 🟡/🔴 的服务，🟢 略过。每个异常服务必须给：
 1. 根因猜测（一句话）
@@ -455,3 +551,4 @@ Commits (若 ↑✓ 且 commit 变更):
 7. **关键字误命中复查**：当 `ERROR` 关键字查出条数 > 总日志 10% 时必须用 `level=error` 复查。
 8. **部署前后对比**：检测到部署后必须做。ERROR/min 变化、新增 pattern、新 RS vs 旧 RS CPU/MEM、DB/Redis QPS 变化。
 9. **基线漂移**：阈值是粗略的，发现明显异常 → 立刻给根因猜测 + 建议下一步。
+10. **Dashboard cookie 与 PromQL 解耦**：业务 dashboard (§ 1.9) 和 k8s dashboard (§ 1.10) 的 panel 查询，**只要 dashboard JSON 已缓存到 brain/knowledge/，cookie 过期不影响查询**（PromQL 走 promql.py + ARMS，与 Grafana cookie 无关）。cookie 仅在首次 fetch / `--refresh` 时需要。所以 Grafana cookie 过期不能成为跳过这两项检查的借口 — 工具已在内部自动 fallback 到 stale 缓存。只有 dashboard JSON 完全没缓存时才标 ❓ 跳过。
