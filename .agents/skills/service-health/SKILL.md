@@ -445,90 +445,135 @@ Agent({
 
 ## 第 3 步：汇报
 
+### 报告设计原则
+
+1. **第一屏决断**：顶部 3 行（状态徽章 / 部署判定 / 关注项汇总）让读者扫一眼就知道"有没有问题、是什么"。
+2. **章节统一表格化**：所有指标都用 `指标名 │ 数值 │ 状态` 三列对齐，方便扫读。Status 列固定 `✓ / ⚠ / ✗ / — / ❓`。
+3. **关注项独立提出**：所有 ⚠ / ✗ 在顶部「🔔 关注项」汇总，避免散落各章节里被忽略。
+4. **emoji 章节锚点**：📦 部署 / 📊 SLS / 🖥️ ARMS / 🚢 K8s / 📈 Dashboard / 💾 DB / 🧠 Redis / ⏭ 下一步 — 视觉锚点便于快速跳读。
+5. **数值列右对齐+单位贴近**：`2,444` / `31.69 /s` / `7.28%` 这种格式比纯数字更可读。
+
 ### 单服务：详细模式
 
 ```
-🟢 / 🟡 / 🔴 <service>@<env>
-─────────────────────────────────────
-部署判定:    ↑✓ / ↑✗⚠ / ↑▷ / ↑↻ / — / ↑✗ / ↑⏸
-            理由: <SLS image_name 分布 + ARMS RS 状态 + Jenkins 状态>
-            触发: build #N by <author> at <time>
+╭─ 🟢 / 🟡 / 🔴 <service> @ <env>  ───────────────────────────────╮
+│ 部署判定:  <symbol>  <一句话>  (#N, <relative-time>)           │
+│ 总体评级:  🟢健康 / 🟡 N 项关注 / 🔴 N 项异常                  │
+╰─────────────────────────────────────────────────────────────────╯
 
-SLS 计数:    ERROR <n> / WARN <n> / Total <n>
-            真实 level=error: <n>（如有关键字误命中）
+🔔 关注项  (无则写"无,各项正常")
+  ⚠ <metric / 章节>      <value>           <一句话 → 建议下一步>
+  ✗ <metric / 章节>      <value>           <一句话 → 建议下一步>
 
-Top ERROR Pattern:
-  1. [<占比>%] <pattern 描述>
-     样例: <一行日志，200 字符内>
-     根因: <业务噪声 / 系统故障 / 配置错误 / 依赖失效>
-  2. ...
+📦 部署                                    (§ 1.1 + § 1.2 + § 1.7)
+  Jenkins         #N  SUCCESS @ <time>  (<dur>s)  by <user>
+  image_tag       curr  v_NNN_branch_HHHHHHHH
+                  prev  v_MMM_branch_HHHHHHHH
+  Commits (<n>)   feat=N  fix=N  misc=N
+                  fix   <hash>  <author>  <subject>
+                  ...
 
-Top WARN Pattern:
-  1. [<占比>%] <pattern 描述>
-     样例: ...
+📊 SLS  (1h, logstore=<logstore>)            (§ 1.3)
+  指标                数值              状态
+  ────────────────────────────────────────────
+  Total              <n>              <rate>/min
+  ERROR (full-text)  <n>              [✓/⚠]  <ratio>% 总日志
+  level=[ERROR]      <n>              真实级别
+  WARN               <n>              [✓/⚠]
+  
+  Top ERROR Pattern (从 N 条样本):
+    1.[占比%]  [<level>] <module>::<func>
+              "<message 前 120 字符>..."
+              根因: <业务噪声/系统故障/配置错误/依赖失效>
+    2.[占比%]  ...
 
-部署前后对比 (T = <部署时刻>):
-  ERROR/min: 前 <a> → 后 <b> (Δ <%>)
-  新增 pattern: <列表，或"无"</>
-  ARMS CPU 均值: 旧 RS <a>% → 新 RS <b>%
-  ARMS MEM 均值: 旧 RS <a> MiB → 新 RS <b> MiB
-  DB QPS: 前 <a> → 后 <b>
-  Redis QPS: 前 <a> → 后 <b>
+🖥️  ARMS Pod  (<n>/<n> Running, <m> 个 RS)   (§ 1.1.b + § 1.4)
+  指标                数值                          状态
+  ──────────────────────────────────────────────────────
+  RS                 <hash>  (image <tag>, <n> pods, uptime <h>h)
+  CPU                <range> / <limit>  (~<%>)     [✓/⚠]
+  MEM (含 cache)     <range> / <limit>             [✓/⚠] ARMS 含 cache,OOM 判定看 § K8s working_set
+  rollout            <descr>                       [✓/⚠]
+  异常 pod           <name/无>                     [✓/⚠]
 
-ARMS Pod (按 RS):
-  新 RS <hash> (image <tag>, <N> pods, uptime <m>min):
-    CPU <range>, MEM <range>
-  旧 RS <hash> (image <tag>, <N> pods, 待回收):
-    CPU <range>, MEM <range>
-  异常 pod: <若有，列名字和偏离指标>
+🚢 K8s 资源  (aliyun-cn k8s-pod, 抽样 <pod>)  (§ 1.10, 仅部署后做)
+  指标                数值              状态
+  ────────────────────────────────────────────
+  Replicas           <desired>/<avail> ✓
+  Restart count 1h   <n>               [✓/⚠/✗]
+  Warning events     <n>               [✓/⚠]
+  CPU / limit        <%>               [✓/⚠/✗]
+  MEM ws / limit     <%>               [✓/⚠/✗]  ← OOM 判定基准
 
-DB:         <instance-id> CPU <%>, Conn <n/max>, QPS <n>  [✓ / ⚠ / ✗]
-Redis:      <instance-id> CPU <%>, MEM <%>, Conn <n>, QPS <n>  [✓ / ⚠ / ✗]
-
-业务 Dashboard (§ 1.9，从缓存的 dashboard JSON 跑核心 panels):
-  source:   <grafana host>/<uid> [cache age <h>h]
-  [<panel id>] <title>: <PromQL 结果概要> [✓ / ⚠ / ✗ / no series]
-  [<panel id>] <title>: ...
+📈 业务 Dashboard  (<host>/<uid> "<title>", cache <h>h)  (§ 1.9)
+  Panel                                值                状态
+  ─────────────────────────────────────────────────────────────
+  [<id>] <title>                       <value with unit> [✓/⚠/✗/no series]
+  [<id>] <title>                       <value>           [✓/⚠/✗]
   ...
 
-K8s 资源 (§ 1.10，仅部署后填):
-  Deployment <env>-<service>-<region>:
-    replicas: desired=<n> available=<n>  [✓ / ⚠]
-    rollout: <进度描述>
-  Pod <pod-name> (新 RS):
-    restart count (1h):  <n>  [✓ / ⚠ / ✗]
-    probe failures:       <n>
-    CPU usage / limit:   <n>%  [✓ / ⚠ / ✗]
-    MEM usage / limit:   <n>%  [✓ / ⚠ / ✗]
+💾 DB  <instance-id>  (<engine>, <region>, <scope>)  (§ 1.5)
+  指标                数值                          状态
+  ──────────────────────────────────────────────────────
+  active_connection  avg <n> / max <n>             [✓/⚠]
+  CPU/MEM/QPS        (aliyun CLI 不暴露 → 控制台)   —
+  
+  控制台: <url>
 
-Commits (若 ↑✓ 且 commit 变更):
-  feat:
-    - abc1234 | Alice | feat: 引入 X
-  fix:
-    - def5678 | Bob   | fix: Y 修复
+🧠 Redis  <instance-id>  (<scope>)               (§ 1.6)
+  指标                数值              状态
+  ────────────────────────────────────────────
+  CPU                <%>               [✓/⚠]
+  MEM used           <n>               [✓/⚠]
+  Conn               <n> (<%>)         [✓/⚠]
+  Total QPS          <n> ops/s         [✓/⚠]
+    Get / Put        <n> / <n>
+  New conn/s         <n>               [✓/⚠]
+
+部署前后对比  (仅 ↑✓ / ↑▷ / ↑↻ 触发; T = <部署时刻>)
+  指标                部署前 30min      部署后 30min     Δ        状态
+  ──────────────────────────────────────────────────────────────────────
+  ERROR/min          <a>               <b>             <±%>     [✓/⚠/✗]
+  新增 pattern       —                 <list 或"无">    
+  ARMS CPU avg       <a>%              <b>%            <±%>     [✓/⚠]
+  ARMS MEM avg       <a> MiB           <b> MiB         <±%>     [✓/⚠]
+  DB QPS             <a>               <b>             <±%>     [✓/⚠]
+  Redis QPS          <a>               <b>             <±%>     [✓/⚠]
+
+🔍 ERROR 根因深挖  (§ 1.8, 仅触发条件满足时)
+  Pattern        <pattern 描述>
+  代码位置       <file>:<line>
+  代码片段       <3-5 行 sed 输出>
+  Git blame      commit <hash> | <author> | <date> | <subject>
+  根因类型       <凭证 / 代码 bug / 依赖失效 / 业务噪声>
+  修复建议       1. <动作 1>
+                2. <动作 2>
+                3. <动作 3>
+
+⏭ 下一步  (针对每个关注项给具体命令,可执行)
+  1. <动作 1 一句话> →  <具体命令>
+  2. <动作 2 一句话> →  <具体命令>
 ```
 
 ### 多服务：总览表 + 异常展开
 
-总览（**已去掉 Nacos 列**）：
+总览表（一行一服务×环境，扫一屏看完）：
 
 ```
-| 服务      | Env      | 总状态 | 部署判定 | SLS Pattern        | ARMS | DB | Redis | Dashboard | K8s |
-|-----------|----------|--------|----------|--------------------|------|----|----|----|----|
-| gateway   | us-prod  | 🟢     | ↑✓       | ERROR ✓ noise      | ✓    | ✓  | ✓  | ✓  | ✓  |
-| chat      | us-prod  | 🟡     | ↑▷ 滚动中| ⚠ 业务噪声 48k     | ✓    | ✓  | ✓  | ⚠  | ✓  |
-| chat      | cn-prod  | 🔴     | ↑↻ 重发  | ✗ OSS AK 失效 707k | ❓   | ✓  | ✓  | ✗  | —  |
-| creation  | us-prod  | 🟢     | ↑✓       | ✓ 基线             | ✓    | ✓  | ✓  | ✓  | ✓  |
-| ...       | ...      | ...    | ...      | ...                | ...  |... |... |... |... |
+| 服务         | Env      | 状态 | 部署 | SLS         | ARMS | DB | Redis | Dashboard | K8s |
+|--------------|----------|------|------|-------------|------|----|----|-----------|-----|
+| gateway      | us-prod  | 🟢   | ↑✓   | ✓ noise     | ✓    | ✓  | ✓   | ⚠ 2 项     | ✓   |
+| chat         | us-prod  | 🟡   | ↑▷   | ⚠ noise 48k | ✓    | ✓  | ✓   | ⚠ p99 高   | ✓   |
+| chat         | cn-prod  | 🔴   | ↑↻   | ✗ OSS AK失效| ❓   | ✓  | ✓   | ✗ 5xx 8%   | —   |
+| creation     | us-prod  | 🟢   | ↑✓   | ✓ 基线      | ✓    | ✓  | ✓   | ✓         | ✓   |
 ```
 
-图例：
-- 部署判定：`↑✓` 真实成功 / `↑✗⚠` 脚本误报但实际成功 / `↑▷` 滚动中 / `↑↻` 同 commit 重发 / `—` 部署未发生 / `↑✗` 部署失败 / `↑⏸` rollout 卡住
-- SLS / ARMS / DB / Redis / Dashboard / K8s：`✓` 健康 / `⚠` 警告 / `✗` 异常 / `❓` 拉不到 / `—` 该项跳过（非部署窗口的 K8s 等）
+**图例**：
+- **状态**：🟢 健康 / 🟡 有关注项 / 🔴 有异常
+- **部署**：`↑✓` 真实成功 / `↑✗⚠` 脚本误报但实际成功 / `↑▷` 滚动中 / `↑↻` 同 commit 重发 / `—` 部署未发生 / `↑✗` 部署失败 / `↑⏸` rollout 卡住
+- **各列**：`✓` 健康 / `⚠ <一句话>` 关注 / `✗ <一句话>` 异常 / `❓` 拉不到 / `—` 该项跳过
 
-异常详情展开（按服务）：仅展开 🟡/🔴 的服务，🟢 略过。每个异常服务必须给：
-1. 根因猜测（一句话）
-2. 下一步建议（具体命令）
+**异常详情展开**：🟡 / 🔴 服务用"单服务详细模式"完整展开，🟢 服务略过。每个非 🟢 服务必须有「🔔 关注项」段 + 「⏭ 下一步」段。
 
 ## SSOT 参考
 
