@@ -369,5 +369,8 @@
         "/Users/liuchunlei/go/src"
     ],
     "security.promptForLocalFileProtocolHandling": false,
-    "window.autoDetectColorScheme": false
+    "window.autoDetectColorScheme": false,
+    "remote.SSH.remotePlatform": {
+        "lima": "linux"
+    }
 }
