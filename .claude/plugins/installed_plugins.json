@@ -215,11 +215,11 @@
     "warp@claude-code-warp": [
       {
         "scope": "user",
-        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-code-warp/warp/2.0.0",
-        "version": "2.0.0",
-        "installedAt": "2026-05-13T01:45:24.490Z",
-        "lastUpdated": "2026-05-13T01:45:24.490Z",
-        "gitCommitSha": "b8ad3cc6c1e40b2d2a944f900a4ae0904a54dd7f"
+        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-code-warp/warp/2.1.0",
+        "version": "2.1.0",
+        "installedAt": "2026-06-01T01:18:26.657Z",
+        "lastUpdated": "2026-06-01T01:18:26.657Z",
+        "gitCommitSha": "bb6c1cf2f5cd7eb609678a2b175e7f4504ca61c2"
       }
     ]
   }
