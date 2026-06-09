@@ -203,3 +203,12 @@ export PATH=/Users/812lcl/.opencode/bin:$PATH
 
 # OpenClaw Completion
 source "/Users/812lcl/.openclaw/completions/openclaw.zsh"
+
+# direnv — auto-load .envrc when cd into dirs (used for multi-brain cwd switching)
+eval "$(direnv hook zsh)"
+# 静默 cd 时 "direnv: loading/export ..." 提示（2.37 里 DIRENV_LOG_FORMAT="" 不再生效，直接吞 stderr）
+_direnv_hook() {
+  trap -- '' SIGINT
+  eval "$(direnv export zsh 2>/dev/null)"
+  trap - SIGINT
+}
