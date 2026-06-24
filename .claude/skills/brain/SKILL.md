@@ -22,7 +22,7 @@ carries user-owned rules.
 
 | User says... | Do this |
 |--------------|---------|
-| "checkpoint" / "存档" / "记一下" | 写一条 episodic 记录：`brain memo add -s <slug> -m "..."` (≤200 chars, past tense). If there's substantive long content worth re-reading (narrative / decisions / debug / analysis / code excerpts), write the note FIRST: `brain note add -s <slug>` (body from stdin or $EDITOR), THEN add `--ref notes/<path>` to the memo so it points back. Same slug across the pair. |
+| "checkpoint" / "存档" / "记一下" | Run `brain checkpoint` — it prints the routing playbook (memo mandatory, note for long content, `--ref` back, slug rules) plus recent slugs for reuse. Follow its output. |
 | "preference" / "from now on" / "以后..." | `brain preference add -s <slug> -m "<rule>"` |
 | "todo" / "记个 TODO" | `brain todo add -s <slug> -m "..." -p P1` |
 | Hits an anti-pattern / mistake | `brain dsat add -m "..." -t <tag>` — immediate, don't defer |
@@ -35,6 +35,7 @@ carries user-owned rules.
 | Task | Command |
 |------|---------|
 | Session brief (preferences + recent activity) | `brain brief [--since 7d] [--limit 20]` |
+| Sedimentation playbook + recent slugs | `brain checkpoint` — run when a turn is worth recording; follow its output |
 | Quick capture (≤5 lines) | `brain memo add -s slug -m "..." -t tag` |
 | Process doc / debug log | `brain note add -s "slug"` — appends to the most recent note with this slug (across days); `-w` forces a fresh today's file |
 | Mistake / anti-pattern | `brain dsat add -m "..." -t tag` |
@@ -67,9 +68,9 @@ carries user-owned rules.
 
 1. Paths are relative to brain root — works from any CWD; never hard-code or print the brain's absolute filesystem location
 2. **Read BRAIN.md** at session start and whenever uncertain; it carries the philosophy, triggers, and user-owned rules. BRAIN.md > SKILL.md on conflict.
-3. Session end Stop hook prompts you to judge if this turn is **worth sedimenting** — decisions, mistakes, plans, unfinished work, non-obvious findings. Pure Q&A / reading files / confirming config is NOT worth sedimenting; just stop. When it is worth it, write the memo (and a note for substantive long content). Reuse the same slug across turns of the same topic (multiple timestamped memos group by slug; `brain append memo/<path>` extends an existing file). Change slug only when topic shifts. slug describes the task (fix-xxx / import-yyy / review-mr-zzz), never a timestamp. After recording, just stop — don't surface a summary to the user. Hook also auto-commits and pushes.
+3. Session end Stop hook tells you to run `brain checkpoint`. Its output leads with the **worth sedimenting?** judgment — decisions, mistakes, plans, unfinished work, non-obvious findings are worth it; pure Q&A / reading files / confirming config is not (write nothing, just stop). When worth it, follow the playbook (memo/note routing + recent slugs for reuse). After recording, just stop — don't surface a summary to the user. Hook also auto-commits and pushes.
 4. memo vs note routing. `brain memo` carries the one-line "what was done" (≤200 chars) and is the index. `brain note` carries the substantive long content worth re-reading (process narrative, decisions, debug trail, analysis, code excerpts). When both exist, write the note FIRST, then add `--ref notes/<path>` to the memo so it points back. Both share the same slug. Skip the note when there is nothing worth narrating beyond the memo.
-5. "checkpoint" trigger (user-initiated) follows the same routing: memo always, note when there is long content, memo `--ref`s the note.
+5. "checkpoint" trigger (user-initiated) runs the same `brain checkpoint` command: memo always, note when there is long content, memo `--ref`s the note.
 6. Structured adds (memo/dsat/insight/todo/preference/note) auto-sync (write-through)
 7. Read / list / remove / run tools go through `brain exec <cmd>` (full shell, pipes, globs) OR the shortcuts `brain cat` / `brain ls` / `brain rm` / `brain python` (=python3) / `brain bash` (args verbatim, no shell re-parse). Both inherit auto-sync + lint.
 8. For knowledge/ and tools/ — edit files directly (via `brain exec $EDITOR` or your IDE), then `brain commit`
