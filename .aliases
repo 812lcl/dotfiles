@@ -50,8 +50,11 @@ alias sci='source /Users/812lcl/go/src/gitlab.myteksi.net/gophers/go/scripts/set
 alias t='asynctask -f'
 alias python="python3"
 
-alias ccd='claude --channels plugin:discord@claude-plugins-official'
-alias cct='claude --channels plugin:telegram@claude-plugins-official'
+alias ccd='claude --rc --channels plugin:discord@claude-plugins-official'
+alias ccd8='DISCORD_STATE_DIR=$HOME/.claude/channels/discord-obsidian claude --rc --channels plugin:discord@claude-plugins-official'
+alias ccd2='DISCORD_STATE_DIR=$HOME/.claude/channels/discord-cc-bot-2 claude --rc --channels plugin:discord@claude-plugins-official'
+alias ccd3='DISCORD_STATE_DIR=$HOME/.claude/channels/discord-cc-bot-3 claude --rc --channels plugin:discord@claude-plugins-official'
+alias cct='claude --rc --channels plugin:telegram@claude-plugins-official'
 alias ccc='claude --continue'
 
 # Sync a Claude Code skill into OpenClaw (cp; OpenClaw can't follow symlinks)
