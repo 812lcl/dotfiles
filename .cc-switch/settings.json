@@ -4,11 +4,12 @@
   "useAppWindowControls": false,
   "enableClaudePluginIntegration": true,
   "skipClaudeOnboarding": false,
-  "launchOnStartup": true,
+  "launchOnStartup": false,
   "silentStartup": true,
   "enableLocalProxy": false,
   "usageConfirmed": true,
   "enableFailoverToggle": false,
+  "preserveCodexOfficialAuthOnSwitch": false,
   "firstRunNoticeConfirmed": true,
   "commonConfigConfirmed": true,
   "language": "zh",
@@ -17,5 +18,17 @@
   "currentProviderGemini": "gemini-official",
   "skillSyncMethod": "auto",
   "skillStorageLocation": "cc_switch",
-  "preferredTerminal": "ghostty"
+  "preferredTerminal": "warp",
+  "localMigrations": {
+    "codexThirdPartyHistoryProviderBucketV1": {
+      "completedAt": "2026-06-11T01:44:29.099996+00:00",
+      "targetProviderId": "custom",
+      "migratedJsonlFiles": 0,
+      "migratedStateRows": 0,
+      "scannedHistoryFiles": true
+    },
+    "codexProviderTemplateV1": {
+      "completedAt": "2026-06-11T01:44:29.102545+00:00"
+    }
+  }
 }
