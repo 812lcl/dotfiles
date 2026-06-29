@@ -21,7 +21,7 @@ If SKILL.md (this file) and BRAIN.md disagree, **BRAIN.md wins**.
 
 | User says... | Do this |
 |--------------|---------|
-| "checkpoint" / "存档" / "记一下" | 写一条 episodic 记录：`brain memo add -s <slug> -m "..."` (≤200 chars, past tense). If substantive long content exists (narrative/decisions/debug/analysis/code), write the note FIRST (`brain note add -s <slug>`) and add `--ref notes/<path>` to the memo. Same slug across the pair. |
+| "checkpoint" / "存档" / "记一下" | Run `brain checkpoint` — it prints the routing playbook (memo mandatory, note for long content, `--ref` back, slug rules) plus recent slugs for reuse. Follow its output. |
 | "preference" / "from now on" / "以后..." | `brain preference add -s <slug> -m "<rule>"` |
 | "todo" / "记个 TODO" | `brain todo add -s <slug> -m "..." -p P1` |
 | Hits an anti-pattern / mistake | `brain dsat add -m "..." -t <tag>` immediately |
@@ -34,6 +34,7 @@ If SKILL.md (this file) and BRAIN.md disagree, **BRAIN.md wins**.
 | Task | Command |
 |------|---------|
 | Session brief (preferences + recent activity) | `brain brief [--since 7d] [--limit 20]` |
+| Sedimentation playbook + recent slugs | `brain checkpoint` — run when a turn is worth recording; follow its output |
 | Quick capture (≤5 lines) | `brain memo add -s slug -m "..." -t tag` |
 | Process doc / debug log | `brain note add -s "slug"` — appends to existing slug across days; `-w` forces fresh |
 | Mistake / anti-pattern | `brain dsat add -m "..." -t tag` |
@@ -60,22 +61,14 @@ If SKILL.md (this file) and BRAIN.md disagree, **BRAIN.md wins**.
 
 ## Session lifecycle
 
-Codex's Stop hook (installed by `brain install codex`) prompts you at session end. First judge: **is this turn worth sedimenting?** Worth: decisions, mistakes, plans, unfinished work, non-obvious findings. Not worth: pure Q&A, reading files, confirming config. If not worth, just stop — don't write a junk memo.
-
-If worth:
-
-1. Valuable long content (narrative, decisions, debug trail, analysis, code excerpts)? Write the note FIRST — `brain note add -s <slug>` (body from stdin or $EDITOR). Skip when there's nothing worth narrating beyond a one-liner.
-2. Write the memo — `brain memo add -s <slug> -t auto,session -m "<≤200 字符, past tense>"`. If step 1 was done, add `--ref notes/<path>` so memo points back. Reuse the slug across turns on the same topic; switch only on topic shift. slug names the task (`fix-xxx` / `import-yyy` / `review-mr-zzz`), never a timestamp.
-3. `brain sync push --quiet` — commit + push (the hook does this too as a second action).
-
-After recording, just stop. The memo is the record; no extra summary to the user.
+Codex's Stop hook (installed by `brain install codex`) tells you to run `brain checkpoint` at session end. Its output leads with the **worth sedimenting?** judgment — if not worth it (pure Q&A, reading files, confirming config), write nothing and just stop; don't write a junk memo. If worth it, follow the playbook (memo/note routing, slug rules, recent slugs for reuse). After recording, just stop. The memo is the record; no extra summary to the user.
 
 ## Rules
 
 1. Paths are relative to brain root — works from any CWD; never print or assume the brain's absolute filesystem location
 2. Read BRAIN.md at session start and whenever uncertain; BRAIN.md > SKILL.md on conflict.
 3. memo vs note routing. `brain memo` = one-line "what was done" (≤200 chars). `brain note` = substantive long content (narrative/decisions/debug/analysis/code excerpts) — write it when it exists, otherwise skip. When paired: write the note first, then the memo with `--ref notes/<path>`, same slug.
-4. "checkpoint" trigger (user-initiated) follows the same routing.
+4. "checkpoint" trigger (user-initiated) runs the same `brain checkpoint` command and follows the same routing.
 5. Structured adds (memo/dsat/insight/todo/preference/note) auto-sync (write-through)
 5. For knowledge/ and tools/ — edit files directly, then `brain commit`
 6. `brain cp` validates frontmatter on copy to structured layers
