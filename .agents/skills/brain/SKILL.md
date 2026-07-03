@@ -22,7 +22,7 @@ If SKILL.md (this file) and BRAIN.md disagree, **BRAIN.md wins**.
 | User says... | Do this |
 |--------------|---------|
 | "checkpoint" / "存档" / "记一下" | Run `brain checkpoint` — it prints the routing playbook (memo mandatory, note for long content, `--ref` back, slug rules) plus recent slugs for reuse. Follow its output. |
-| "preference" / "from now on" / "以后..." | `brain preference add -s <slug> -m "<rule>"` |
+| "preference" / "from now on" / "以后..." | 先过门槛：**跨项目通用**才写 `brain preference add -s <slug> -m "<rule>"`；只对某项目/仓库成立 → `brain knowledge add`（自带 project 标签） |
 | "todo" / "记个 TODO" | `brain todo add -s <slug> -m "..." -p P1` |
 | Hits an anti-pattern / mistake | `brain dsat add -m "..." -t <tag>` immediately |
 | Non-obvious finding | `brain insight add -s <slug>` |
@@ -33,19 +33,19 @@ If SKILL.md (this file) and BRAIN.md disagree, **BRAIN.md wins**.
 
 | Task | Command |
 |------|---------|
-| Session brief (preferences + recent activity) | `brain brief [--since 7d] [--limit 20]` |
+| Session brief (this-project vs other-projects) | `brain brief [--since 7d] [--limit 20]` |
 | Sedimentation playbook + recent slugs | `brain checkpoint` — run when a turn is worth recording; follow its output |
 | Quick capture (≤5 lines) | `brain memo add -s slug -m "..." -t tag` |
 | Process doc / debug log | `brain note add -s "slug"` — appends to existing slug across days; `-w` forces fresh |
 | Mistake / anti-pattern | `brain dsat add -m "..." -t tag` |
 | Non-obvious finding | `brain insight add -s "slug"` |
 | Stable conclusion | `brain knowledge add -c category -n name [--from file]` |
-| Durable collab rule | `brain preference add -s slug -m "rule"` |
+| Durable **cross-project** collab rule (project-specific → knowledge) | `brain preference add -s slug -m "rule"` |
 | Task tracking | `brain todo add -s slug -m "..." -p P1 -t tag` |
 | Todo events | `brain todo block|resume|log|label|assign|priority|show <slug> ...` |
-| List a layer | `brain <layer> list [--since 7d] [-t tag] [--limit N]` |
+| List a layer (filter by project) | `brain <layer> list [--since 7d] [-t tag] [-P project] [--limit N]` (`-P .` = current dir's project) |
 | Show full content for a slug | `brain <memo|note|dsat|insight> show <slug>` (all timestamped files, chronological) |
-| List knowledge w/ titles | `brain knowledge list [-c category] [-t tag] [--since 7d] [--limit N]` |
+| List knowledge w/ titles | `brain knowledge list [-c category] [-t tag] [-P project] [--since 7d] [--limit N]` |
 | List tools w/ descriptions | `brain tools list` |
 | Search (rg literal/regex; OR via -e or \|) | `brain search "q1" [-e q2 -e q3] [-l layer]` |
 | Write / append / cp / diff / commit | `brain <op> <path>` — writes auto-sync |
