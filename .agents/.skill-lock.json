@@ -55,9 +55,9 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/vercel-labs/skills.git",
       "skillPath": "skills/find-skills/SKILL.md",
-      "skillFolderHash": "3013fdeb8a11b10b1eb795ec3ae8bfca38f7c26d",
+      "skillFolderHash": "eb6a23305aea6e340d14b9de3766e721f9f4861b",
       "installedAt": "2026-03-20T22:16:32.079Z",
-      "updatedAt": "2026-05-15T08:11:08.497Z"
+      "updatedAt": "2026-07-03T03:11:41.311Z"
     },
     "highlight-graph": {
       "source": "readwiseio/readwise-skills",
@@ -85,7 +85,7 @@
       "sourceUrl": "https://open.feishu.cn/.well-known/skills/lark-approval/SKILL.md",
       "skillFolderHash": "",
       "installedAt": "2026-04-10T04:27:18.509Z",
-      "updatedAt": "2026-06-04T10:07:19.670Z",
+      "updatedAt": "2026-06-30T07:42:21.031Z",
       "pluginName": "lark-cli"
     },
     "lark-base": {
@@ -94,7 +94,7 @@
       "sourceUrl": "https://open.feishu.cn/.well-known/skills/lark-base/SKILL.md",
       "skillFolderHash": "",
       "installedAt": "2026-04-02T01:18:54.236Z",
-      "updatedAt": "2026-06-04T10:07:19.675Z",
+      "updatedAt": "2026-06-30T07:42:21.035Z",
       "pluginName": "lark-cli"
     },
     "lark-calendar": {
@@ -103,7 +103,7 @@
       "sourceUrl": "https://open.feishu.cn/.well-known/skills/lark-calendar/SKILL.md",
       "skillFolderHash": "",
       "installedAt": "2026-04-02T01:18:55.788Z",
-      "updatedAt": "2026-06-04T10:07:19.676Z",
+      "updatedAt": "2026-06-30T07:42:21.036Z",
       "pluginName": "lark-cli"
     },
     "lark-contact": {
@@ -112,7 +112,7 @@
       "sourceUrl": "https://open.feishu.cn/.well-known/skills/lark-contact/SKILL.md",
       "skillFolderHash": "",
       "installedAt": "2026-04-02T01:18:56.957Z",
-      "updatedAt": "2026-06-04T10:07:19.677Z",
+      "updatedAt": "2026-06-30T07:42:21.037Z",
       "pluginName": "lark-cli"
     },
     "lark-doc": {
@@ -121,7 +121,7 @@
       "sourceUrl": "https://open.feishu.cn/.well-known/skills/lark-doc/SKILL.md",
       "skillFolderHash": "",
       "installedAt": "2026-04-02T01:18:57.993Z",
-      "updatedAt": "2026-06-04T10:07:19.678Z",
+      "updatedAt": "2026-06-30T07:42:21.037Z",
       "pluginName": "lark-cli"
     },
     "lark-drive": {
@@ -130,7 +130,7 @@
       "sourceUrl": "https://open.feishu.cn/.well-known/skills/lark-drive/SKILL.md",
       "skillFolderHash": "",
       "installedAt": "2026-04-02T01:18:59.052Z",
-      "updatedAt": "2026-06-04T10:07:19.679Z",
+      "updatedAt": "2026-06-30T07:42:21.038Z",
       "pluginName": "lark-cli"
     },
     "lark-event": {
@@ -139,7 +139,7 @@
       "sourceUrl": "https://open.feishu.cn/.well-known/skills/lark-event/SKILL.md",
       "skillFolderHash": "",
       "installedAt": "2026-04-02T01:19:00.104Z",
-      "updatedAt": "2026-06-04T10:07:19.679Z",
+      "updatedAt": "2026-06-30T07:42:21.038Z",
       "pluginName": "lark-cli"
     },
     "lark-im": {
@@ -148,7 +148,7 @@
       "sourceUrl": "https://open.feishu.cn/.well-known/skills/lark-im/SKILL.md",
       "skillFolderHash": "",
       "installedAt": "2026-04-02T01:19:01.198Z",
-      "updatedAt": "2026-06-04T10:07:19.680Z",
+      "updatedAt": "2026-06-30T07:42:21.038Z",
       "pluginName": "lark-cli"
     },
     "lark-mail": {
@@ -157,7 +157,7 @@
       "sourceUrl": "https://open.feishu.cn/.well-known/skills/lark-mail/SKILL.md",
       "skillFolderHash": "",
       "installedAt": "2026-04-02T01:19:02.776Z",
-      "updatedAt": "2026-06-04T10:07:19.681Z",
+      "updatedAt": "2026-06-30T07:42:21.039Z",
       "pluginName": "lark-cli"
     },
     "lark-minutes": {
@@ -166,7 +166,7 @@
       "sourceUrl": "https://open.feishu.cn/.well-known/skills/lark-minutes/SKILL.md",
       "skillFolderHash": "",
       "installedAt": "2026-04-02T01:19:03.941Z",
-      "updatedAt": "2026-06-04T10:07:19.684Z",
+      "updatedAt": "2026-06-30T07:42:21.040Z",
       "pluginName": "lark-cli"
     },
     "lark-openapi-explorer": {
@@ -175,7 +175,7 @@
       "sourceUrl": "https://open.feishu.cn/.well-known/skills/lark-openapi-explorer/SKILL.md",
       "skillFolderHash": "",
       "installedAt": "2026-04-02T01:19:05.002Z",
-      "updatedAt": "2026-06-04T10:07:19.686Z",
+      "updatedAt": "2026-06-30T07:42:21.041Z",
       "pluginName": "lark-cli"
     },
     "lark-shared": {
@@ -184,7 +184,7 @@
       "sourceUrl": "https://open.feishu.cn/.well-known/skills/lark-shared/SKILL.md",
       "skillFolderHash": "",
       "installedAt": "2026-04-02T01:19:06.498Z",
-      "updatedAt": "2026-06-04T10:07:19.686Z",
+      "updatedAt": "2026-06-30T07:42:21.041Z",
       "pluginName": "lark-cli"
     },
     "lark-sheets": {
@@ -193,7 +193,7 @@
       "sourceUrl": "https://open.feishu.cn/.well-known/skills/lark-sheets/SKILL.md",
       "skillFolderHash": "",
       "installedAt": "2026-04-02T01:19:08.218Z",
-      "updatedAt": "2026-06-04T10:07:19.687Z",
+      "updatedAt": "2026-06-30T07:42:21.042Z",
       "pluginName": "lark-cli"
     },
     "lark-skill-maker": {
@@ -202,7 +202,7 @@
       "sourceUrl": "https://open.feishu.cn/.well-known/skills/lark-skill-maker/SKILL.md",
       "skillFolderHash": "",
       "installedAt": "2026-04-02T01:19:09.260Z",
-      "updatedAt": "2026-06-04T10:07:19.688Z",
+      "updatedAt": "2026-06-30T07:42:21.043Z",
       "pluginName": "lark-cli"
     },
     "lark-task": {
@@ -211,7 +211,7 @@
       "sourceUrl": "https://open.feishu.cn/.well-known/skills/lark-task/SKILL.md",
       "skillFolderHash": "",
       "installedAt": "2026-04-02T01:19:10.353Z",
-      "updatedAt": "2026-06-04T10:07:19.688Z",
+      "updatedAt": "2026-06-30T07:42:21.044Z",
       "pluginName": "lark-cli"
     },
     "lark-vc": {
@@ -220,7 +220,7 @@
       "sourceUrl": "https://open.feishu.cn/.well-known/skills/lark-vc/SKILL.md",
       "skillFolderHash": "",
       "installedAt": "2026-04-02T01:19:11.433Z",
-      "updatedAt": "2026-06-04T10:07:19.689Z",
+      "updatedAt": "2026-06-30T07:42:21.044Z",
       "pluginName": "lark-cli"
     },
     "lark-whiteboard": {
@@ -229,7 +229,7 @@
       "sourceUrl": "https://open.feishu.cn/.well-known/skills/lark-whiteboard/SKILL.md",
       "skillFolderHash": "",
       "installedAt": "2026-04-02T01:19:12.523Z",
-      "updatedAt": "2026-06-04T10:07:19.690Z",
+      "updatedAt": "2026-06-30T07:42:21.045Z",
       "pluginName": "lark-cli"
     },
     "lark-wiki": {
@@ -238,7 +238,7 @@
       "sourceUrl": "https://open.feishu.cn/.well-known/skills/lark-wiki/SKILL.md",
       "skillFolderHash": "",
       "installedAt": "2026-04-02T01:19:14.025Z",
-      "updatedAt": "2026-06-04T10:07:19.690Z",
+      "updatedAt": "2026-06-30T07:42:21.046Z",
       "pluginName": "lark-cli"
     },
     "lark-workflow-meeting-summary": {
@@ -247,7 +247,7 @@
       "sourceUrl": "https://open.feishu.cn/.well-known/skills/lark-workflow-meeting-summary/SKILL.md",
       "skillFolderHash": "",
       "installedAt": "2026-04-02T01:19:15.545Z",
-      "updatedAt": "2026-06-04T10:07:19.691Z",
+      "updatedAt": "2026-06-30T07:42:21.046Z",
       "pluginName": "lark-cli"
     },
     "lark-workflow-standup-report": {
@@ -256,7 +256,7 @@
       "sourceUrl": "https://open.feishu.cn/.well-known/skills/lark-workflow-standup-report/SKILL.md",
       "skillFolderHash": "",
       "installedAt": "2026-04-02T01:19:16.664Z",
-      "updatedAt": "2026-06-04T10:07:19.691Z",
+      "updatedAt": "2026-06-30T07:42:21.046Z",
       "pluginName": "lark-cli"
     },
     "now-reading-page": {
@@ -489,7 +489,7 @@
       "sourceUrl": "https://open.feishu.cn/.well-known/skills/lark-apps/SKILL.md",
       "skillFolderHash": "",
       "installedAt": "2026-06-04T10:07:19.674Z",
-      "updatedAt": "2026-06-04T10:07:19.674Z",
+      "updatedAt": "2026-06-30T07:42:21.033Z",
       "pluginName": "lark-cli"
     },
     "lark-attendance": {
@@ -498,7 +498,7 @@
       "sourceUrl": "https://open.feishu.cn/.well-known/skills/lark-attendance/SKILL.md",
       "skillFolderHash": "",
       "installedAt": "2026-06-04T10:07:19.675Z",
-      "updatedAt": "2026-06-04T10:07:19.675Z",
+      "updatedAt": "2026-06-30T07:42:21.034Z",
       "pluginName": "lark-cli"
     },
     "lark-markdown": {
@@ -507,7 +507,7 @@
       "sourceUrl": "https://open.feishu.cn/.well-known/skills/lark-markdown/SKILL.md",
       "skillFolderHash": "",
       "installedAt": "2026-06-04T10:07:19.682Z",
-      "updatedAt": "2026-06-04T10:07:19.682Z",
+      "updatedAt": "2026-06-30T07:42:21.039Z",
       "pluginName": "lark-cli"
     },
     "lark-okr": {
@@ -516,7 +516,7 @@
       "sourceUrl": "https://open.feishu.cn/.well-known/skills/lark-okr/SKILL.md",
       "skillFolderHash": "",
       "installedAt": "2026-06-04T10:07:19.685Z",
-      "updatedAt": "2026-06-04T10:07:19.685Z",
+      "updatedAt": "2026-06-30T07:42:21.041Z",
       "pluginName": "lark-cli"
     },
     "lark-slides": {
@@ -525,7 +525,7 @@
       "sourceUrl": "https://open.feishu.cn/.well-known/skills/lark-slides/SKILL.md",
       "skillFolderHash": "",
       "installedAt": "2026-06-04T10:07:19.688Z",
-      "updatedAt": "2026-06-04T10:07:19.688Z",
+      "updatedAt": "2026-06-30T07:42:21.044Z",
       "pluginName": "lark-cli"
     },
     "lark-vc-agent": {
@@ -534,7 +534,16 @@
       "sourceUrl": "https://open.feishu.cn/.well-known/skills/lark-vc-agent/SKILL.md",
       "skillFolderHash": "",
       "installedAt": "2026-06-04T10:07:19.689Z",
-      "updatedAt": "2026-06-04T10:07:19.689Z",
+      "updatedAt": "2026-06-30T07:42:21.044Z",
+      "pluginName": "lark-cli"
+    },
+    "lark-note": {
+      "source": "open.feishu.cn",
+      "sourceType": "well-known",
+      "sourceUrl": "https://open.feishu.cn/.well-known/skills/lark-note/SKILL.md",
+      "skillFolderHash": "",
+      "installedAt": "2026-06-30T07:42:21.040Z",
+      "updatedAt": "2026-06-30T07:42:21.040Z",
       "pluginName": "lark-cli"
     }
   },

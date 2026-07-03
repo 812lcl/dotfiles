@@ -18,3 +18,6 @@ nohup.out
 .claude/plugins/claude-hud/transcript-cache/*
 .claude/plugins/data/codex-openai-codex/state/*
 .claude/plugins/plugin-catalog-cache.json
+.claude/plugins/.last_inuse_sweep
+.claude/plugins/claude-hud/context-cache/
+.claude/plugins/claude-hud/speed-cache/
