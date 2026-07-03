@@ -1,12 +1,11 @@
 # docs +create（创建飞书云文档）
 
 > **前置条件（MUST READ）：** 生成文档内容前，必须先用 Read 工具读取以下文件，缺一不可：
-> 1. [`../lark-shared/SKILL.md`](../../lark-shared/SKILL.md) — 认证、全局参数和安全规则
-> 2. [`lark-doc-xml.md`](lark-doc-xml.md) — XML 语法规则（使用 Markdown 格式时改读 [`lark-doc-md.md`](lark-doc-md.md)）
-> 3. [`lark-doc-style.md`](style/lark-doc-style.md) — 排版指南（元素选择、丰富度规则、颜色语义）
-> 4. [`lark-doc-create-workflow.md`](style/lark-doc-create-workflow.md) — 从零创作工作流（Code-Act Loop、并行执行策略）
+> 1. [`lark-doc-xml.md`](lark-doc-xml.md) — XML 语法规则（使用 Markdown 格式时改读 [`lark-doc-md.md`](lark-doc-md.md)）
+> 2. [`lark-doc-style.md`](style/lark-doc-style.md) — 排版指南（元素选择、丰富度规则、颜色语义）
+> 3. [`lark-doc-create-workflow.md`](style/lark-doc-create-workflow.md) — 从零创作工作流（Code-Act Loop、并行执行策略）
 >
-> **未读完以上文件就生成内容会导致格式错误或样式不达标。**
+> **未读完以上文件就生成内容会导致格式错误。**
 
 从 XML（默认）或 Markdown 内容创建一个新的飞书云文档。
 
@@ -16,16 +15,10 @@
 
 ```bash
 # 创建 XML 文档（默认格式，推荐）
-lark-cli docs +create --api-version v2 --content '<title>项目计划</title><h1>目标</h1><ul><li>目标 1</li><li>目标 2</li></ul>'
+lark-cli docs +create --content '<title>项目计划</title><h1>目标</h1><p>记录本周重点。</p>'
 
-# 创建到指定文件夹（XML）
-lark-cli docs +create --api-version v2 --parent-token fldcnXXXX --content '<title>标题</title><p>首段内容</p>'
-
-# 创建到个人知识库（XML）
-lark-cli docs +create --api-version v2 --parent-position my_library --content '<title>标题</title><p>内容</p>'
-
-# 仅当用户明确要求时才使用 Markdown
-lark-cli docs +create --api-version v2 --doc-format markdown --content $'# 项目计划\n\n## 目标\n\n- 目标 1\n- 目标 2'
+# 仅当用户明确要求导入 Markdown 时才使用；文档标题用 --title，正文标题按内容自然组织
+lark-cli docs +create --doc-format markdown --title "项目计划" --content $'## 目标\n\n- 明确重点\n- 记录待办'
 ```
 
 ## 返回值
@@ -36,9 +29,9 @@ lark-cli docs +create --api-version v2 --doc-format markdown --content $'# 项�
   "identity": "user",
   "data": {
     "document": {
-      "document_id": "doxcnXXXXXXXXXXXXXXXXXXX",
+      "document_id": "docx_token",
       "revision_id": 1,
-      "url": "https://xxx.feishu.cn/docx/doxcnXXXXXXXXXXXXXXXXXXX",
+      "url": "https://xxx.feishu.cn/docx/docx_token",
       "new_blocks": [
         { "block_id": "blkcnXXXX", "block_type": "whiteboard", "block_token": "boardXXXX" }
       ]
@@ -65,17 +58,16 @@ lark-cli docs +create --api-version v2 --doc-format markdown --content $'# 项�
 
 | 参数                  | 必填 | 说明                                          |
 | ------------------- | -- |---------------------------------------------|
-| `--api-version`     | 是  | 固定传 `v2`                                    |
-| `--content`         | 是  | 文档内容（XML 或 Markdown 格式）                     |
+| `--title`           | 否  | 文档标题，Markdown 导入时使用；XML 创建推荐在 `--content` 开头写 `<title>...</title>`；多个标题仅保留第一个并在 `warnings` / `degrade_details` 提示 |
+| `--content`         | 视情况 | 文档内容（XML 或 Markdown 格式）；不传 `--content` 时必须传 `--title` |
 | `--doc-format`      | 否  | 内容格式：`xml`（默认，始终优先使用）\| `markdown`（仅用户明确要求时） |
 | `--parent-token`    | 否  | 父文件夹或知识库节点 token（与 `--parent-position` 互斥）  |
 | `--parent-position` | 否  | 父节点位置，如 `my_library`（与 `--parent-token` 互斥） |
 
 ## 最佳实践
 
-- 文档标题从内容中自动提取（XML `<title>` 或 Markdown `#`），不要在内容开头重复写标题
-- **创建较长的文档时只建骨架**：`--content` 仅传标题 + 各级 heading + 简短占位摘要；正文留给后续 `docs +update --command append` 或 `block_insert_after` 分段追加。一次性塞超长 `--content` 既容易触发参数限制，调试也更难。
-- **视觉丰富度**：必须遵循 [`lark-doc-style.md`](style/lark-doc-style.md) 中的样式指南，主动使用结构化 block 丰富文档
+- **较长文档**：参考 [`lark-doc-create-workflow.md`](style/lark-doc-create-workflow.md) 先建骨架再分段写入；短文档可一次写完整内容
+- **表达形式**：由用户目标和内容决定。需要结构化表达时可参考 [`lark-doc-style.md`](style/lark-doc-style.md)，但不要默认套用固定开头、固定富 block 比例或固定图表
 
 ## 参考
 
@@ -85,4 +77,3 @@ lark-cli docs +create --api-version v2 --doc-format markdown --content $'# 项�
 - [`lark-doc-fetch.md`](lark-doc-fetch.md) — 获取文档
 - [`lark-doc-update.md`](lark-doc-update.md) — 更新文档
 - [`lark-doc-media-insert.md`](lark-doc-media-insert.md) — 插入图片/文件到文档
-- [`../../lark-shared/SKILL.md`](../../lark-shared/SKILL.md) — 认证和全局参数
