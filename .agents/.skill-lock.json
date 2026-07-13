@@ -55,9 +55,9 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/vercel-labs/skills.git",
       "skillPath": "skills/find-skills/SKILL.md",
-      "skillFolderHash": "eb6a23305aea6e340d14b9de3766e721f9f4861b",
+      "skillFolderHash": "76a98a285cb0434f3d39e1a873823556330e398b",
       "installedAt": "2026-03-20T22:16:32.079Z",
-      "updatedAt": "2026-07-03T03:11:41.311Z"
+      "updatedAt": "2026-07-13T03:44:20.446Z"
     },
     "highlight-graph": {
       "source": "readwiseio/readwise-skills",
