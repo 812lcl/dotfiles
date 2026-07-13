@@ -15,7 +15,7 @@
   "commonConfigConfirmed": true,
   "language": "zh",
   "currentProviderClaude": "453669d9-5d3d-4808-8761-6d0d815522f5",
-  "currentProviderClaudeDesktop": "453669d9-5d3d-4808-8761-6d0d815522f5",
+  "currentProviderClaudeDesktop": "claude-desktop-official",
   "currentProviderCodex": "codex-official",
   "currentProviderGemini": "gemini-official",
   "skillSyncMethod": "auto",
