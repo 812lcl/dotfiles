@@ -21,6 +21,27 @@
       "prompt": "我刚刚部署了 channels 到 cn prod，帮我做一次健康检查。",
       "expected_output": "需要能识别：1) 用户说部署了但 Jenkins 最近 1h 内无新部署触发（最近一次部署是 11h 前 #11，同 commit de6fabd9 重发）；2) SLS image_name 全为旧 tag；3) 部署判定符号 — （部署未发生）；4) 主动反馈给用户：运行时未见新版本，请确认是否真触发了部署；5) 运行时指标 SLS/DB/Redis 全绿不阻塞",
       "assertions": []
+    },
+    {
+      "id": 3,
+      "name": "code-native-us-prod-predispatch-degraded",
+      "prompt": "service-health code-native@us-prod，重点确认 terminal 成功是否掩盖了初始化失败。",
+      "expected_output": "必须先运行 code-native-health.py；terminal system failure、predispatch（含 -32043）、projection 和 bridge-router actionable 分层报告。即使 terminal 大多成功，只要 predispatch 或 actionable router failure 非零且低于 5%，总体仍为 degraded；Already initialized 单列 tolerated，不进入 actionable ratio。",
+      "assertions": []
+    },
+    {
+      "id": 4,
+      "name": "code-native-cn-prod-no-traffic",
+      "prompt": "看下 CN prod 的 Code Native 链路健康吗？最近可能没人用。",
+      "expected_output": "必须运行 code-native-health.py 并把无 Code Native activity 的结果报告为 not_exercised，而不是 healthy；同时分别报告 Gateway/bridge-router availability 和 runtime image 证据，缺数据时标 unknown。",
+      "assertions": []
+    },
+    {
+      "id": 5,
+      "name": "code-native-session-stuck-generating",
+      "prompt": "这个 code-native session 一直生成中，session_id=019fef16-5b6f-7a61-bcc3-c759c86c3971，帮我查。",
+      "expected_output": "先用 session-trace.py --backend code-native 校验 root thread、question/turn、active lease、terminal 和 projection，再用 finish_state_checker.py --backend code-native 对账 stuck 状态；不得套用 OMA finishHandler/session_task 模型。",
+      "assertions": []
     }
   ]
 }

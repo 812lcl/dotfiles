@@ -1,6 +1,6 @@
 ---
 name: service-health
-description: skywork/agent 项目核心 8 件套（gateway / chat / creation / oh-my-agent / ockernel / channels / user_center / mis）的端到端健康检查。覆盖运行时部署真相（SLS image_name 分布 + ARMS pod image，不以 Jenkins 状态为唯一标准）、SLS ERROR/WARN pattern 分析（抽样自归类，给 top 3-5 模式 + 占比 + 样例）、部署前后对比（pattern 新增 / CPU 内存差异 / QPS 差异）、ARMS pod CPU/内存（按 ReplicaSet 分组）、RDS/Redis 实例 CPU/QPS/连接数（不查数据）。多服务并行用子代理。当用户说 "健康检查 / 查看服务状态 / check 服务 / service health / 看一下 X 服务是否正常 / X 服务怎么样 / 巡检 / 体检" 等场景时使用，无论是否带具体服务名。
+description: skywork/agent 核心服务及 Gateway Code Native 链路的端到端健康检查。覆盖运行时部署真相（SLS image_name + ARMS pod image）、Code Native terminal/predispatch/projection/bridge-router 分层状态、backend-aware session trace、SLS ERROR/WARN pattern、部署前后对比及 DB/Redis 指标。当用户说“健康检查 / service health / 巡检 / X 服务正常吗 / code-native 链路怎么样 / Gateway Code Native health / session 卡在生成中”等场景时使用，无论是否明确点名本 skill。
 ---
 
 # Service Health Check
@@ -12,13 +12,15 @@ description: skywork/agent 项目核心 8 件套（gateway / chat / creation / o
 入参形式：
 - `服务名` 列表，例如 `gateway chat creation`
 - `服务名@环境`，例如 `gateway@us-test`（默认 us-test，可省略 @env）
+- Code Native 链路，例如 `code-native@us-prod` / `Gateway Code Native health`
 - 不带参数 → 询问用户要检查什么
 
 ## 工作流概览
 
 ```
 1. 解析参数（服务列表 + 环境）
-2. 单服务  → 直接顺序跑 7 项检查 (§ 1.1-1.7 必做；§ 1.8 ERROR 根因深挖条件触发)
+2. code-native → 走“Code Native 快路径”，不要套 OMA / 通用服务检查模型
+   通用服务  → 顺序跑 § 1.1-1.10（§ 1.8 ERROR 根因深挖条件触发）
    多服务  → 每服务 1 个子代理并行（subagent_type: general-purpose）
 3. 主 agent 汇总 → 多服务时输出总览表 + 异常详情
 ```
@@ -26,13 +28,54 @@ description: skywork/agent 项目核心 8 件套（gateway / chat / creation / o
 ## 第 0 步：参数解析
 
 支持格式：
-- 服务别名（按 SSOT § 2 列表）：`gateway` / `chat` / `creation` / `oh-my-agent` / `ockernel` / `channels` / `user_center` / `mis`
+- 服务别名（按 SSOT § 2 列表）：`gateway` / `chat` / `creation` / `oh-my-agent` / `ockernel` / `channels` / `user_center` / `mis` / `code-native`
 - 环境后缀：`@us-dev` / `@us-test` / `@us-pre` / `@us-prod` / `@cn-test` / `@cn-pre` / `@cn-prod`
 - 默认环境 = `us-test`
 
 如用户问 "线上有问题吗" / "prod 健康吗" 等模糊请求 → 默认 prod 双区（us-prod + cn-prod）。
 
-## 第 1 步：检查项（每服务 × 7 项，含 1 项条件触发）
+## Code Native 快路径
+
+当目标是 `code-native`、Gateway Code Native backend，或给出的 session 已知为 `sessions.backend=code-native` 时走本路径。支持环境为 `us-test` / `us-prod` / `cn-test` / `cn-prod`。
+
+### 先跑链路总检
+
+```bash
+python3 brain/tools/code-native-health.py --env <env> --window 30m --format json
+```
+
+以工具的 `healthy / degraded / unhealthy / not_exercised / unknown` 为规范状态，不从“pod 都 up”或“terminal 大多 success”自行改写结论：
+
+- `not_exercised` 表示窗口内没有 Code Native 流量，不能写成健康。
+- terminal 系统失败必须和 quota/policy/user 等 expected rejects 分开；expected rejects 不计系统失败率。
+- `-32043` 等 predispatch failures 可能没有 terminal turn，不能被 terminal success 掩盖。
+- bridge-router 的 `Already initialized` 和 recovered live writer 是 tolerated recovery，单列数量但不计 actionable failure ratio。
+- runtime 拓扑是 `agent-gateway (us/cn-backend) -> bridge-router (sky-search) -> sandbox-bridge/app-server`；不要使用 OMA 的 `sandbox-router` 替代 bridge-router。
+
+### 按症状追加诊断
+
+仅在总检异常、用户给出 session，或用户明确要求告警/性能分析时追加：
+
+```bash
+# canonical session timeline + thread/turn/active lease 校验
+python3 brain/tools/session-trace.py <session_id> --backend code-native --env <env> --format json
+
+# “卡在生成中”：对账 active lease、terminal、projection/messages
+python3 brain/tools/finish_state_checker.py --backend code-native --session <session_id> --env <env> --json
+
+# pod CPU/MEM；component 可选 gateway/bridge-router/code-mcp/memory
+python3 brain/tools/arms-pod-metrics.py --backend code-native --component bridge-router --cluster <env> --json
+
+# 告警盲区；线上探针优先指定 logstore，避免无边界全量扫描
+python3 brain/tools/alert_gap_scanner.py --backend code-native --env <env> --logstore <logstore>
+
+# session lifecycle/tool/error profile
+python3 brain/tools/agent_session_profiler.py --session <session_id> --env <env> --json
+```
+
+报告先给规范状态和时间窗口，再列 `runtime availability / traffic exercised / terminal / predispatch / projection / bridge-router actionable+tolerated / runtime images`。有 session 时补 root thread、question/turn、active lease、terminal 和 projection 是否对齐；证据缺失标 `unknown`，不要猜测健康。
+
+## 第 1 步：通用服务检查项（每服务 × 10 项，含 1 项条件触发）
 
 主 agent / 子代理执行下列检查，**全部用 brain/tools/ 下的工具**，不要直接连服务或 DB。
 § 1.1-1.7 必做；§ 1.8（ERROR 根因深挖）只在严重 ERROR / 部署窗口内突增 / 用户明确询问时触发。
@@ -597,3 +640,4 @@ Agent({
 8. **部署前后对比**：检测到部署后必须做。ERROR/min 变化、新增 pattern、新 RS vs 旧 RS CPU/MEM、DB/Redis QPS 变化。
 9. **基线漂移**：阈值是粗略的，发现明显异常 → 立刻给根因猜测 + 建议下一步。
 10. **Dashboard cookie 与 PromQL 解耦**：业务 dashboard (§ 1.9) 和 k8s dashboard (§ 1.10) 的 panel 查询，**只要 dashboard JSON 已缓存到 brain/knowledge/，cookie 过期不影响查询**（PromQL 走 promql.py + ARMS，与 Grafana cookie 无关）。cookie 仅在首次 fetch / `--refresh` 时需要。所以 Grafana cookie 过期不能成为跳过这两项检查的借口 — 工具已在内部自动 fallback 到 stale 缓存。只有 dashboard JSON 完全没缓存时才标 ❓ 跳过。
+11. **Code Native 不套 OMA 语义**：session 身份、stuck 判定和路由告警统一走 Code Native 快路径；root thread、turn/question、active lease 是核心契约。

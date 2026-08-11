@@ -180,7 +180,29 @@
     4. 不需要重启 — chat 走 Nacos 热加载（如果走 toml 则需重启 pod）
 ```
 
-## 9. 综合状态判定
+## 9. Code Native 链路
+
+`code-native-health.py` 是状态 SSOT。比率按当前检查窗口计算，且必须先确认分母有流量；没有流量使用 `not_exercised`，不能写健康。
+
+| 检查项 | healthy | degraded | unhealthy |
+|---|---|---|---|
+| terminal system failure ratio | 0 | > 0 且 < 5% | >= 5% |
+| predispatch failure / native RPC | 0 | > 0 且 < 5% | >= 5% |
+| bridge-router actionable / RPC request | 0 | > 0 且 < 5% | >= 5% |
+| projection error / native RPC | 0 | > 0 且 < 1% | >= 1% |
+| Gateway / bridge-router availability | 两者均有 up target | 仅一侧有 up target | 均无 up target |
+
+额外状态：
+
+- `not_exercised`：指标可读，但窗口内 terminal / expected reject / native RPC 均无活动。
+- `unknown`：关键 Prometheus 或 runtime image 证据不可读；不能降格成“无异常”。
+- quota / policy / user 等 expected rejects 不进入 terminal system failure ratio。
+- `Already initialized` 和 recovered live writer 只进入 tolerated recovery 计数，不进入 bridge-router actionable ratio。
+- terminal 维度健康不能覆盖 `-32043` 等 predispatch failure；总状态取各维度最严重结果。
+
+状态展示建议：`healthy=🟢`、`degraded=🟡`、`unhealthy=🔴`、`not_exercised=⚪`、`unknown=❓`。
+
+## 10. 综合状态判定
 
 | 整体颜色 | 触发条件 |
 |---|---|
