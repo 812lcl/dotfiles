@@ -371,6 +371,7 @@
     "security.promptForLocalFileProtocolHandling": false,
     "window.autoDetectColorScheme": false,
     "remote.SSH.remotePlatform": {
-        "lima": "linux"
+        "lima": "linux",
+        "127.0.0.1": "macOS"
     }
 }

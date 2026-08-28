@@ -1,0 +1,20 @@
+{
+  "skill_name": "obsidian-task-writeback",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "根据今天 git、Codex session 等内容，在相应 project 中增加 Obsidian task 并标上 [area::work]，不要和 Day Planner / 其他 task 时间重叠，只添加工作相关任务，并列出添加的任务。",
+      "expected_output": "The agent gathers daily, git, brain/session evidence, writes completed work tasks to the relevant project page, validates diff and no timeline overlap, and lists added tasks."
+    },
+    {
+      "id": 2,
+      "prompt": "根据昨天工作总结补充昨天完成的 tasks，填充昨天 Day Planner timeline 上空余的时间块。Code Agent 相关任务创建到相应 project 标题下，schedule、completed、area tag 都正确填写，改动前后注意保留无关脏文件。",
+      "expected_output": "The agent resolves yesterday, inspects the daily timeline and project placeholders, completes or adds only evidence-backed Code Agent work tasks with correct dates/tags, and validates no overlap."
+    },
+    {
+      "id": 3,
+      "prompt": "把今天这几项工作如果根据查询结果没做的话 defer 到明天；不要和已有任务重复，也不要移动无关任务。",
+      "expected_output": "The agent checks evidence before deferring, updates only unfinished matching work tasks to tomorrow's schedule date, preserves unrelated tasks, and reports exactly what changed."
+    }
+  ]
+}

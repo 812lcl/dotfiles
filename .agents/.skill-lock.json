@@ -427,9 +427,9 @@
       "sourceUrl": "https://github.com/ChromeDevTools/chrome-devtools-mcp.git",
       "ref": "main",
       "skillPath": "skills/memory-leak-debugging/SKILL.md",
-      "skillFolderHash": "44e6a937cb25eb240f8353a9bd5fcca31acce6ae",
+      "skillFolderHash": "50a614d6d8691e805de8dcee25e51366773d7c86",
       "installedAt": "2026-05-09T07:56:56.829Z",
-      "updatedAt": "2026-06-09T08:24:48.969Z",
+      "updatedAt": "2026-08-12T04:52:34.199Z",
       "pluginName": "chrome-devtools"
     },
     "troubleshooting": {
