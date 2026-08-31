@@ -20,6 +20,16 @@
       "updatedAt": "2026-03-20T22:16:17.753Z",
       "pluginName": "readwise-skills"
     },
+    "brain": {
+      "source": "812lcl/work-skills",
+      "sourceType": "local",
+      "sourceUrl": "",
+      "skillPath": "SKILL.md",
+      "skillFolderHash": "6ea29ffc8db9b0405ff710cb2a25d759585012802e02db90b5d20a6ef5f0a46f",
+      "installedAt": "2026-08-31T06:31:41Z",
+      "updatedAt": "2026-08-31T06:31:41Z",
+      "pluginName": "Work"
+    },
     "build-persona": {
       "source": "readwiseio/readwise-skills",
       "sourceType": "github",
@@ -29,6 +39,16 @@
       "installedAt": "2026-03-20T22:16:17.996Z",
       "updatedAt": "2026-03-20T22:16:17.996Z",
       "pluginName": "readwise-skills"
+    },
+    "codex-env-doctor": {
+      "source": "812lcl/personal-skills",
+      "sourceType": "local",
+      "sourceUrl": "",
+      "skillPath": "SKILL.md",
+      "skillFolderHash": "2f5e8ce9cf4fbd914a574f055058e371f45ed21b38bbe5aee6c0bcc658e2d0c6",
+      "installedAt": "2026-08-31T06:31:41Z",
+      "updatedAt": "2026-08-31T06:31:41Z",
+      "pluginName": "Personal"
     },
     "defuddle": {
       "source": "kepano/obsidian-skills",
@@ -503,15 +523,25 @@
       "updatedAt": "2026-05-15T10:00:26.506Z",
       "pluginName": "Personal"
     },
-    "service-health": {
+    "obsidian-task-writeback": {
       "source": "812lcl/personal-skills",
       "sourceType": "local",
       "sourceUrl": "",
       "skillPath": "SKILL.md",
-      "skillFolderHash": "45f0d0f28b4fc37c393ddf86855d4921203225b8",
-      "installedAt": "2026-05-15T10:00:26.506Z",
-      "updatedAt": "2026-05-15T10:00:26.506Z",
+      "skillFolderHash": "c06f9cd3bbf2a726c9c4b1d8352d81182da3882d91af4430f793e37b0893ebb5",
+      "installedAt": "2026-08-31T06:31:41Z",
+      "updatedAt": "2026-08-31T06:31:41Z",
       "pluginName": "Personal"
+    },
+    "service-health": {
+      "source": "812lcl/work-skills",
+      "sourceType": "local",
+      "sourceUrl": "",
+      "skillPath": "SKILL.md",
+      "skillFolderHash": "7ddef0a962a9c6a73646f023bad832b863dccb763a61fc9259c7668373b9d24c",
+      "installedAt": "2026-05-15T10:00:26.506Z",
+      "updatedAt": "2026-08-31T06:31:41Z",
+      "pluginName": "Work"
     },
     "weekly-report": {
       "source": "812lcl/personal-skills",
