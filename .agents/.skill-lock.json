@@ -41,14 +41,14 @@
       "pluginName": "readwise-skills"
     },
     "codex-env-doctor": {
-      "source": "812lcl/personal-skills",
+      "source": "812lcl/work-skills",
       "sourceType": "local",
       "sourceUrl": "",
       "skillPath": "SKILL.md",
       "skillFolderHash": "2f5e8ce9cf4fbd914a574f055058e371f45ed21b38bbe5aee6c0bcc658e2d0c6",
       "installedAt": "2026-08-31T06:31:41Z",
       "updatedAt": "2026-08-31T06:31:41Z",
-      "pluginName": "Personal"
+      "pluginName": "Work"
     },
     "defuddle": {
       "source": "kepano/obsidian-skills",

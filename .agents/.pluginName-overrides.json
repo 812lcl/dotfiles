@@ -1,6 +1,8 @@
 {
   "_comment": "Per-source pluginName overrides re-applied after every skill install/update because CLI overwrites lock entries entirely. Used by ~/.agents/safe-skills-update.sh and ~/.agents/apply-pluginName-overrides.py.",
   "ChromeDevTools/chrome-devtools-mcp": "chrome-devtools",
+  "812lcl/personal-skills":       "Personal",
+  "812lcl/work-skills":           "Work",
   "JimLiu/baoyu-skills":         "baoyu-skills",
   "kepano/obsidian-skills":      "obsidian-skills",
   "larksuite/cli":               "lark",

@@ -21,3 +21,8 @@ nohup.out
 .claude/plugins/.last_inuse_sweep
 .claude/plugins/claude-hud/context-cache/
 .claude/plugins/claude-hud/speed-cache/
+
+# Work-specific local Codex skills are maintained outside the public dotfiles repo.
+.agents/skills/brain
+.agents/skills/service-health
+.agents/skills/codex-env-doctor

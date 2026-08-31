@@ -40,6 +40,7 @@ for name in "${WATCH[@]}"; do
       missing_canon+=("$name")
       continue
     fi
+    src="$(cd "$src" && pwd -P)"
     rm "$target"
     cp -R "$src" "$target"
     restored=$((restored + 1))
