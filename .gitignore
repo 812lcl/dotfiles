@@ -26,3 +26,4 @@ nohup.out
 .agents/skills/brain
 .agents/skills/service-health
 .agents/skills/codex-env-doctor
+.agents/skills/weekly-report

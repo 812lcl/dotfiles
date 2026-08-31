@@ -544,14 +544,14 @@
       "pluginName": "Work"
     },
     "weekly-report": {
-      "source": "812lcl/personal-skills",
+      "source": "812lcl/work-skills",
       "sourceType": "local",
       "sourceUrl": "",
       "skillPath": "SKILL.md",
       "skillFolderHash": "281319353ad6a676c24d5742c1957c5d9fa08e59",
       "installedAt": "2026-05-15T10:00:26.506Z",
       "updatedAt": "2026-05-15T10:00:26.506Z",
-      "pluginName": "Personal"
+      "pluginName": "Work"
     },
     "lark-apps": {
       "source": "open.feishu.cn",
