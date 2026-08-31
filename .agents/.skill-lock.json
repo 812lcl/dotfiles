@@ -640,6 +640,16 @@
       "installedAt": "2026-08-28T03:08:47.697Z",
       "updatedAt": "2026-08-28T03:08:47.697Z",
       "pluginName": "lark-cli"
+    },
+    "release-branch": {
+      "source": "812lcl/work-skills",
+      "sourceType": "local",
+      "sourceUrl": "",
+      "skillPath": "SKILL.md",
+      "skillFolderHash": "9e763d02e6e5b02fbb977c36ea586ea2b2eb3e8d",
+      "installedAt": "2026-05-18T04:59:30.000Z",
+      "updatedAt": "2026-05-18T04:59:30.000Z",
+      "pluginName": "Work"
     }
   },
   "dismissed": {

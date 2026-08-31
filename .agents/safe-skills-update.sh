@@ -57,4 +57,10 @@ fi
 # Re-apply per-source pluginName overrides (CLI add/update wipes them)
 python3 "$HOME/.agents/apply-pluginName-overrides.py" || true
 
+# Re-apply private Work skill entries and symlink entrypoints when available.
+WORK_LOCK_SYNC="$HOME/.brain/.agents/sync-work-skill-lock.py"
+if [ -f "$WORK_LOCK_SYNC" ]; then
+  python3 "$WORK_LOCK_SYNC" --apply || true
+fi
+
 exit "$status"

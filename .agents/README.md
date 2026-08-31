@@ -64,11 +64,18 @@ canonical skill 文件放 `skills/`，元数据 lock 放 `.skill-lock.json`。
 工作特有 skill 不放进 public dotfiles 仓库维护；真实内容放在私有工作仓库：
 
 ```bash
+~/.brain/.agents/.skill-lock.json
 ~/.brain/.agents/skills/<name>/
 ~/.agents/skills/<name> -> ~/.brain/.agents/skills/<name>
 ```
 
-dotfiles 中只保留 `.skill-lock.json` 的 local entry 和被 `.gitignore` 忽略的本机 symlink 入口。若新增工作 skill，同步更新 `.pluginName-overrides.json` 中的 `812lcl/work-skills -> Work` 规则。
+dotfiles 中只保留 `.skill-lock.json` 的 local entry 和被 `.gitignore` 忽略的本机 symlink 入口。若新增工作 skill，先更新私有 manifest，再执行：
+
+```bash
+python3 ~/.brain/.agents/sync-work-skill-lock.py --apply
+```
+
+`safe-skills-update.sh` 会在 `npx skills update -g` 后自动尝试执行这个同步脚本。若新增新的 local source，再同步更新 `.pluginName-overrides.json` 中的映射；当前 `812lcl/work-skills -> Work` 已覆盖工作 skill。
 
 ### CLI 单 agent 强制 copy 的问题 + 修复模板
 
@@ -96,6 +103,8 @@ P="$AGENT_DIR/$NAME"
 | 文件 | 作用 |
 |---|---|
 | `.skill-lock.json` | npx skills 的真相源，每条 skill 一个 entry |
+| `~/.brain/.agents/.skill-lock.json` | 私有 Work skills 的源头 manifest |
+| `~/.brain/.agents/sync-work-skill-lock.py` | 把 Work manifest 同步/校验到全局 lock 和 symlink 入口 |
 | `safe-skills-update.sh` | **日常入口**：update + openclaw 守护 + pluginName 守护 |
 | `apply-pluginName-overrides.py` | 按规则表重写 lock 里的 pluginName |
 | `.pluginName-overrides.json` | pluginName 规则表（per source） |

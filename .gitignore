@@ -27,3 +27,4 @@ nohup.out
 .agents/skills/service-health
 .agents/skills/codex-env-doctor
 .agents/skills/weekly-report
+.agents/skills/release-branch
