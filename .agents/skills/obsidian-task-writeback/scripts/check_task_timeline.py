@@ -4,10 +4,13 @@
 from __future__ import annotations
 
 import argparse
+import os
 import pathlib
 import re
 import sys
 from dataclasses import dataclass
+
+DEFAULT_VAULT = "/Users/liuchunlei/Code/Obsidian Vault"
 
 
 TASK_RE = re.compile(
@@ -35,7 +38,11 @@ class Item:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--date", required=True, help="Target date, e.g. 2026-08-12")
-    parser.add_argument("--vault", default=".", help="Vault root. Defaults to cwd.")
+    parser.add_argument(
+        "--vault",
+        default=os.environ.get("OBSIDIAN_VAULT_PATH", DEFAULT_VAULT),
+        help=f"Vault root. Defaults to OBSIDIAN_VAULT_PATH or {DEFAULT_VAULT}.",
+    )
     parser.add_argument(
         "--files",
         action="append",
@@ -135,4 +142,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

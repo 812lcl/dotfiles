@@ -5,7 +5,7 @@ Locate the user's Obsidian vault root and Clippings target directory.
 Resolution order:
   1. OBSIDIAN_CLIPPINGS_DIR env var (absolute path; overrides everything)
   2. OBSIDIAN_VAULT_PATH env var + OBSIDIAN_CLIPPINGS_SUBPATH (default: 4-knowledge_hub/Clippings)
-  3. Walk up from cwd looking for a directory containing `.obsidian/`
+  3. Default vault path + OBSIDIAN_CLIPPINGS_SUBPATH
   4. Exit 1 with a hint message — skill should then ask the user.
 
 Usage:
@@ -19,17 +19,10 @@ import json
 import os
 import sys
 from pathlib import Path
-from typing import Optional, Tuple
+from typing import Tuple
 
 DEFAULT_SUBPATH = "4-knowledge_hub/Clippings"
-
-
-def find_vault_from_cwd(start: Path) -> Optional[Path]:
-    cur = start.resolve()
-    for parent in [cur, *cur.parents]:
-        if (parent / ".obsidian").is_dir():
-            return parent
-    return None
+DEFAULT_VAULT = Path("/Users/liuchunlei/Code/Obsidian Vault")
 
 
 def resolve() -> Tuple[Path, Path]:
@@ -42,13 +35,13 @@ def resolve() -> Tuple[Path, Path]:
     if vault_env:
         vault = Path(vault_env).expanduser().resolve()
     else:
-        vault = find_vault_from_cwd(Path.cwd())
+        vault = DEFAULT_VAULT.resolve()
 
     if not vault or not vault.is_dir():
         hint = (
             "Cannot locate Obsidian vault.\n"
-            "Set OBSIDIAN_VAULT_PATH env var, or run from inside a vault "
-            "(directory containing .obsidian/).\n"
+            "Set OBSIDIAN_VAULT_PATH env var, or create/use the default vault "
+            "at /Users/liuchunlei/Code/Obsidian Vault.\n"
             "Optional: OBSIDIAN_CLIPPINGS_SUBPATH (default: 4-knowledge_hub/Clippings)\n"
             "Or set OBSIDIAN_CLIPPINGS_DIR for a full override."
         )

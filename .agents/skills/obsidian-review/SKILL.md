@@ -13,7 +13,7 @@ description: Obsidian vault 中 Daily/Weekly/Monthly/Quarterly/Yearly review 与
 
 ## Vault 基本事实
 
-- **Vault 根目录**：`/Users/liuchunlei/Library/Mobile Documents/iCloud~md~obsidian/Documents/Obsidian Vault`（下文简称 `<VAULT>`）。也可从环境变量 `OBSIDIAN_VAULT_PATH` 取，或从用户 CWD 推断（若 CWD 已在 vault 内）。
+- **Vault 根目录**：优先使用环境变量 `OBSIDIAN_VAULT_PATH`；未设置时默认 `/Users/liuchunlei/Code/Obsidian Vault`。下文 `<VAULT>` 均指 `VAULT="${OBSIDIAN_VAULT_PATH:-/Users/liuchunlei/Code/Obsidian Vault}"` 的解析结果。
 - **plan 文件位置**：
   - Daily: `<VAULT>/1-plan/1-daily/YYYY-MM-DD.md`
   - Weekly: `<VAULT>/1-plan/2-weekly/YYYY-Www.md`（ISO 周编号，如 `2026-W20`）

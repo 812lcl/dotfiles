@@ -11,7 +11,7 @@ The user's intent is usually: "based on today's/yesterday's git and Codex sessio
 
 ## Scope
 
-- Vault root: `/Users/liuchunlei/Library/Mobile Documents/iCloud~md~obsidian/Documents/Obsidian Vault`
+- Vault root: resolve as `VAULT="${OBSIDIAN_VAULT_PATH:-/Users/liuchunlei/Code/Obsidian Vault}"`.
 - Main work repo root: `/Users/liuchunlei/Code/skywork/agent`
 - Project pages: `2-task_management/1-projects/*.md`
 - Daily notes: `1-plan/1-daily/YYYY-MM-DD.md`
@@ -126,9 +126,10 @@ If exact task duration is unclear, use conservative 30, 45, 60, 75, or 120 minut
 Use the bundled script after editing:
 
 ```bash
+VAULT="${OBSIDIAN_VAULT_PATH:-/Users/liuchunlei/Code/Obsidian Vault}"
 python /Users/liuchunlei/Documents/Code/dotfiles/.agents/skills/obsidian-task-writeback/scripts/check_task_timeline.py \
   --date YYYY-MM-DD \
-  --vault "/Users/liuchunlei/Library/Mobile Documents/iCloud~md~obsidian/Documents/Obsidian Vault" \
+  --vault "$VAULT" \
   --files "2-task_management/1-projects/Code Agent.md" \
   --files "2-task_management/2-tasks/工作日常任务.md"
 ```
@@ -201,4 +202,3 @@ Keep it concise. Do not include raw command dumps.
 - Counting routine release tasks twice: if `工作日常任务.md` already has the timed recurring release task, avoid adding an identical release task unless the evidence is a separate project-specific release.
 - Treating broad git merge commits as separate tasks when they are just the closeout of the same work theme.
 - Including personal tasks just because they appear in the daily note.
-

@@ -29,7 +29,7 @@ Read these on demand:
 
 Helper scripts under `scripts/`:
 
-- `find_vault.py` — locate vault root + Clippings dir (env-var or `.obsidian/` discovery)
+- `find_vault.py` — locate vault root + Clippings dir (`OBSIDIAN_VAULT_PATH`, default vault path, or full clippings override)
 - `detect_source.py <url-or-path>` — classify source → JSON `{type, media, handler, url_or_path}`
 - `sanitize_filename.py <type> <title>` — produce `[<type>] <safe-title>.md`
 - `check_duplicate.py <source>` — check if URL/path already clipped (two-stage: frontmatter `source:`/`url:` exact match + URL fingerprint grep for legacy notes)
@@ -171,13 +171,13 @@ This skill works across vaults / projects / agents via three env vars (all optio
 
 | Env | Purpose | Default |
 |---|---|---|
-| `OBSIDIAN_VAULT_PATH` | vault root | auto-detect via `.obsidian/` |
+| `OBSIDIAN_VAULT_PATH` | vault root | `/Users/liuchunlei/Code/Obsidian Vault` |
 | `OBSIDIAN_CLIPPINGS_SUBPATH` | sub-path under vault | `4-knowledge_hub/Clippings` |
 | `OBSIDIAN_CLIPPINGS_DIR` | full override (skips both above) | — |
 
 Recommend the user add to shell rc:
 ```bash
-export OBSIDIAN_VAULT_PATH="$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/Obsidian Vault"
+export OBSIDIAN_VAULT_PATH="$HOME/Code/Obsidian Vault"
 ```
 
 ## Hard rules
@@ -198,7 +198,7 @@ export OBSIDIAN_VAULT_PATH="$HOME/Library/Mobile Documents/iCloud~md~obsidian/Do
 
 | Symptom | Fix |
 |---|---|
-| `find_vault.py` exits 1 | Tell user to set `OBSIDIAN_VAULT_PATH` or cd into vault |
+| `find_vault.py` exits 1 | Tell user to set `OBSIDIAN_VAULT_PATH` or create/use the default vault path |
 | defuddle not installed | `npm install -g defuddle` |
 | yt-dlp missing | `brew install yt-dlp` or `pip install yt-dlp` |
 | Podcast show notes too short | Ask user: 用 description / 升级到 transcriber (慢) |
