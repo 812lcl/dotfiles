@@ -22,6 +22,24 @@ nohup.out
 .claude/plugins/claude-hud/context-cache/
 .claude/plugins/claude-hud/speed-cache/
 
+# Local credentials and machine state must never enter the public repository.
+.local/share/opencode/auth.json
+.config/opencode/opencode.json
+.wakatime.cfg
+.codex/auth.json
+.cheat/history
+.gitconfig.local
+
+# SSH is private by default. Only the sanitized public defaults are versioned.
+.ssh/*
+!.ssh/config.public
+
+# Editor authentication and extension state.
+VSCode-profiles/globalStorage/state.vscdb*
+
+# Local secret-scanner reports.
+gitleaks-report.*
+
 # Work-specific local Codex skills are maintained outside the public dotfiles repo.
 .agents/skills/brain
 .agents/skills/service-health
