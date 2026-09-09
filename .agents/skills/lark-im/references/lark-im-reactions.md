@@ -90,7 +90,7 @@ List reaction records on one message.
 lark-cli im reactions list --params '{"message_id":"om_xxx"}'
 lark-cli im reactions list --params '{"message_id":"om_xxx","reaction_type":"SMILE"}'
 lark-cli im reactions list --params '{"message_id":"om_xxx","page_size":50}'
-lark-cli im reactions list --params '{"message_id":"om_xxx","page_token":"<page_token>"}'
+lark-cli im reactions list --params '{"message_id":"om_xxx","page_token":"<PAGE_TOKEN>"}'
 lark-cli im reactions list --params '{"message_id":"om_xxx","user_id_type":"open_id"}'
 ```
 
@@ -183,7 +183,7 @@ lark-cli im reactions batch_query \
   --data '{
     "queries":[
       {"message_id":"om_xxx"},
-      {"message_id":"om_yyy","page_token":"<page_token>"}
+      {"message_id":"om_yyy","page_token":"<PAGE_TOKEN>"}
     ],
     "page_size_per_message":10,
     "reaction_type":"LAUGH"
