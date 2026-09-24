@@ -183,6 +183,25 @@
         "installedAt": "2026-07-13T09:07:20.353Z",
         "lastUpdated": "2026-07-13T09:07:20.353Z"
       }
+    ],
+    "typesafe@typesafe-ai": [
+      {
+        "scope": "user",
+        "installPath": "/Users/liuchunlei/.claude/plugins/cache/typesafe-ai/typesafe/0.5.7",
+        "version": "0.5.7",
+        "installedAt": "2026-09-20T01:54:14.414Z",
+        "lastUpdated": "2026-09-20T01:54:14.414Z",
+        "gitCommitSha": "65a39f393687675ce170e6094757de20370365b9"
+      }
+    ],
+    "superpowers@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-plugins-official/superpowers/896224c4b187",
+        "version": "896224c4b187",
+        "installedAt": "2026-09-20T01:54:23.474Z",
+        "lastUpdated": "2026-09-20T01:54:23.474Z"
+      }
     ]
   }
 }
