@@ -1,6 +1,6 @@
 ---
 name: lark-doc
-description: "飞书云文档（Docx / Wiki）内容操作：读取、创建、编辑文档，插入或下载图片附件，以及操作思维笔记。用户提供文档 URL/token（包括 doubao.com 的 /docx/、/wiki/）时使用；按 URL 路径/token 而非域名路由。文档内嵌资源按读取参考中的统一规则分流。独立评论操作走 lark-drive；随正文读取评论使用 docs +fetch。表格或 Base 内部数据操作不在本 skill。"
+description: "飞书云文档（Docx / Wiki）内容操作：读取、创建、编辑文档，插入或下载图片附件，以及操作思维笔记。用户提供文档 URL/token（包括 doubao.com 的 /docx/、/wiki/）时使用；按 URL 路径/token 而非域名路由；`/page/<token>` 是妙搭应用，非飞书云文档。文档内嵌资源按读取参考中的统一规则分流。独立评论操作走 lark-drive；随正文读取评论使用 docs +fetch。表格或 Base 内部数据操作不在本 skill。"
 metadata:
   requires:
     bins: ["lark-cli"]
@@ -16,7 +16,7 @@ metadata:
 
 **身份：文档操作推荐显式指定 `--as user`。**
 
-**所有表示本地文件的 `@path` 均使用 `@./xxx` 形式的相对路径，并以运行 `lark-cli` 时的当前工作目录（CWD）为基准。**
+**本地文件引用统一遵循文件访问权限：CWD 内优先使用 `@./相对路径`，其他目录使用 `@绝对路径`。XML 内的相对资源路径先查 CWD；仅文件不存在时再查源 XML 文件所在目录，同名文件以 CWD 为准。内联内容、stdin、在线文档没有源文件目录，不执行回退。**
 
 ### 文档内容
 
