@@ -1,7 +1,7 @@
 # `~/.agents/` — Skills 管理 Cheatsheet
 
-`~/.agents/` 是 `npx skills` CLI 的全局根目录（实际指向 `~/Documents/Code/dotfiles/.agents/` 的 symlink）。
-canonical skill 文件放 `skills/`，元数据 lock 放 `.skill-lock.json`。
+`~/.agents/` 是 `npx skills` CLI 的全局根目录（实际指向 `~/Code/dotfiles/.agents/` 的 symlink）。
+`skills/` 保存发现入口（可以软链到 Vault 或私有工作仓的唯一源码），元数据 lock 放 `.skill-lock.json`。
 
 最近一次大整理：**2026-05-09**
 
@@ -17,7 +17,7 @@ canonical skill 文件放 `skills/`，元数据 lock 放 `.skill-lock.json`。
 
 | 风险 | 后果 |
 |---|---|
-| OpenClaw 的 copy 模式被翻成 symlink | OpenClaw 加载不出 skill（symlink 时有目录权限/解析故障，2026-05-08 实测） |
+| OpenClaw 的 copy 模式被翻成 symlink | 本机发现根策略可能拒绝越界软链；保留复制分发，实际文件访问权限另行核对 |
 | 自定义 `pluginName` 被清空 | `lark/waza/baoyu-skills/obsidian-skills/readwise-skills/chrome-devtools` 退化成上游零散名 |
 
 包装脚本 `safe-skills-update.sh` 干的：
@@ -26,6 +26,27 @@ canonical skill 文件放 `skills/`，元数据 lock 放 `.skill-lock.json`。
 2. 跑 `npx skills update -g` 透传 `$@`
 3. 任何变成 symlink 的 openclaw 项 → 删掉 + 从 canonical `cp -R` 回 copy
 4. 调 `apply-pluginName-overrides.py`，按 `.pluginName-overrides.json` 重写自定义命名
+5. 恢复既有 Work manifest 和入口
+6. 对 knowledge-clip 运行同一复制适配步骤，保持后续更新一致
+
+### 只同步 OpenClaw 的 knowledge-clip（不运行全量更新）
+
+```bash
+~/.agents/safe-skills-update.sh --sync-openclaw --skill knowledge-clip --dry-run
+~/.agents/safe-skills-update.sh --sync-openclaw --skill knowledge-clip --apply
+```
+
+此分支不执行 npx、不改 `.skill-lock.json`/pluginName/Work manifest、不碰其他技能、配置或服务。必须明确 `--skill`；不带 `--apply` 只预览。内部 `openclaw-copy-adapter.py` 由同一个日常入口调用，不是第二套同步入口。当前适配仅支持 knowledge-clip；clawfeed 不进入此机制。
+
+它复制完整 skill（排除运行缓存），保留 source YAML 标识和 OpenClaw `.clawhub` 元数据，再生成两个适配点：SKILL 正文的明确路径说明、`scripts/clip_flow.py` 薄委派。后者用已验证的 Python/PyYAML 运行 Vault 中的 canonical clip_flow，避免原样复制后按错误目录层级找 guard。共享工具、Wiki 正文、索引入口、契约、profile、Properties、schema/ledger仍从明确 Vault 读取，不复制业务笔记或权限配置。
+
+同步会校验所选 Python ≥3.10 且已有 PyYAML 6.x；不自动安装依赖。若当前 PATH 的 `python3` 缺依赖，定向命令可加 `--python /opt/homebrew/opt/python@3.14/bin/python3.14`。已生成的 clip 执行入口固定使用验证过的解释器，运行目录和普通 `python3` 的变化不会让它误用系统 Python。
+
+`.openclaw-copy.json` 记录来源与本机制管理的文件 hash（不修改原锁映射）。重复同步为 no-op；canonical 更新后重建同一适配。发现本地人工修改/未知文件、断依赖或并发变化就停止，不强制覆盖。实际文件访问若被 OpenClaw 拒绝，必须报告，不能用 exec/其他路径绕过；发现根限制不等于已获得访问权限。
+
+每次有变化的定向同步先把完整旧副本与权限/hash保存到 `~/.openclaw/backups/skill-sync/`；可用 `--backup-dir <绝对目录>` 指定本机归档位置。无变化不生成新备份。正常 `safe-skills-update.sh` 全局更新前做预检、更新后复用此适配步骤，即使 knowledge-clip 始终是 copy 也会刷新，所以下次同步不会丢掉适配。上游更新失败时仍尝试既有 copy/pluginName/Work 恢复和 clip 适配，并保留失败退出码。
+
+不自动 commit/push，不重启 Gateway、不关闭会话、不发送消息。同步完成仍需核验 loader 的文件来源；既有会话已经读入的旧正文需要新会话验证，不能仅凭文件同步宣称微信端到端成功。
 
 ---
 
@@ -34,7 +55,7 @@ canonical skill 文件放 `skills/`，元数据 lock 放 `.skill-lock.json`。
 | 场景 | 命令 |
 |---|---|
 | 检查并应用更新 | `~/.agents/safe-skills-update.sh` |
-| 只看有没有更新（不动文件） | `npx skills update -g` 然后看输出 `Found N updates` |
+| 只预览本次 OpenClaw clip 同步（不动文件） | `~/.agents/safe-skills-update.sh --sync-openclaw --skill knowledge-clip --dry-run`；`npx skills update -g` 会更新，不是只读检查 |
 | 列出所有 skill 及 agent 归属 | `npx skills ls -g -a` |
 | 装新 skill 到非-OpenClaw agent | `npx skills add <source> -g -a <agent> -s <name1> [name2 ...] -y`<br>⚠️ 单 agent 单 skill 会被强制 copy，需手动转 symlink（见下） |
 | 装新 skill 到 OpenClaw | `npx skills add <source> -g -a openclaw -s <names> -y --copy --dangerously-accept-openclaw-risks` |

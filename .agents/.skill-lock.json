@@ -650,6 +650,78 @@
       "installedAt": "2026-05-18T04:59:30.000Z",
       "updatedAt": "2026-05-18T04:59:30.000Z",
       "pluginName": "Work"
+    },
+    "claude-dashboard": {
+      "source": "JimLiu/baoyu-design",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/JimLiu/baoyu-design.git",
+      "skillPath": "skills/claude-dashboard/SKILL.md",
+      "skillFolderHash": "0aaa1d5473a47f77f5f78906b5ddb9334885688f",
+      "installedAt": "2026-11-03T04:46:06.694Z",
+      "updatedAt": "2026-11-03T04:46:06.694Z"
+    },
+    "claude-design": {
+      "source": "JimLiu/baoyu-design",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/JimLiu/baoyu-design.git",
+      "skillPath": "skills/claude-design/SKILL.md",
+      "skillFolderHash": "3548b5a5229d511fbca3a2ee298165ad39aa01fb",
+      "installedAt": "2026-11-03T04:46:06.706Z",
+      "updatedAt": "2026-11-03T04:46:06.706Z"
+    },
+    "claude-design-system": {
+      "source": "JimLiu/baoyu-design",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/JimLiu/baoyu-design.git",
+      "skillPath": "skills/claude-design-system/SKILL.md",
+      "skillFolderHash": "7368696aaf2eefbd518015f435db5f901ce217c3",
+      "installedAt": "2026-11-03T04:46:06.707Z",
+      "updatedAt": "2026-11-03T04:46:06.707Z"
+    },
+    "claude-motion": {
+      "source": "JimLiu/baoyu-design",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/JimLiu/baoyu-design.git",
+      "skillPath": "skills/claude-motion/SKILL.md",
+      "skillFolderHash": "1fdf3aba2edc6d49eef378a34123806fabb955f3",
+      "installedAt": "2026-11-03T04:46:06.708Z",
+      "updatedAt": "2026-11-03T04:46:06.708Z"
+    },
+    "claude-slides": {
+      "source": "JimLiu/baoyu-design",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/JimLiu/baoyu-design.git",
+      "skillPath": "skills/claude-slides/SKILL.md",
+      "skillFolderHash": "0516c2dfaa2f702387d5b2c6d92c292d535b8301",
+      "installedAt": "2026-11-03T04:46:06.710Z",
+      "updatedAt": "2026-11-03T04:46:06.710Z"
+    },
+    "dataviz": {
+      "source": "JimLiu/baoyu-design",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/JimLiu/baoyu-design.git",
+      "skillPath": "skills/dataviz/SKILL.md",
+      "skillFolderHash": "911c8e2eaabe672a6eb0853bbadeac0a6326268d",
+      "installedAt": "2026-11-03T04:46:06.711Z",
+      "updatedAt": "2026-11-03T04:46:06.711Z"
+    },
+    "motion-director": {
+      "source": "JimLiu/baoyu-design",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/JimLiu/baoyu-design.git",
+      "skillPath": "skills/motion-director/SKILL.md",
+      "skillFolderHash": "e4e824d3c32194afe890a7af7050d1bb50babde7",
+      "installedAt": "2026-11-03T04:46:06.712Z",
+      "updatedAt": "2026-11-03T04:46:06.712Z"
+    },
+    "release-skills": {
+      "source": "JimLiu/baoyu-design",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/JimLiu/baoyu-design.git",
+      "skillPath": ".claude/skills/release-skills/SKILL.md",
+      "skillFolderHash": "97438b3170eb850ba3a92de132d6866616cf338e",
+      "installedAt": "2026-11-03T04:46:06.713Z",
+      "updatedAt": "2026-11-03T04:46:06.713Z"
     }
   },
   "dismissed": {
@@ -657,18 +729,19 @@
   },
   "lastSelectedAgents": [
     "amp",
-    "antigravity",
     "cline",
     "codex",
     "cursor",
-    "deepagents",
-    "dexto",
-    "firebender",
+    "droid",
+    "fx",
     "gemini-cli",
     "github-copilot",
-    "kimi-cli",
+    "kilo",
+    "kimi-code-cli",
     "opencode",
+    "pi",
     "warp",
+    "zed",
     "claude-code",
     "openclaw"
   ]

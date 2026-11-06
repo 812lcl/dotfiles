@@ -5,6 +5,7 @@
 [core]
 	excludesfile = ~/.gitignore_global
 	fsmonitor = false
+	quotepath = false
 [commit]
 	template = ~/.stCommitMsg
 [filter "lfs"]
