@@ -198,9 +198,6 @@ export CPPFLAGS="-I/opt/homebrew/opt/ruby/include"
 # For pkgconf to find ruby you may need to set:
 export PKG_CONFIG_PATH="/opt/homebrew/opt/ruby/lib/pkgconfig"
 
-# opencode
-export PATH=/Users/812lcl/.opencode/bin:$PATH
-
 # OpenClaw Completion
 source "/Users/812lcl/.openclaw/completions/openclaw.zsh"
 

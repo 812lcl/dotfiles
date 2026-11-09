@@ -46,3 +46,8 @@ gitleaks-report.*
 .agents/skills/codex-env-doctor
 .agents/skills/weekly-report
 .agents/skills/release-branch
+
+# Local workflow adapters and plugin telemetry are not public configuration.
+.claude/plugins/store/
+.claude/skills/multi-repo-maintenance
+.claude/skills/release-branch

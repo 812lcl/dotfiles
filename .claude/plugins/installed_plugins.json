@@ -130,9 +130,9 @@
         "scope": "user",
         "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-plugins-official/discord/0.0.4",
         "version": "0.0.4",
-        "installedAt": "2026-03-23T02:08:22.124Z",
-        "lastUpdated": "2026-06-26T08:17:16.398Z",
-        "gitCommitSha": "61c0597779bd2d670dcd4fbbf37c66aa19eb2ce6"
+        "installedAt": "2026-11-09T04:34:40.793Z",
+        "lastUpdated": "2026-11-09T04:34:40.793Z",
+        "gitCommitSha": "82f22ec4f0a73aa2564036ffc28a1da00c707e0c"
       }
     ],
     "telegram@claude-plugins-official": [
@@ -165,16 +165,6 @@
         "gitCommitSha": "2c606141936f1eeef17fa3043a72095b4765b9c2"
       }
     ],
-    "warp@claude-code-warp": [
-      {
-        "scope": "user",
-        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-code-warp/warp/2.1.0",
-        "version": "2.1.0",
-        "installedAt": "2026-06-01T01:18:26.657Z",
-        "lastUpdated": "2026-06-01T01:18:26.657Z",
-        "gitCommitSha": "bb6c1cf2f5cd7eb609678a2b175e7f4504ca61c2"
-      }
-    ],
     "greptile@claude-plugins-official": [
       {
         "scope": "user",
@@ -201,6 +191,16 @@
         "version": "896224c4b187",
         "installedAt": "2026-09-20T01:54:23.474Z",
         "lastUpdated": "2026-09-20T01:54:23.474Z"
+      }
+    ],
+    "warp@claude-code-warp": [
+      {
+        "scope": "user",
+        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-code-warp/warp/2.4.0",
+        "version": "2.4.0",
+        "installedAt": "2026-11-09T03:59:43.822Z",
+        "lastUpdated": "2026-11-09T03:59:43.822Z",
+        "gitCommitSha": "b32182f92006fbacf357a309c989902a3f2dea29"
       }
     ]
   }

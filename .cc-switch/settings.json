@@ -2,19 +2,34 @@
   "showInTray": true,
   "minimizeToTrayOnClose": true,
   "useAppWindowControls": false,
-  "enableClaudePluginIntegration": true,
+  "enableClaudePluginIntegration": false,
   "skipClaudeOnboarding": false,
-  "launchOnStartup": true,
+  "launchOnStartup": false,
   "silentStartup": true,
+  "lightweightMode": false,
   "enableLocalProxy": false,
+  "enableStackMode": false,
   "proxyConfirmed": true,
   "usageConfirmed": true,
   "sessionAutoSyncEnabled": true,
+  "sessionContentSearchEnabled": false,
   "enableFailoverToggle": false,
   "showProfileSwitcher": true,
+  "showProviderSearch": true,
+  "checkToolUpdatesOnStartup": false,
+  "nativeTrayMenu": false,
   "preserveCodexOfficialAuthOnSwitch": false,
+  "codexQuotaProtection": {
+    "enabled": true,
+    "fiveHourThreshold": 95,
+    "weeklyThreshold": 98
+  },
+  "codexProxyWithoutOfficialLogin": false,
   "unifyCodexSessionHistory": false,
+  "codexStackClassicTools": true,
   "firstRunNoticeConfirmed": true,
+  "newLayoutNoticeConfirmed": true,
+  "whatsNewSeenVersion": "4.0.28",
   "commonConfigConfirmed": true,
   "language": "zh",
   "visibleApps": {
@@ -25,9 +40,13 @@
     "grokbuild": false,
     "opencode": true,
     "openclaw": true,
-    "hermes": false,
+    "hermes": true,
     "pi": false,
-    "mcode": false
+    "omp": false,
+    "mcode": false,
+    "kimi": true,
+    "dsh": true,
+    "agy": true
   },
   "currentProviderClaude": "f4816105-cf26-47ec-af67-289453aab124",
   "currentProviderClaudeDesktop": "claude-desktop-official",
@@ -46,6 +65,14 @@
     },
     "codexProviderTemplateV1": {
       "completedAt": "2026-06-11T01:44:29.102545+00:00"
-    }
+    },
+    "codexLegacyOfficialHistoryBucketV1": {
+      "completedAt": "2026-11-09T03:04:10.693001+00:00",
+      "targetProviderId": "openai",
+      "migratedJsonlFiles": 0,
+      "migratedStateRows": 0,
+      "codexConfigDir": "/Users/liuchunlei/.codex"
+    },
+    "codexQuotaProtectionDefaultOnV1": true
   }
 }

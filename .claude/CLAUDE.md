@@ -1,5 +1,5 @@
 <!-- User preferences (senior engineer style / 简洁优先 / Chinese reply / pursue elegance)
-     已沉淀到 brain preference 层，brain brief 启动自动加载 -->
+     已沉淀到 brain preference 层，SessionStart 在启动/恢复/压缩后加载当前项目 Brain preferences；UserPromptSubmit 自动提醒；Stop 静默后台同步；三者都显式核验项目 Brain，不回退全局默认库 -->
 
 ## Claude Code 特有偏好
 
@@ -23,5 +23,5 @@
 - 工具输出，可删，只保留 pass/fail 结论
 
 # graphify
-- **graphify** (`~/.claude/skills/graphify/SKILL.md`) - any input to knowledge graph. Trigger: `/graphify`
+- **graphify** — 优先使用当前项目 `.claude/skills/graphify/SKILL.md`；若项目提供 `.agents/skills/graphify/SKILL.md`，按项目入口加载。仅在技能已被当前会话发现时调用 `/graphify`，不要假定存在全局安装。
 When the user types `/graphify`, invoke the Skill tool with `skill: "graphify"` before doing anything else.

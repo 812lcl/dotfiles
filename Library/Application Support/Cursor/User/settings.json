@@ -345,21 +345,7 @@
         "editor.defaultFormatter": "redhat.vscode-yaml"
     },
     "claudeCode.preferredLocation": "panel",
-    "claudeCode.environmentVariables": [
-
-        {
-            "name": "ANTHROPIC_BASE_URL",
-            "value": "http://127.0.0.1:3456"
-        },
-        {
-            "name": "ANTHROPIC_AUTH_TOKEN",
-            "value": "test"
-        },
-        {
-            "name": "ANTHROPIC_API_KEY",
-            "value": ""
-        }
-    ],
+    "claudeCode.environmentVariables": [],
     "chatgpt.localeOverride": "zh-CN",
     "explorer.confirmDelete": false,
     "python.defaultInterpreterPath": "/opt/homebrew/bin/python3",
