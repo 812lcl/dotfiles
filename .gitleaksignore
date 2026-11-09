@@ -1,0 +1,12 @@
+
+# Reviewed upstream skill false positives (2026-11-09).
+# Feishu examples: document/Base resource identifiers and sample pagination cursor.
+# Bundled editor assets: aria-keyshortcuts JavaScript ternary expressions.
+# Ignore exact findings only; retain scanning for all other content.
+.agents/skills/lark-approval/references/lark-approval-instance-form-control-parameters.md:generic-api-key:205
+.agents/skills/lark-base/references/lark-base-app-block-data-config.md:generic-api-key:91
+.agents/skills/lark-base/references/lark-base-app-block-data-config.md:generic-api-key:110
+.agents/skills/lark-im/references/lark-im-reactions.md:generic-api-key:125
+.agents/skills/claude-design/scripts/editor/assets/index-CLSAsUf1.js:generic-api-key:29805
+.agents/skills/claude-dashboard/scripts/editor/assets/index-qXbVz6oJ.js:generic-api-key:513
+.agents/skills/claude-slides/scripts/editor/assets/index-BIvbGgb1.js:generic-api-key:3650

@@ -51,7 +51,7 @@ function removeState(root) {
   fs.rmSync(path.join(root, STATE_FILE), { force: true });
 }
 var GITIGNORE_FILE = ".gitignore";
-var gitignoreLines = (kind) => [STATE_FILE, LOG_FILE, ".sharing.json", ...kind === "docs" ? [] : ["history/"], ".*.tmp", ".DS_Store"];
+var gitignoreLines = (kind) => [STATE_FILE, LOG_FILE, ".sharing.json", ...kind === "docs" ? [] : ["/history/"], `/${EXPORTS_DIR}/`, "*.tmp", ".tmp-*", ".DS_Store"];
 function writeGitignore(root, kind) {
   const file = path.join(root, GITIGNORE_FILE);
   try {
@@ -79,20 +79,42 @@ var PortsTaken = class extends Error {
     this.to = to;
   }
 };
+var NetworkBlocked = class extends Error {
+  code = "NETWORK_BLOCKED";
+  constructor() {
+    super(
+      "A sandbox blocks local network here (127.0.0.1), so the server cannot start and no port is really in use. Run this same command with local network allowed, outside the sandbox, asking for that permission if your commands need approval."
+    );
+  }
+};
+function loopbackBlocked(port) {
+  return new Promise((resolve) => {
+    const socket = net.connect({ host: "127.0.0.1", port });
+    const done = (blocked) => {
+      socket.destroy();
+      resolve(blocked);
+    };
+    socket.setTimeout(300, () => done(false));
+    socket.once("connect", () => done(false));
+    socket.once("error", (error) => done(error.code === "EPERM" || error.code === "EACCES"));
+  });
+}
 var isBenchmarkRange = (address) => /^198\.1[89]\./.test(address);
 function isTailnet(address) {
   const m = /^100\.(\d{1,3})\./.exec(address);
   return !!m && Number(m[1]) >= 64 && Number(m[1]) <= 127;
 }
+var isTunnel = (name) => /^(utun|tun|tap|wg|ppp|ipsec)\d/i.test(name);
 function lanAddresses() {
-  const out = [];
-  for (const list of Object.values(os.networkInterfaces())) {
+  const out = /* @__PURE__ */ new Map();
+  for (const [name, list] of Object.entries(os.networkInterfaces())) {
     for (const entry of list ?? []) {
       if (entry.family !== "IPv4" || entry.internal || entry.address.startsWith("169.254.") || isBenchmarkRange(entry.address)) continue;
-      out.push(entry.address);
+      const rank = isTailnet(entry.address) ? 2 : isTunnel(name) ? 1 : 0;
+      out.set(entry.address, Math.min(rank, out.get(entry.address) ?? rank));
     }
   }
-  return [...new Set(out)].sort((a, b) => Number(isTailnet(a)) - Number(isTailnet(b)));
+  return [...out.keys()].sort((a, b) => out.get(a) - out.get(b));
 }
 function answers(host, port) {
   return new Promise((resolve) => {
@@ -125,6 +147,7 @@ async function answersAnyPort(address) {
   return port > 0 && answers(address, port);
 }
 async function listenFree(server, from, host, first) {
+  if (await loopbackBlocked(first || from || 1)) throw new NetworkBlocked();
   if (from === 0) return listen(server, 0, host);
   const to = Math.min(from + PORT_TRIES - 1, 65535);
   const range = Array.from({ length: to - from + 1 }, (_, i) => from + i);
@@ -674,8 +697,9 @@ var Hub = class {
   }
   // ---- the network side ------------------------------------------------------------------------------------------
   async openLan() {
-    for (const address of lanAddresses()) {
-      if (this.lanServers.has(address)) continue;
+    const addresses = lanAddresses().filter((address) => !this.lanServers.has(address));
+    const answering = await Promise.all(addresses.map(answersAnyPort));
+    for (const address of addresses.filter((_, i) => !answering[i])) {
       const server = this.createServer();
       try {
         await listen(server, this.port, address);
@@ -965,6 +989,7 @@ async function serveHub(call) {
   }
 }
 async function openOnHub(call) {
+  if (await loopbackBlocked(call.port || 1)) throw new NetworkBlocked();
   const joined = await joinHub(call);
   if (joined) return { state: joined };
   const logFile = path3.join(call.root, LOG_FILE);
@@ -996,7 +1021,7 @@ import { promisify } from "node:util";
 import zlib from "node:zlib";
 var LOCAL_FILES = /* @__PURE__ */ new Set([STATE_FILE, LOG_FILE, SHARING_FILE]);
 var LOCAL_DIRS = /* @__PURE__ */ new Set([EXPORTS_DIR]);
-var JUNK_FILES = /* @__PURE__ */ new Set([".DS_Store", "Thumbs.db", "desktop.ini"]);
+var JUNK_FILES = /* @__PURE__ */ new Set([".DS_Store", "Thumbs.db", "desktop.ini", ".git"]);
 var isTemp = (name) => name.endsWith(".tmp") || name.startsWith(".tmp-");
 var STORED = /* @__PURE__ */ new Set([".png", ".jpg", ".jpeg", ".gif", ".webp", ".avif", ".heic", ".mp4", ".m4v", ".mov", ".webm", ".mp3", ".m4a", ".aac", ".ogg", ".opus", ".flac", ".woff", ".woff2", ".zip", ".gz", ".br", ".zst", ".7z"]);
 var MAX_ENTRIES = 65535;
@@ -1070,7 +1095,7 @@ async function writeZip(entries, write) {
   for (const entry of entries) {
     let data;
     try {
-      data = await fsp.readFile(entry.file);
+      data = entry.data ?? await fsp.readFile(entry.file);
     } catch (error) {
       if (error.code === "ENOENT") continue;
       throw error;
@@ -1390,8 +1415,11 @@ var ShareHost = class {
    * their own artifact; a guest comes over a LAN address (this computer's own included: that is how the owner sees
    * what a role sees).
    */
+  isLocal(request) {
+    return this.options.local ? this.options.local(request) : isLoopback(request.socket.remoteAddress);
+  }
   viewerOf(request) {
-    if (isLoopback(request.socket.remoteAddress)) return { role: "owner", user: this.options.owner };
+    if (this.isLocal(request)) return { role: "owner", user: this.options.owner };
     const guest = this.on ? this.sharing.guest(this.cookie(request)) : null;
     if (!guest) return null;
     this.sharing.seen(guest);
@@ -1485,6 +1513,7 @@ var ShareHost = class {
     const share2 = { ...this.me(viewer), noun: this.options.noun, title: this.options.title(), ...this.options.reactions ? { reactions: true } : {} };
     let js = `(function(BASE){${ROOT_SHIM}})(${script(this.page)});${SECURE_CONTEXT_SHIM}window.__baoyuShare=${script(share2)};`;
     for (const [name, value] of Object.entries(this.options.globals?.(viewer, query) ?? {})) js += `window[${script(name)}]=${script(value)};`;
+    if (this.options.agentName) js += `window.__baoyuAgentName=${script(this.options.agentName)};`;
     if (viewer.guest) js += GUEST_WATCH;
     return js;
   }
@@ -1523,7 +1552,7 @@ var ShareHost = class {
   async join(request, response, method, token2) {
     const t = this.words(request);
     const role = this.sharing.linkRole(token2);
-    const local = isLoopback(request.socket.remoteAddress);
+    const local = this.isLocal(request);
     const form = method === "POST" ? await readBody(request, 8 << 10).then((body) => body.toString("utf8"), () => "") : "";
     const title = this.options.title();
     if (!role || !local && !this.on) return this.sendPage(response, 404, t.linkGoneTitle, `<h1>${esc(t.linkGoneTitle)}</h1><p>${esc(t.linkGone)}</p>`);
@@ -3387,6 +3416,7 @@ data: ${JSON.stringify(snap)}
     if (agentHook) await runHook(agentHook);
   }
   async function runHook(command2) {
+    if (typeof command2 !== "string") return runHandler(command2);
     const doc = await readComments(root);
     for (const thread of pendingForAgent(doc)) {
       if (hookRunning.has(thread.id)) continue;
@@ -3411,15 +3441,15 @@ data: ${JSON.stringify(snap)}
         log3(`comments: the agent hook failed to start: ${error.message}`);
       });
       child.on("exit", (code) => {
-        hookRunning.delete(thread.id);
         if (code !== 0) {
+          hookRunning.delete(thread.id);
           log3(`comments: the agent hook exited with ${code} for ${thread.id}; the comment stays waiting${stderr ? `: ${stderr.trim()}` : ""}`);
           return;
         }
         void updateComments(root, (d) => {
           const t = d.threads.find((x) => x.id === thread.id);
           if (t) markDelivered(t, now(), "hook");
-        }).then(() => {
+        }).finally(() => hookRunning.delete(thread.id)).then(() => {
           log3(`comments: sent to the agent (hook): ${thread.id}`);
           return broadcast();
         }).catch((error) => log3(`comments: ${error.message}`));
@@ -3459,6 +3489,44 @@ data: ${JSON.stringify(snap)}
         log3(`comments: sent to the agent (hook): ${request.id}`);
       });
     }
+  }
+  async function runHandler(handler) {
+    for (const { id } of pendingForAgent(await readComments(root))) {
+      if (hookRunning.has(id)) continue;
+      hookRunning.add(id);
+      try {
+        const doc = await readComments(root);
+        const thread = pendingForAgent(doc).find((t) => t.id === id);
+        if (!thread) continue;
+        try {
+          await handler.thread(agentViews(doc, [thread])[0]);
+        } catch (error) {
+          log3(`comments: the agent handler failed for ${id}; the comment stays waiting: ${error.message}`);
+          continue;
+        }
+        await updateComments(root, (d) => {
+          const t = d.threads.find((x) => x.id === id);
+          if (t) markDelivered(t, now(), "hook");
+        });
+        log3(`comments: sent to the agent (handler): ${id}`);
+        await broadcast();
+      } finally {
+        hookRunning.delete(id);
+      }
+    }
+    const failed = [];
+    for (const request of requests.splice(0)) {
+      setRequestState(request.id, "working");
+      try {
+        await handler.request(request);
+        log3(`comments: sent to the agent (handler): ${request.id}`);
+      } catch (error) {
+        failed.push(request);
+        setRequestState(request.id, "queued");
+        log3(`comments: the agent handler failed for ${request.id}; the request stays waiting: ${error.message}`);
+      }
+    }
+    requests.unshift(...failed);
   }
   let debounce;
   const changed = () => {
@@ -3598,6 +3666,21 @@ data: ${JSON.stringify(snap)}
       } else if (parts.length === 2 && parts[0] === "agent" && parts[1] === "wait") {
         need(viewer.canSend, "Only the owner's agent waits for comments.");
         if (reading) return await wait(request, response, url);
+      } else if (parts.length === 2 && parts[0] === "agent" && parts[1] === "send-all") {
+        if (method === "POST") {
+          request.resume();
+          need(viewer.canSend, ONLY_OWNER_SENDS);
+          const result = await updateComments(root, (doc) => {
+            const open2 = doc.threads.filter((t) => t.status === "open" && t.messages.some((m) => m.author.kind === "user"));
+            const sent = open2.filter(canSendToAgent);
+            const at = now();
+            for (const t of sent) sendToAgent(t, at);
+            return { threads: sent, sent: { count: sent.length, open: open2.length } };
+          });
+          log3(`comments: ${result.sent.count} of ${result.sent.open} open thread(s) sent to the agent`);
+          sendJson2(response, 200, result);
+          return await afterChange(result.sent.count > 0);
+        }
       } else if (parts.length === 2 && parts[0] === "agent" && parts[1] === "requests") {
         need(viewer.canSend, ONLY_OWNER_SENDS);
         if (method === "POST") return await ask(request, response);
@@ -4804,7 +4887,7 @@ function findChrome() {
 }
 var sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 async function launchChrome(chrome, args = []) {
-  const profile = fs13.mkdtempSync(path12.join(os8.tmpdir(), "claude-motion-chrome-"));
+  const profile = fs13.mkdtempSync(path12.join(os8.tmpdir(), "baoyu-chrome-"));
   const child = spawn5(
     chrome,
     [
@@ -6577,6 +6660,7 @@ var BLOB_ID = /^[0-9a-f]{32}$/;
 var DATA_URI = /^data:(image\/(png|jpeg|gif|webp|svg\+xml)|font\/(woff2|woff|ttf|otf)|video\/(mp4|webm)|audio\/(mpeg|wav));base64,[A-Za-z0-9+/=]+$/;
 var MODULE_KINDS = ["js", "css", "html", "json", "text"];
 var ASSET_MIMES = ["image/png", "image/jpeg", "image/gif", "image/webp", "image/svg+xml", "font/woff2", "font/woff", "font/ttf", "font/otf", "video/mp4", "video/webm", "application/pdf", "audio/mpeg", "audio/wav"];
+var REPLACE_ONLY_DOCS = /* @__PURE__ */ new Set(["modules/fetched-fonts.json", "modules/recolored.json", "modules/retouched.json", "modules/retyped.json"]);
 var UNSPLIT_MODULES = ["edits.json", "fetched-fonts.json", "recolored.json", "recut.json", "refaced.json", "retouched.json", "retyped.json", "tweaks.json"];
 var CONTENT_TYPES = {
   html: "text/html; charset=utf-8",
@@ -6765,6 +6849,7 @@ function documentProblem(root, segs, data) {
       if (mime === "image/svg+xml") return `assets/${id}: an SVG is never uploaded; put its <svg> markup in an html module, or a data:image/svg+xml;base64,\u2026 ref.`;
       if (!fs19.existsSync(blobFile(root, blob[1]))) return `assets/${id}: ${ref} is not in this film's _blobs/. Upload the file first (${cmd("upload", root, "<file>")}) and use the url it prints.`;
     } else if (ref.startsWith("data:")) {
+      if (mime.startsWith("audio/")) return `assets/${id}: the player plays no audio stored inside the film's data (a data: ref). Upload the file (${cmd("upload", root, "<file>")}) and use the url it prints.`;
       if (!DATA_URI.test(ref)) return `assets/${id}: the data: ref is not data:<image, font, video or audio type>;base64,\u2026; the player drops it.`;
       if (!ref.startsWith(`data:${mime};`)) return `assets/${id}: mime ${mime} does not match the data: URI's own type (${ref.slice(5, ref.indexOf(";"))}).`;
     } else return `assets/${id}: ref must be this film's own /_blob/<32 hex> (from upload) or a small data:\u2026;base64, URI; never an external URL.`;
@@ -7210,6 +7295,21 @@ function check(root) {
         let seconds = 0;
         const missing = [];
         sceneDurs = /* @__PURE__ */ new Map();
+        const listIds = new Set(list.flatMap((s) => isObject7(s) && typeof s.id === "string" ? [s.id] : []));
+        const renamed = /* @__PURE__ */ new Set();
+        for (const [name, text] of texts) {
+          const m = /^(.+)\.js$/.exec(name);
+          if (!m || !listIds.has(m[1]) || texts.has(`scene-${m[1]}.js`) || ["shared", "score", "narration"].includes(m[1])) continue;
+          if (new RegExp(`\\bkit\\.scene\\s*\\(\\s*['"\`]${m[1].replace(/[^\w-]/g, "")}['"\`]`).test(text)) {
+            renamed.add(m[1]);
+            warn(`modules/${name}`, `the player runs it as scene "${m[1]}" but a scene's code belongs in modules/scene-${m[1]}.js; rename the file.`);
+          }
+        }
+        for (const name of texts.keys()) {
+          const scene = /^scene-(.+)\.js$/.exec(name);
+          if (scene && !listIds.has(scene[1])) warn(`modules/${name}`, `scene-<id>.js is for a scene of scenes.json, and "${scene[1]}" is not one; the player runs no other module so.`);
+          if (/^layer-/.test(name)) warn(`modules/${name}`, "names that begin layer- are the player's; name no module so.");
+        }
         list.forEach((s, i) => {
           const at = `${label} scenes[${i}]`;
           if (!isObject7(s)) return problem(at, "is not an object.");
@@ -7222,7 +7322,7 @@ function check(root) {
             seconds += s.dur;
             if (typeof s.id === "string") sceneDurs.set(s.id, s.dur);
           }
-          if (typeof s.id === "string" && !texts.has(`scene-${s.id}.js`)) missing.push(`${i + 1} (${s.id})`);
+          if (typeof s.id === "string" && !texts.has(`scene-${s.id}.js`) && !renamed.has(s.id)) missing.push(`${i + 1} (${s.id})`);
         });
         if (seconds > MAX_SECONDS) problem(label, `the scenes add up to ${seconds} s; a film over ${MAX_SECONDS} s won't load.`);
         scenesInfo = { stage: scenes.stage, scenes: list.length, seconds: Math.round(seconds * 1e3) / 1e3, ...missing.length ? { scenesLeft: missing } : {} };
@@ -7327,7 +7427,10 @@ function check(root) {
     const blob = BLOB_URL.exec(String(data.ref ?? ""));
     if (!blob) continue;
     const meta2 = readBlobMeta(root, blob[1]);
-    if (meta2 && meta2.contentType !== data.mime) warn(p, `mime is ${data.mime}, but the upload is ${meta2.contentType}; the player trusts mime.`);
+    if (meta2 && meta2.contentType !== data.mime) {
+      if (String(data.mime).startsWith("audio/") || String(meta2.contentType).startsWith("audio/")) problem(p, `mime is ${data.mime}, but the upload is ${meta2.contentType}; the player drops an audio asset whose mime and upload type differ. Use the upload reply's content_type, verbatim.`);
+      else warn(p, `mime is ${data.mime}, but the upload is ${meta2.contentType}; the player trusts mime.`);
+    }
   }
   const result = {
     root,
@@ -7573,7 +7676,7 @@ async function serve(root, flags) {
   print({ url: state.url, root, pid: state.pid, ...state.lan?.length ? { lan: state.lan } : {} }, true);
   return !(state.joined && background);
 }
-function mountSite(root, { log: log3, network, agentHook }) {
+function mountSite(root, { log: log3, network, agentHook, local, agentName }) {
   const dbDir = path18.join(root, "db");
   fs19.mkdirSync(dbDir, { recursive: true });
   const known = /* @__PURE__ */ new Map();
@@ -7662,6 +7765,8 @@ data: ${JSON.stringify(data)}
     title: () => filmTitle(root),
     log: log3,
     uiFile: path18.join(EDITOR_DIR, "share-ui.js"),
+    ...local ? { local } : {},
+    ...agentName ? { agentName } : {},
     globals: (viewer, query) => ({ __baoyuHistory: history.bootGlobal(viewer, query) })
   });
   const comments = createCommentsService({
@@ -7813,7 +7918,7 @@ data: ${JSON.stringify(data)}
         let write = { op: body.op, path: body.path, ...body.op === "delete" ? {} : { data: body.data } };
         let merge;
         const base2 = isObject7(body.base) ? body.base : body.base === null && body.op !== "delete" ? {} : null;
-        if ((body.op === "set" || body.op === "update" || body.op === "delete") && base2 && (body.op === "delete" || isObject7(body.data))) {
+        if ((body.op === "set" || body.op === "update" || body.op === "delete") && base2 && !REPLACE_ONLY_DOCS.has(segs.join("/")) && (body.op === "delete" || isObject7(body.data))) {
           let now = null;
           try {
             now = readDoc(root, segs.join("/"));
@@ -8356,7 +8461,7 @@ ${USAGE}
       return 2;
   }
 }
-main().then(
+if (typeof __BAOBOT_LIB__ === "undefined") main().then(
   (code) => {
     if (code >= 0) process.exitCode = code;
   },
@@ -8366,3 +8471,10 @@ main().then(
     process.exitCode = 2;
   }
 );
+export {
+  applyWrites,
+  check,
+  mountSite,
+  readDb,
+  upload
+};

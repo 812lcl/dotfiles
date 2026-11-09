@@ -12,9 +12,9 @@ and refreshes. Everything is a document in its own store, written with
 files: leave them as they are.
 
 What the person asks for is what you build; the defaults apply only to what
-they left unsaid. Whatever the page's own code can draw or do is allowed: any
-chart, control or interaction. A chart they named is the one you draw, by hand
-where `d3` has no helper; if you draw another, say which and why.
+they left unsaid. Whatever the page's code can draw or do is allowed: any
+chart, control or interaction. Draw the chart they named, by hand where `d3` has
+no helper; if you draw another, say which and why.
 
 ## The calls
 
@@ -32,12 +32,12 @@ does every call; below, `A` is `<this skill's folder>/scripts/artifact.mjs`.
 | `node $A upload <root> <file> [--name n]` | Attaches a CSV, TSV or JSON file: `{"url": "/_blob/<id>", "bytes", "contentType", …}`. |
 | `node $A delete-asset <root> <url \| id>` | Removes an attached file no document names any more. |
 | `node $A check <root>` | Checks the documents, the page's files, and that each dataset mark's `data-where`/`data-row` finds its rows. Exit 1 while `problems` > 0. |
-| `node $A open <root> [--port n] [--lan]` | Starts the editor in the background and returns `{"url", "pid", "stop", …}`. All the dashboards open on this computer share one server and port (4740, the next free port up when that is taken; `--port n` looks for it at n and starts from n, `--port 0` runs a server of its own on any port); `url` is this dashboard's own page, whose path, `/dashboard/<id>/`, stays the same from one start to the next. Run again, it reuses the one running. `--lan`: also on the local network (see Sharing). `--agent-hook "<command>"`: see Comments. |
+| `node $A open <root> [--port n] [--lan]` | Starts the editor in the background and returns `{"url", "pid", "stop", …}`. All the dashboards open on this computer share one server and port (4740, the next free port up when that is taken; `--port n` looks for it at n and starts from n, `--port 0` runs a server of its own on any port); `url` is this dashboard's own page, whose path, `/dashboard/<id>/`, stays the same from one start to the next. Run again, it reuses the one running. `--lan`: also on the local network (see Sharing). `--agent-hook "<command>"`: see Comments. `NETWORK_BLOCKED` from `open` means your commands run in a sandbox without local network. Run `open`, `share` and `comments <root> --wait` with local network allowed, outside the sandbox, asking for that permission if your commands need approval; in the sandbox `comments --wait` says `NO_SERVER` even while the page is open. Commands that only read and write files work in the sandbox. |
 | `node $A serve <root> [--port n] [--lan]` / `stop <root>` | The same server in the foreground / takes this folder off the server, which ends with the last one. |
 | `node $A share <root>` | Opens it to the local network and prints a link per role; `--disable` / `--enable` / `--reset <role>`, `--role <guest>=<role>`, `--off`. See Sharing. |
 | `node $A comments <root> [--all]` / `--wait` | The comments people left on the page / waits for one they send you. See Comments. |
 | `node $A comment-reply <root> <id> <text\|->` / `comment-resolve <root> <id>` | Answers one (`--resolve` closes it too) / closes one (`--reopen`). |
-| `node $A archive <root> [--out file.zip\|dir]` | The whole folder, history and comments too, as one zip beside it (`--out`: another file or folder), to back it up, move it to another computer or send it to someone: `{file, files, bytes, open}`. Unzipped anywhere, `open` carries on. The owner's Download folder button in the page does the same; the server's own files and the share links stay out. |
+| `node $A archive <root> [--out file.zip\|dir]` | The whole folder, history and comments too, as one zip beside it (`--out`: another file or folder), to back it up, move it to another computer or send it to someone: `{file, files, bytes, open}`. Unzipped anywhere, `open` carries on. The owner's Download folder button in the page does the same; the server's own files, the share links, `exports/` and `.git` stay out. |
 
 - **A batch** is a JSON array (or `{"writes": [...]}`) of
   `{"op": "set" | "update" | "delete", "path": "<collection>/<doc_id>", "data": {...}}`
@@ -81,11 +81,19 @@ They are the type's own, word for word, so they name claude.ai's calls:
 data/users/me/runs`; doc `check` is what `check <root>` shows as
 `pageCheck`), `upload_asset` is `upload`, `delete_asset` is
 `delete-asset`, ArtifactComments `reply` / `resolve` is `comment-reply` /
-`comment-resolve`. What they say of live queries, connectors, loaders, certified
+`comment-resolve`. What they say of live queries (`kind: "call"`, the older
+`"query"`, `{{name}}` filters and their `rules`), connectors, loaders, certified
 queries, sharing, `request` and `lastAttempt`, routines, drafts, the
 voice that reads a page aloud and the view context doesn't apply here.
+`artifact-type/reference/design-system.md` says to write `dash/look` only where
+a view context holds `designSystem`: there is no view context here, and the
+page always wears a `dash/look` it can read, so write one whenever the person
+asks for one of the ready-made looks (`artifact-type/reference/looks.md`) or
+names a design system you can read (the reference's Artifact `read` of its url
+is not here: read its tokens or stylesheets from where the person keeps it);
+`check` lists what the page would drop or replace in it.
 
-**Not here**: connectors (so no live query), the view context, other
+**Not here**: connectors (so no live query, `kind: "call"` or `"query"`), the view context, other
 readers and their access, routines, drafts and Remix, a voice to read the page
 aloud (`data-dash-read` stays unset), publishing (the folder is the dashboard),
 and the Anthropic fonts (`--font-anthropic-sans` and `--font-anthropic-serif`
@@ -97,26 +105,28 @@ Paths are `collection/doc_id`. Dataset ids are `[A-Za-z0-9_-]`, 1–64
 characters; a file's id is its name (`index.html`, no folders).
 The store refuses any document over 256 KB. If `write-db` refuses a batch,
 its message names the write and why: fix that one; don't retry it unchanged.
+Stamp each dataset and file you write `edit: {via: "claude", at: <UTC ISO>}`
+(`at` the time now).
 
 ### `dash/meta` — `{title}`
 
-What the user calls it, not "Dashboard". Write it first (first in the
-batch). A new title later changes only this; the folder keeps its name.
+What the user calls it, not "Dashboard". A new title later changes only this;
+the folder keeps its name.
 
 ### `datasets/<id>` — where numbers come from
 
 `{title, description?, source, updated?, schedule?, staleAfterHours?, fixed?}`.
 `title`: a short name that stands alone in a list of sources, two to five
-words, ~30 characters ("Signups vs quarter target", not "To target").
-`description`: a sentence on what this source is. A file's
+words, ~30 characters ("Signups vs quarter target").
+`description`: a short sentence on what this source is. A file's
 ends with where its rows came from ("Exported from the shop admin on Oct 28.",
-"From the 2025 annual report, p. 14."). A file
-over 8 MB is refused. The attached files are plain files in the folder
-(`_blobs/`): anyone given the folder can read them; say so once when you
-attach one.
+"From the 2025 annual report, p. 14."). The attached files are plain files in
+the folder (`_blobs/`): anyone given the folder can read them; say so once when
+attaching one.
 
 Every dataset here is an attached file: the local editor has no connectors,
-so a live query (`kind: "query"`) never loads, and `check` refuses one.
+so a live query (`kind: "call"`, or the older `"query"`) never loads, and `check`
+refuses one.
 Data that changes over time is gathered again when the person asks for it
 to be refreshed (Changing and refreshing). Get the rows yourself — the
 person's file, an export, a query you run with your own tools, figures you
@@ -124,7 +134,7 @@ gathered and can cite — and save them as CSV or JSON: only the columns and
 rows the page needs, aggregated where you can.
 
 **An attached file** — `source: {kind: "file", url, name, format?}`: CSV,
-TSV or JSON up to 8 MB. `upload` it; `url` is the
+TSV or JSON up to 15 MiB. `upload` it; `url` is the
 reply's `url` as it came (`/_blob/<id>`; an external one isn't read), `name` the file's
 own, `format` (`"csv"`, `"tsv"`, `"json"`) only when the extension doesn't
 say. JSON is an array of row objects, or one under `rows`/`data`/`results`;
@@ -137,6 +147,8 @@ midnight, which `d3.utcFormat` shows as the day before east of UTC.
 - `updated: {at, by}` on every file write: `at` the ISO time now, `by` who
   (the person's name, else your own); `check` counts it missing as a
   problem, and the page would show a warning.
+- `edit: {via: "claude", at}` on every dataset you write (the stamp of the
+  Documents intro above).
 - A file that stays current: `schedule` (in words, how it is refreshed and
   how often) and `staleAfterHours` (about twice the cadence), past which it
   shows as stale.
@@ -148,7 +160,7 @@ midnight, which `d3.utcFormat` shows as the day before east of UTC.
 The page is `files/index.html` (a `<script src>` or `<link href>` naming
 another `files/<name>` loads it). Any one file over 256 KB is refused with
 an error. The page goes in a `<div id="dash-root">` (the type's: don't
-write one) in the dashboard's own document, below its toolbar and inside its page gutter: style and select
+write one) in the dashboard's own document, below its toolbar, inside its page gutter: style and select
 your own classes: `body`, `html` or a bare tag name would restyle the dashboard around the page. No network, modules or React: scripts run in order once the page
 is in place, each in its own scope (what two share goes on `window`). For charts, d3 v7 is the global `d3`: helpers for common
 tasks. Where it lacks something, the page's own code does it.
@@ -218,7 +230,7 @@ Your scripts get `dash` for data:
 marks (`empty`: loaded, shows only a dash) and `data-dash-state="loading|error"` on
 `#dash-root`.
 
-A filter (a choice, a date, a click on a row or bar), several pages, a file that stays current, or removing a source: read `artifact-type/reference/features.md` first.
+A filter (a choice, a date, a click on a row or bar), several pages, a file that stays current, or removing a source: read `artifact-type/reference/features.md` first. The class `dash-select` gives a dropdown the dashboard's look (`artifact-type/reference/design-defaults.md`, Filters).
 Asked for this dashboard in another product or tool: read `artifact-type/reference/exporting.md` first
 (that product's connector is one of your own tools, if you have it; a dataset's file `/_blob/<id>` is
 `<root>/_blobs/<id>`, the page is `read-db <root> files/index.html --text`).
@@ -253,8 +265,9 @@ a new folder makes another.
    there, and read no personal field (a name, an address, anything of a
    person's identity or health) the person didn't ask for. Where the source
    offers governed or semantic definitions, prefer one that covers the
-   metric: the number then matches what people get elsewhere. Save the rows
-   as CSV or JSON (rows you gather: in `<root>/src/`) and `upload` each file.
+   metric: the number then matches what people get elsewhere. Explore the data
+   until you understand it, and let what you learn inform the design. Save the
+   rows as CSV or JSON (rows you gather: in `<root>/src/`) and `upload` each file.
 2. **Design**: read `artifact-type/reference/design-defaults.md` and
    `artifact-type/reference/one-writer.md` first. Full width first, written so it still
    reads at ~400px beside a chat: no fixed widths,
@@ -306,10 +319,10 @@ shows it; if it isn't running, `open` it again.
 `read-db`, change only what was asked, one `update` per document (fields
 merge; `null` removes a key); `set` the whole document to change a source's
 kind; a file's `text` is always the whole file. A new file version:
-`upload`, then one `update` of `source.url`, `source.name` and `updated`:
+`upload`, then one `update` of `source.url`, `source.name`, `updated` and `edit`:
 
 ```json
-[{"op": "update", "path": "datasets/sales", "data": {"source": {"url": "/_blob/<id from upload>", "name": "sales-2026-10-28.csv"}, "updated": {"at": "2026-10-28T09:00:00Z", "by": "Agent"}}}]
+[{"op": "update", "path": "datasets/sales", "data": {"source": {"url": "/_blob/<id from upload>", "name": "sales-2026-10-28.csv"}, "updated": {"at": "2026-10-28T09:00:00Z", "by": "Agent"}, "edit": {"via": "claude", "at": "2026-10-28T09:00:00Z"}}}]
 ```
 
 Refreshing is that, from the data gathered again the way the dataset's
@@ -476,10 +489,10 @@ who changed which document, and when.
 
 `open` writes `<root>/.gitignore` when the folder has none. It leaves out what only this computer's server needs:
 `.artifact-server.json`, `.artifact-server.log`, `.sharing.json` (the share links), `history/` (the versions; git
-keeps its own), save temp files and `.DS_Store`. Everything else, `project/` and `comments.json` included, is the
+keeps its own), `exports/` (saved downloads and renders), save temp files and `.DS_Store`. Everything else, `project/` and `comments.json` included, is the
 dashboard and goes in git. A `.gitignore` already there is the person's: leave it. Moving or backing up the dashboard is
 copying or cloning the folder (`archive` puts it,
-history included, in one zip); `open` there starts it again.
+history included and `.git` not, in one zip); `open` there starts it again.
 
 Commit, push or set up git only when asked. Asked to check the dashboard before each commit: write
 `.git/hooks/pre-commit` (and `chmod +x` it) in the repository that holds `<root>`, with this skill's folder as an

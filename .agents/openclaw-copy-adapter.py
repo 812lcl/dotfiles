@@ -24,7 +24,7 @@ DEPENDENCIES=('AGENTS.md','.agents/tools/scoped-changes/change_guard.py','.agent
  '.agents/tools/vault-records/record_guard.py','.agents/workflows/wiki/wiki-ingest.md',
  '.agents/contracts/record-contract.md','.agents/skills/vault-index-maintain/SKILL.md','.agents/vault-workflows.json',
  'assets/templates/Properties.md','assets/templates/wiki-source.md','assets/templates/wiki-concept.md','assets/templates/wiki-entity.md',
- '5-wiki/schema.md','5-wiki/.ledger.md')
+ '5-wiki/schema.md','5-wiki/ledger.md')
 
 class Conflict(ValueError):pass
 def sha(raw):return hashlib.sha256(raw).hexdigest()

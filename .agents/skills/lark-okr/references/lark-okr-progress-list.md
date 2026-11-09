@@ -12,7 +12,7 @@ lark-cli okr +progress-list \
   --target-id 1234567890123456789 \
   --target-type objective
 
-# 获取下一页进展记录
+# 获取下一页进展记录 
 lark-cli okr +progress-list \
   --target-id 1234567890123456789 \
   --target-type objective \

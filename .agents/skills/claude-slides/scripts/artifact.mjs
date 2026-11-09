@@ -1226,8 +1226,8 @@ import path7 from "node:path";
 var DESIGN_SYSTEM_FILE = "design-system.json";
 var BLOBS_DIR = "_blobs";
 var DESIGN_SYSTEM_LIMITS = {
-  files: 1024,
-  ownFiles: 1008,
+  files: 4096,
+  ownFiles: 4080,
   totalBytes: 256 * 1024 * 1024,
   fileBytes: 15 * 1024 * 1024,
   publishBytes: 16 * 1024 * 1024,
@@ -1273,7 +1273,9 @@ var REFUSED_TOOL_FILENAMES = /* @__PURE__ */ new Set([
   "deno.jsonc",
   "claude.md",
   "claude.local.md",
-  "agents.md"
+  "agents.md",
+  "agent.md",
+  "gemini.md"
 ]);
 var WINDOWS_SHORT_NAME_PATTERN = /~\d/;
 var IMAGE_SLOT_STATE_FILENAME = ".image-slots.state.json";
@@ -2470,6 +2472,7 @@ async function updateComments(root, change) {
 }
 
 import fs8 from "node:fs";
+import net from "node:net";
 import path10 from "node:path";
 var STATE_FILE = ".artifact-server.json";
 var LOG_FILE = ".artifact-server.log";
@@ -2501,6 +2504,26 @@ async function runningServer(root, kind, probe) {
 }
 var DEFAULT_PORTS = { slides: 4710, design: 4720, "design-system": 4730, dashboard: 4740, docs: 4750, motion: 4760 };
 var PORT_TRIES = 100;
+var NetworkBlocked = class extends Error {
+  code = "NETWORK_BLOCKED";
+  constructor() {
+    super(
+      "A sandbox blocks local network here (127.0.0.1), so the server cannot start and no port is really in use. Run this same command with local network allowed, outside the sandbox, asking for that permission if your commands need approval."
+    );
+  }
+};
+function loopbackBlocked(port) {
+  return new Promise((resolve) => {
+    const socket = net.connect({ host: "127.0.0.1", port });
+    const done = (blocked) => {
+      socket.destroy();
+      resolve(blocked);
+    };
+    socket.setTimeout(300, () => done(false));
+    socket.once("connect", () => done(false));
+    socket.once("error", (error) => done(error.code === "EPERM" || error.code === "EACCES"));
+  });
+}
 function serverOrigin(host, port) {
   const shown = host === "0.0.0.0" || host === "::" ? "127.0.0.1" : host.includes(":") ? `[${host}]` : host;
   return `http://${shown}:${port}`;
@@ -2700,6 +2723,7 @@ async function leaveHub(state) {
   return true;
 }
 async function openOnHub(call) {
+  if (await loopbackBlocked(call.port || 1)) throw new NetworkBlocked();
   const joined = await joinHub(call);
   if (joined) return { state: joined };
   const logFile = path12.join(call.root, LOG_FILE);
@@ -2726,7 +2750,7 @@ import { promisify } from "node:util";
 import zlib from "node:zlib";
 var LOCAL_FILES = /* @__PURE__ */ new Set([STATE_FILE, LOG_FILE, SHARING_FILE]);
 var LOCAL_DIRS = /* @__PURE__ */ new Set([EXPORTS_DIR]);
-var JUNK_FILES = /* @__PURE__ */ new Set([".DS_Store", "Thumbs.db", "desktop.ini"]);
+var JUNK_FILES = /* @__PURE__ */ new Set([".DS_Store", "Thumbs.db", "desktop.ini", ".git"]);
 var isTemp = (name) => name.endsWith(".tmp") || name.startsWith(".tmp-");
 var STORED = /* @__PURE__ */ new Set([".png", ".jpg", ".jpeg", ".gif", ".webp", ".avif", ".heic", ".mp4", ".m4v", ".mov", ".webm", ".mp3", ".m4a", ".aac", ".ogg", ".opus", ".flac", ".woff", ".woff2", ".zip", ".gz", ".br", ".zst", ".7z"]);
 var MAX_ENTRIES = 65535;
@@ -2800,7 +2824,7 @@ async function writeZip(entries, write) {
   for (const entry of entries) {
     let data;
     try {
-      data = await fsp2.readFile(entry.file);
+      data = entry.data ?? await fsp2.readFile(entry.file);
     } catch (error) {
       if (error.code === "ENOENT") continue;
       throw error;

@@ -63,8 +63,9 @@ leave alone stays as it is, and removing an artboard's file is deleting it. The 
 - `check <root>` → `problems` (0: done); when any, `issues`, each a `file` under `project/` and its fix; `designSystemNotes` when an install looks incomplete; it exits 1 while problems remain. It reads the files only: whether scripts run and how the layout looks is not checked.
 - `ds-sync <root> [<folder>] [--check]` → an installed design system is a copy, and a copy never changes by itself. This compares each file of `project/ds/<folder>/` with the same file in the system's own folder (the record's `artifact`, a path on this machine; a system installed from claude.ai has none, and `--from <folder>` names one), copies the ones that differ byte for byte, and sets the record's `copiedAt`. `--check` only lists them (`changed`, and `goneFromSource` for a file the system dropped, which stays in the copy) and exits 1 while a copy is behind. Files the system gained are not copied: compare its README with the copy. A relative `artifact` is looked for from the working directory, then the artifact's folder and the folders above it. `check` notes a copy that is behind in `designSystemNotes`, and the Theme tab says so beside "View … design system" with a Sync button (the owner's), or says its source folder wasn't found.
 - `open <root>` → `{url, pid, stop, …}`: starts the editor page on this machine in the background (once; later calls reuse it, `reused: true`) and prints its address, `http://127.0.0.1:4720/design/<id>/`. All the canvases open on this computer share one server and port (4720, the next free port up when that is taken; `--port n` looks for it at n and starts from n, `--port 0` runs a server of its own on any port), each at its own path, which stays the same from one start to the next. `stop <root>` takes this one off, and the server ends with the last (`serve <root>` runs it in the foreground instead). The page saves the user's edits into the same files, and shows yours as soon as you write them. `.artifact-server.json` and `.artifact-server.log` beside `project/` are its own: leave them; so is `comments.json` (the comments, see Comments), which only the comment commands below change.
+  `NETWORK_BLOCKED` from `open` means your commands run in a sandbox without local network. Run `open`, `share` and `comments <root> --wait` with local network allowed, outside the sandbox, asking for that permission if your commands need approval; in the sandbox `comments --wait` says `NO_SERVER` even while the page is open. Commands that only read and write files work in the sandbox.
 - `share <root>` (or `open <root> --lan`): opens the page to the local network and prints a link per role (Sharing, below).
-- `archive <root> [--out file.zip|dir]` → `{file, files, bytes, open}`: the whole folder, history and comments too, as one zip beside it (`--out`: another file or folder), to back it up, move it to another computer or send it to someone; unzipped anywhere, `open` carries on. The owner's Download folder button in the page (between History and Share) does the same. The server's own files and the share links stay out.
+- `archive <root> [--out file.zip|dir]` → `{file, files, bytes, open}`: the whole folder, history and comments too, as one zip beside it (`--out`: another file or folder), to back it up, move it to another computer or send it to someone; unzipped anywhere, `open` carries on. The owner's Download folder button in the page (between History and Share) does the same. The server's own files, the share links, `exports/` and `.git` stay out.
 - The Theme tab links to a read-only page of the system in use, `<editor>/__ds/<folder>/`: the copy under `project/ds/<folder>/` as this canvas carries it (its tokens, its components with their `README.md` and types, its `README.md`). Anyone who can open the canvas can open it, and it changes only when the copy does.
 
 ## One artboard: the skeleton
@@ -142,9 +143,9 @@ The reference pages address the appifacts-design skill's files; their FORMAT rul
 
 ## Designing well (full: `artifact-type/reference/craft.md`)
 
-- No filler, invented stats or lorem ipsum; missing facts become placeholders like [YOUR PRICE].
-- Rationale and option notes go in your reply, never in an artboard; design levers are `data-props` tweaks, never widgets.
-- No design system? Commit to a small one, from the subject: 1–3 typefaces, a ground, 0–2 accents of like chroma and lightness. Cream, serif display and clay are your habit: only if the brief or brand asks. Branded Anthropic work: Ivory #FAF9F5, Slate #141413, Clay #D97757, serif display over sans body (stacks: `brand-colors.md`, `brand-typography.md`).
+- No filler, invented stats or lorem ipsum; missing facts become [YOUR PRICE] placeholders.
+- Rationale and options go in your reply, not an artboard; design levers are `data-props` tweaks, never widgets.
+- No design system? Make one: type from the subject; if neutral, Inter, Space Grotesk headings in Latin script; a ground, 0–2 accents of like chroma/lightness. Cream, serif display and clay are your habit: only if the brief or brand asks. Branded Anthropic work: Ivory #FAF9F5, Slate #141413, Clay #D97757, serif display over sans body (stacks: `brand-colors.md`, `brand-typography.md`).
 - No AI tropes (gradient washes, left-border cards, emoji). Touch targets ≥44px; print body ≥12pt; no fake status bars; PAGEs work at phone width. Over-tall beats clipped (a PAGE's phone version excepted: it is a phone screen). Recreations are exact only from real source; no other company's proprietary design.
 - Accessible as drawn: real `<button>`, `<a href>`, `<input>` + `<label>` even in a static mockup; never `role`/`onClick` on a div or span (Tab skips it); `aria-label` on icon-only buttons; SVG: decor `aria-hidden="true"`, else `role="img" aria-label`. Text 4.5:1, even 11px grey labels (3:1 at 24px+); 4.3:1 still fails: pick shades that pass. Colors that must be told apart also differ in lightness, not hue alone; prefer blue/orange to red/green.
 
@@ -192,10 +193,10 @@ The server keeps the canvas's versions in `<root>/history/` (leave it): who chan
 
 `open` writes `<root>/.gitignore` when the folder has none. It leaves out what only this computer's server needs:
 `.artifact-server.json`, `.artifact-server.log`, `.sharing.json` (the share links), `history/` (the versions; git
-keeps its own), save temp files and `.DS_Store`. Everything else, `project/` and `comments.json` included, is the
+keeps its own), `exports/` (saved downloads and renders), save temp files and `.DS_Store`. Everything else, `project/` and `comments.json` included, is the
 canvas and goes in git. A `.gitignore` already there is the person's: leave it. Moving or backing up the canvas is
 copying or cloning the folder (`archive` puts it,
-history included, in one zip); `open` there starts it again.
+history included and `.git` not, in one zip); `open` there starts it again.
 
 Commit, push or set up git only when asked. Asked to check the canvas before each commit: write
 `.git/hooks/pre-commit` (and `chmod +x` it) in the repository that holds `<root>`, with this skill's folder as an

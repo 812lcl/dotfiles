@@ -62,7 +62,7 @@ lark-cli okr objective.indicators list \
 
 示例返回值:
 有进度时:
-```json
+```json 
 {
    "ok": true,
    "identity": "user",
@@ -92,7 +92,7 @@ lark-cli okr objective.indicators list \
 }
 ```
 默认初始进度:
-```json
+```json 
 {
    "ok": true,
    "identity": "user",
