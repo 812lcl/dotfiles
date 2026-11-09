@@ -99,11 +99,11 @@
     "claude-hud@claude-hud": [
       {
         "scope": "user",
-        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-hud/claude-hud/0.1.1",
-        "version": "0.1.1",
-        "installedAt": "2026-03-28T22:05:31.543Z",
-        "lastUpdated": "2026-06-15T02:13:09.474Z",
-        "gitCommitSha": "bc54b503ceff2cf1356a673b5aa7ed1cca551f80"
+        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-hud/claude-hud/0.15.1",
+        "version": "0.15.1",
+        "installedAt": "2026-11-09T06:46:01.918Z",
+        "lastUpdated": "2026-11-09T06:46:01.918Z",
+        "gitCommitSha": "dd8c0bebeeef81f94a9361af317492f626d3890d"
       }
     ],
     "claude-md-management@claude-plugins-official": [

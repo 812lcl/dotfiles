@@ -51,3 +51,10 @@ gitleaks-report.*
 .claude/plugins/store/
 .claude/skills/multi-repo-maintenance
 .claude/skills/release-branch
+
+# Claude HUD runtime state and regenerated launcher/compiled modules.
+.claude/plugins/claude-hud/data/
+.claude/plugins/claude-hud/stripped/
+.claude/plugins/claude-hud/heartbeat.json
+.claude/plugins/claude-hud/previous-statusline.txt
+.claude/plugins/claude-hud/statusline.mjs
