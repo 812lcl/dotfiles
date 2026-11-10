@@ -11,6 +11,14 @@ import sys
 import runtime
 
 
+def audit(record):
+    """Explicit acceptance logging only; no prompt, paths, or tool contents."""
+    if path := os.environ.get('AGENT_RUNTIME_HOOK_AUDIT'):
+        fd = os.open(path, os.O_CREAT | os.O_APPEND | os.O_WRONLY, 0o600)
+        with os.fdopen(fd, 'w') as stream:
+            stream.write(json.dumps(record) + '\n')
+
+
 def git_common(path):
     result = subprocess.run(['git', '--no-optional-locks', '-C', str(path), 'rev-parse',
                              '--path-format=absolute', '--git-common-dir'],
@@ -86,12 +94,8 @@ def handle(client, event, payload, state=runtime.DEFAULT_STATE):
         else:
             output = {'context': text}
     # Opt-in, metadata-only evidence for explicit acceptance processes.
-    if audit := os.environ.get('AGENT_RUNTIME_HOOK_AUDIT'):
-        record = {'client': client, 'event': event, 'scope': scope, 'ok': True,
-                  'context_sha256': hashlib.sha256(json.dumps(output).encode()).hexdigest()}
-        fd = os.open(audit, os.O_CREAT | os.O_APPEND | os.O_WRONLY, 0o600)
-        with os.fdopen(fd, 'w') as stream:
-            stream.write(json.dumps(record) + '\n')
+    audit({'client': client, 'event': event, 'scope': scope, 'ok': True,
+           'context_sha256': hashlib.sha256(json.dumps(output).encode()).hexdigest()})
     return output
 
 
@@ -101,8 +105,12 @@ def main():
     parser.add_argument('event', choices=['sessionStart', 'preToolUse', 'PreToolUse', 'context', 'stop', 'Stop'])
     args = parser.parse_args()
     try:
-        output = handle(args.client, args.event, json.load(sys.stdin))
-    except (OSError, ValueError, KeyError, TypeError, subprocess.TimeoutExpired):
+        payload = json.load(sys.stdin)
+        audit({'client': args.client, 'event': args.event, 'stage': 'received',
+               'has_cwd': bool(payload.get('cwd')), 'has_roots': bool(payload.get('workspace_roots'))})
+        output = handle(args.client, args.event, payload)
+    except (OSError, ValueError, KeyError, TypeError, subprocess.TimeoutExpired) as error:
+        audit({'client': args.client, 'event': args.event, 'ok': False, 'error': type(error).__name__})
         print('Brain lifecycle: skipped; no verified single-scope workspace.', file=sys.stderr)
         output = {}
     print(json.dumps(output, ensure_ascii=False))

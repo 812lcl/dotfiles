@@ -16,14 +16,12 @@ def install(run_dir, home=Path.home(), source=None):
     run_dir.mkdir(parents=True, exist_ok=True, mode=0o700)
     cursor = home / '.cursor/hooks.json'
     before = json.loads(cursor.read_text())
-    handoff.atomic_json(run_dir / 'cursor-hooks-before.json', before)
     after = json.loads(json.dumps(before))
     for event in ('sessionStart', 'preToolUse', 'stop'):
         entry = {'command': command + ' cursor ' + event, 'timeout': 30}
         handlers = after.setdefault('hooks', {}).setdefault(event, [])
         if entry not in handlers:
             handlers.append(entry)
-    handoff.atomic_json(cursor, after)
 
     claude = json.loads((home / '.claude/settings.json').read_text())
     config_file = home / '.grok/config.toml'
@@ -37,8 +35,6 @@ def install(run_dir, home=Path.home(), source=None):
               'command': command + ' grok ' + event, 'timeout': 30}]}] for event in events}}
     if grok.exists() and json.loads(grok.read_text()) != target:
         raise ValueError('Existing Grok Brain file differs; inspect before replacement')
-    grok.parent.mkdir(parents=True, exist_ok=True)
-    handoff.atomic_json(grok, target)
 
     plugin = home / '.config/opencode/plugins/agent-runtime-brain.js'
     expected = source / 'opencode-brain.js'
@@ -47,7 +43,14 @@ def install(run_dir, home=Path.home(), source=None):
             raise ValueError('Unexpected existing OpenCode Brain plugin')
     elif plugin.exists():
         raise ValueError('Existing OpenCode Brain plugin needs inspection')
-    else:
+    # Validate all destinations before making any runtime changes.
+    backup = run_dir / 'cursor-hooks-before.json'
+    if not backup.exists():
+        handoff.atomic_json(backup, before)
+    handoff.atomic_json(cursor, after)
+    grok.parent.mkdir(parents=True, exist_ok=True)
+    handoff.atomic_json(grok, target)
+    if not plugin.is_symlink():
         plugin.parent.mkdir(parents=True, exist_ok=True)
         plugin.symlink_to(expected)
     result = {'cursor': str(cursor), 'grok': str(grok), 'opencode': str(plugin),

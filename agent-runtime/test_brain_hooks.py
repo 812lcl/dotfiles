@@ -6,6 +6,7 @@ import unittest
 from unittest.mock import patch
 
 import brain_hooks
+import install_brain_hooks
 
 
 class BrainHookTests(unittest.TestCase):
@@ -76,6 +77,38 @@ class BrainHookTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 brain_hooks.handle('cursor', 'stop', {'workspace_roots': [str(self.root / 'work')]})
             command.assert_not_called()
+
+    def test_install_preserves_existing_handlers_and_is_idempotent(self):
+        home = self.root
+        (home / '.cursor').mkdir()
+        (home / '.claude').mkdir()
+        existing = {'version': 1, 'hooks': {'stop': [{'command': 'existing-orca'}]}}
+        cursor = home / '.cursor/hooks.json'
+        cursor.write_text(json.dumps(existing))
+        (home / '.claude/settings.json').write_text(json.dumps({'hooks': {'Stop': [
+            {'hooks': [{'command': 'python3 brain-lifecycle.py'}]}]}}))
+        run = home / 'state'
+        with patch.object(install_brain_hooks.runtime, 'state_path', side_effect=lambda p, _: p):
+            result = install_brain_hooks.install(run, home)
+            once = cursor.read_text()
+            install_brain_hooks.install(run, home)
+        self.assertEqual(cursor.read_text(), once)
+        self.assertEqual(json.loads((run / 'cursor-hooks-before.json').read_text()), existing)
+        self.assertEqual(json.loads(once)['hooks']['stop'][0], {'command': 'existing-orca'})
+        self.assertTrue(result['grok_stop_inherited_from_claude'])
+        self.assertNotIn('Stop', json.loads(Path(result['grok']).read_text())['hooks'])
+
+    def test_install_conflict_is_detected_before_cursor_mutation(self):
+        home = self.root
+        for folder in ('.cursor', '.claude', '.grok/hooks'):
+            (home / folder).mkdir(parents=True)
+        cursor = home / '.cursor/hooks.json'; cursor.write_text('{"hooks":{}}')
+        (home / '.claude/settings.json').write_text('{}')
+        (home / '.grok/hooks/agent-runtime-brain.json').write_text('{"unexpected":true}')
+        with patch.object(install_brain_hooks.runtime, 'state_path', side_effect=lambda p, _: p):
+            with self.assertRaises(ValueError):
+                install_brain_hooks.install(home / 'state', home)
+        self.assertEqual(cursor.read_text(), '{"hooks":{}}')
 
 
 if __name__ == '__main__':
