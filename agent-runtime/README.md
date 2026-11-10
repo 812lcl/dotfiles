@@ -93,8 +93,6 @@ python3.14 -B -m unittest discover -s . -p 'test_*.py' -v
 
 Claude 的 MCP 可按需加载，初始化的 `pending` 不代表调用失败。受限探针需要保留 `ToolSearch`，先发现目标工具再调用；只看到模型最终回答也不能代替 `tool_use`／`tool_result` 的成功证据。
 
-本期支持 Codex 基准、Claude 与本机 Cursor CLI 接入。其他客户端仍待逐一适配、实际启动和接力验收。
-
 ## Cursor
 
 Cursor 使用自己的订阅、登录、模型选择及 MCP，不经 Magpie。启动时使用明确的 `cursor-agent` 入口；本机通用 `agent` 软链可能属于 Grok Build，不能靠命令名推断客户端。
@@ -118,3 +116,11 @@ Claude 项目入口使用 `CLAUDE.md` 引用本地 `AGENTS.md`，项目 Skills �
 `grok_probe.run_grok` 解析原生 streaming-json 的 tool_call / tool_call_update 和结束事件，丢弃原始工具正文、thinking 与 usage signature，保留输入／结果 hash、状态和 CLI 费用估算。探针单次设置 `GROK_MEMORY=0`，关闭自动原生记忆写入与 subagent；原有 hooks 保留。`--always-approve` 仅用于本次已授权验收，不修改持久权限。实际接力仍从两个真实 cwd 发起，在独立验收仓修改代码并交回 Codex 复核。
 
 Cursor 规则兼容不代表 hooks 完全兼容：Grok 若明确报告某类 Cursor hooks 尚不支持，应保留现有配置、记录边界，不能声称自动同步已经统一，也不能静默复制 hooks 补齐。
+
+## OpenCode V2
+
+使用现有 OpenCode 登录、Magpie provider 和默认模型。项目 `opencode.json` 使用 `opencode-project.json` 的薄入口，只加入共享运行指引与 `.agents/skills`，不复制业务 Skill，不保存 provider、凭据或模型覆盖。V2 读取 `AGENTS.md`；不要假设它会把 `CLAUDE.md` 当作回退入口。
+
+`opencode_probe.run_opencode` 通过原生 API 创建独立验收 session，再使用实际 CLI `run --standalone --session ...`。测试 session 临时只允许 read/shell/edit/skill/glob/grep，其他动作包括子agent和MCP均拒绝，不修改全局或项目权限。成功的 PATCH API 可返回空正文；验收后独立读回 session 核对权限并归档。CLI 的 `--auto` 只用于已授权的验收。
+
+证据保留原生 tool_use 状态、输入／输出 hash、退出码和步骤元数据，丢弃工具正文及 reasoning。不能因为独立目录 API 返回空就判定 Skill 不存在；需要实际调用原生 `skill` 并读回权威源核验。本机两个目录已经完成此项验证。
