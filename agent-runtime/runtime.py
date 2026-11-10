@@ -92,7 +92,7 @@ def initialize(state):
         "claude": {
             "mcp_source": str(home / ".config/magpie/library.json"),
             "mcp_destination": str(home / ".claude.json"),
-            "mcp_names": ["Readwise", "context7", "chrome-devtools", "magpie-image"],
+            "mcp_names": ["context7", "chrome-devtools", "magpie-image"],
             "managed_by": "magpie", "materialized_by": "agent-runtime/claude_adapter",
             "skills": ["brain", "multi-repo-maintenance"],
         },

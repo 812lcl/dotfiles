@@ -7,7 +7,9 @@ You are generating a beautiful standalone HTML page showing what the user is cur
 
 ## Readwise Access
 
-Check if Readwise MCP tools are available (e.g. `mcp__readwise__reader_list_documents`). If they are, use them throughout (and pass this context to the subagent). If not, use the equivalent `readwise` CLI commands instead (e.g. `readwise list`, `readwise read <id>`). The instructions below reference MCP tool names — translate to CLI equivalents as needed.
+Use the local `readwise` CLI throughout, following [readwise-cli](../readwise-cli/SKILL.md). Pass this CLI route to any subagent. Readwise MCP is retired on this machine.
+
+MCP-style names below describe operation intent, not tools to discover or call. Remove `mcp__readwise__` and replace underscores with hyphens to get the CLI subcommand: for example, `mcp__readwise__reader_list_documents` becomes `readwise reader-list-documents --json`. Use `readwise <subcommand> --help` for the actual flags and list encoding; highlight listing uses `--page-size`, not `--limit`.
 
 ## Process
 

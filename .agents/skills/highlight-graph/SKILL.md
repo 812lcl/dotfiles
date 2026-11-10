@@ -11,7 +11,7 @@ You are building an interactive 2D force-graph visualization of the user's Readw
 
 ## Readwise Access
 
-Check if Readwise MCP tools are available (e.g. `mcp__readwise__readwise_list_highlights`). If they are, use them throughout. If not, use the equivalent `readwise` CLI commands instead.
+Use the local `readwise` CLI throughout, following [readwise-cli](../readwise-cli/SKILL.md). Pass this CLI route to any subagent. Readwise MCP is retired on this machine.
 
 ## Process
 

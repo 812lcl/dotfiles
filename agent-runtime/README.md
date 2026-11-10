@@ -16,6 +16,8 @@
 | 客户端独有能力 | 各自客户端 | 单独登记，不要求补齐，例如 Codex computer use |
 | CC Switch | 已停用 | 不读取其旧状态作为配置权威，不参与同步 |
 
+Readwise 统一使用本机 `readwise` CLI，命令与参数见共享 `readwise-cli` Skill；不再纳入 MCP 下发清单。此选择同时覆盖 Readwise Highlights 和 Reader，客户端当前会话中残留的 Readwise MCP 工具不再使用。
+
 本机映射在 `~/.local/state/agent-runtime/profiles.json`。运行报告、快照与精确回退记录位于该私有 state 目录，源码仓库不包含凭据或实际 Brain 内容。`init` 只创建新映射，已存在时拒绝覆盖。
 
 ## Codex 基准

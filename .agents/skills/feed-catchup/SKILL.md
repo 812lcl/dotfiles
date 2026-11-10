@@ -7,12 +7,14 @@ You are helping the user catch up on their Readwise Reader RSS feed. Follow this
 
 ## Readwise Access
 
-Check if Readwise MCP tools are available (e.g. `mcp__readwise__reader_list_documents`). If they are, use them throughout. If not, use the equivalent `readwise` CLI commands instead (e.g. `readwise list`, `readwise read <id>`, `readwise move <id> <location>`). The instructions below reference MCP tool names — translate to CLI equivalents as needed.
+Use the local `readwise` CLI throughout, following [readwise-cli](../readwise-cli/SKILL.md). Pass this CLI route to any subagent. Readwise MCP is retired on this machine.
+
+MCP-style names below describe operation intent, not tools to discover or call. Remove `mcp__readwise__` and replace underscores with hyphens to get the CLI subcommand: for example, `mcp__readwise__reader_list_documents` becomes `readwise reader-list-documents --json`. Use `readwise <subcommand> --help` for the actual flags and list encoding; highlight listing uses `--page-size`, not `--limit`.
 
 ## Setup
 
 **IMPORTANT — do this in a single parallel turn before anything else:**
-Call `ToolSearch` with query `"readwise list documents"` AND read `reader_persona.md` at the same time. Both must happen in the same message as parallel tool calls. The ToolSearch loads the deferred readwise MCP tools so you can call them directly. Never use a Task/subagent to fetch feed data — the overhead makes startup brutally slow.
+Read the [readwise-cli](../readwise-cli/SKILL.md) usage instructions and `reader_persona.md` at the same time. If the CLI instructions are already loaded, reuse them. Fetch feed data directly with the CLI; do not launch a Task/subagent just to fetch it.
 
 1. **Check for persona file.** (Done in parallel above.) Use it throughout the session to personalize commentary and picks. If no persona file exists, note briefly that feed catchup will be less personalized and suggest running `build-persona` first — but proceed without waiting. If you show this message, add `· · ·` after it.
 
