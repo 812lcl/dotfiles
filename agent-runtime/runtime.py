@@ -10,6 +10,7 @@ import sys
 
 import baseline
 import claude_adapter
+import config_policy
 import handoff
 
 
@@ -183,6 +184,11 @@ def main():
                 if output.exists():
                     raise ValueError("Do not overwrite an existing baseline")
                 result = baseline.capture(sources)
+                config = Path.home() / ".codex/config.toml"
+                if config.is_file() and str(config) in result["entries"]:
+                    result["codex_config_policy"] = config_policy.capture(config)
+                    if result["entries"][str(config)]["sha256"] != result["codex_config_policy"]["raw_sha256"]:
+                        raise ValueError("Codex config changed during capture; capture again")
                 if result["errors"]:
                     emit({"status": "error", "errors": result["errors"]})
                     return 2
@@ -193,7 +199,14 @@ def main():
                 output = state_path(args.output, args.state_dir,
                                     extra_protected=[Path(p) for p in before["roots"]],
                                     preserve=[args.snapshot]) if args.output else None
-                result = baseline.compare(before, baseline.capture([Path(p) for p in before["roots"]]))
+                after = baseline.capture([Path(p) for p in before["roots"]])
+                result = baseline.compare(before, after)
+                if "codex_config_policy" in before:
+                    config = Path.home() / ".codex/config.toml"
+                    after["codex_config_policy"] = config_policy.capture(config)
+                    if after["entries"][str(config)]["sha256"] != after["codex_config_policy"]["raw_sha256"]:
+                        raise ValueError("Codex config changed during check; check again")
+                    result = config_policy.apply_to_comparison(result, before, after, config)
                 if output:
                     handoff.atomic_json(output, result)
         elif args.command == "brain":

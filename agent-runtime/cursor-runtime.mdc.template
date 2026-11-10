@@ -11,6 +11,6 @@ alwaysApply: true
 
 只读范围核验：`/opt/homebrew/opt/python@3.14/bin/python3.14 -B '{{runtime}}' brain --scope {{scope}} verify`。需要记忆时使用同入口的 `search`，按来源 hash 用 `read` 读回；work profile 与实际根由私有 profile 明确选择，不回退 cwd 或其他库。
 
-Readwise 使用本机 `readwise` CLI 和共享 `readwise-cli` Skill。项目配置不保存 provider、凭据或通用默认模型，沿用户已有 Cursor 订阅与模型选择。
+Readwise 使用本机 `readwise` CLI 和共享 `readwise-cli` Skill。项目配置不保存 provider、凭据或通用默认模型，沿当前客户端已有的原生订阅与模型选择。
 
 跨客户端接续使用同一 `{{runtime}} handoff`：读任务文件、verify、核对 owner/revision 后 claim，完成验证后 release。接收者独立检查代码及测试。交接 JSON 位于工作区外；保留用户 dirty/untracked/显式保护的 ignored 文件，不自动 stash/reset/提交或切分支。不合并客户端原生会话库。

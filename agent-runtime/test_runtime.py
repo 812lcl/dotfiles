@@ -115,6 +115,25 @@ class RuntimePathTests(unittest.TestCase):
         self.assertEqual(output.stat().st_mode & 0o777, 0o600)
         self.assertEqual(self.snapshot.read_bytes(), before)
 
+    def test_new_baseline_ignores_model_selectors_but_detects_mcp_change(self):
+        config = self.home / ".codex/config.toml"
+        config.parent.mkdir(parents=True)
+        original = 'model="first"\nmodel_reasoning_effort="high"\n[mcp_servers.test]\ncommand="tool"\n'
+        config.write_text(original)
+        snapshot = self.state / "policy.json"
+        code, _ = self.cli("baseline", "capture", "--vault-root", str(self.base / "vault"),
+                           "--output", str(snapshot))
+        self.assertEqual(code, 0)
+        config.write_text(original.replace('first', 'second').replace('high', 'medium'))
+        code, result = self.cli("baseline", "check", "--snapshot", str(snapshot))
+        self.assertEqual(code, 0)
+        self.assertTrue(result["codex_config_policy"]["ok"])
+        self.assertIn(str(config), result["observed_raw_changed"])
+        config.write_text(original.replace('command="tool"', 'command="different"'))
+        code, result = self.cli("baseline", "check", "--snapshot", str(snapshot))
+        self.assertEqual(code, 2)
+        self.assertIn(str(config), result["changed"])
+
 
 if __name__ == "__main__":
     unittest.main()

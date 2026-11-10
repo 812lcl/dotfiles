@@ -29,6 +29,8 @@ python3.14 -B runtime.py baseline check --snapshot '<state目录>/baseline.json'
 
 快照记录类型、权限、软链目标和内容 hash，不保存文件原文。认证、native memories、会话、日志、数据库等动态运行数据不扫描，也不是写入目标。已确定版本的插件静态源可通过重复 `--extra-source` 单独纳入。
 
+用户会在日常使用中切换 Codex 默认模型与推理等级。新建快照同时记录 `config_policy` 的只读语义 hash：只忽略顶层 `model` 和 `model_reasoning_effort`，其余配置及文件元数据继续受保护。检查保留原始 hash 变化，再判断是否只是允许的选择器／格式变化；不排除整份 config.toml。旧快照缺少分字段证据时继续做完整比较，不据当前值推断旧配置。
+
 源漂移与本任务写入是不同判断。保留原始快照和完整差异；外部插件缓存变化单独报告，不自动恢复，也不重新拍摄基准掩盖差异。若派生核心快照，保留原快照 hash、固定范围和排除原因。输出禁止覆盖输入快照或任何受保护源。
 
 ## Claude MCP
@@ -63,6 +65,14 @@ python3.14 -B runtime.py handoff claim --file '<state目录>/task.json' --owner 
 ```
 
 完成后由当前 owner 用实际 revision 再 `release`，下一位检查后 `claim`。可用 `--verification-json` 附带验证命令与结果记录；接收者仍需核对证据，不能把 agent 的自述当成独立验证。
+
+| 步骤 | owner / revision | 实际动作 |
+|---|---|---|
+| 创建 | Codex / 1 | 记录目标、下一步、Git 现场和用户保护文件指纹 |
+| 释放 | Codex / 2，released | 再拍现场并允许接管 |
+| 接收 | 接收 agent / 3，owned | verify 无漂移后 claim，重新读代码和所需 Brain 来源 |
+| 交回 | 接收 agent / 4，released | 完成修改、运行验证、写下一步并 release |
+| 验收 | Codex / 5，owned | 独立核查代码、测试和保护文件后 claim |
 
 记录包含目标、约束、范围、Git 根/common-dir、HEAD、分支、staged／unstaged diff hash、dirty／untracked 文件指纹、保护文件、进程检查状态、下一步、owner 和 revision。代码原文不放进交接 JSON，新 agent 重新读取现场。状态文件必须位于工作区外，位于显式 state 目录内。
 
@@ -100,3 +110,11 @@ Cursor 原生读取项目 `AGENTS.md` 与 `.agents/skills/`。`cursor-runtime.md
 新客户端需在每个明确登记的范围独立验证规则、Skill、选库与交接；未覆盖的范围保留为未验证。
 
 Claude 项目入口使用 `CLAUDE.md` 引用本地 `AGENTS.md`，项目 Skills 使用薄入口或软链复用共享源。项目配置不保存 provider、凭据或通用默认模型；这些值由用户级 Magpie 配置管理。排查异常时先核对当前 cwd 的项目配置，不能仅凭用户级文件判断实际请求经过了哪个代理。
+
+## Grok Build
+
+使用明确的原生 `grok` 入口，保留已有登录、模型选择和独有工具。本机版本的 `grok inspect --json` 能确认根规则、共享 Skills 和 Cursor 兼容面的发现结果；实际工具调用仍需另行验证。可复用两个工作区已有 `.cursor/rules/agent-runtime.mdc` 的显式 Brain／handoff 指引，不复制第二套 Skills，也不把 Grok 改接 Magpie。
+
+`grok_probe.run_grok` 解析原生 streaming-json 的 tool_call / tool_call_update 和结束事件，丢弃原始工具正文、thinking 与 usage signature，保留输入／结果 hash、状态和 CLI 费用估算。探针单次设置 `GROK_MEMORY=0`，关闭自动原生记忆写入与 subagent；原有 hooks 保留。`--always-approve` 仅用于本次已授权验收，不修改持久权限。实际接力仍从两个真实 cwd 发起，在独立验收仓修改代码并交回 Codex 复核。
+
+Cursor 规则兼容不代表 hooks 完全兼容：Grok 若明确报告某类 Cursor hooks 尚不支持，应保留现有配置、记录边界，不能声称自动同步已经统一，也不能静默复制 hooks 补齐。
