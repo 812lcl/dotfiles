@@ -45,7 +45,8 @@ class BrainHookTests(unittest.TestCase):
     def handle(self, client, event, scope='work'):
         payload = {'cwd': str(self.root / ('work' if scope == 'work' else 'vault'))}
         with patch.object(brain_hooks.runtime, 'profiles', return_value=self.profiles), \
-             patch.object(brain_hooks.runtime, 'brain_call'), \
+             patch.object(brain_hooks.runtime, 'brain_call', return_value={'selection': {
+                 'scope': scope, 'brain_root': self.profiles['brain'][scope]['root']}}), \
              patch.object(brain_hooks, 'context', return_value='SCOPED-CONTEXT'), \
              patch.object(brain_hooks, 'brain_command') as command:
             result = brain_hooks.handle(client, event, payload)
@@ -69,6 +70,20 @@ class BrainHookTests(unittest.TestCase):
             brain_hooks.brain_command(self.root / 'work', 'stop')
         self.assertEqual(run.call_args.kwargs['env']['BRAIN_DIR'], str(self.root / 'work'))
         self.assertIn(str(self.root / 'work'), run.call_args.args[0])
+
+    def test_personal_context_preserves_on_demand_recall_without_cli_brief(self):
+        contracts = self.root / 'vault/.agents/contracts'
+        contracts.mkdir(parents=True)
+        (contracts / 'brain-recall.md').write_text('按需召回；不强制 brief。')
+        self.profiles['brain']['vault_root'] = str(self.root / 'vault')
+        with patch.object(brain_hooks, 'brain_command') as command:
+            text = brain_hooks.context('personal', self.profiles)
+        self.assertIn('按需召回', text)
+        command.assert_not_called()
+
+    def test_audit_failure_cannot_break_the_agent(self):
+        with patch.dict(brain_hooks.os.environ, {'AGENT_RUNTIME_HOOK_AUDIT': '/missing/audit'}):
+            brain_hooks.audit({'ok': True})
 
     def test_routing_verification_failure_prevents_sync(self):
         with patch.object(brain_hooks.runtime, 'profiles', return_value=self.profiles), \

@@ -14,9 +14,12 @@ import runtime
 def audit(record):
     """Explicit acceptance logging only; no prompt, paths, or tool contents."""
     if path := os.environ.get('AGENT_RUNTIME_HOOK_AUDIT'):
-        fd = os.open(path, os.O_CREAT | os.O_APPEND | os.O_WRONLY, 0o600)
-        with os.fdopen(fd, 'w') as stream:
-            stream.write(json.dumps(record) + '\n')
+        try:
+            fd = os.open(path, os.O_CREAT | os.O_APPEND | os.O_WRONLY, 0o600)
+            with os.fdopen(fd, 'w') as stream:
+                stream.write(json.dumps(record) + '\n')
+        except OSError:
+            pass  # Acceptance logging must never change hook control flow.
 
 
 def git_common(path):
@@ -79,10 +82,12 @@ def handle(client, event, payload, state=runtime.DEFAULT_STATE):
     if not paths:
         paths = [payload.get('cwd')]
     scope = scope_for(paths, profiles)
-    runtime.brain_call(state, scope, 'verify', metadata_only=True)
+    verified = runtime.brain_call(state, scope, 'verify', metadata_only=True)['selection']
+    root = Path(profiles['brain'][scope]['root']).resolve(strict=True)
+    if verified['scope'] != scope or Path(verified['brain_root']).resolve(strict=True) != root:
+        raise ValueError('Brain profile changed during routing')
     stop = event in ('stop', 'Stop')
     if stop:
-        root = Path(profiles['brain'][scope]['root']).resolve(strict=True)
         brain_command(root, 'stop')
         output = {}
     else:
@@ -106,6 +111,8 @@ def main():
     args = parser.parse_args()
     try:
         payload = json.load(sys.stdin)
+        if not isinstance(payload, dict):
+            raise ValueError('Hook payload must be an object')
         audit({'client': args.client, 'event': args.event, 'stage': 'received',
                'has_cwd': bool(payload.get('cwd')), 'has_roots': bool(payload.get('workspace_roots'))})
         output = handle(args.client, args.event, payload)
