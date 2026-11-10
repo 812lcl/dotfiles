@@ -84,3 +84,9 @@ python3.14 -B -m unittest discover -s . -p 'test_*.py' -v
 Claude 的 MCP 可按需加载，初始化的 `pending` 不代表调用失败。受限探针需要保留 `ToolSearch`，先发现目标工具再调用；只看到模型最终回答也不能代替 `tool_use`／`tool_result` 的成功证据。
 
 本期支持 Codex 基准和 Claude 接入。其他客户端仍待逐一适配、实际启动和接力验收。
+
+## 工作区验证
+
+新客户端需在每个明确登记的范围独立验证规则、Skill、选库与交接；未覆盖的范围保留为未验证。
+
+Claude 项目入口使用 `CLAUDE.md` 引用本地 `AGENTS.md`，项目 Skills 使用薄入口或软链复用共享源。项目配置不保存 provider、凭据或通用默认模型；这些值由用户级 Magpie 配置管理。排查异常时先核对当前 cwd 的项目配置，不能仅凭用户级文件判断实际请求经过了哪个代理。
