@@ -83,7 +83,17 @@ python3.14 -B -m unittest discover -s . -p 'test_*.py' -v
 
 Claude 的 MCP 可按需加载，初始化的 `pending` 不代表调用失败。受限探针需要保留 `ToolSearch`，先发现目标工具再调用；只看到模型最终回答也不能代替 `tool_use`／`tool_result` 的成功证据。
 
-本期支持 Codex 基准和 Claude 接入。其他客户端仍待逐一适配、实际启动和接力验收。
+本期支持 Codex 基准、Claude 与本机 Cursor CLI 接入。其他客户端仍待逐一适配、实际启动和接力验收。
+
+## Cursor
+
+Cursor 使用自己的订阅、登录、模型选择及 MCP，不经 Magpie。启动时使用明确的 `cursor-agent` 入口；本机通用 `agent` 软链可能属于 Grok Build，不能靠命令名推断客户端。
+
+Cursor 原生读取项目 `AGENTS.md` 与 `.agents/skills/`。`cursor-runtime.mdc.template` 只为两个实际工作区补充显式 Brain 和交接入口，分别替换 workspace、scope、runtime 后安装到 `.cursor/rules/agent-runtime.mdc`。已有不同内容先审查，不能直接覆盖。此规则仅供 Cursor 消费，不修改 Codex 的源。
+
+`cursor_probe.run_cursor` 验证真实本机 CLI，记录工具输入／结果 hash、成功状态、读文件路径和 token 用量，不保存工具正文或 thinking。默认不启用 `force`；需要执行已授权的独立验收代码任务时可对单次进程启用，不写入全局权限。Cursor 的原生 hooks 和会话持久化保持原样，因此验收 prompt 只允许显式范围的只读 Brain 适配，不能据此声称自动记忆／sync 已统一。
+
+规则和 Skills 的证据应来自实际读取同一来源；初始化列表或模型自述不足以证明一致。接力测试从两个真实工作区启动，代码修改放在独立验收仓，接收的 Codex 再检查 HEAD、保护文件与测试结果，不以 Cursor 自述替代验证。
 
 ## 工作区验证
 
