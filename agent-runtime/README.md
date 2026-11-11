@@ -20,6 +20,22 @@ Readwise 统一使用本机 `readwise` CLI，命令与参数见共享 `readwise-
 
 本机映射在 `~/.local/state/agent-runtime/profiles.json`。运行报告、快照与精确回退记录位于该私有 state 目录，源码仓库不包含凭据或实际 Brain 内容。`init` 只创建新映射，已存在时拒绝覆盖。
 
+## Skills 自动分组
+
+`skill_groups.py` 只维护 Magpie `library.json` 的 `skillGroups` 显示元数据。来源标签取既有 `.pluginName-overrides.json`、`.skill-lock.json` 的 `pluginName`，以及私有 `skill-group-policy.json` 中明确登记的工作／个人本地来源。GitHub 新导入项即使尚未进入 skills CLI 锁文件，也可按源仓映射分组；更新清掉锁文件中的标签时，既有来源覆盖仍有效。没有标签或规则的项保持原来源展示。
+
+只遍历当前 `library.skills`：删除后不会从锁文件、旧分组、备份或磁盘重新导入。现有的 `agents`、关闭状态、路由、MCP、hooks、应用所有权均不修改，也不执行 `magpie library sync` 或 `npx skills update`。有明确标签的项按标签归组；没有标签的手工分组保留。分组中的已删除成员会清理掉。用户手动修改分组，但原 `pluginName` 仍有效时，下次会重新按该标签归组；自定义覆盖可写入私有 policy。
+
+```bash
+python3.14 -B skill_groups.py          # 只预览
+python3.14 -B skill_groups.py --apply  # 立即同步显示分组
+python3.14 -B install_skill_groups.py  # 生成私有策略与用户 LaunchAgent；不覆盖已有策略
+```
+
+本机已加载 `com.liuchunlei.agent-runtime.skill-groups` 用户任务，监听 Library、Skills 锁文件、标签覆盖和私有 policy；事件合并时每60秒补查。Magpie UI 导入／更新、skills CLI 更新元数据均由此覆盖，不需要更换启动入口。脚本无第三方依赖，不调用模型或网络。无变化不重写 Library，后台仅记录变化与错误；`~/.local/state/agent-runtime/skill-groups/last-run.json` 保留最近检查结果。
+
+写入前等待输入稳定并在最终 rename 前再次检查，检测到并发编辑则跳过，等下一次触发重试，不恢复旧配置。Magpie 没有跨进程事务，这只是乐观并发保护。只在确有分组变化时备份原 Library，备份0600、私有目录0700，最多20份。Library 被删除或 Magpie 卸载后不重建其目录。停用时卸载该用户 LaunchAgent 即可，现有分组与分发不回滚。
+
 ## Codex 基准
 
 ```bash
