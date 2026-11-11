@@ -24,7 +24,7 @@ Readwise 统一使用本机 `readwise` CLI，命令与参数见共享 `readwise-
 
 `skill_groups.py` 只维护 Magpie `library.json` 的 `skillGroups` 显示元数据。来源标签取既有 `.pluginName-overrides.json`、`.skill-lock.json` 的 `pluginName`，以及私有 `skill-group-policy.json` 中明确登记的工作／个人本地来源。GitHub 新导入项即使尚未进入 skills CLI 锁文件，也可按源仓映射分组；更新清掉锁文件中的标签时，既有来源覆盖仍有效。没有标签或规则的项保持原来源展示。
 
-只遍历当前 `library.skills`：删除后不会从锁文件、旧分组、备份或磁盘重新导入。现有的 `agents`、关闭状态、路由、MCP、hooks、应用所有权均不修改，也不执行 `magpie library sync` 或 `npx skills update`。有明确标签的项按标签归组；没有标签的手工分组保留。分组中的已删除成员会清理掉。用户手动修改分组，但原 `pluginName` 仍有效时，下次会重新按该标签归组；自定义覆盖可写入私有 policy。
+只遍历当前 `library.skills`：删除后不会从锁文件、旧分组、备份或磁盘重新导入。现有的 `agents`、关闭状态、路由、MCP、hooks、应用所有权均不修改，也不执行 `magpie library sync` 或 `npx skills update`。有明确标签的项按标签归组；没有标签的手工分组保留。分组中的已删除成员会清理掉。用户手动修改分组，但原 `pluginName` 仍有效时，下次会重新按该标签归组；已有来源的覆盖在 `.pluginName-overrides.json` 调整，缺少来源标签的本地项可在私有 policy 补充。
 
 ```bash
 python3.14 -B skill_groups.py          # 只预览
