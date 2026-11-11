@@ -150,6 +150,7 @@ class GroupWriteTests(unittest.TestCase):
         self.assertEqual(job['StartInterval'], 60)
         self.assertEqual(len(job['WatchPaths']), 4)
         self.assertIn('--apply', job['ProgramArguments'])
+        self.assertNotEqual(job.get('ProcessType'), 'Background')
         self.assertEqual(policy.read_text(), '{"skills":{"custom":"mine"}}')
         self.assertEqual(json.loads(self.library.read_text()), self.original)
 

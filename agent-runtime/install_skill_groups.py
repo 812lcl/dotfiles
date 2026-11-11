@@ -31,7 +31,6 @@ def install(home, source, python):
              '--policy', str(policy), '--state', str(worker), '--apply', '--quiet'],
              'WatchPaths': [str(p) for p in (library, lock, overrides, policy)],
              'RunAtLoad': True, 'StartInterval': 60, 'ThrottleInterval': 5,
-             'ProcessType': 'Background',
              'StandardOutPath': str(worker / 'worker.log'),
              'StandardErrorPath': str(worker / 'worker-error.log')}
     folder = home / 'Library/LaunchAgents'
