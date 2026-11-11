@@ -503,36 +503,6 @@
       "updatedAt": "2026-10-22T08:40:18.368Z",
       "pluginName": "chrome-devtools"
     },
-    "knowledge-clip": {
-      "source": "812lcl/personal-skills",
-      "sourceType": "local",
-      "sourceUrl": "",
-      "skillPath": "SKILL.md",
-      "skillFolderHash": "574351febd981f76ea5004987ffbd52af2ac48ba",
-      "installedAt": "2026-05-15T10:00:26.506Z",
-      "updatedAt": "2026-05-15T10:00:26.506Z",
-      "pluginName": "Personal"
-    },
-    "obsidian-review": {
-      "source": "812lcl/personal-skills",
-      "sourceType": "local",
-      "sourceUrl": "",
-      "skillPath": "SKILL.md",
-      "skillFolderHash": "92382ea26bd7bf695fc57b108f76ad21a57c7453",
-      "installedAt": "2026-05-15T10:00:26.506Z",
-      "updatedAt": "2026-05-15T10:00:26.506Z",
-      "pluginName": "Personal"
-    },
-    "obsidian-task-writeback": {
-      "source": "812lcl/personal-skills",
-      "sourceType": "local",
-      "sourceUrl": "",
-      "skillPath": "SKILL.md",
-      "skillFolderHash": "c06f9cd3bbf2a726c9c4b1d8352d81182da3882d91af4430f793e37b0893ebb5",
-      "installedAt": "2026-08-31T06:31:41Z",
-      "updatedAt": "2026-08-31T06:31:41Z",
-      "pluginName": "Personal"
-    },
     "service-health": {
       "source": "812lcl/work-skills",
       "sourceType": "local",
