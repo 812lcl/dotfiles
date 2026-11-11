@@ -42,8 +42,10 @@ class BrainHookTests(unittest.TestCase):
         subprocess.run(['git', '-C', str(repo), 'worktree', 'add', '-qb', 'fixture', str(linked)], check=True)
         self.assertEqual(brain_hooks.scope_for([str(linked)], self.profiles), 'work')
 
-    def handle(self, client, event, scope='work'):
+    def handle(self, client, event, scope='work', native=None):
         payload = {'cwd': str(self.root / ('work' if scope == 'work' else 'vault'))}
+        if native is not None:
+            payload['hook_event_name'] = native
         with patch.object(brain_hooks.runtime, 'profiles', return_value=self.profiles), \
              patch.object(brain_hooks.runtime, 'brain_call', return_value={'selection': {
                  'scope': scope, 'brain_root': self.profiles['brain'][scope]['root']}}), \
@@ -51,6 +53,54 @@ class BrainHookTests(unittest.TestCase):
              patch.object(brain_hooks, 'brain_command') as command:
             result = brain_hooks.handle(client, event, payload)
         return result, command
+
+    def test_portable_prompt_and_tool_protocol_matrix(self):
+        for event, native, cursor in (
+                ('prompt', 'UserPromptSubmit', False), ('prompt', 'BeforeAgent', False),
+                ('before-tool', 'PreToolUse', False), ('before-tool', 'preToolUse', True),
+                ('session-start', 'sessionStart', True)):
+            with self.subTest(event=event, native=native):
+                result, command = self.handle('portable', event, native=native)
+                expected = {'additional_context': 'SCOPED-CONTEXT'} if cursor else {
+                    'hookSpecificOutput': {'hookEventName': native, 'additionalContext': 'SCOPED-CONTEXT'}}
+                self.assertEqual(result, expected)
+                command.assert_not_called()
+
+    def test_portable_stop_is_shared_and_has_no_followup_or_permission_output(self):
+        for native in ('Stop', 'stop', 'AfterAgent'):
+            result, command = self.handle('portable', 'turn-end', native=native)
+            self.assertEqual(result, {})
+            command.assert_called_once_with((self.root / 'work').resolve(), 'stop')
+
+    def test_portable_invalid_or_mismatched_event_never_reads_or_syncs(self):
+        for payload in ({}, {'hook_event_name': 'BeforeAgent'}, {'hook_event_name': 'futureEvent'}):
+            with patch.object(brain_hooks, 'run_brain') as run:
+                with self.assertRaises(ValueError):
+                    brain_hooks.handle('portable', 'turn-end', payload)
+                run.assert_not_called()
+
+    def test_portable_start_preserves_preferences_in_native_context_envelope(self):
+        with patch.object(brain_hooks, 'run_brain', return_value='PREFERENCE-CONTENT') as run:
+            result, _ = self.handle('portable', 'session-start', native='SessionStart')
+        run.assert_called_once_with((self.root / 'work').resolve(), ['preference', 'list', '--limit', '20'])
+        self.assertEqual(result, {'hookSpecificOutput': {'hookEventName': 'SessionStart',
+                         'additionalContext': 'Brain preferences [work]\nPREFERENCE-CONTENT'}})
+
+    def test_shared_workspace_registry_overrides_legacy_cursor_registry(self):
+        self.profiles['brain_hooks'] = {'workspaces': {
+            'explicit': {'root': str(self.root / 'elsewhere'), 'brain_scope': 'work'}}}
+        self.assertEqual(brain_hooks.scope_for([str(self.root / 'elsewhere')], self.profiles), 'work')
+        with self.assertRaises(ValueError):
+            brain_hooks.scope_for([str(self.root / 'work')], self.profiles)
+
+    def test_portable_multiroot_payload_is_checked_in_full(self):
+        payload = {'hook_event_name': 'stop', 'cwd': str(self.root / 'work'),
+                   'workspace_roots': [str(self.root / 'work'), str(self.root / 'vault')]}
+        with patch.object(brain_hooks.runtime, 'profiles', return_value=self.profiles), \
+             patch.object(brain_hooks, 'run_brain') as run:
+            with self.assertRaisesRegex(ValueError, 'Mixed'):
+                brain_hooks.handle('portable', 'turn-end', payload)
+            run.assert_not_called()
 
     def test_context_uses_native_client_vocabulary(self):
         self.assertEqual(self.handle('cursor', 'sessionStart')[0], {'additional_context': 'SCOPED-CONTEXT'})

@@ -39,7 +39,10 @@ def scope_for(paths, profiles):
         common = git_common(path)
         owner = common.parent if common and common.name == '.git' else path
         matches = set()
-        for workspace in profiles['cursor']['workspaces'].values():
+        workspaces = profiles.get('brain_hooks', {}).get('workspaces')
+        if workspaces is None:
+            workspaces = profiles['cursor']['workspaces']
+        for workspace in workspaces.values():
             root = Path(workspace['root']).resolve(strict=True)
             if path.is_relative_to(root) or owner.is_relative_to(root):
                 matches.add(workspace['brain_scope'])
@@ -51,13 +54,35 @@ def scope_for(paths, profiles):
     return selected.pop()
 
 
-def brain_command(root, event):
+def run_brain(root, args):
     env = dict(os.environ, BRAIN_DIR=str(root))
-    result = subprocess.run(['brain', '--brain-dir', str(root), 'hook', event],
+    result = subprocess.run(['brain', '--brain-dir', str(root), *args],
                             input='{}', text=True, capture_output=True, timeout=20, env=env)
     if result.returncode:
         raise ValueError('Brain hook failed')
     return result.stdout
+
+
+def brain_command(root, event):
+    return run_brain(root, ['hook', event])
+
+
+# The portable command is identical in all agents. Dispatch only on documented
+# event names, never environment heuristics or executable/process names.
+PORTABLE_EVENTS = {
+    'turn-end': {'Stop': 'stop', 'stop': 'stop', 'AfterAgent': 'stop'},
+    'prompt': {'UserPromptSubmit': 'standard', 'BeforeAgent': 'standard'},
+    'before-tool': {'PreToolUse': 'standard', 'preToolUse': 'cursor'},
+    'session-start': {'SessionStart': 'preferences', 'sessionStart': 'cursor'},
+}
+
+
+def portable_event(event, payload):
+    native = payload.get('hook_event_name')
+    protocol = PORTABLE_EVENTS.get(event, {}).get(native)
+    if protocol is None:
+        raise ValueError('Unsupported native event for portable hook')
+    return native, protocol
 
 
 def context(scope, profiles):
@@ -77,8 +102,11 @@ def context(scope, profiles):
 
 
 def handle(client, event, payload, state=runtime.DEFAULT_STATE):
+    protocol = None
+    if client == 'portable':
+        event, protocol = portable_event(event, payload)
     profiles = runtime.profiles(state)
-    paths = payload.get('workspace_roots') if client == 'cursor' else None
+    paths = payload.get('workspace_roots') if client in ('cursor', 'portable') else None
     if not paths:
         paths = [payload.get('cwd')]
     scope = scope_for(paths, profiles)
@@ -90,10 +118,16 @@ def handle(client, event, payload, state=runtime.DEFAULT_STATE):
     if stop:
         brain_command(root, 'stop')
         output = {}
+    elif protocol == 'preferences':
+        text = run_brain(root, ['preference', 'list', '--limit', '20'])
+        output = {'hookSpecificOutput': {'hookEventName': event,
+                  'additionalContext': 'Brain preferences [' + scope + ']\n' + text}}
     else:
         text = context(scope, profiles)
-        if client == 'cursor':
+        if client == 'cursor' or protocol == 'cursor':
             output = {'additional_context': text}
+        elif protocol == 'standard':
+            output = {'hookSpecificOutput': {'hookEventName': event, 'additionalContext': text}}
         elif client == 'grok':
             output = {'hookSpecificOutput': {'hookEventName': 'PreToolUse', 'additionalContext': text}}
         elif client == 'gemini':
@@ -108,9 +142,9 @@ def handle(client, event, payload, state=runtime.DEFAULT_STATE):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('client', choices=['cursor', 'grok', 'opencode', 'gemini'])
+    parser.add_argument('client', choices=['cursor', 'grok', 'opencode', 'gemini', 'portable'])
     parser.add_argument('event', choices=['sessionStart', 'preToolUse', 'PreToolUse', 'context',
-                                         'stop', 'Stop', 'BeforeAgent', 'AfterAgent'])
+                                         'stop', 'Stop', 'BeforeAgent', 'AfterAgent', *PORTABLE_EVENTS])
     args = parser.parse_args()
     try:
         payload = json.load(sys.stdin)

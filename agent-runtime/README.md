@@ -127,8 +127,21 @@ Cursor 规则兼容不代表 hooks 完全兼容：Grok 若明确报告某类 Cur
 
 ## Brain 生命周期适配
 
-2026-11-11 起，Claude／Codex／Cursor／Grok／Gemini 的 Brain hook 入口由 Magpie Library 分发，脚本继续在 Git 中维护。Claude 与 Codex 保留原有三个事件、命令、matcher 和超时；Codex SessionStart 的 `statusMessage` 显示文案无法由当前 Magpie 表达，移除后用本机 app-server 核对当前 hash 并更新该项已有信任，保留其他 Brain 信任。Cursor 保留启动、工具前和结束事件。Grok 最终使用原生 PreToolUse／Stop，关闭 `compat.claude.hooks`，保留其他 Claude 兼容能力，避免同时加载继承与原生 Brain 入口；此前复用 Claude Stop 的方案已被替代。Gemini 使用 BeforeAgent 注入上下文、AfterAgent 发起显式选库的结束同步，返回空对象，不要求重试或阻止响应。Magpie 把 hook 写到客户端本机配置，模型不经 Magpie 也能执行。
+Magpie Library 使用5个定义分发13个原生事件入口，所有命令共用 Git 中的 `brain_hooks.py portable <event>`，命令不带客户端名称：
 
+| Library 名称 | 事件 | 分发对象 |
+|---|---|---|
+| brain-stop | turn-end | Claude、Codex、Cursor、Grok、Gemini |
+| brain-prompt | prompt | Claude、Codex、Gemini |
+| brain-before-tool | before-tool | Cursor、Grok |
+| brain-session-start | session-start | Claude、Cursor |
+| brain-codex-session-start | codex:SessionStart，matcher `^(startup|compact)$` | Codex |
+
+最后一条复用同一个 `portable session-start` 命令，只单列 Codex 原有的启动条件。Magpie 负责原生事件名称、配置格式和 Gemini 毫秒超时换算；所有定义的外层超时统一为30秒。共享入口只接受已核对的 `hook_event_name`，不猜测进程或模型来源。Cursor 启动返回 `additional_context`，标准 SessionStart 返回偏好列表的 `hookSpecificOutput`；查询和工具前事件返回各自协议的上下文；结束统一显式选库并返回空对象，不改变权限或追加 follow-up。Claude／Codex 不再各自调用旧生命周期／direnv 命令。
+
+分库注册表保存在私有 profiles 中，由用户明确登记项目范围和关联 Git worktree；未知或混合范围跳过，不回退默认库。
+
+替换旧库条目后，必须核对 `applied.<client>.hooks` 所有权及原生入口数量，防止旧定义和通用定义并存。Codex 的命令改变会触发重新信任：仅核对本次共享脚本和 matcher 后，用本机 app-server 更新这些 Brain hooks 的当前 hash；不关闭信任检查、不授予其他 hooks 权限。
 OpenCode 继续使用原生插件；Hermes／WorkBuddy／DeepSeek Harness 当前不属于 Magpie Hooks 支持范围。各客户端的 Orca／Paseo 命令 hooks 按用户要求移除，OpenCode 对应活动桥接插件退出加载，Hermes 的 Orca 状态插件停用；不卸载这两个应用，也不改变其他插件。Codex 中仅移除这两类桥接的信任记录，Brain 事件的组索引仍为零。若外部应用后续自行重新安装 hooks，应重新检查来源，不由 Brain 安装器反复争抢配置。
 
 私有 profiles 的 `brain_hooks.materialized_by = magpie.library` 表示分发归属；旧 `install_brain_hooks.py` 此时拒绝写入，日常恢复入口使用 `magpie library sync`。首次迁移需先备份并精确移除旧 Brain 入口，再让 Magpie 原生同步写入并记录所有权；仅添加相同命令不会接管已有入口。库中取消分配只撤销 Magpie 自己写入且尚未被修改的项。不要将同一客户端同时分配继承入口和原生入口。
@@ -141,8 +154,8 @@ Cursor/Grok 提问事件不能作为可靠的上下文注入入口，因此使�
 
 Grok 的 Cursor hooks 兼容扫描默认开启，但当前安装版拒绝 Cursor 直接 handler 的返回协议，会在 `/hooks` 显示 “won't run until Grok reads Cursor hook replies”。本机已在 `~/.grok/config.toml` 设置 `[compat.cursor] hooks = false`；仅停止重复扫描 Cursor hooks，不关闭 Cursor 的 rules/skills/agents/MCP，也不改 Cursor 自己的 hooks。迁移后 Grok 加载原生 Brain PreToolUse／Stop，同时关闭 Claude hooks 继承。`grok inspect --json` 可核验静态加载，不能代替完整会话内插件加载验收。
 
-Claude 插件还可能有独立兼容边界：`security-guidance` 的 `asyncRewake`/条件字段及 Warp 的 `PermissionRequest` 尚不被当前 Grok 支持。2026-11-11 用户明确要求从 Cursor/Grok 去掉报错项后，本机仅在 Grok 的 `[plugins] disabled = ["warp", "security-guidance"]` 中排除这两个插件，不改共享 Claude 插件缓存或 Claude 启用设置。Cursor 的 Customize 用户插件及 hooks 界面未发现这两个插件条目，无需删除；原生 Brain 与 Orca/Paseo hooks 保留。不要删除条件字段伪装成等价适配。启动过的 Grok 会话应新开会话以反映插件过滤配置。
+Claude 插件还可能有独立兼容边界：`security-guidance` 的 `asyncRewake`/条件字段及 Warp 的 `PermissionRequest` 尚不被当前 Grok 支持。2026-11-11 用户明确要求从 Cursor/Grok 去掉报错项后，本机仅在 Grok 的 `[plugins] disabled = ["warp", "security-guidance"]` 中排除这两个插件，不改共享 Claude 插件缓存或 Claude 启用设置。Cursor 的 Customize 用户插件及 hooks 界面未发现这两个插件条目，无需删除；当时保留其他 hooks；后续 Orca/Paseo 清理见本节前文。不要删除条件字段伪装成等价适配。启动过的 Grok 会话应新开会话以反映插件过滤配置。
 
-安装：`python3.14 -B install_brain_hooks.py <私有 state/runs/本次目录>`。只追加 Cursor 的三个事件、Grok 专用提醒和 OpenCode 插件链接，保留 Orca/Paseo 等已有配置；首次 Cursor 配置备份不被重复安装覆盖。Codex 配置、Claude 配置及 provider/model/MCP 均不是写入目标。新开会话后加载，已有长驻 OpenCode 服务可能需要在方便时重新加载插件，不自动重启用户服务。
+旧安装入口：`python3.14 -B install_brain_hooks.py <私有 state/runs/本次目录>`。仅用于尚未登记 Magpie 所有权的旧安装；完成迁移后该入口拒绝写入，使用 `magpie library sync` 恢复通用定义。新开会话后加载，已有长驻 OpenCode 服务可能需要在方便时重新加载插件，不自动重启用户服务。
 
 验收时可仅在测试进程设置 `AGENT_RUNTIME_HOOK_AUDIT`，输出事件、scope、状态及 hash，不记录提示、工具正文或 reasoning。正常启动无需设置。结束入口验收使用任务私有 CLI observer 阻止真实同步，核验 native harness 调用了正确 Brain 的 Stop；它不代表远端同步已成功。
