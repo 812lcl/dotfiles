@@ -19,7 +19,7 @@ class CopyFixture(unittest.TestCase):
         for rel in copy.DEPENDENCIES:self.write(self.vault/rel,'Fixture dependency.\n')
         self.write(self.vault/'.agents/vault-workflows.json',json.dumps({'version':1,'vault_root':str(self.vault)}))
         self.lock=self.home/'.agents/.skill-lock.json';self.write(self.lock,'{"skills":{"knowledge-clip":{"source":"fixture/local","pluginName":"Personal","sourceType":"local"}},"fixture":"preserve bytes"}\n')
-        self.install_entry()
+        self.source_repo=self.base/'source-repo';self.source_repo.mkdir();self.write(self.source_repo/'skills-lock.json','{"version":2,"skills":{}}\n');self.install_entry()
     def write(self,p,text):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(text);return p
     def install_entry(self):
         self.agents=self.home/'.agents'
@@ -29,12 +29,24 @@ class CopyFixture(unittest.TestCase):
     def tree(self,root):
         return {str(p.relative_to(root)):(hashlib.sha256(p.read_bytes()).hexdigest(),p.stat().st_mode&0o777) for p in root.rglob('*') if p.is_file() and not p.is_symlink()}
     def shell(self,*args,status=0):
-        env=dict(os.environ,HOME=str(self.home),PYTHONDONTWRITEBYTECODE='1',FAKE_NPX_STATUS=str(status),PATH=str(self.home/'bin')+os.pathsep+os.environ['PATH'])
-        return subprocess.run(['bash',str(self.agents/'safe-skills-update.sh'),*args],env=env,capture_output=True,text=True)
+        env=dict(os.environ,HOME=str(self.home),PYTHONDONTWRITEBYTECODE='1',FAKE_NPX_STATUS=str(status),SKILL_SOURCE_ROOT=str(self.source_repo),PATH=str(self.home/'bin')+os.pathsep+os.environ['PATH'])
+        selected=[*args, '--python', sys.executable] if args and args[0]=='--sync-openclaw' else list(args)
+        return subprocess.run(['bash',str(self.agents/'safe-skills-update.sh'),*selected],env=env,capture_output=True,text=True)
     def fake_npx(self):
-        p=self.write(self.home/'bin/npx','#!/usr/bin/env python3\nimport os,shutil\nfrom pathlib import Path\nh=Path.home();s=h/".agents/skills/knowledge-clip";t=h/".openclaw/skills/knowledge-clip"\nfor p in ["SKILL.md","scripts/clip_flow.py"]:shutil.copy2(s/p,t/p)\n(h/"npx-called").write_text("called")\nraise SystemExit(int(os.environ.get("FAKE_NPX_STATUS","0")))\n');p.chmod(0o755)
+        p=self.write(self.home/'bin/npx',"#!/usr/bin/env python3\nimport os\nfrom pathlib import Path\nassert os.sys.argv[1:4]==['skills','update','--project']\n(Path.home()/'npx-called').write_text('called')\nraise SystemExit(int(os.environ.get('FAKE_NPX_STATUS','0')))\n");p.chmod(0o755)
+        self.write(self.agents/'.pluginName-overrides.json','{}\n')
         self.write(self.agents/'apply-pluginName-overrides.py','from pathlib import Path\n(Path.home()/"overrides-called").write_text("called")\n')
 class CopyTests(CopyFixture):
+    def test_migrated_source_layout_works_without_global_loading_entry(self):
+        migrated=self.vault/'.agents/skill-sources'
+        self.source.parent.rename(migrated);self.source=migrated/'knowledge-clip'
+        (self.canonical/'knowledge-clip').unlink()
+        self.write(self.home/'.config/magpie/library.json',json.dumps({'skills':[{'name':'knowledge-clip','source':{'kind':'folder','dir':str(self.source)},'agents':[]}]}))
+        with patch.object(copy.Path,'home',return_value=self.home):
+            self.assertEqual(copy.default_canonical_dir(),str(migrated))
+        plan=copy.prepare(migrated,self.oc,'knowledge-clip')
+        self.assertEqual(plan['source'],self.source)
+
     def test_targeted_dry_run_is_readonly_and_never_calls_updater(self):
         self.fake_npx();before=self.tree(self.home);result=self.shell('--sync-openclaw','--skill','knowledge-clip','--dry-run')
         self.assertEqual(result.returncode,0,result.stderr);self.assertEqual(before,self.tree(self.home));self.assertFalse(self.backups.exists());self.assertFalse((self.home/'npx-called').exists())
@@ -91,10 +103,10 @@ class CopyTests(CopyFixture):
         for args in [('--sync-openclaw','--dry-run'),('--sync-openclaw','--skill','clawfeed','--apply')]:
             result=self.shell(*args);self.assertNotEqual(result.returncode,0)
         self.assertEqual(before,self.tree(self.home))
-    def test_regular_update_reapplies_adapter_even_if_target_stays_copy(self):
-        self.apply();self.fake_npx();other=self.tree(self.oc/'other');result=self.shell()
+    def test_regular_update_preserves_independent_openclaw_copy(self):
+        self.apply();self.fake_npx();before=self.tree(self.oc);other=self.tree(self.oc/'other');result=self.shell();self.assertEqual(before,self.tree(self.oc))
         self.assertEqual(result.returncode,0,result.stderr);self.assertTrue((self.home/'npx-called').exists());self.assertFalse(self.target.is_symlink());self.assertIn('UPSTREAM=Path(',(self.target/'scripts/clip_flow.py').read_text());self.assertIn('OpenClaw 本机路径适配',(self.target/'SKILL.md').read_text());self.assertEqual(other,self.tree(self.oc/'other'))
-    def test_failed_upstream_update_still_restores_adapter_and_exit_status(self):
+    def test_failed_source_update_preserves_copy_and_exit_status(self):
         self.apply();self.fake_npx();result=self.shell(status=7)
         self.assertEqual(result.returncode,7,result.stderr);self.assertIn('UPSTREAM=Path(',(self.target/'scripts/clip_flow.py').read_text());self.assertTrue((self.home/'overrides-called').exists())
 
@@ -102,22 +114,29 @@ class ClipIntegration(CopyFixture):
     def test_real_clip_flow_uses_fixture_and_waits_for_exact_commit_approval(self):
         canonical=Path('/Users/liuchunlei/Code/Obsidian Vault')
         # Repository implementation files only; all note/schema/ledger content below is synthetic.
-        shutil.rmtree(self.source);shutil.copytree(canonical/'.agents/skills/knowledge-clip',self.source,ignore=shutil.ignore_patterns('__pycache__','.DS_Store'))
-        for rel in ['.agents/tools/scoped-changes/change_guard.py','.agents/tools/vault-records/record_guard.py']:
+        shutil.rmtree(self.source);shutil.copytree(canonical/'.agents/skill-sources/knowledge-clip',self.source,ignore=shutil.ignore_patterns('__pycache__','.DS_Store'))
+        for rel in ['.agents/tools/scoped-changes/change_guard.py','.agents/tools/vault-records/record_guard.py','.agents/tools/vault-records/note_schema.py','.agents/tools/vault-records/planning_schema.py']:
             shutil.copy2(canonical/rel,self.vault/rel)
         self.write(self.vault/'assets/templates/Properties.md','---\nstatus: [In Progress]\ntype: [文章]\ncategory: [科学与技术]\nmedia: [网络]\n---\n')
-        self.write(self.vault/'5-wiki/schema.md','# Fixture schema\n');self.write(self.vault/'5-wiki/.ledger.md','# Ledger\n')
+        self.write(self.vault/'.agents/contracts/note-creation.json',(canonical/'.agents/contracts/note-creation.json').read_text())
+        for rel in ['.agents/tools/tag-policy/tag_policy.py','.agents/contracts/tag-policy.json']:
+            self.write(self.vault/rel,(canonical/rel).read_text())
+        for implementation in (canonical/'.agents/tools').rglob('*.py'):
+            if 'tests' not in implementation.parts and '__pycache__' not in implementation.parts:
+                self.write(self.vault/implementation.relative_to(canonical),implementation.read_text())
+        self.write(self.vault/'assets/templates/knowledge/Knowledge.md','---\ntype: []\ncategory: []\nsource: \ncreated: \n---\n')
+        self.write(self.vault/'5-wiki/schema.md','# Fixture schema\n');self.write(self.vault/'5-wiki/ledger.md','# Ledger\n')
         def git(*args):return subprocess.check_output(['git','-C',str(self.vault),*args],stderr=subprocess.STDOUT).decode().strip()
         for a in [('init','-q'),('config','user.name','Fixture'),('config','user.email','fixture@example.invalid'),('add','.'),('commit','-qm','Fixture baseline')]:git(*a)
         self.apply();entry=self.target/'scripts/clip_flow.py';run=self.base/'run.json';raw=self.base/'raw.json';ingest=self.base/'ingest.json';source='https://example.invalid/fixture'
-        raw.write_text(json.dumps({'source':source,'original_content':'Original fixture article.','raw_path':'4-knowledge_hub/Clippings/[文章] Fixture.md','note':'---\nstatus: [In Progress]\ntype: [文章]\ncategory: [科学与技术]\nmedia: [网络]\nsource: '+source+'\n---\n\n## 原文\nOriginal fixture article.\n'}))
+        raw.write_text(json.dumps({'source':source,'original_content':'Original fixture article.','raw_path':'4-knowledge_hub/Clippings/[文章] Fixture.md','note':'---\nstatus: [In Progress]\ntype: [文章]\ncategory: [科学与技术]\nmedia: [网络]\ncreated: 2026-11-11\nsource: '+source+'\n---\n\n## 原文\nOriginal fixture article.\n'}))
         def cli(*args):return subprocess.run([sys.executable,'-B',str(entry),'--vault-root',str(self.vault),*args],capture_output=True,text=True)
         head=git('rev-parse','HEAD');before=self.tree(self.vault);r=cli('raw','--request',str(raw));self.assertEqual(r.returncode,0,r.stderr);self.assertEqual(before,self.tree(self.vault));self.assertFalse(run.exists())
         r=cli('raw','--request',str(raw),'--run',str(run),'--apply');self.assertEqual(r.returncode,0,r.stderr);self.assertEqual(git('rev-parse','HEAD'),head);self.assertNotEqual(cli('review','--run',str(run)).returncode,0)
-        ingest.write_text(json.dumps({'edits':[{'path':'5-wiki/concepts/fixture.md','create':'# Fixture\nCompiled fixture knowledge.\n'},{'path':'5-wiki/.ledger.md','patches':[{'old':'# Ledger\n','new':'# Ledger\nFixture ingested.\n'}]}]}))
+        ingest.write_text(json.dumps({'edits':[{'path':'5-wiki/concepts/fixture.md','create':'# Fixture\nCompiled fixture knowledge.\n'},{'path':'5-wiki/ledger.md','patches':[{'old':'# Ledger\n','new':'# Ledger\nFixture ingested.\n'}]}]}))
         r=cli('ingest','--request',str(ingest),'--run',str(run),'--apply');self.assertEqual(r.returncode,0,r.stderr);r=cli('review','--run',str(run));self.assertEqual(r.returncode,0,r.stderr);receipt=json.loads(r.stdout);self.assertEqual(git('rev-parse','HEAD'),head);self.assertEqual(git('diff','--cached','--name-only'),'')
         self.assertNotEqual(cli('commit','--run',str(run),'--approval','wrong','--message','No').returncode,0);self.assertEqual(git('rev-parse','HEAD'),head)
         r=cli('commit','--run',str(run),'--approval',receipt['approval_token'],'--message','Fixture exact commit');self.assertEqual(r.returncode,0,r.stderr)
-        self.assertEqual(set(git('show','--format=','--name-only','HEAD').splitlines()),{'4-knowledge_hub/Clippings/[文章] Fixture.md','5-wiki/concepts/fixture.md','5-wiki/.ledger.md'})
+        self.assertEqual(set(git('show','--format=','--name-only','HEAD').splitlines()),{'4-knowledge_hub/Clippings/[文章] Fixture.md','5-wiki/concepts/fixture.md','5-wiki/ledger.md'})
 
 if __name__=='__main__':unittest.main()

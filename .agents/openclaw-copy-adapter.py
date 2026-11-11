@@ -55,11 +55,11 @@ def payloads(root):
 
 def signatures(files):return {p:{'sha256':sha(x['data']),'mode':x['mode']} for p,x in files.items()}
 def check_dependencies(source,python):
-    if source.name!='knowledge-clip' or source.parent.name!='skills' or source.parent.parent.name!='.agents':
-        raise Conflict('knowledge-clip source must retain the canonical Vault/.agents/skills layout')
+    if source.name!='knowledge-clip' or source.parent.name not in ('skills','skill-sources') or source.parent.parent.name!='.agents':
+        raise Conflict('knowledge-clip source must retain the canonical Vault/.agents/{skills,skill-sources} layout')
     vault=source.parents[2]
     for relative in DEPENDENCIES:
-        p=vault/relative
+        p=vault/(relative.replace('.agents/skills/', '.agents/skill-sources/') if source.parent.name=='skill-sources' else relative)
         if not p.is_file():raise Conflict('Required Vault dependency missing: '+str(p))
         with p.open('rb') as handle:handle.read(1)
     config=json.loads((vault/'.agents/vault-workflows.json').read_text())
@@ -174,9 +174,21 @@ def apply(plan,backup_root):
             if stage.exists():shutil.rmtree(stage)
             # A leftover -previous directory is retained after uncertain outcomes, never force-removed.
 
+def default_canonical_dir():
+    # Read the registered source, rather than requiring a globally enabled entry.
+    try:
+        library=json.loads((Path.home()/'.config/magpie/library.json').read_text())
+        for skill in library.get('skills',[]):
+            source=skill.get('source',{})
+            if skill.get('name')=='knowledge-clip' and source.get('kind')=='folder':
+                return str(Path(source['dir']).parent)
+    except (OSError,ValueError,KeyError,TypeError):
+        pass
+    return str(Path.home()/'.agents/skills')
+
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--skill',action='append',choices=['knowledge-clip'],required=True)
-    p.add_argument('--canonical-dir',default=str(Path.home()/'.agents/skills'));p.add_argument('--openclaw-dir',default=str(Path.home()/'.openclaw/skills'));p.add_argument('--backup-dir',default=str(Path.home()/'.openclaw/backups/skill-sync'));p.add_argument('--python');p.add_argument('--post-update',action='store_true')
+    p.add_argument('--canonical-dir',default=default_canonical_dir());p.add_argument('--openclaw-dir',default=str(Path.home()/'.openclaw/skills'));p.add_argument('--backup-dir',default=str(Path.home()/'.openclaw/backups/skill-sync'));p.add_argument('--python');p.add_argument('--post-update',action='store_true')
     mode=p.add_mutually_exclusive_group();mode.add_argument('--apply',action='store_true');mode.add_argument('--dry-run',action='store_true');a=p.parse_args()
     try:
         if len(a.skill)!=len(set(a.skill)):raise Conflict('Duplicate selection')
