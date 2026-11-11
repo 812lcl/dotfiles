@@ -56,6 +56,13 @@ class BrainHookTests(unittest.TestCase):
         self.assertEqual(self.handle('cursor', 'sessionStart')[0], {'additional_context': 'SCOPED-CONTEXT'})
         self.assertEqual(self.handle('opencode', 'context')[0], {'context': 'SCOPED-CONTEXT'})
         self.assertEqual(self.handle('grok', 'PreToolUse')[0]['hookSpecificOutput']['hookEventName'], 'PreToolUse')
+        self.assertEqual(self.handle('gemini', 'BeforeAgent')[0], {
+            'hookSpecificOutput': {'hookEventName': 'BeforeAgent', 'additionalContext': 'SCOPED-CONTEXT'}})
+
+    def test_gemini_after_agent_does_not_request_retry_or_block(self):
+        result, command = self.handle('gemini', 'AfterAgent')
+        self.assertEqual(result, {})
+        command.assert_called_once_with((self.root / 'work').resolve(), 'stop')
 
     def test_stop_is_nonblocking_and_only_invokes_selected_brain(self):
         for client in ('cursor', 'grok', 'opencode'):
@@ -124,6 +131,15 @@ class BrainHookTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 install_brain_hooks.install(home / 'state', home)
         self.assertEqual(cursor.read_text(), '{"hooks":{}}')
+
+    def test_magpie_owner_prevents_legacy_installer_writes(self):
+        state = self.root / '.local/state/agent-runtime'
+        state.mkdir(parents=True)
+        (state / 'profiles.json').write_text(json.dumps({
+            'brain_hooks': {'materialized_by': 'magpie.library'}}))
+        with self.assertRaisesRegex(ValueError, 'Magpie owns'):
+            install_brain_hooks.install(self.root / 'run', self.root)
+        self.assertFalse((self.root / '.cursor').exists())
 
 
 if __name__ == '__main__':

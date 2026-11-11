@@ -127,6 +127,12 @@ Cursor 规则兼容不代表 hooks 完全兼容：Grok 若明确报告某类 Cur
 
 ## Brain 生命周期适配
 
+2026-11-11 起，Claude／Cursor／Grok／Gemini 的 Brain hook 入口由 Magpie Library 分发，脚本继续在 Git 中维护。Claude 保留原有三个事件与命令；Cursor 保留启动、工具前和结束事件；Grok 只分发原生 PreToolUse，结束仍继承 Claude Stop，避免重复同步。Gemini 使用 BeforeAgent 注入上下文、AfterAgent 发起显式选库的结束同步，返回空对象，不要求重试或阻止响应。Magpie 把 hook 写到客户端本机配置，模型不经 Magpie 也能执行。
+
+Codex Brain hooks 不迁移；OpenCode 继续使用原生插件；Hermes／WorkBuddy／DeepSeek Harness 当前不属于 Magpie Hooks 支持范围。各客户端的 Orca／Paseo 命令 hooks 按用户要求移除，OpenCode 对应活动桥接插件退出加载；不卸载这两个应用，也不改变其他插件。若外部应用后续自行重新安装 hooks，应重新检查来源，不由 Brain 安装器反复争抢配置。
+
+私有 profiles 的 `brain_hooks.materialized_by = magpie.library` 表示分发归属；旧 `install_brain_hooks.py` 此时拒绝写入，日常恢复入口使用 `magpie library sync`。首次迁移需先备份并精确移除旧 Brain 入口，再让 Magpie 原生同步写入并记录所有权；仅添加相同命令不会接管已有入口。库中取消分配只撤销 Magpie 自己写入且尚未被修改的项。不要将同一客户端同时分配继承入口和原生入口。
+
 `brain_hooks.py` 仅处理私有配置明确登记的根及其 Git worktrees；scope 或来源核验失败时跳过，不猜测默认库。
 
 生命周期提醒与结束事件需按客户端当前版本单独验证，具体验收记录保存在私有 state 目录。

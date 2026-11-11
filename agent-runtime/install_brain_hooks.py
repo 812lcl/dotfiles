@@ -10,6 +10,10 @@ import runtime
 
 
 def install(run_dir, home=Path.home(), source=None):
+    ownership = home / '.local/state/agent-runtime/profiles.json'
+    if ownership.exists() and json.loads(ownership.read_text()).get('brain_hooks', {}).get(
+            'materialized_by') == 'magpie.library':
+        raise ValueError('Magpie owns Brain hook distribution; use magpie library sync instead')
     source = source or home / 'Code/dotfiles/agent-runtime'
     command = shlex.join([sys.executable, '-B', str(source / 'brain_hooks.py')])
     run_dir = runtime.state_path(run_dir, runtime.DEFAULT_STATE)

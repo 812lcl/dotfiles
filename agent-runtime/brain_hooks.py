@@ -86,7 +86,7 @@ def handle(client, event, payload, state=runtime.DEFAULT_STATE):
     root = Path(profiles['brain'][scope]['root']).resolve(strict=True)
     if verified['scope'] != scope or Path(verified['brain_root']).resolve(strict=True) != root:
         raise ValueError('Brain profile changed during routing')
-    stop = event in ('stop', 'Stop')
+    stop = event in ('stop', 'Stop', 'AfterAgent')
     if stop:
         brain_command(root, 'stop')
         output = {}
@@ -96,6 +96,8 @@ def handle(client, event, payload, state=runtime.DEFAULT_STATE):
             output = {'additional_context': text}
         elif client == 'grok':
             output = {'hookSpecificOutput': {'hookEventName': 'PreToolUse', 'additionalContext': text}}
+        elif client == 'gemini':
+            output = {'hookSpecificOutput': {'hookEventName': 'BeforeAgent', 'additionalContext': text}}
         else:
             output = {'context': text}
     # Opt-in, metadata-only evidence for explicit acceptance processes.
@@ -106,8 +108,9 @@ def handle(client, event, payload, state=runtime.DEFAULT_STATE):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('client', choices=['cursor', 'grok', 'opencode'])
-    parser.add_argument('event', choices=['sessionStart', 'preToolUse', 'PreToolUse', 'context', 'stop', 'Stop'])
+    parser.add_argument('client', choices=['cursor', 'grok', 'opencode', 'gemini'])
+    parser.add_argument('event', choices=['sessionStart', 'preToolUse', 'PreToolUse', 'context',
+                                         'stop', 'Stop', 'BeforeAgent', 'AfterAgent'])
     args = parser.parse_args()
     try:
         payload = json.load(sys.stdin)
