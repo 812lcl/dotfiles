@@ -36,6 +36,12 @@ python3.14 -B install_skill_groups.py  # 生成私有策略与用户 LaunchAgent
 
 写入前等待输入稳定并在最终 rename 前再次检查，检测到并发编辑则跳过，等下一次触发重试，不恢复旧配置。Magpie 没有跨进程事务，这只是乐观并发保护。只在确有分组变化时备份原 Library，备份0600、私有目录0700，最多20份。Library 被删除或 Magpie 卸载后不重建其目录。停用时卸载该用户 LaunchAgent 即可，现有分组与分发不回滚。
 
+## 项目 Skills 范围
+
+项目 Skills 可登记为 Magpie Library 的 `folder` 来源，保留完整原目录及相对引用，全局 `agents` 为空。仅为缺失的项目入口配置 Library › Projects；现有 Git 维护的目录与链接继续由项目维护，不伪造 Magpie 所有权，也不为接管而搬走源码。子仓的 Skill 保留子仓范围，同名但内容不同的客户端版本分别登记。项目模式未覆盖的客户端不以全局分发兜底。
+
+`knowledge-clip`、`obsidian-review`、`obsidian-task-writeback` 仅在 Vault 及其关联 worktree 加载，不保留 dotfiles 共享入口或旧全局安装登记。旧 OpenClaw 全局副本已归档；Vault 源码不删除。普通全局 Skills 更新不应重新引入这三项，`multi-repo-maintenance` 仍按原配置共享。
+
 ## Codex 基准
 
 ```bash
