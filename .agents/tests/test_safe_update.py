@@ -25,8 +25,9 @@ class SafeUpdateTests(unittest.TestCase):
             (root / 'skills-lock.json').write_text(json.dumps({'version': 2, 'skills': {}}))
             result = self.run_update(root, 'book-review', '--yes')
             self.assertEqual(result.returncode, 0, result.stderr)
-            self.assertEqual((root / 'trace').read_text().splitlines(),
-                             [str(root.resolve()), 'skills', 'update', '--project', 'book-review', '--yes'])
+            trace = (root / 'trace').read_text().splitlines()
+            self.assertEqual(Path(trace[0]).resolve(), root.resolve())
+            self.assertEqual(trace[1:], ['skills', 'update', '--project', 'book-review', '--yes'])
 
     def test_missing_source_lock_never_falls_back_to_global(self):
         with tempfile.TemporaryDirectory() as tmp:
