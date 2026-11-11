@@ -135,7 +135,7 @@ Cursor/Grok 提问事件不能作为可靠的上下文注入入口，因此使�
 
 Grok 的 Cursor hooks 兼容扫描默认开启，但当前安装版拒绝 Cursor 直接 handler 的返回协议，会在 `/hooks` 显示 “won't run until Grok reads Cursor hook replies”。本机已在 `~/.grok/config.toml` 设置 `[compat.cursor] hooks = false`；仅停止重复扫描 Cursor hooks，不关闭 Cursor 的 rules/skills/agents/MCP，也不改 Cursor 自己的 hooks。Grok 继续加载原生 Brain PreToolUse 与 Claude 兼容 Stop。`grok inspect --json` 的 `hookLoadErrors` 可核验这一类错误消失，不能代替完整会话内插件加载验收。
 
-Claude 插件还可能有独立兼容边界：`security-guidance` 的 `asyncRewake`/条件字段及 Warp 的 `PermissionRequest` 尚不被当前 Grok 支持。不要为清空错误列表禁用安全插件、删除字段或改写共享 Claude 插件缓存；保留这些限制，等待对应客户端/插件支持，或另行完成有等价行为验证的原生适配。启动过的 Grok 会话可能需重新加载 hooks 或新开会话才能反映配置变更。
+Claude 插件还可能有独立兼容边界：`security-guidance` 的 `asyncRewake`/条件字段及 Warp 的 `PermissionRequest` 尚不被当前 Grok 支持。2026-11-11 用户明确要求从 Cursor/Grok 去掉报错项后，本机仅在 Grok 的 `[plugins] disabled = ["warp", "security-guidance"]` 中排除这两个插件，不改共享 Claude 插件缓存或 Claude 启用设置。Cursor 的 Customize 用户插件及 hooks 界面未发现这两个插件条目，无需删除；原生 Brain 与 Orca/Paseo hooks 保留。不要删除条件字段伪装成等价适配。启动过的 Grok 会话应新开会话以反映插件过滤配置。
 
 安装：`python3.14 -B install_brain_hooks.py <私有 state/runs/本次目录>`。只追加 Cursor 的三个事件、Grok 专用提醒和 OpenCode 插件链接，保留 Orca/Paseo 等已有配置；首次 Cursor 配置备份不被重复安装覆盖。Codex 配置、Claude 配置及 provider/model/MCP 均不是写入目标。新开会话后加载，已有长驻 OpenCode 服务可能需要在方便时重新加载插件，不自动重启用户服务。
 
