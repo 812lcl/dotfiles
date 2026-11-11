@@ -2,7 +2,7 @@
 
 全局运行目录 `~/.agents/skills` 由 Magpie 管理；不再将 `~/.agents` 整体链接到 dotfiles。
 Git 源码仍在 dotfiles 的 `.agents/skills`；Brain、CLI 和 Magpie 安装源保持原维护方式。
-共享加载目录的客户端按组开关，组内有人勾选时链接保留。
+Claude 的 `~/.claude/skills/` 是独立目录，由 Magpie 按勾选管理逐项链接，与其他客户端指向同一份 Git 源码。不要把整个目录链接到 `~/.agents/skills`。其余读取共享加载目录的客户端按组开关，组内有人勾选时链接保留。
 
 升级仍使用 `~/.agents/safe-skills-update.sh`，内部改为在 dotfiles 执行 `npx skills update --project`。
 现存第三方来源迁入根目录 `skills-lock.json`；原 `.skill-lock.json` 和 pluginName 元数据保留。
