@@ -8,11 +8,18 @@ every install/update to restore the canonical names.
 Override rules live in ~/.agents/.pluginName-overrides.json
 """
 import json
+import argparse
 from pathlib import Path
 
 HOME = Path.home()
 LOCK = HOME / ".agents/.skill-lock.json"
 RULES = HOME / ".agents/.pluginName-overrides.json"
+
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--lock', type=Path, default=LOCK)
+parser.add_argument('--rules', type=Path, default=RULES)
+args = parser.parse_args()
+LOCK, RULES = args.lock, args.rules
 
 lock = json.loads(LOCK.read_text())
 rules = {k: v for k, v in json.loads(RULES.read_text()).items() if not k.startswith("_")}
