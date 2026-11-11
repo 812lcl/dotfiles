@@ -1,0 +1,502 @@
+{
+  "version": 2,
+  "skills": {
+    "a11y-debugging": {
+      "source": "ChromeDevTools/chrome-devtools-mcp",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/ChromeDevTools/chrome-devtools-mcp.git",
+      "ref": "main",
+      "skillPath": "skills/a11y-debugging/SKILL.md",
+      "pluginName": "chrome-devtools",
+      "computedHash": "6171db1f81edc051f5759c49f4b41c3f80fc1b5cc0ed281bcaf0eb07735c4c4a"
+    },
+    "book-review": {
+      "source": "readwiseio/readwise-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/readwiseio/readwise-skills.git",
+      "skillPath": "skills/book-review/SKILL.md",
+      "pluginName": "readwise-skills",
+      "computedHash": "b41cb45fc6741f5578ca56739ece62b81027e61e0f75073f1baaf87e837392e5"
+    },
+    "build-persona": {
+      "source": "readwiseio/readwise-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/readwiseio/readwise-skills.git",
+      "skillPath": "skills/build-persona/SKILL.md",
+      "pluginName": "readwise-skills",
+      "computedHash": "2a7d31ab6d8987f4499cafe534ad3ca638b4799d17219ce94bbd2874ceea892a"
+    },
+    "chrome-devtools": {
+      "source": "ChromeDevTools/chrome-devtools-mcp",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/ChromeDevTools/chrome-devtools-mcp.git",
+      "ref": "main",
+      "skillPath": "skills/chrome-devtools/SKILL.md",
+      "pluginName": "chrome-devtools",
+      "computedHash": "cf9e13e0fae12fb9b99d24e96cefc170c1fb6ec6a5a82166fd0277e635b234dc"
+    },
+    "chrome-devtools-cli": {
+      "source": "ChromeDevTools/chrome-devtools-mcp",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/ChromeDevTools/chrome-devtools-mcp.git",
+      "ref": "main",
+      "skillPath": "skills/chrome-devtools-cli/SKILL.md",
+      "pluginName": "chrome-devtools",
+      "computedHash": "0b018467726fdd658fe4c3057a1a8fc52bb97bea9870445d5e9a2a70ba2e054b"
+    },
+    "claude-dashboard": {
+      "source": "JimLiu/baoyu-design",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/JimLiu/baoyu-design.git",
+      "skillPath": "skills/claude-dashboard/SKILL.md",
+      "computedHash": "13db534944c8ba17ce2331d8b7be7da29c25ce518080f65dcbf11bf7a594e345"
+    },
+    "claude-design": {
+      "source": "JimLiu/baoyu-design",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/JimLiu/baoyu-design.git",
+      "skillPath": "skills/claude-design/SKILL.md",
+      "computedHash": "da77843aa78e796ddb6a830962890be65f39dc7e2a9fc7798fe31a71676d8d2f"
+    },
+    "claude-design-system": {
+      "source": "JimLiu/baoyu-design",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/JimLiu/baoyu-design.git",
+      "skillPath": "skills/claude-design-system/SKILL.md",
+      "computedHash": "d47291cc40a9a95a45428db138a0ac2374d1050c4999bcc79a5db5ebcde62c1b"
+    },
+    "claude-motion": {
+      "source": "JimLiu/baoyu-design",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/JimLiu/baoyu-design.git",
+      "skillPath": "skills/claude-motion/SKILL.md",
+      "computedHash": "63f719ea7061385dc7dba01c74f71523ed736328c86d36f9794956e4df4d1b38"
+    },
+    "claude-slides": {
+      "source": "JimLiu/baoyu-design",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/JimLiu/baoyu-design.git",
+      "skillPath": "skills/claude-slides/SKILL.md",
+      "computedHash": "f081670b1088b46a5866c0c316e2a675f10428f917e06091abf5ea09ff2312d3"
+    },
+    "dataviz": {
+      "source": "JimLiu/baoyu-design",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/JimLiu/baoyu-design.git",
+      "skillPath": "skills/dataviz/SKILL.md",
+      "computedHash": "c325060af05be762703c43d874321629ad20683f2d1a06f7a50b1c29ffdb2e64"
+    },
+    "debug-optimize-lcp": {
+      "source": "ChromeDevTools/chrome-devtools-mcp",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/ChromeDevTools/chrome-devtools-mcp.git",
+      "ref": "main",
+      "skillPath": "skills/debug-optimize-lcp/SKILL.md",
+      "pluginName": "chrome-devtools",
+      "computedHash": "ab3fd933455c3c130c1e9fefebff3d5c29180d5718487ae7b0e68e3035faf362"
+    },
+    "defuddle": {
+      "source": "kepano/obsidian-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/kepano/obsidian-skills.git",
+      "skillPath": "skills/defuddle/SKILL.md",
+      "pluginName": "obsidian-skills",
+      "computedHash": "31b8a78e76fc5ae9c08873952a5577a04e35fd886d9487cf56acbc73bb69cb68"
+    },
+    "feed-catchup": {
+      "source": "readwiseio/readwise-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/readwiseio/readwise-skills.git",
+      "skillPath": "skills/feed-catchup/SKILL.md",
+      "pluginName": "readwise-skills",
+      "computedHash": "3dd752f4ebd686ccf0cd1782632ffbb46962918c8cec9063eb6297b988f73592"
+    },
+    "highlight-graph": {
+      "source": "readwiseio/readwise-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/readwiseio/readwise-skills.git",
+      "skillPath": "skills/highlight-graph/SKILL.md",
+      "pluginName": "readwise-skills",
+      "computedHash": "82ff929e465f8be1716b8b57f61e65b78bb74eaf6eab873d95eef83d1bf253fd"
+    },
+    "json-canvas": {
+      "source": "kepano/obsidian-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/kepano/obsidian-skills.git",
+      "skillPath": "skills/json-canvas/SKILL.md",
+      "pluginName": "obsidian-skills",
+      "computedHash": "50bb31eb1cb11bd29a2a9906b8986c02dc871af6af1bb6a201960e38fb62c22a"
+    },
+    "lark-approval": {
+      "source": "open.feishu.cn",
+      "sourceType": "well-known",
+      "sourceUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "sourceBaseUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "wellKnownDigest": "sha256:cae764fd6dbebb486520f84929f51215c03f5d56c444e804312398c91ed55c04",
+      "pluginName": "lark-cli",
+      "computedHash": "343b83219d633fffe98561c2e46151a734ba0369a582d7ebd7b9dc143ae25908"
+    },
+    "lark-apps": {
+      "source": "open.feishu.cn",
+      "sourceType": "well-known",
+      "sourceUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "sourceBaseUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "wellKnownDigest": "sha256:31c131edb26dcc4fcdca598f292c5330af02ff7c777ef2f93c2ef4b9fa0be515",
+      "pluginName": "lark-cli",
+      "computedHash": "4f2c67663db93d0d2899c029bcf544bea577652d5a913cfdd2ad64ea4a2ff4fb"
+    },
+    "lark-attendance": {
+      "source": "open.feishu.cn",
+      "sourceType": "well-known",
+      "sourceUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "sourceBaseUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "wellKnownDigest": "sha256:7b08493c9c9ebf446262458abf754c5a11aff7992457995e2d6c342ed20a132a",
+      "pluginName": "lark-cli",
+      "computedHash": "3a4887f214eae0d3ea353c68039981ff86011220c5f5bfe21158f8e924c1c02f"
+    },
+    "lark-base": {
+      "source": "open.feishu.cn",
+      "sourceType": "well-known",
+      "sourceUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "sourceBaseUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "wellKnownDigest": "sha256:57c1a216febcdad00ffbf81b0512f0cefdaeb70a6f0c91010a3408f11cdd6991",
+      "pluginName": "lark-cli",
+      "computedHash": "a92bfeca0654b3eb908bbe1639e13794d4c5c873249408c6bcf9f2c7a163d8d8"
+    },
+    "lark-calendar": {
+      "source": "open.feishu.cn",
+      "sourceType": "well-known",
+      "sourceUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "sourceBaseUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "wellKnownDigest": "sha256:e4782a03d52aef57fb0db770219c929df3e9c194d289277eab0b169606eec410",
+      "pluginName": "lark-cli",
+      "computedHash": "afb5a989579992d5427207df5190e35934a1f187ff72b45bb731749c55087553"
+    },
+    "lark-contact": {
+      "source": "open.feishu.cn",
+      "sourceType": "well-known",
+      "sourceUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "sourceBaseUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "wellKnownDigest": "sha256:2b056de8741eec24a67f4251765d440614f02984ead54b9944d505c8e32e6f81",
+      "pluginName": "lark-cli",
+      "computedHash": "0073e5dd26bc5d1b76a663523ef80f2caa89d8011edbeef6dc61fe8d274ab624"
+    },
+    "lark-doc": {
+      "source": "open.feishu.cn",
+      "sourceType": "well-known",
+      "sourceUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "sourceBaseUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "wellKnownDigest": "sha256:a39627d32fb850951bb8e7e3621c6a0bed9c29532a9f880dc0389f00b7202444",
+      "pluginName": "lark-cli",
+      "computedHash": "1323881a7ec6a09345e82929efdbca516f15b41421eef30d5e1e0f29f0e0f8a8"
+    },
+    "lark-drive": {
+      "source": "open.feishu.cn",
+      "sourceType": "well-known",
+      "sourceUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "sourceBaseUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "wellKnownDigest": "sha256:fb5eccd2f0cf48e038f52a7bb4b6d3eda28f573b2b56ddf0215b0cd2b2db7145",
+      "pluginName": "lark-cli",
+      "computedHash": "f7af57d7639b503bc4fb562aa27465e390b777d265c36ce50ebc6309258a9601"
+    },
+    "lark-event": {
+      "source": "open.feishu.cn",
+      "sourceType": "well-known",
+      "sourceUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "sourceBaseUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "wellKnownDigest": "sha256:e13785f34b08ccff78bcada3ae597b5e1f0c282370824192f2f67d3cecc3629e",
+      "pluginName": "lark-cli",
+      "computedHash": "87fdef00c75d9a21e47c65298299c9f868ff381edaf8c0f53f3d2724a8fb134e"
+    },
+    "lark-im": {
+      "source": "open.feishu.cn",
+      "sourceType": "well-known",
+      "sourceUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "sourceBaseUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "wellKnownDigest": "sha256:a64714079760310fa712db512a91eabeb4fe5d03131e77ce5040de8369e11eb6",
+      "pluginName": "lark-cli",
+      "computedHash": "d79366a9b2a16613f1d930e5563c016d483b05e28e95cbcd7772fdce98503d6f"
+    },
+    "lark-mail": {
+      "source": "open.feishu.cn",
+      "sourceType": "well-known",
+      "sourceUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "sourceBaseUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "wellKnownDigest": "sha256:63360c44f9335d4d6028e45dbeb50e97e21ec5eaa6ac10cd62ceebd10eb2369e",
+      "pluginName": "lark-cli",
+      "computedHash": "6adfa6cf787c61cfc57fd8b013b6d2c930cb3aa292a7c1cddea88f6cb4091d77"
+    },
+    "lark-markdown": {
+      "source": "open.feishu.cn",
+      "sourceType": "well-known",
+      "sourceUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "sourceBaseUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "wellKnownDigest": "sha256:1bb0cc8e55491f3137039b8328eeb5ad72ef2842c47ab0598cbb079165552f6c",
+      "pluginName": "lark-cli",
+      "computedHash": "5ff48e5f8525171b05ce2d62ab96e561c39221261fa55a2e959ede2be39f0b0e"
+    },
+    "lark-meeting": {
+      "source": "open.feishu.cn",
+      "sourceType": "well-known",
+      "sourceUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "sourceBaseUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "wellKnownDigest": "sha256:28be4a01131f0b174a012147fa664c72655fdc12abc92c6bf7f5abac76e1cea4",
+      "pluginName": "lark-cli",
+      "computedHash": "dd170533fba15ae81076f5da705d9047547a2b16c529d8608aa06bc8b2c11cd2"
+    },
+    "lark-minutes": {
+      "source": "open.feishu.cn",
+      "sourceType": "well-known",
+      "sourceUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "sourceBaseUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "wellKnownDigest": "sha256:8769207335799f4a7749ae4b0907dd1fbb4767d351156e53f0731dbc1f16f0e9",
+      "pluginName": "lark-cli",
+      "computedHash": "a6ca9584fc95f3c7605c729a6af0d33055ff88859038f906597b21d5ad2d106b"
+    },
+    "lark-note": {
+      "source": "open.feishu.cn",
+      "sourceType": "well-known",
+      "sourceUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "sourceBaseUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "wellKnownDigest": "sha256:4dd4e9b238ab1ed0bee5b192dc20195fd25e452447b6bf66b8308a314d89f8a3",
+      "pluginName": "lark-cli",
+      "computedHash": "883b180b6766d2ecdad22bfe869288da783c313de0749282f312cafe0c27c208"
+    },
+    "lark-okr": {
+      "source": "open.feishu.cn",
+      "sourceType": "well-known",
+      "sourceUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "sourceBaseUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "wellKnownDigest": "sha256:95be6b687fc7320139a3ec1d5c79efce6d3e52f1683d9a5141a35e39c49b4967",
+      "pluginName": "lark-cli",
+      "computedHash": "54c97e28bea818a3adb09d19723c81af03450475a0b7fe46fdc524b856dee761"
+    },
+    "lark-openapi-explorer": {
+      "source": "open.feishu.cn",
+      "sourceType": "well-known",
+      "sourceUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "sourceBaseUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "wellKnownDigest": "sha256:001092a99094c6140f5926cbe38e28cb271e23fb46c6ef986838fecc1a823f03",
+      "pluginName": "lark-cli",
+      "computedHash": "a6de3d251fba0ebb4368da53600befa2edd8ab11fd886488b3b197e456e96a4e"
+    },
+    "lark-shared": {
+      "source": "open.feishu.cn",
+      "sourceType": "well-known",
+      "sourceUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "sourceBaseUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "wellKnownDigest": "sha256:06dd70224e16dc205d68e9b24a91e1191dd484733a0894d2b51e23897cba601f",
+      "pluginName": "lark-cli",
+      "computedHash": "9c2a2dd16dec84f0d4e70b8feffac19398b03f70dcd962fc402c3fab56070d57"
+    },
+    "lark-sheets": {
+      "source": "open.feishu.cn",
+      "sourceType": "well-known",
+      "sourceUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "sourceBaseUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "wellKnownDigest": "sha256:4b80812d3e5b7ddea3be21a79ec51fa3e6c58793c99a83aaf704985f8ef223a2",
+      "pluginName": "lark-cli",
+      "computedHash": "14c8c032dc0640e659fbfb9fe56017733b2d1aba6d0664e5ca3cee2628814716"
+    },
+    "lark-skill-maker": {
+      "source": "open.feishu.cn",
+      "sourceType": "well-known",
+      "sourceUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "sourceBaseUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "wellKnownDigest": "sha256:6fde1af44031454c7bfe8f3d6ed92e3c57149627b8be767c66f9184c17aea0ed",
+      "pluginName": "lark-cli",
+      "computedHash": "f09348cc73fb4064f3bfabf1dda3af5be989eb591f5a1108d254be7be0885a20"
+    },
+    "lark-slides": {
+      "source": "open.feishu.cn",
+      "sourceType": "well-known",
+      "sourceUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "sourceBaseUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "wellKnownDigest": "sha256:5544b02b1c955524258b292fa5c264043303c1148e42591655576ca4d0ae1c77",
+      "pluginName": "lark-cli",
+      "computedHash": "d6b44e76363b4fc64f742cfdf2c42520a19d2e5d6a89a377302c4d50566f6fd5"
+    },
+    "lark-task": {
+      "source": "open.feishu.cn",
+      "sourceType": "well-known",
+      "sourceUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "sourceBaseUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "wellKnownDigest": "sha256:db223c049be756342b8b78f14349c0e6869307912ebc1b88654cfebf0febcb2c",
+      "pluginName": "lark-cli",
+      "computedHash": "b79f5426a8ea438dcb057b02f70a30ecd41a5fa21fb9d2a6968a779e882771da"
+    },
+    "lark-vc": {
+      "source": "open.feishu.cn",
+      "sourceType": "well-known",
+      "sourceUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "sourceBaseUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "wellKnownDigest": "sha256:e454e5d6fed0d999a3856db8b86c09736d987dc7d3d5f5f652ef5c2388f77c8e",
+      "pluginName": "lark-cli",
+      "computedHash": "0cce361e7f757fdf28ca0acd25da98e8cc8e298c89222658a23a69b19b5541cf"
+    },
+    "lark-vc-agent": {
+      "source": "open.feishu.cn",
+      "sourceType": "well-known",
+      "sourceUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "sourceBaseUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "wellKnownDigest": "sha256:11e9952169b149c68e84071e8c23b3a81436ef2aca171900a1db4cc2876af4ea",
+      "pluginName": "lark-cli",
+      "computedHash": "cdcc114855db1d172a9b9b3523a309f394cca9432a70195d54487eeadbd2ee8d"
+    },
+    "lark-whiteboard": {
+      "source": "open.feishu.cn",
+      "sourceType": "well-known",
+      "sourceUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "sourceBaseUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "wellKnownDigest": "sha256:463e0101f273f5f590dadcba6c59b70144c4b9530399b0ecf59043d89b4b176f",
+      "pluginName": "lark-cli",
+      "computedHash": "d603481f74516ffc59f1641eb855591e0429da002aa9431277e4dbda97da6cb4"
+    },
+    "lark-wiki": {
+      "source": "open.feishu.cn",
+      "sourceType": "well-known",
+      "sourceUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "sourceBaseUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "wellKnownDigest": "sha256:575ad060efc74ab127fb555f7a6793412f50f6268ad76025c3abca44be5b0528",
+      "pluginName": "lark-cli",
+      "computedHash": "d0497ef3a8ff645e3fe22fa1cdd92f090760a5cd605e91d05e06b5da70a5f06e"
+    },
+    "lark-workflow-meeting-summary": {
+      "source": "open.feishu.cn",
+      "sourceType": "well-known",
+      "sourceUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "sourceBaseUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "wellKnownDigest": "sha256:ed0ec771921abc4c8e587e88e3e4620614ebf564c12bd5023a36fb9dde82e533",
+      "pluginName": "lark-cli",
+      "computedHash": "2d1f77eb6a6ac732d4189c8d293e04a87deab51a1fe5ca279391b4b3d2bd70f2"
+    },
+    "lark-workflow-standup-report": {
+      "source": "open.feishu.cn",
+      "sourceType": "well-known",
+      "sourceUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "sourceBaseUrl": "https://open.feishu.cn/lark-cli/skills/regular",
+      "wellKnownDigest": "sha256:b5e2f1365049d06035f374f06041a396da989819c3a6ad84e9b221ae31af0f01",
+      "pluginName": "lark-cli",
+      "computedHash": "a77de1b7a47e0952d40f4a1c1bb235d5e4a8aad20d02296bef8aa2b256861ce2"
+    },
+    "memory-leak-debugging": {
+      "source": "ChromeDevTools/chrome-devtools-mcp",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/ChromeDevTools/chrome-devtools-mcp.git",
+      "ref": "main",
+      "skillPath": "skills/memory-leak-debugging/SKILL.md",
+      "pluginName": "chrome-devtools",
+      "computedHash": "9de492427bd28a4fe20ef559a3758073ab92726e82d5226541497a1f95f3e707"
+    },
+    "motion-director": {
+      "source": "JimLiu/baoyu-design",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/JimLiu/baoyu-design.git",
+      "skillPath": "skills/motion-director/SKILL.md",
+      "computedHash": "baf553db686aa3f0f9c461aeefc54e8aed13b784b687470ddfba6d82d894bfcb"
+    },
+    "now-reading-page": {
+      "source": "readwiseio/readwise-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/readwiseio/readwise-skills.git",
+      "skillPath": "skills/now-reading-page/SKILL.md",
+      "pluginName": "readwise-skills",
+      "computedHash": "66f5ba7c1d3b2f18191255679433de4a9031e29b92a3540a24d150397956e287"
+    },
+    "obsidian-bases": {
+      "source": "kepano/obsidian-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/kepano/obsidian-skills.git",
+      "skillPath": "skills/obsidian-bases/SKILL.md",
+      "pluginName": "obsidian-skills",
+      "computedHash": "a2e4c2d8be71b4d01d3952f3339a917f6a78142968256cde99543f9a798e8440"
+    },
+    "obsidian-cli": {
+      "source": "kepano/obsidian-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/kepano/obsidian-skills.git",
+      "skillPath": "skills/obsidian-cli/SKILL.md",
+      "pluginName": "obsidian-skills",
+      "computedHash": "56a8c5edc06e8c9333dee3bc84fa731b7d098855a77cb9c94a0f9ad0678c7f7b"
+    },
+    "obsidian-markdown": {
+      "source": "kepano/obsidian-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/kepano/obsidian-skills.git",
+      "skillPath": "skills/obsidian-markdown/SKILL.md",
+      "pluginName": "obsidian-skills",
+      "computedHash": "1af4d0bb005b7c7adcb0ed918d49532e2e3dc81b49389f3811beb882b1d5b0ff"
+    },
+    "quiz": {
+      "source": "readwiseio/readwise-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/readwiseio/readwise-skills.git",
+      "skillPath": "skills/quiz/SKILL.md",
+      "pluginName": "readwise-skills",
+      "computedHash": "718355424f53dffd3d8fd457a0b984cfe07e6c138bf8755d613087cc746c6c84"
+    },
+    "reader-recap": {
+      "source": "readwiseio/readwise-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/readwiseio/readwise-skills.git",
+      "skillPath": "skills/reader-recap/SKILL.md",
+      "pluginName": "readwise-skills",
+      "computedHash": "19222dc69257b1cef6fa12bb114d3917a7b8dbad0640cc931920c99df035e51f"
+    },
+    "readwise-cli": {
+      "source": "readwiseio/readwise-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/readwiseio/readwise-skills.git",
+      "skillPath": "skills/readwise-cli/SKILL.md",
+      "pluginName": "readwise-skills",
+      "computedHash": "70b5a7e1e44afc1c30cf452705b2f1680f2e332bfc2fe43d9b8f12684c0c0abd"
+    },
+    "readwise-mcp": {
+      "source": "readwiseio/readwise-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/readwiseio/readwise-skills.git",
+      "skillPath": "skills/readwise-mcp/SKILL.md",
+      "pluginName": "readwise-skills",
+      "computedHash": "777d251eef9fd755c7cc0c090ebfd4e418bc5947bd6241273dd89d1c620bc356"
+    },
+    "release-skills": {
+      "source": "JimLiu/baoyu-design",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/JimLiu/baoyu-design.git",
+      "skillPath": ".claude/skills/release-skills/SKILL.md",
+      "computedHash": "e412ff2cda2ef6cd7ea9827d33e80911d19018bd317ca35b01b0703fb1d2b2e8"
+    },
+    "skill-creator": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/anthropics/skills.git",
+      "skillPath": "skills/skill-creator/SKILL.md",
+      "computedHash": "64617e91343c72d539287ad3b5d2742bd5ce9ef6cb26df83793e194e012b961f"
+    },
+    "surprise-me": {
+      "source": "readwiseio/readwise-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/readwiseio/readwise-skills.git",
+      "skillPath": "skills/surprise-me/SKILL.md",
+      "pluginName": "readwise-skills",
+      "computedHash": "8630c66bd89cc727142a24c20f7fe45b953550ebe5134f649946064a8a140d5b"
+    },
+    "triage": {
+      "source": "readwiseio/readwise-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/readwiseio/readwise-skills.git",
+      "skillPath": "skills/triage/SKILL.md",
+      "pluginName": "readwise-skills",
+      "computedHash": "8ee0bcf063b453e61146d8a9bad638a98493b6e26b07cf0249ceba157e468cb4"
+    },
+    "troubleshooting": {
+      "source": "ChromeDevTools/chrome-devtools-mcp",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/ChromeDevTools/chrome-devtools-mcp.git",
+      "ref": "main",
+      "skillPath": "skills/troubleshooting/SKILL.md",
+      "pluginName": "chrome-devtools",
+      "computedHash": "2bc9b1c7e87c48155deadf1688fb4244718822691030fdf252c70f7712091eae"
+    }
+  }
+}

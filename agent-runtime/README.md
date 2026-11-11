@@ -40,7 +40,7 @@ python3.14 -B install_skill_groups.py  # 生成私有策略与用户 LaunchAgent
 
 项目 Skills 的权威正文保留在项目或既有共享源码目录，Library 可用 `folder` 来源登记，项目专属项的全局 `agents` 为空。用户移除的项目和 Skills 不从旧计划或备份恢复，不为已移除的子项目补发现入口。
 
-Vault 的每个 checkout 使用 `.claude/skills -> ../.agents/skills`，Claude 与其他读取 `.agents/skills` 的 agent 在该 checkout 内同源；保留各 Git worktree 的分支版本，不跨分支指向主 checkout。Graphify 直接使用当前安装版本的官方 `agents` 技能包，不维护自定义宿主适配；其他有官方平台包的安装保留官方版本。Magpie 不再重复下发这些 Claude 项目入口，现有 Brain hooks、MCP、订阅和 Codex 配置独立保留。
+Vault 的 Skill 源码维护在主仓 `.agents/skill-sources`，Magpie Projects 管理各 checkout 的 `.agents/skills` 加载链接；`.claude/skills -> ../.agents/skills` 保持同源，共享入口的客户端作为一组开关。按用户选择，各已登记 worktree 运行时统一读取主 Vault 的源码，旧分支源码保留但不另行自动加载。Graphify 保持官方包，不维护自定义宿主适配。现有 Brain hooks、MCP、订阅和 Codex 配置独立保留。
 
 `knowledge-clip`、`obsidian-review`、`obsidian-task-writeback` 仅在 Vault 及其关联 worktree 加载，不保留 dotfiles 共享入口或旧全局安装登记。旧 OpenClaw 全局副本已归档；Vault 源码不删除。普通全局 Skills 更新不应重新引入这三项，`multi-repo-maintenance` 仍按原配置共享。
 
