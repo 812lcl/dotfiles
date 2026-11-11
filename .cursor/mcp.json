@@ -1,13 +1,27 @@
 {
   "mcpServers": {
     "context7": {
-      "command": "node",
+      "url": "https://mcp.context7.com/mcp"
+    },
+    "magpie-image": {
+      "command": "/Applications/magpie.app/Contents/MacOS/magpie",
       "args": [
-        "/Users/liuchunlei/.config/magpie/mcp-npm/6b95baeb28bffc42/node_modules/@upstash/context7-mcp/dist/index.js"
+        "mcp",
+        "image"
+      ]
+    },
+    "chrome-devtools": {
+      "command": "/Users/liuchunlei/.nvm/versions/node/v24.19.0/bin/node",
+      "args": [
+        "/Users/liuchunlei/.npm/_npx/70a308a69d028c4a/node_modules/chrome-devtools-mcp/build/src/bin/chrome-devtools-mcp.js",
+        "--headless",
+        "--isolated",
+        "--no-usage-statistics",
+        "--no-performance-crux"
       ]
     },
     "Notion": {
-      "url": "https://mcp.notion.com/mcp"
+      "url": "http://127.0.0.1:3425/mcp/Notion"
     }
   }
 }

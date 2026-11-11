@@ -209,3 +209,9 @@ _direnv_hook() {
   eval "$(direnv export zsh 2>/dev/null)"
   trap - SIGINT
 }
+
+# >>> grok installer >>>
+export PATH="$HOME/.grok/bin:$PATH"
+fpath=(~/.grok/completions/zsh $fpath)
+autoload -Uz compinit && compinit -C
+# <<< grok installer <<<

@@ -9,6 +9,24 @@
         "installedAt": "2026-04-09T06:18:23.542Z",
         "lastUpdated": "2026-04-09T06:18:23.542Z",
         "gitCommitSha": "98c01d3fbf621892e437fc64a10d38950690e2c6"
+      },
+      {
+        "scope": "project",
+        "projectPath": "/Users/liuchunlei/Code/dotfiles",
+        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-plugins-official/gopls-lsp/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-11-10T08:18:30.445Z",
+        "lastUpdated": "2026-11-10T08:18:30.445Z",
+        "gitCommitSha": "98c01d3fbf621892e437fc64a10d38950690e2c6"
+      },
+      {
+        "scope": "project",
+        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-plugins-official/gopls-lsp/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-11-10T08:46:41.010Z",
+        "lastUpdated": "2026-11-10T08:46:41.010Z",
+        "gitCommitSha": "98c01d3fbf621892e437fc64a10d38950690e2c6",
+        "projectPath": "/Users/liuchunlei/.codex/worktrees/agent-runtime-parity/dotfiles"
       }
     ],
     "commit-commands@claude-plugins-official": [
@@ -19,6 +37,24 @@
         "installedAt": "2026-01-19T22:49:25.792Z",
         "lastUpdated": "2026-04-07T10:13:22.912Z",
         "gitCommitSha": "96276205880a60fd66bbae981f5ab568e70c4cbf"
+      },
+      {
+        "scope": "project",
+        "projectPath": "/Users/liuchunlei/Code/dotfiles",
+        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-plugins-official/commit-commands/55b58ec6e564",
+        "version": "55b58ec6e564",
+        "installedAt": "2026-11-10T08:18:30.445Z",
+        "lastUpdated": "2026-11-10T08:18:30.445Z",
+        "gitCommitSha": "96276205880a60fd66bbae981f5ab568e70c4cbf"
+      },
+      {
+        "scope": "project",
+        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-plugins-official/commit-commands/55b58ec6e564",
+        "version": "55b58ec6e564",
+        "installedAt": "2026-11-10T08:46:41.010Z",
+        "lastUpdated": "2026-11-10T08:46:41.010Z",
+        "gitCommitSha": "96276205880a60fd66bbae981f5ab568e70c4cbf",
+        "projectPath": "/Users/liuchunlei/.codex/worktrees/agent-runtime-parity/dotfiles"
       }
     ],
     "frontend-design@claude-plugins-official": [
@@ -29,6 +65,24 @@
         "installedAt": "2026-02-10T02:00:16.084Z",
         "lastUpdated": "2026-04-07T10:13:22.912Z",
         "gitCommitSha": "96276205880a60fd66bbae981f5ab568e70c4cbf"
+      },
+      {
+        "scope": "project",
+        "projectPath": "/Users/liuchunlei/Code/dotfiles",
+        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-plugins-official/frontend-design/55b58ec6e564",
+        "version": "55b58ec6e564",
+        "installedAt": "2026-11-10T08:18:30.445Z",
+        "lastUpdated": "2026-11-10T08:18:30.445Z",
+        "gitCommitSha": "96276205880a60fd66bbae981f5ab568e70c4cbf"
+      },
+      {
+        "scope": "project",
+        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-plugins-official/frontend-design/55b58ec6e564",
+        "version": "55b58ec6e564",
+        "installedAt": "2026-11-10T08:46:41.010Z",
+        "lastUpdated": "2026-11-10T08:46:41.010Z",
+        "gitCommitSha": "96276205880a60fd66bbae981f5ab568e70c4cbf",
+        "projectPath": "/Users/liuchunlei/.codex/worktrees/agent-runtime-parity/dotfiles"
       }
     ],
     "typescript-lsp@claude-plugins-official": [
@@ -39,6 +93,24 @@
         "installedAt": "2026-04-10T07:46:30.663Z",
         "lastUpdated": "2026-04-10T07:46:30.663Z",
         "gitCommitSha": "98c01d3fbf621892e437fc64a10d38950690e2c6"
+      },
+      {
+        "scope": "project",
+        "projectPath": "/Users/liuchunlei/Code/dotfiles",
+        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-plugins-official/typescript-lsp/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-11-10T08:18:30.445Z",
+        "lastUpdated": "2026-11-10T08:18:30.445Z",
+        "gitCommitSha": "98c01d3fbf621892e437fc64a10d38950690e2c6"
+      },
+      {
+        "scope": "project",
+        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-plugins-official/typescript-lsp/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-11-10T08:46:41.010Z",
+        "lastUpdated": "2026-11-10T08:46:41.010Z",
+        "gitCommitSha": "98c01d3fbf621892e437fc64a10d38950690e2c6",
+        "projectPath": "/Users/liuchunlei/.codex/worktrees/agent-runtime-parity/dotfiles"
       }
     ],
     "code-simplifier@claude-plugins-official": [
@@ -48,6 +120,22 @@
         "version": "1.0.0",
         "installedAt": "2026-02-16T08:25:09.672Z",
         "lastUpdated": "2026-04-07T10:13:22.912Z"
+      },
+      {
+        "scope": "project",
+        "projectPath": "/Users/liuchunlei/Code/dotfiles",
+        "installPath": "/Users/812lcl/.claude/plugins/cache/claude-plugins-official/code-simplifier/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-11-10T08:18:30.445Z",
+        "lastUpdated": "2026-11-10T08:18:30.445Z"
+      },
+      {
+        "scope": "project",
+        "installPath": "/Users/812lcl/.claude/plugins/cache/claude-plugins-official/code-simplifier/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-11-10T08:46:41.010Z",
+        "lastUpdated": "2026-11-10T08:46:41.010Z",
+        "projectPath": "/Users/liuchunlei/.codex/worktrees/agent-runtime-parity/dotfiles"
       }
     ],
     "code-review@claude-plugins-official": [
@@ -57,6 +145,22 @@
         "version": "55b58ec6e564",
         "installedAt": "2026-02-16T08:25:31.870Z",
         "lastUpdated": "2026-04-07T10:13:22.912Z"
+      },
+      {
+        "scope": "project",
+        "projectPath": "/Users/liuchunlei/Code/dotfiles",
+        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-plugins-official/code-review/55b58ec6e564",
+        "version": "55b58ec6e564",
+        "installedAt": "2026-11-10T08:18:30.445Z",
+        "lastUpdated": "2026-11-10T08:18:30.445Z"
+      },
+      {
+        "scope": "project",
+        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-plugins-official/code-review/55b58ec6e564",
+        "version": "55b58ec6e564",
+        "installedAt": "2026-11-10T08:46:41.010Z",
+        "lastUpdated": "2026-11-10T08:46:41.010Z",
+        "projectPath": "/Users/liuchunlei/.codex/worktrees/agent-runtime-parity/dotfiles"
       }
     ],
     "security-guidance@claude-plugins-official": [
@@ -66,6 +170,22 @@
         "version": "55b58ec6e564",
         "installedAt": "2026-02-16T08:26:02.690Z",
         "lastUpdated": "2026-04-07T10:13:22.912Z"
+      },
+      {
+        "scope": "project",
+        "projectPath": "/Users/liuchunlei/Code/dotfiles",
+        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-plugins-official/security-guidance/55b58ec6e564",
+        "version": "55b58ec6e564",
+        "installedAt": "2026-11-10T08:18:30.445Z",
+        "lastUpdated": "2026-11-10T08:18:30.445Z"
+      },
+      {
+        "scope": "project",
+        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-plugins-official/security-guidance/55b58ec6e564",
+        "version": "55b58ec6e564",
+        "installedAt": "2026-11-10T08:46:41.010Z",
+        "lastUpdated": "2026-11-10T08:46:41.010Z",
+        "projectPath": "/Users/liuchunlei/.codex/worktrees/agent-runtime-parity/dotfiles"
       }
     ],
     "feature-dev@claude-plugins-official": [
@@ -75,6 +195,22 @@
         "version": "55b58ec6e564",
         "installedAt": "2026-02-16T08:26:12.431Z",
         "lastUpdated": "2026-04-07T10:13:22.912Z"
+      },
+      {
+        "scope": "project",
+        "projectPath": "/Users/liuchunlei/Code/dotfiles",
+        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-plugins-official/feature-dev/55b58ec6e564",
+        "version": "55b58ec6e564",
+        "installedAt": "2026-11-10T08:18:30.445Z",
+        "lastUpdated": "2026-11-10T08:18:30.445Z"
+      },
+      {
+        "scope": "project",
+        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-plugins-official/feature-dev/55b58ec6e564",
+        "version": "55b58ec6e564",
+        "installedAt": "2026-11-10T08:46:41.010Z",
+        "lastUpdated": "2026-11-10T08:46:41.010Z",
+        "projectPath": "/Users/liuchunlei/.codex/worktrees/agent-runtime-parity/dotfiles"
       }
     ],
     "pyright-lsp@claude-plugins-official": [
@@ -133,6 +269,24 @@
         "installedAt": "2026-11-09T04:34:40.793Z",
         "lastUpdated": "2026-11-09T04:34:40.793Z",
         "gitCommitSha": "82f22ec4f0a73aa2564036ffc28a1da00c707e0c"
+      },
+      {
+        "scope": "project",
+        "projectPath": "/Users/liuchunlei/Code/dotfiles",
+        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-plugins-official/discord/0.0.4",
+        "version": "0.0.4",
+        "installedAt": "2026-11-10T08:18:30.445Z",
+        "lastUpdated": "2026-11-10T08:18:30.445Z",
+        "gitCommitSha": "82f22ec4f0a73aa2564036ffc28a1da00c707e0c"
+      },
+      {
+        "scope": "project",
+        "installPath": "/Users/liuchunlei/.claude/plugins/cache/claude-plugins-official/discord/0.0.4",
+        "version": "0.0.4",
+        "installedAt": "2026-11-10T08:46:41.010Z",
+        "lastUpdated": "2026-11-10T08:46:41.010Z",
+        "gitCommitSha": "82f22ec4f0a73aa2564036ffc28a1da00c707e0c",
+        "projectPath": "/Users/liuchunlei/.codex/worktrees/agent-runtime-parity/dotfiles"
       }
     ],
     "telegram@claude-plugins-official": [

@@ -25,3 +25,5 @@
 # graphify
 - **graphify** — 优先使用当前项目 `.claude/skills/graphify/SKILL.md`；若项目提供 `.agents/skills/graphify/SKILL.md`，按项目入口加载。仅在技能已被当前会话发现时调用 `/graphify`，不要假定存在全局安装。
 When the user types `/graphify`, invoke the Skill tool with `skill: "graphify"` before doing anything else.
+
+@RTK.md
