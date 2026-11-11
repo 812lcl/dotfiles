@@ -1,6 +1,6 @@
 # Agent runtime 兼容层
 
-本目录是可选的本机适配与交接工具。Codex 是只读基准，继续使用原启动入口；工具不修改 Codex 的配置、hooks、MCP、共享 Skills、登录或原生记忆，不设置全局 PATH／BRAIN_DIR。
+本目录是可选的本机适配与交接工具。Codex 继续使用原启动入口，默认作为受保护基准；经用户明确授权的 Magpie 资源／hook 分发另行精确记录变更范围。适配工具不切换 Codex provider、登录或原生记忆，不设置全局 PATH／BRAIN_DIR。
 
 需要 Python 3.11+。本机验收使用 `/opt/homebrew/opt/python@3.14/bin/python3.14`，不依赖 shell 中可能不同的 `python3`。下面命令从本目录执行；可将 `runtime.py` 换成安装目录中的绝对路径。
 
@@ -127,9 +127,9 @@ Cursor 规则兼容不代表 hooks 完全兼容：Grok 若明确报告某类 Cur
 
 ## Brain 生命周期适配
 
-2026-11-11 起，Claude／Cursor／Grok／Gemini 的 Brain hook 入口由 Magpie Library 分发，脚本继续在 Git 中维护。Claude 保留原有三个事件与命令；Cursor 保留启动、工具前和结束事件；Grok 只分发原生 PreToolUse，结束仍继承 Claude Stop，避免重复同步。Gemini 使用 BeforeAgent 注入上下文、AfterAgent 发起显式选库的结束同步，返回空对象，不要求重试或阻止响应。Magpie 把 hook 写到客户端本机配置，模型不经 Magpie 也能执行。
+2026-11-11 起，Claude／Codex／Cursor／Grok／Gemini 的 Brain hook 入口由 Magpie Library 分发，脚本继续在 Git 中维护。Claude 与 Codex 保留原有三个事件、命令、matcher 和超时；Codex SessionStart 的 `statusMessage` 显示文案无法由当前 Magpie 表达，移除后用本机 app-server 核对当前 hash 并更新该项已有信任，保留其他 Brain 信任。Cursor 保留启动、工具前和结束事件。Grok 最终使用原生 PreToolUse／Stop，关闭 `compat.claude.hooks`，保留其他 Claude 兼容能力，避免同时加载继承与原生 Brain 入口；此前复用 Claude Stop 的方案已被替代。Gemini 使用 BeforeAgent 注入上下文、AfterAgent 发起显式选库的结束同步，返回空对象，不要求重试或阻止响应。Magpie 把 hook 写到客户端本机配置，模型不经 Magpie 也能执行。
 
-Codex Brain hooks 不迁移；OpenCode 继续使用原生插件；Hermes／WorkBuddy／DeepSeek Harness 当前不属于 Magpie Hooks 支持范围。各客户端的 Orca／Paseo 命令 hooks 按用户要求移除，OpenCode 对应活动桥接插件退出加载；不卸载这两个应用，也不改变其他插件。若外部应用后续自行重新安装 hooks，应重新检查来源，不由 Brain 安装器反复争抢配置。
+OpenCode 继续使用原生插件；Hermes／WorkBuddy／DeepSeek Harness 当前不属于 Magpie Hooks 支持范围。各客户端的 Orca／Paseo 命令 hooks 按用户要求移除，OpenCode 对应活动桥接插件退出加载，Hermes 的 Orca 状态插件停用；不卸载这两个应用，也不改变其他插件。Codex 中仅移除这两类桥接的信任记录，Brain 事件的组索引仍为零。若外部应用后续自行重新安装 hooks，应重新检查来源，不由 Brain 安装器反复争抢配置。
 
 私有 profiles 的 `brain_hooks.materialized_by = magpie.library` 表示分发归属；旧 `install_brain_hooks.py` 此时拒绝写入，日常恢复入口使用 `magpie library sync`。首次迁移需先备份并精确移除旧 Brain 入口，再让 Magpie 原生同步写入并记录所有权；仅添加相同命令不会接管已有入口。库中取消分配只撤销 Magpie 自己写入且尚未被修改的项。不要将同一客户端同时分配继承入口和原生入口。
 
@@ -139,7 +139,7 @@ Codex Brain hooks 不迁移；OpenCode 继续使用原生插件；Hermes／WorkB
 
 Cursor/Grok 提问事件不能作为可靠的上下文注入入口，因此使用受支持的启动/工具前事件；工具前提醒可能在同一轮重复。OpenCode 插件接入 V2 `setup`，不依赖旧版插件 SDK。结束适配调用显式选库的 `brain hook stop`，只启动 best-effort 后台同步，不阻止结束、不发送 follow-up。调用成功不证明远端 Git 同步成功。
 
-Grok 的 Cursor hooks 兼容扫描默认开启，但当前安装版拒绝 Cursor 直接 handler 的返回协议，会在 `/hooks` 显示 “won't run until Grok reads Cursor hook replies”。本机已在 `~/.grok/config.toml` 设置 `[compat.cursor] hooks = false`；仅停止重复扫描 Cursor hooks，不关闭 Cursor 的 rules/skills/agents/MCP，也不改 Cursor 自己的 hooks。Grok 继续加载原生 Brain PreToolUse 与 Claude 兼容 Stop。`grok inspect --json` 的 `hookLoadErrors` 可核验这一类错误消失，不能代替完整会话内插件加载验收。
+Grok 的 Cursor hooks 兼容扫描默认开启，但当前安装版拒绝 Cursor 直接 handler 的返回协议，会在 `/hooks` 显示 “won't run until Grok reads Cursor hook replies”。本机已在 `~/.grok/config.toml` 设置 `[compat.cursor] hooks = false`；仅停止重复扫描 Cursor hooks，不关闭 Cursor 的 rules/skills/agents/MCP，也不改 Cursor 自己的 hooks。迁移后 Grok 加载原生 Brain PreToolUse／Stop，同时关闭 Claude hooks 继承。`grok inspect --json` 可核验静态加载，不能代替完整会话内插件加载验收。
 
 Claude 插件还可能有独立兼容边界：`security-guidance` 的 `asyncRewake`/条件字段及 Warp 的 `PermissionRequest` 尚不被当前 Grok 支持。2026-11-11 用户明确要求从 Cursor/Grok 去掉报错项后，本机仅在 Grok 的 `[plugins] disabled = ["warp", "security-guidance"]` 中排除这两个插件，不改共享 Claude 插件缓存或 Claude 启用设置。Cursor 的 Customize 用户插件及 hooks 界面未发现这两个插件条目，无需删除；原生 Brain 与 Orca/Paseo hooks 保留。不要删除条件字段伪装成等价适配。启动过的 Grok 会话应新开会话以反映插件过滤配置。
 
