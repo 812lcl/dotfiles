@@ -133,6 +133,10 @@ Cursor 规则兼容不代表 hooks 完全兼容：Grok 若明确报告某类 Cur
 
 Cursor/Grok 提问事件不能作为可靠的上下文注入入口，因此使用受支持的启动/工具前事件；工具前提醒可能在同一轮重复。OpenCode 插件接入 V2 `setup`，不依赖旧版插件 SDK。结束适配调用显式选库的 `brain hook stop`，只启动 best-effort 后台同步，不阻止结束、不发送 follow-up。调用成功不证明远端 Git 同步成功。
 
+Grok 的 Cursor hooks 兼容扫描默认开启，但当前安装版拒绝 Cursor 直接 handler 的返回协议，会在 `/hooks` 显示 “won't run until Grok reads Cursor hook replies”。本机已在 `~/.grok/config.toml` 设置 `[compat.cursor] hooks = false`；仅停止重复扫描 Cursor hooks，不关闭 Cursor 的 rules/skills/agents/MCP，也不改 Cursor 自己的 hooks。Grok 继续加载原生 Brain PreToolUse 与 Claude 兼容 Stop。`grok inspect --json` 的 `hookLoadErrors` 可核验这一类错误消失，不能代替完整会话内插件加载验收。
+
+Claude 插件还可能有独立兼容边界：`security-guidance` 的 `asyncRewake`/条件字段及 Warp 的 `PermissionRequest` 尚不被当前 Grok 支持。不要为清空错误列表禁用安全插件、删除字段或改写共享 Claude 插件缓存；保留这些限制，等待对应客户端/插件支持，或另行完成有等价行为验证的原生适配。启动过的 Grok 会话可能需重新加载 hooks 或新开会话才能反映配置变更。
+
 安装：`python3.14 -B install_brain_hooks.py <私有 state/runs/本次目录>`。只追加 Cursor 的三个事件、Grok 专用提醒和 OpenCode 插件链接，保留 Orca/Paseo 等已有配置；首次 Cursor 配置备份不被重复安装覆盖。Codex 配置、Claude 配置及 provider/model/MCP 均不是写入目标。新开会话后加载，已有长驻 OpenCode 服务可能需要在方便时重新加载插件，不自动重启用户服务。
 
 验收时可仅在测试进程设置 `AGENT_RUNTIME_HOOK_AUDIT`，输出事件、scope、状态及 hash，不记录提示、工具正文或 reasoning。正常启动无需设置。结束入口验收使用任务私有 CLI observer 阻止真实同步，核验 native harness 调用了正确 Brain 的 Stop；它不代表远端同步已成功。
