@@ -19,7 +19,7 @@ def install(home, source, python):
         profiles = json.loads((state / 'profiles.json').read_text())
         data = {'skills': {'multi-repo-maintenance': 'Work'}, 'folder_groups': [
             {'path': str(Path(profiles['brain']['work']['root']) / '.agents/skills'), 'group': 'Work'},
-            {'path': str(Path(profiles['brain']['vault_root']) / '.agents/skills'), 'group': 'Personal'}]}
+            {'path': str(Path(profiles['brain']['vault_root']) / '.agents/skill-sources'), 'group': 'Personal'}]}
         atomic_write(policy, (json.dumps(data, indent=2) + '\n').encode())
     library = home / '.config/magpie/library.json'
     lock = home / '.agents/.skill-lock.json'
