@@ -49,42 +49,48 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/JimLiu/baoyu-design.git",
       "skillPath": "skills/claude-dashboard/SKILL.md",
-      "computedHash": "13db534944c8ba17ce2331d8b7be7da29c25ce518080f65dcbf11bf7a594e345"
+      "computedHash": "13db534944c8ba17ce2331d8b7be7da29c25ce518080f65dcbf11bf7a594e345",
+      "pluginName": "JimLiu/baoyu-design"
     },
     "claude-design": {
       "source": "JimLiu/baoyu-design",
       "sourceType": "github",
       "sourceUrl": "https://github.com/JimLiu/baoyu-design.git",
       "skillPath": "skills/claude-design/SKILL.md",
-      "computedHash": "da77843aa78e796ddb6a830962890be65f39dc7e2a9fc7798fe31a71676d8d2f"
+      "computedHash": "da77843aa78e796ddb6a830962890be65f39dc7e2a9fc7798fe31a71676d8d2f",
+      "pluginName": "JimLiu/baoyu-design"
     },
     "claude-design-system": {
       "source": "JimLiu/baoyu-design",
       "sourceType": "github",
       "sourceUrl": "https://github.com/JimLiu/baoyu-design.git",
       "skillPath": "skills/claude-design-system/SKILL.md",
-      "computedHash": "d47291cc40a9a95a45428db138a0ac2374d1050c4999bcc79a5db5ebcde62c1b"
+      "computedHash": "d47291cc40a9a95a45428db138a0ac2374d1050c4999bcc79a5db5ebcde62c1b",
+      "pluginName": "JimLiu/baoyu-design"
     },
     "claude-motion": {
       "source": "JimLiu/baoyu-design",
       "sourceType": "github",
       "sourceUrl": "https://github.com/JimLiu/baoyu-design.git",
       "skillPath": "skills/claude-motion/SKILL.md",
-      "computedHash": "63f719ea7061385dc7dba01c74f71523ed736328c86d36f9794956e4df4d1b38"
+      "computedHash": "63f719ea7061385dc7dba01c74f71523ed736328c86d36f9794956e4df4d1b38",
+      "pluginName": "JimLiu/baoyu-design"
     },
     "claude-slides": {
       "source": "JimLiu/baoyu-design",
       "sourceType": "github",
       "sourceUrl": "https://github.com/JimLiu/baoyu-design.git",
       "skillPath": "skills/claude-slides/SKILL.md",
-      "computedHash": "f081670b1088b46a5866c0c316e2a675f10428f917e06091abf5ea09ff2312d3"
+      "computedHash": "f081670b1088b46a5866c0c316e2a675f10428f917e06091abf5ea09ff2312d3",
+      "pluginName": "JimLiu/baoyu-design"
     },
     "dataviz": {
       "source": "JimLiu/baoyu-design",
       "sourceType": "github",
       "sourceUrl": "https://github.com/JimLiu/baoyu-design.git",
       "skillPath": "skills/dataviz/SKILL.md",
-      "computedHash": "c325060af05be762703c43d874321629ad20683f2d1a06f7a50b1c29ffdb2e64"
+      "computedHash": "c325060af05be762703c43d874321629ad20683f2d1a06f7a50b1c29ffdb2e64",
+      "pluginName": "JimLiu/baoyu-design"
     },
     "debug-optimize-lcp": {
       "source": "ChromeDevTools/chrome-devtools-mcp",
@@ -393,7 +399,8 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/JimLiu/baoyu-design.git",
       "skillPath": "skills/motion-director/SKILL.md",
-      "computedHash": "baf553db686aa3f0f9c461aeefc54e8aed13b784b687470ddfba6d82d894bfcb"
+      "computedHash": "baf553db686aa3f0f9c461aeefc54e8aed13b784b687470ddfba6d82d894bfcb",
+      "pluginName": "JimLiu/baoyu-design"
     },
     "now-reading-page": {
       "source": "readwiseio/readwise-skills",
@@ -464,14 +471,16 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/JimLiu/baoyu-design.git",
       "skillPath": ".claude/skills/release-skills/SKILL.md",
-      "computedHash": "e412ff2cda2ef6cd7ea9827d33e80911d19018bd317ca35b01b0703fb1d2b2e8"
+      "computedHash": "e412ff2cda2ef6cd7ea9827d33e80911d19018bd317ca35b01b0703fb1d2b2e8",
+      "pluginName": "JimLiu/baoyu-design"
     },
     "skill-creator": {
       "source": "anthropics/skills",
       "sourceType": "github",
       "sourceUrl": "https://github.com/anthropics/skills.git",
       "skillPath": "skills/skill-creator/SKILL.md",
-      "computedHash": "64617e91343c72d539287ad3b5d2742bd5ce9ef6cb26df83793e194e012b961f"
+      "computedHash": "64617e91343c72d539287ad3b5d2742bd5ce9ef6cb26df83793e194e012b961f",
+      "pluginName": "anthropics/skills"
     },
     "surprise-me": {
       "source": "readwiseio/readwise-skills",

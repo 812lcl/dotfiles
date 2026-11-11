@@ -1,15 +1,6 @@
 {
   "version": 3,
   "skills": {
-    "autocli": {
-      "source": "nashsu/autocli-skill",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/nashsu/autocli-skill.git",
-      "skillPath": "SKILL.md",
-      "skillFolderHash": "d6ca200b5ba65b60cf68153e88b2e9efb7f0f441",
-      "installedAt": "2026-04-08T01:37:17.010Z",
-      "updatedAt": "2026-05-15T07:48:50.703Z"
-    },
     "book-review": {
       "source": "readwiseio/readwise-skills",
       "sourceType": "github",
@@ -40,16 +31,6 @@
       "updatedAt": "2026-03-20T22:16:17.996Z",
       "pluginName": "readwise-skills"
     },
-    "codex-env-doctor": {
-      "source": "812lcl/work-skills",
-      "sourceType": "local",
-      "sourceUrl": "",
-      "skillPath": "SKILL.md",
-      "skillFolderHash": "2f5e8ce9cf4fbd914a574f055058e371f45ed21b38bbe5aee6c0bcc658e2d0c6",
-      "installedAt": "2026-08-31T06:31:41Z",
-      "updatedAt": "2026-08-31T06:31:41Z",
-      "pluginName": "Work"
-    },
     "defuddle": {
       "source": "kepano/obsidian-skills",
       "sourceType": "github",
@@ -69,15 +50,6 @@
       "installedAt": "2026-03-20T22:16:18.246Z",
       "updatedAt": "2026-03-20T22:16:18.246Z",
       "pluginName": "readwise-skills"
-    },
-    "find-skills": {
-      "source": "vercel-labs/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/vercel-labs/skills.git",
-      "skillPath": "skills/find-skills/SKILL.md",
-      "skillFolderHash": "76a98a285cb0434f3d39e1a873823556330e398b",
-      "installedAt": "2026-03-20T22:16:32.079Z",
-      "updatedAt": "2026-07-13T03:44:20.446Z"
     },
     "highlight-graph": {
       "source": "readwiseio/readwise-skills",
@@ -406,16 +378,8 @@
       "skillPath": "skills/skill-creator/SKILL.md",
       "skillFolderHash": "3cf9a8db32597ba3e24b584a3d696f4e11c7d7b6",
       "installedAt": "2026-05-09T11:05:00.000Z",
-      "updatedAt": "2026-05-15T08:19:25.503Z"
-    },
-    "skill-vetter": {
-      "source": "useai-pro/openclaw-skills-security",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/useai-pro/openclaw-skills-security.git",
-      "skillPath": "skills/skill-vetter/SKILL.md",
-      "skillFolderHash": "a2fa41039f86451ff25ac6506979b03b12588aef",
-      "installedAt": "2026-03-21T01:28:24.452Z",
-      "updatedAt": "2026-05-15T08:19:37.815Z"
+      "updatedAt": "2026-05-15T08:19:25.503Z",
+      "pluginName": "anthropics/skills"
     },
     "surprise-me": {
       "source": "readwiseio/readwise-skills",
@@ -502,16 +466,6 @@
       "installedAt": "2026-05-09T07:56:56.832Z",
       "updatedAt": "2026-10-22T08:40:18.368Z",
       "pluginName": "chrome-devtools"
-    },
-    "service-health": {
-      "source": "812lcl/work-skills",
-      "sourceType": "local",
-      "sourceUrl": "",
-      "skillPath": "SKILL.md",
-      "skillFolderHash": "7ddef0a962a9c6a73646f023bad832b863dccb763a61fc9259c7668373b9d24c",
-      "installedAt": "2026-05-15T10:00:26.506Z",
-      "updatedAt": "2026-08-31T06:31:41Z",
-      "pluginName": "Work"
     },
     "weekly-report": {
       "source": "812lcl/work-skills",
@@ -611,16 +565,6 @@
       "updatedAt": "2026-11-09T03:32:42.906Z",
       "pluginName": "lark-cli"
     },
-    "release-branch": {
-      "source": "812lcl/work-skills",
-      "sourceType": "local",
-      "sourceUrl": "",
-      "skillPath": "SKILL.md",
-      "skillFolderHash": "9e763d02e6e5b02fbb977c36ea586ea2b2eb3e8d",
-      "installedAt": "2026-05-18T04:59:30.000Z",
-      "updatedAt": "2026-05-18T04:59:30.000Z",
-      "pluginName": "Work"
-    },
     "claude-dashboard": {
       "source": "JimLiu/baoyu-design",
       "sourceType": "github",
@@ -628,7 +572,8 @@
       "skillPath": "skills/claude-dashboard/SKILL.md",
       "skillFolderHash": "9fca42185b2722cc64fc101e3618f2f7c4da2657",
       "installedAt": "2026-11-03T04:46:06.694Z",
-      "updatedAt": "2026-11-09T03:35:57.823Z"
+      "updatedAt": "2026-11-09T03:35:57.823Z",
+      "pluginName": "JimLiu/baoyu-design"
     },
     "claude-design": {
       "source": "JimLiu/baoyu-design",
@@ -637,7 +582,8 @@
       "skillPath": "skills/claude-design/SKILL.md",
       "skillFolderHash": "6db7c2e550dd0ea77ba2a6882f062a7bd83baefb",
       "installedAt": "2026-11-03T04:46:06.706Z",
-      "updatedAt": "2026-11-09T03:35:58.724Z"
+      "updatedAt": "2026-11-09T03:35:58.724Z",
+      "pluginName": "JimLiu/baoyu-design"
     },
     "claude-design-system": {
       "source": "JimLiu/baoyu-design",
@@ -646,7 +592,8 @@
       "skillPath": "skills/claude-design-system/SKILL.md",
       "skillFolderHash": "69a92993f421a5f86b98062dff92fed9e5ab9416",
       "installedAt": "2026-11-03T04:46:06.707Z",
-      "updatedAt": "2026-11-09T03:35:59.403Z"
+      "updatedAt": "2026-11-09T03:35:59.403Z",
+      "pluginName": "JimLiu/baoyu-design"
     },
     "claude-motion": {
       "source": "JimLiu/baoyu-design",
@@ -655,7 +602,8 @@
       "skillPath": "skills/claude-motion/SKILL.md",
       "skillFolderHash": "28c65c13fc7808b54a22105856575df2accfe1d9",
       "installedAt": "2026-11-03T04:46:06.708Z",
-      "updatedAt": "2026-11-09T03:36:00.076Z"
+      "updatedAt": "2026-11-09T03:36:00.076Z",
+      "pluginName": "JimLiu/baoyu-design"
     },
     "claude-slides": {
       "source": "JimLiu/baoyu-design",
@@ -664,7 +612,8 @@
       "skillPath": "skills/claude-slides/SKILL.md",
       "skillFolderHash": "0f15b3991a3f7e1900e4dfa2e574485ce1bc2ba0",
       "installedAt": "2026-11-03T04:46:06.710Z",
-      "updatedAt": "2026-11-09T03:36:00.782Z"
+      "updatedAt": "2026-11-09T03:36:00.782Z",
+      "pluginName": "JimLiu/baoyu-design"
     },
     "dataviz": {
       "source": "JimLiu/baoyu-design",
@@ -673,7 +622,8 @@
       "skillPath": "skills/dataviz/SKILL.md",
       "skillFolderHash": "911c8e2eaabe672a6eb0853bbadeac0a6326268d",
       "installedAt": "2026-11-03T04:46:06.711Z",
-      "updatedAt": "2026-11-03T04:46:06.711Z"
+      "updatedAt": "2026-11-03T04:46:06.711Z",
+      "pluginName": "JimLiu/baoyu-design"
     },
     "motion-director": {
       "source": "JimLiu/baoyu-design",
@@ -682,7 +632,8 @@
       "skillPath": "skills/motion-director/SKILL.md",
       "skillFolderHash": "e4e824d3c32194afe890a7af7050d1bb50babde7",
       "installedAt": "2026-11-03T04:46:06.712Z",
-      "updatedAt": "2026-11-03T04:46:06.712Z"
+      "updatedAt": "2026-11-03T04:46:06.712Z",
+      "pluginName": "JimLiu/baoyu-design"
     },
     "release-skills": {
       "source": "JimLiu/baoyu-design",
@@ -691,7 +642,8 @@
       "skillPath": ".claude/skills/release-skills/SKILL.md",
       "skillFolderHash": "97438b3170eb850ba3a92de132d6866616cf338e",
       "installedAt": "2026-11-03T04:46:06.713Z",
-      "updatedAt": "2026-11-03T04:46:06.713Z"
+      "updatedAt": "2026-11-03T04:46:06.713Z",
+      "pluginName": "JimLiu/baoyu-design"
     }
   },
   "dismissed": {
